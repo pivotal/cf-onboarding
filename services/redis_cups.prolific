@@ -1,0 +1,52 @@
+[RELEASE] Services: Redis CUPS
+---
+Create a RedisLabs user-provided service
+### What?
+Cloud Foundry offers a marketplace of Services from which users can provision reserved resources on-demand. Think of a Service as a factory that delivers service instances. Examples include databases on a shared or dedicated server or accounts on a Software as a Service (SaaS) application. 
+
+As an alternative, you can also provide your own Services in the form of [User-Provided Service Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html), which enable developers to use Services that are not available in their Cloud Foundry marketplace.
+
+Let's create one backed by [RedisLabs](https://redislabs.com/).
+
+### How?
+1. Create an account with [RedisLabs](https://redislabs.com/) and generate a New Redis Subscription (select the free 30MB option).
+1. Run `cf cups redis -p "host, password, port"` and it will prompt you for those attributes. Fill them with the password you selected and the endpoint RedisLabs provides.
+
+### Expected Result
+I can see my new user-provided service in `cf services`.
+
+### Resources
+[Creating a user-provided service](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
+
+### Relevant Repos and Teams
+**CAPI:** https://github.com/cloudfoundry/cloud_controller_ng
+L: app-dev, cloud foundry, services
+---
+Deploy an application for use with a RedisLabs user-provided service
+### What?
+To play around with the RedisLabs user-provided service instance we just created, we're going to need an app to use it. Let's deploy and bind one now!
+
+### How?
+Use this [sample app](https://github.com/pivotal-cf/cf-redis-example-app) and the [instructions](https://github.com/pivotal-cf/cf-redis-example-app#using-redis-labs-cups) provided in the `README` to deploy the sample application and bind your service instance to it.
+
+### Expected Result
+You can see the sample app listed under `cf apps`.
+You can see the service listed under `cf services`, and see that it is bound to the sample app.
+
+From your terminal, run:
+```
+export APP=redis-example-app.my-cloud-foundry.com
+curl -X PUT $APP/foo -d 'data=some-value'
+```
+This should return `success`. Next run:
+```
+curl -X GET $APP/foo
+```
+This should return `some-value`.
+
+The value should also be present in your RedisLabs Dashboard.
+
+### Resources
+[User Provided Services (CUPS) Documentation](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
+[Bind a Service Instance Documentation](https://docs.cloudfoundry.org/devguide/services/application-binding.html)
+L: app-dev, cloud foundry, services
