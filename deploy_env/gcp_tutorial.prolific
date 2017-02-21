@@ -1,0 +1,269 @@
+[RELEASE] Deploy BOSH and CF (GCP) ⇩
+---
+Select a stemcell for your BOSH deployment
+### What?
+A **[stemcell](http://bosh.cloudfoundry.org/docs/stemcell.html)** is a versioned Operating System image wrapped with [IaaS](https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29) specific packaging.
+
+A typical stemcell contains a bare bones OS skeleton with a few common utilities pre-installed, some configuration files to securely configure the OS by default, and a BOSH Agent.
+
+The stemcell is the foundation of every VM the [BOSH Director](https://bosh.io/docs/bosh-components.html#director) deploys; the [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent) is there to listen for instructions from the Director and to carry them out.
+
+They are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure).
+
+### How?
+Available stemcells **[are listed at bosh.io](http://bosh.io/)**. Select the latest appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy your BOSH.
+
+### Resources
+[What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
+[What are light stemcells?](https://bosh.io/docs/build-stemcell.html#light-stemcells)
+[Tarball structure](https://bosh.io/docs/build-stemcell.html#tarball-structure)
+
+### Relevant Repos and Teams
+**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
+**BOSH:** [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent)
+L: bosh, gcp
+---
+Modify your BOSH deployment manifest
+### What?
+In the next story, you'll use [bosh init](https://bosh.io/docs/bosh-components.html#bosh-init) to deploy your BOSH Director. It is going to require a [deployment manifest](https://bosh.io/docs/deployment-manifest.html) (a YAML file that defines the components and properties of a deployment).
+
+### How?
+Copy the `manifest.yml.erb` contents in these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/tree/master/docs/bosh)**. Follow the tasks below to modify the manifest locally. Ignore the rest of the instructions at that link for now.
+
+**NOTE:** Changing default passwords is important for security purposes. It is also a good opportunity to look into what each user does.
+
+### Resources
+[BOSH manifest](https://bosh.io/docs/deployment-manifest.html) 
+
+### Relevant Repos and Teams
+**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
+**BOSH:** [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent)
+**Release Integration:** [cloudfoundry/nats-release](https://github.com/cloudfoundry/nats-release)
+- [ ] Update the stemcell to be the latest BOSH stemcell you chose in an earlier story
+- [ ] Change the Admin default password wherever it appears
+- [ ] Change the Health Manager (user: 'hm') default password wherever it appears
+- [ ] Change the Director default password wherever it appears
+- [ ] Change the Agent default password wherever it appears
+- [ ] Change the NATS default password wherever it appears
+- [ ] Change the Postgres default password wherever it appears
+- [ ] Change the mbus default password wherever it appears
+L: bosh, gcp
+---
+Deploy BOSH to GCP
+### What?
+BOSH is an open source tool for release engineering, deployment, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry, but it is not exclusively for CF.
+
+### How?
+Follow these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/tree/master/docs/bosh)** to deploy BOSH to Google Cloud Platform with your pair.
+
+The instructions are thorough and incremental, which makes it easy to lose a lot of the context of what you're doing if you copy/paste commands. For this reason, enter each set of commands by hand and discuss what you're doing with your pair. If you don't feel confident that you know what a given command is doing, take the time to look up the corresponding vocabulary.
+
+**IMPORTANT:** When you get to the step where you add the BOSH manifest, use the `manifest.yml.erb` you prepared in the last story instead of the manifest provided.
+
+### Expected Result
+You can target your new BOSH with `bosh target 10.0.0.6` and login as the admin account (remember, you changed the password).
+
+### Resources
+[BOSH.io](http://bosh.io/)
+[What is Terraform?](https://www.terraform.io/) 
+[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+
+### Relevant Repos and Teams
+**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
+**BOSH:** [cloudfoundry/bosh-init](https://github.com/cloudfoundry/bosh-init)
+L: bosh, gcp
+---
+Verify compatibility of releases in manifest
+### What?
+BOSH deploys Cloud Foundry with another deployment manifest, similar to the one you just used to deploy BOSH itself. The manifest contains, among other things, a stemcell and a list of [releases](https://bosh.io/docs/release.html).
+
+### How?
+Review the stemcell and releases in the **[CF manifest for the next story](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to ensure they are compatible. [Cf-release release notes](https://github.com/cloudfoundry/cf-release/releases) are a good place to find this information.
+
+**NOTE:** This is a good opportunity to briefly review what each of the releases (CF, Diego, Garden-Linux, etcd, and cf-mysql) is responsible for.
+
+### Resources
+[cf-release release notes](https://github.com/cloudfoundry/cf-release/releases)
+[diego-release release notes](https://github.com/cloudfoundry/diego-release/releases)
+
+### Relevant Repos and Teams
+**Release Integration:** [cloudfoundry/cf-release](https://github.com/cloudfoundry/cf-release), [cloudfoundry/diego-release](https://github.com/cloudfoundry/diego-release), [cloudfoundry/garden-runc-release](https://github.com/cloudfoundry/garden-runc-release), [cloudfoundry-incubator/etcd-release](https://github.com/cloudfoundry-incubator/etcd-release), [cloudfoundry/cf-mysql-release](https://github.com/cloudfoundry/cf-mysql-release)
+**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/auction](https://github.com/cloudfoundry/auction), [cloudfoundry/auctioneer](https://github.com/cloudfoundry/auctioneer), [cloudfoundry/bbs](https://github.com/cloudfoundry/bbs), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
+**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
+**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
+**CoreOS (external):** [coreos/etcd](https://github.com/coreos/etcd)
+**MariaDB (external):** [https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/](https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/)
+L: bosh, cloud foundry, gcp
+---
+Configure Diego cells in manifest to be highly available
+### What?
+One of the value propositions of Cloud Foundry is  the ["high availability"](https://en.wikipedia.org/wiki/High_availability) of applications that run on it. High availability is a characteristic of a system that aims to ensure an agreed level of operational performance, usually uptime, for a higher than normal period.
+
+### How?
+A big part of how we achieve HA is by having redundant components. Copy the **[CF manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** from the previous story and edit it locally to increase the number of instances of Diego cells to the [minimum number](http://docs.pivotal.io/pivotalcf/1-8/concepts/high-availability.html) you would need to ensure high availability (HA).
+
+We'd have to scale many more CF components to make the entire deployment HA, but that would be a little overkill (not to mention costly) for an onboarding exercise.
+
+### Resources
+[What is a manifest?](https://bosh.io/docs/deployment-manifest.html)
+[Editing the CF Manifest](http://docs.cloudfoundry.org/deploying/aws/cf-stub.html#editing)
+[High availability in CF (including recommended instances per component)](http://docs.pivotal.io/pivotalcf/1-8/concepts/high-availability.html)
+["The Four Levels of HA in Pivotal CF" by Cornelia Davis](https://blog.pivotal.io/pivotal-cloud-foundry/products/the-four-levels-of-ha-in-pivotal-cf) 
+
+### Relevant Repos and Teams
+**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
+**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
+**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
+L: cloud foundry, gcp
+---
+Replace "common-password" in manifest
+### What?
+You will discover in your time at Pivotal that there are myriad default passwords sprinkled throughout tutorials, instructions, and docs. It should be obvious why deploying with these default passwords in place would be bad (\* cough\* *has* been bad).
+
+### How?
+Edit your **[CF manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to change the default "common_password" to something else. As a bonus: interpolate this password into the manifest using LastPass notes.
+
+**Note:** one of the users that will be created with this new password is the admin user, which you will use to login through the `cf cli`.
+
+### Resources
+[What is a manifest?](https://bosh.io/docs/deployment-manifest.html)
+[Editing the CF Manifest](http://docs.cloudfoundry.org/deploying/aws/cf-stub.html#editing)
+L: cloud foundry, gcp
+---
+Deploy Cloud Foundry
+### What?
+Now that you have your Bosh and bosh-bastion machine set up, it's time to deploy Cloud Foundry. You'll use Terraform to set up your infrastructure and a deployment manifest to declaratively describe how to set up your Cloud Foundry.
+
+### How?
+Follow these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/README.md)**. As with the previous set of instructions, paste each set of commands and discuss what you're doing with your pair. If you don't feel confident that you know what a given command is doing, take the time to look up the corresponding vocabulary.
+
+**IMPORTANT:** When you get to the step where you deploy your CF manifest, edit **[the manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to reflect the changes in the previous two stories.
+
+Once deployed, copy your environment variables to a local file. If you close your shell you will need to re-export them.
+
+### Expected Results
+You can target your API and login, like so:
+```
+ cf api https://api.${vip}.xip.io --skip-ssl-validation
+ cf login
+```
+### Resources
+[What is Terraform?](https://www.terraform.io/) 
+[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+
+### Relevant Repos and Teams
+**Release Integration:** [cloudfoundry/cf-release](https://github.com/cloudfoundry/cf-release), [cloudfoundry/diego-release](https://github.com/cloudfoundry/diego-release), [cloudfoundry/garden-runc-release](https://github.com/cloudfoundry/garden-runc-release), [cloudfoundry-incubator/etcd-release](https://github.com/cloudfoundry-incubator/etcd-release), [cloudfoundry/cf-mysql-release](https://github.com/cloudfoundry/cf-mysql-release)
+**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/auction](https://github.com/cloudfoundry/auction), [cloudfoundry/auctioneer](https://github.com/cloudfoundry/auctioneer), [cloudfoundry/bbs](https://github.com/cloudfoundry/bbs), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
+**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
+**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
+**CoreOS (external):** [coreos/etcd](https://github.com/coreos/etcd)
+**MariaDB (external):** [https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/](https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/)
+L: cloud foundry, gcp
+---
+Entertain yourself during the CF deploy "intermission"
+### What?
+You have some time to kill while your CF deploys. Keep an eye on it (it could flake out at any moment), but otherwise here's some light reading:
+
+* The official [overview of Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html)™
+* The [Diego design notes](https://github.com/cloudfoundry/diego-design-notes): a comprehensive, up-to-date, and (most importantly) readable overview of Cloud Foundry components and their interaction. Plus, that diagram (diagram, *so* hot right now).
+
+Some good videos:
+* [Pivotal Cloud Foundry Overview with Onsi Fakhouri](https://www.youtube.com/watch?v=7APZD0me1nU)
+* [CF Container to Container Networking with Jay Dunkelberger](https://docs.google.com/file/d/0B9Srlx6zCCQtdXVjSG5JZklUYmc/view)
+* [Diego Runtime Overview with Eric Malm](https://www.youtube.com/watch?v=iv5EpheLLh0)
+
+And some basic tutorials, specific to topics you might be wondering about right now:
+* [Basic Bash scripting tutorial](http://ryanstutorials.net/bash-scripting-tutorial/)
+* [Basic Linux/Bash tutorial](http://ryanstutorials.net/linuxtutorial/)
+* [Basic Linux Networking reference](http://www.penguintutor.com/linux/basic-network-reference)
+
+### Expected Result
+Mastery of the material.
+
+(I'm joking)
+L: cloud foundry
+---
+Install Google Cloud SDK on local workstation
+### What?
+So far you've been using the [Google Cloud Shell](https://cloud.google.com/shell/docs/) to interact with your BOSH and CF deployments. Let's switch to working locally.
+
+### How?
+Install Google Cloud SDK locally following **[these instructions](https://cloud.google.com/sdk/docs/quickstart-mac-os-x)**.
+
+Point it at the sandbox org you've been assigned.
+
+### Expected Result
+You can SSH to your bosh-bastion VM by running:
+```
+gcloud compute ssh bosh-bastion
+```
+And after exporting your `$vip` environment variable:
+```
+export vip=<your vip>
+```
+You can target CF by running:
+```
+cf api https://api.${vip}.xip.io --skip-ssl-validation
+cf login
+```
+L: gcp
+---
+Create an org and space
+### What?
+Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces).
+
+**[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
+
+Let's make a new organization and associated space!
+
+### How?
+1. View orgs `cf orgs` and spaces `cf spaces` (each space is scoped to an org)
+1. Target the system org `cf target -o system` and view spaces `cf spaces` and apps `cf apps`
+1. Create a new `onboarding` organization and a space named `week`
+
+### Expected Result
+When creating the organization the current user will be assigned the role of 'Org Manager'.
+
+`cf org-users onboarding`
+
+When creating the space the current user will be assigned two new roles in the space - 'Space Manager' and 'Space Developer'
+
+`cf space-users onboarding week`
+
+### Resources
+[Orgs, Spaces, Roles, and Permissions](https://docs.cloudfoundry.org/concepts/roles.html)
+[Creating and managing users with the cf CLI](https://docs.cloudfoundry.org/adminguide/cli-user-management.html)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
+L: cloud foundry
+---
+Create a new user
+### What?
+Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces). **[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
+
+### How?
+1. Create a new user
+`cf create-user some-user some-password`
+1. Login as that user and view orgs
+`cf auth some-user some-password`
+`cf orgs`
+
+Not much there, huh? By default `some-user` cannot view or perform any actions, so as an admin, you'll have to assign some roles. Log back in as the admin user and update `some-user`'s roles so they can push an application in the onboarding / week org and space.
+1. Login back in as admin
+`cf auth admin <your-password>`
+1. And give some-user the SpaceDeveloper role for onboarding/week
+`cf set-space-role some-user onboarding week SpaceDeveloper`
+
+### Expected Result
+`some-user` can now see "onboarding" in their list of orgs and "week" in their list of spaces.
+
+### Resources
+[Role permissions](https://docs.cloudfoundry.org/concepts/roles.html)
+[Setting user roles](https://docs.cloudfoundry.org/concepts/roles.html#roles)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
+L: cloud foundry
