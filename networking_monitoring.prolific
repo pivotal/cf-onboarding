@@ -1,0 +1,80 @@
+[RELEASE] Networking and Monitoring
+---
+View Application Security Groups
+### What?
+Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers send outbound traffic. Because security groups define "allow" rules, their order of evaluation is unimportant when multiple application security groups apply to the same space, org, or deployment. Application containers use these rules to filter and log outbound network traffic.
+
+When applications begin staging, they need traffic rules permissive enough to allow them to pull resources from the network. After an application is running, the traffic rules can be more restrictive and secure. To distinguish between these two security requirements, administrators can define one security group for application _staging_, and another for _runtime_.
+
+To provide granular control when securing a deployment, an administrator can also assign security groups to apply across a CF deployment, or to specific spaces or orgs within a deployment.
+
+### How?
+1. As admin view the list of security groups 
+`cf security-groups`
+1. View the security groups assigned to staging containers 
+`cf staging-security-groups`
+1. View the security groups assigned to running containers 
+`cf running-security-groups`
+1. View the specific rules of each group using 
+`cf security-group $group_name`
+
+#### Expected Result
+If you've deployed a full Cloud Foundry on GCP you should have only one security group, applied to both staging and running apps: `all_open`.
+
+If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev`.
+
+For either circumstance if you run `cf security-groups <SECURITY-GROUP NAME>` you'll see that they do exactly what it sounds like they do&mdash;leave everything open by allowing containers to access all IPs on any port.
+
+Because of the `all_open` (or `all_pcfdev`) security group any other group would be redundant.
+
+### Resources
+[Application Security Groups Documentation](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html)
+[Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
+["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://blog.pivotal.io/pivotal-cloud-foundry/products/taking-security-to-the-next-level-application-security-groups)
+["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
+L: cloud foundry, security
+---
+Securing your network traffic
+### What?
+The `all_open` (or `all_pcfdev`) security group allows containers to access your CF deployment's private network.  A malicious user could access internal systems that would not normally be exposed to the public internet. Thus, in a production environment you wouldn't have such a security group.
+
+Let's verify this access and secure it.
+
+### How?
+1. `cf ssh` to an application's container
+1. Download the [nmap](https://nmap.org/) tool and make it executable, like so:
+`curl -L -O https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/nmap && chmod +x nmap`
+1. Scan a section of the private network by running:
+`./nmap -v YOUR-IP/24`
+1.  Find a IP with an open HTTP port (80) and curl that IP address
+`curl -H "Host: spring-music.<YOUR-IP>.xip.io" http://<OPEN-IP>`
+1. As an admin, unbind `all_open` (or `all_pcfdev`) from the running security groups and restart your application
+1. Run the scan again and try to hit the same IP with the open HTTP port
+
+### Expected Result
+The initial scan and curl should succeed. After removing the security group and restarting your application curling the open port should fail.
+
+Poke around to see what else you can and can't do without that Security Group. Remember to re-bind it at the end or, if you'd like, try creating and testing your own based on those [most commonly used](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups).
+
+### Resources
+[Nmap Security Scanner](https://nmap.org/) 
+[SecTools.Org: Top 125 Network Security Tools](http://sectools.org/)
+[TCP and UDP Ports Explained](https://www.bleepingcomputer.com/tutorials/tcp-and-udp-ports-explained/)
+[Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
+L: cloud foundry, security
+---
+Coming through with command line foo (づ─⍘─)づ
+### Articles
+[File permissions](http://linuxcommand.org/lc3_lts0090.php)
+[Job Control: the brethren of `ps aux`](http://linuxcommand.org/lc3_lts0100.php)
+[Monitoring the Health and Performance of Windows Server 2012](https://www.datadoghq.com/blog/monitoring-windows-server-2012/)
+
+### Listicles!
+[Top 25 Best Linux Performance Monitoring and Debugging Tools](http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools)
+[60 Linux Commands: A three article guide for newbies to system administator](http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/)
+[80 Linux Monitoring Tools](https://blog.serverdensity.com/80-linux-monitoring-tools-know/)
+
+### And just for good measure, some books
+[The UNIX-HATERS Handbook](http://web.mit.edu/~simsong/www/ugh.pdf)
+[~300 pages on Linux Networking (with exercises)](http://linux-training.be/linuxnet.pdf)
+L: needs attention
