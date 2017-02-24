@@ -9,4 +9,4 @@
 [content needed]
 
 ## Contributing
-[content needed]
+Depending on personal preferance, either edit stories in the .prolific text files themselves or convert the prolific file to a CSV and upload it to a temporary Tracker project. The second one takes more time, but removes the risk of accidental prolific syntax errors.
