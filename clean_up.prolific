@@ -1,0 +1,18 @@
+[RELEASE] Clean up!
+L: gcp
+---
+Destroy the CF environment
+### What?
+
+Do you have any idea [how much all this costs](https://cloud.google.com/products/calculator)?! We're definitely cleaning up after ourselves, and not just because other onboarding Pivots will be using this GCP Project after you.
+
+### How?
+
+Follow the [instructions at the end of the README you followed to deploy your Cloud Foundry](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/README.md#delete-resources).
+L: gcp
+---
+Destroy the BOSH director and bosh-bastion
+### How?
+
+Follow the [instructions at the end of the README you followed to deploy BOSH](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/bosh/README.md#delete-resources).
+L: gcp
