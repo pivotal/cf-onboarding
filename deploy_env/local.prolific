@@ -1,0 +1,55 @@
+[RELEASE] Set up local development environment with PCF Dev
+---
+install virtualBox
+#### What?
+
+VirtualBox is a tool used by vagrant & PCF Dev to create and manage virtual machines on your development environment.
+
+#### How?
+Install the VirtualBox from https://www.virtualbox.org/
+
+
+#### Expected Result
+```
+$ VBoxManage --version
+5.1.2r108956
+```
+L: core tools
+---
+install cf cli
+#### What?
+
+The CF CLI will allow you to manage your applications, users and services in a CF environment
+
+#### How?
+Install the CLI from https://github.com/cloudfoundry/cli
+
+
+#### Expected Result
+```
+$ cf version
+cf version 6.22.1+6b7af9c-2016-09-24
+
+$ cf help -a # To see all the commands
+```
+L: core tools
+---
+install PCF Dev
+#### What?
+
+PCF Dev is slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry to test your applications in the cloud.
+
+#### How?
+1. You'll need a [Pivotal Network Account](https://network.pivotal.io)
+1. Install PCF Dev from [https://pivotal.io/pcf-dev](https://pivotal.io/pcf-dev)
+
+#### Expected Result
+```
+$ cf dev start
+... booting ..
+$ cf dev version
+PCF Dev version 0.22.0 (CLI: e278885, OVA: 0.389.0)
+$ cf dev target  #short for cf api ... && cf login
+Successfully logged in to api.local.pcfdev.io as user.
+```
+L: core tools
