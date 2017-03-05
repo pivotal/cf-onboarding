@@ -78,9 +78,9 @@ Verify compatibility of releases in manifest
 BOSH deploys Cloud Foundry with another deployment manifest, similar to the one you just used to deploy BOSH itself. The manifest contains, among other things, a stemcell and a list of [releases](https://bosh.io/docs/release.html).
 
 ### How?
-Review the stemcell and releases in the **[CF manifest for the next story](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to ensure they are compatible. [Cf-release release notes](https://github.com/cloudfoundry/cf-release/releases) are a good place to find this information.
+Review the stemcell and releases in the **[CF manifest for the next story](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to ensure they are compatible with one another ([cf-release release notes](https://github.com/cloudfoundry/cf-release/releases) are a good place to find this information). This is also a good opportunity to review what each of the releases (CF, Diego, Garden-Linux, etcd, and cf-mysql) is responsible for.
 
-**NOTE:** This is a good opportunity to briefly review what each of the releases (CF, Diego, Garden-Linux, etcd, and cf-mysql) is responsible for.
+**NOTE:** Past onboard-ers have found it helpful to add tasks to this story to track which components you've verified + brief comments to keep track of findings.
 
 ### Resources
 [cf-release release notes](https://github.com/cloudfoundry/cf-release/releases)
@@ -118,7 +118,7 @@ L: cloud foundry, gcp
 ---
 Replace "common-password" in manifest
 ### What?
-You will discover in your time at Pivotal that there are myriad default passwords sprinkled throughout tutorials, instructions, and docs. It should be obvious why deploying with these default passwords in place would be bad (\* cough\* *has* been bad).
+You will discover in your time at Pivotal that there are myriad default passwords sprinkled throughout tutorials, instructions, and docs. It should be obvious why deploying with these default passwords in place would be bad (\*cough\* *has* been bad).
 
 ### How?
 Edit your **[CF manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to change the default "common_password" to something else. As a bonus: interpolate this password into the manifest using LastPass notes.
@@ -185,7 +185,7 @@ L: cloud foundry
 ---
 Install Google Cloud SDK on local workstation
 ### What?
-So far you've been using the [Google Cloud Shell](https://cloud.google.com/shell/docs/) to interact with your BOSH and CF deployments. Let's switch to working locally.
+So far you've probably been using the [Google Cloud Shell](https://cloud.google.com/shell/docs/) to interact with your BOSH and CF deployments. Let's switch to working locally.
 
 ### How?
 Install Google Cloud SDK locally following **[these instructions](https://cloud.google.com/sdk/docs/quickstart-mac-os-x)**.
