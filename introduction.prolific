@@ -1,0 +1,18 @@
+[CHORE] Kicking Off Onboarding Week!
+### Welcome to Onboarding Week
+
+### What?
+Onboarding Week is intended to be a guided exploration of the Cloud Foundry product, embarked upon with another Cloud Foundry newbie. What we hope you get out of it:
+1. A coherent, if cursory, overview of a complicated product.
+1. Empathy for the customer who uses that product.
+1. A little knowledge of the breadth of work 70+ teams are doing around the world.
+1. Experience teaching. Unless you joined Pivotal at the same time as your pair and have been arm-in-arm ever since, you have different backgrounds. Moreover, you each have something valuable to offer to the other. Make sure you share it.
+
+### How?
+1. Take your time.
+1. Be conscious of your pair's progress. Check in frequently to make sure you're both getting the most out of the material.
+1. If something in a story is missing / is wrong / could be improved, write a comment on it to let us know.
+1. Seriously, take your time.
+- [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
+- [ ] Log in to your GCP dashboard. You should both have received emailed invitations to become owners of the [CF-NY Onboarding](https://console.cloud.google.com/home/dashboard?project=cf-ny-onboarding) project.
+- [ ] Get a floater laptop from IT. It'll be useful when reading docs to have a second computer.
