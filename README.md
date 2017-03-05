@@ -1,5 +1,14 @@
 # CF Onboarding Week
 
+Onboarding Week is a self-guided exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. It provides:
+
+1. A self-paced learning environment paired with others who are learning too.
+1. A coherent, if cursory, overview of a complicated product.
+1. Empathy for the customer who uses that product.
+1. A little knowledge of the breadth of work 70+ teams are doing around the world.
+
+To run an Onboarding Week in your office, read the [facilitation](FACILITATING.md) docs and join the [#cf-onboarding-week](https://pivotal.slack.com/messages/cf-onboarding-week/) channel on Pivotal Slack.
+
 ## Usage
 ### Import stories to Tracker (from release)
 1. Download latest release from the releases page
