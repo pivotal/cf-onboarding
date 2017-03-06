@@ -1,9 +1,9 @@
 ### Preparation Suggestions
-* Allocate participants for the week. Let them know.
-* Designate workstation(s)
-* Create and populate Tracker Project(s)
-* Create and send invitations for IAAS account(s)
-* Provide one "floater" laptop per pair to facilitate independent docs reading
+* Allocate participants for the week.
+* Designate workstation(s).
+* Provide one "floater" laptop per pair to facilitate independent docs reading.
+* Create and populate *private* Tracker Project(s). Invite participants.
+* **For GCP track:** Create IAAS account(s). Add participants as Owners.
 
 ### Communication Suggestions
 * **Morning Standup:** to review how the week is going / answer questions.
