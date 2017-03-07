@@ -7,7 +7,7 @@ Onboarding Week is a self-guided exploration of the Cloud Foundry product, embar
 1. Empathy for the customer who uses that product.
 1. A little knowledge of the breadth of work 70+ teams are doing around the world.
 
-To run an Onboarding Week in your office, read the [facilitation](FACILITATING.md) docs and join the [#cf-onboarding-week](https://pivotal.slack.com/messages/cf-onboarding-week/) channel on Pivotal Slack.
+To run an Onboarding Week in your office, **read the [facilitation](FACILITATING.md) docs** and join the **[#cf-onboarding-week](https://pivotal.slack.com/messages/cf-onboarding-week/)** channel on Pivotal Slack.
 
 ## Usage
 ### Import stories to Tracker (from release)
@@ -18,7 +18,7 @@ To run an Onboarding Week in your office, read the [facilitation](FACILITATING.m
 The stories in this repo are divided by epic (e.g. Deploying with GCP, Redis CUPS, etc.) They are provided in .prolific format. To grab the most recent versions of stories from master or another branch:
 
 1. Clone this repo
-1. Install the [prolific tool](https://github.com/dgodd/prolific) (this version, not the original)
+1. Install the **[prolific tool](https://github.com/dgodd/prolific)** (the version linked here, not the original)
 1. Run `prolific file_name.prolific > file_name.csv` on each epic you would like to import to Tracker
 1. Import your newly created csv file(s) to your Tracker project
 
