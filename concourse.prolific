@@ -1,6 +1,3 @@
-[RELEASE] Concourse
-L: needs attention
----
 Create a shared Github repo for your new CI
 ### What?
 ![The elegance of Git](http://imgs.xkcd.com/comics/git.png)
@@ -128,3 +125,5 @@ Another popular Concourse resource is [`docker-image`](https://github.com/concou
 [Docker Tutorial Series: writing a DockerFile](https://rominirani.com/docker-tutorial-series-writing-a-dockerfile-ce5746617cd)
 - [ ] Create DockerFile
 L: concourse
+---
+[RELEASE] Concourse ⇧

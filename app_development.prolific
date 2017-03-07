@@ -1,5 +1,3 @@
-[RELEASE] App Development ⇩
----
 Prepare a Spring app for CF deployment
 ### What?
 In the next story we're going to deploy the [Spring Music](https://github.com/cloudfoundry-samples/spring-music) app, but first we need to assemble the jar.
@@ -228,3 +226,5 @@ You should see each of the requests and responses that resulted in `cf app` deli
 ### Resources
 [Trace Cloud Controller REST API Calls](https://docs.cloudfoundry.org/devguide/deploy-apps/troubleshoot-app-health.html#trace)
 L: app-dev, cloud foundry
+---
+[RELEASE] App Development ⇧

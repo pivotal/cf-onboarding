@@ -1,5 +1,3 @@
-[RELEASE] Deploy BOSH and CF (GCP) ⇩
----
 Select a stemcell for your BOSH deployment
 ### What?
 A **[stemcell](http://bosh.cloudfoundry.org/docs/stemcell.html)** is a versioned Operating System image wrapped with [IaaS](https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29) specific packaging.
@@ -267,3 +265,5 @@ Not much there, huh? By default `some-user` cannot view or perform any actions, 
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
 L: cloud foundry
+---
+[RELEASE] Deploy BOSH and CF (GCP) ⇧

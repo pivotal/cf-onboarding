@@ -1,5 +1,3 @@
-[RELEASE] BOSH Operator Troubleshooting
----
 Scale the number of Diego Cells
 ### What?
 With BOSH it is easy to scale deployments. All you need to do is modify the number of instances of that job in the deployment manifest and redeploy.
@@ -39,7 +37,7 @@ The Diego job for the cell you SSHed to should be listed as `failing` as soon as
 [BOSH CLI health commands](https://bosh.io/docs/sysadmin-commands.html#health)
 [BOSH Job Lifecycle](http://bosh.io/docs/job-lifecycle.html)
 [Monit](https://mmonit.com/monit/)
-L: bosh operator, needs attention
+L: bosh operator
 ---
 Watch the BOSH Resurrector resurrect Bosh jobs
 ### What?
@@ -91,4 +89,6 @@ A few things could happen at this point. The deployment could run successfully (
 [What is a BOSH spec file?](http://bosh.io/docs/jobs.html#spec)
 [Chaos Lemur](https://github.com/strepsirrhini-army/chaos-lemur)
 BOSH's Wikipedia entry is also pretty damn good, but it has parentheses in the URL and that's well past the limits of my Markdown skills at this hour of night
-L: bosh operator, needs attention
+L: bosh operator
+---
+[RELEASE] BOSH Operator Troubleshooting ⇧

@@ -1,5 +1,3 @@
-[RELEASE] Networking and Monitoring
----
 View Application Security Groups
 ### What?
 Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers send outbound traffic. Because security groups define "allow" rules, their order of evaluation is unimportant when multiple application security groups apply to the same space, org, or deployment. Application containers use these rules to filter and log outbound network traffic.
@@ -62,3 +60,5 @@ Poke around to see what else you can and can't do without that Security Group. R
 [TCP and UDP Ports Explained](https://www.bleepingcomputer.com/tutorials/tcp-and-udp-ports-explained/)
 [Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
 L: cloud foundry, security
+---
+[RELEASE] Networking and Monitoring ⇧

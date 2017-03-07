@@ -1,5 +1,3 @@
-[RELEASE] Services: Redis CUPS
----
 Create a RedisLabs user-provided service
 ### What?
 Cloud Foundry offers a marketplace of Services from which users can provision reserved resources on-demand. Think of a Service as a factory that delivers service instances. Examples include databases on a shared or dedicated server or accounts on a Software as a Service (SaaS) application. 
@@ -50,3 +48,5 @@ The value should also be present in your RedisLabs Dashboard.
 [User Provided Services (CUPS) Documentation](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
 [Bind a Service Instance Documentation](https://docs.cloudfoundry.org/devguide/services/application-binding.html)
 L: app-dev, cloud foundry, services
+---
+[RELEASE] Services: Redis CUPS ⇧
