@@ -1,6 +1,6 @@
 # CF Onboarding Week
 
-Onboarding Week is a self-guided exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. It provides:
+Onboarding Week is a facilitated exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. It provides:
 
 1. A self-paced learning environment paired with others who are learning too.
 1. A coherent, if cursory, overview of a complicated product.
