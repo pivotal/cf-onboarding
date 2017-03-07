@@ -62,19 +62,3 @@ Poke around to see what else you can and can't do without that Security Group. R
 [TCP and UDP Ports Explained](https://www.bleepingcomputer.com/tutorials/tcp-and-udp-ports-explained/)
 [Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
 L: cloud foundry, security
----
-Coming through with command line foo (づ─⍘─)づ
-### Articles
-[File permissions](http://linuxcommand.org/lc3_lts0090.php)
-[Job Control: the brethren of `ps aux`](http://linuxcommand.org/lc3_lts0100.php)
-[Monitoring the Health and Performance of Windows Server 2012](https://www.datadoghq.com/blog/monitoring-windows-server-2012/)
-
-### Listicles!
-[Top 25 Best Linux Performance Monitoring and Debugging Tools](http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools)
-[60 Linux Commands: A three article guide for newbies to system administator](http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/)
-[80 Linux Monitoring Tools](https://blog.serverdensity.com/80-linux-monitoring-tools-know/)
-
-### And just for good measure, some books
-[The UNIX-HATERS Handbook](http://web.mit.edu/~simsong/www/ugh.pdf)
-[~300 pages on Linux Networking (with exercises)](http://linux-training.be/linuxnet.pdf)
-L: needs attention
