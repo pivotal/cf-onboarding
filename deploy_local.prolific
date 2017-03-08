@@ -1,29 +1,30 @@
-[RELEASE] Set up local development environment with PCF Dev
----
-install virtualBox
-#### What?
+Install VirtualBox
+### What?
+[VirtualBox](https://www.virtualbox.org/manual/ch01.html) is a tool that creates and manages virtual machines on your development environment.
 
-VirtualBox is a tool used by vagrant & PCF Dev to create and manage virtual machines on your development environment.
+[PCF Dev](https://pivotal.io/pcf-dev) is a lightweight Pivotal Cloud Foundry (PCF) installation that runs on a single virtual machine (VM) on your workstation. It uses VirtualBox as its virtualizer.
 
-#### How?
-Install the VirtualBox from https://www.virtualbox.org/
+You need to install VirtualBox in order to use PCF Dev.
 
+### How?
+Install VirtualBox from [https://www.virtualbox.org/](https://www.virtualbox.org/wiki/Downloads)
 
-#### Expected Result
+### Expected Result
 ```
 $ VBoxManage --version
-5.1.2r108956
+<prints a version>
 ```
+### Resources
+[Docker containers vs. virtual machines: What’s the difference?](https://www.solidfire.com/blog/containers-vs-vms/)
+[RedHat: Virtual Machines or Containers? Maybe both?](http://rhelblog.redhat.com/2015/03/18/virtual-machines-or-containers-maybe-both/)
 L: core tools
 ---
-install cf cli
-#### What?
+Install the Cloud Foundry CLI
+### What?
+The Cloud Foundry Command Line Interface (cf CLI) is a tool you use to deploy and manage your applications, users, and services in a CF environment.
 
-The CF CLI will allow you to manage your applications, users and services in a CF environment
-
-#### How?
-Install the CLI from https://github.com/cloudfoundry/cli
-
+### How?
+Download and install the CLI from [GitHub](https://github.com/cloudfoundry/cli#downloads)
 
 #### Expected Result
 ```
@@ -32,18 +33,23 @@ cf version 6.22.1+6b7af9c-2016-09-24
 
 $ cf help -a # To see all the commands
 ```
+### Resources
+The output from `cf help -a` is long. Use [Linux's grep command to find what you're looking for](http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples) (tip number 6 is especially useful)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 L: core tools
 ---
-install PCF Dev
-#### What?
-
-PCF Dev is slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry to test your applications in the cloud.
+Install PCF Dev
+### What?
+[PCF Dev](https://pivotal.io/pcf-dev) is a slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry to test your applications in the cloud.
 
 #### How?
-1. You'll need a [Pivotal Network Account](https://network.pivotal.io)
-1. Install PCF Dev from [https://pivotal.io/pcf-dev](https://pivotal.io/pcf-dev)
+Download PCF Dev from **[Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). This zip file is not actually PCF Dev, but a cf CLI plugin and the script that installs it for you. It downloads the PCF Dev image from S3 when you first run `cf dev start`.
 
-#### Expected Result
+Get further instructions **[here](https://github.com/pivotal-cf/pcfdev#install)** if you need help!
+
+### Expected Result
 ```
 $ cf dev start
 ... booting ..
@@ -52,4 +58,12 @@ PCF Dev version 0.22.0 (CLI: e278885, OVA: 0.389.0)
 $ cf dev target  #short for cf api ... && cf login
 Successfully logged in to api.local.pcfdev.io as user.
 ```
+
+### Resources
+
+### Relevant Repos and Teams
+**PCF Dev:** [pivotal-cf/pcfdev](https://github.com/pivotal-cf/pcfdev),
+**Also PCF Dev:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 L: core tools
+---
+[RELEASE] Set up local development environment with PCF Dev ⇧
