@@ -7,7 +7,7 @@ Install VirtualBox
 You need to install VirtualBox in order to use PCF Dev.
 
 ### How?
-Install VirtualBox from [https://www.virtualbox.org/](https://www.virtualbox.org/wiki/Downloads)
+Install VirtualBox from **[https://www.virtualbox.org/](https://www.virtualbox.org/wiki/Downloads)**
 
 ### Expected Result
 ```
@@ -24,7 +24,7 @@ Install the Cloud Foundry CLI
 The Cloud Foundry Command Line Interface (cf CLI) is a tool you use to deploy and manage your applications, users, and services in a CF environment.
 
 ### How?
-Download and install the CLI from [GitHub](https://github.com/cloudfoundry/cli#downloads)
+Download and install the CLI from **[GitHub](https://github.com/cloudfoundry/cli#downloads)**
 
 #### Expected Result
 ```
@@ -34,7 +34,9 @@ cf version 6.22.1+6b7af9c-2016-09-24
 $ cf help -a # To see all the commands
 ```
 ### Resources
-The output from `cf help -a` is long. Use [Linux's grep command to find what you're looking for](http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples) (tip number 6 is especially useful)
+[Official Cloud Foundry CLI Docs](http://docs.cloudfoundry.org/cf-cli/)
+
+The output from `cf help -a` is also useful, but a little long. Use [Linux's grep command to find what you're looking for](http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples) (tip number 6 is especially useful).
 
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
@@ -45,7 +47,7 @@ Install PCF Dev
 [PCF Dev](https://pivotal.io/pcf-dev) is a slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry to test your applications in the cloud.
 
 #### How?
-Download PCF Dev from **[Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). This zip file is not actually PCF Dev, but a cf CLI plugin and the script that installs it for you. It downloads the PCF Dev image from S3 when you first run `cf dev start`.
+Download PCF Dev from **[Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). This zip file is not actually PCF Dev, but a script that installs the PCF Dev plugin for the cf cli. It only downloads the PCF Dev image from S3 when you first run `cf dev start`.
 
 Get further instructions **[here](https://github.com/pivotal-cf/pcfdev#install)** if you need help!
 
