@@ -1,45 +1,3 @@
-Prepare a Spring app for CF deployment
-### What?
-In the next story we're going to deploy the [Spring Music](https://github.com/cloudfoundry-samples/spring-music) app, but first we need to assemble the jar.
-
-### How?
-1. Clone the **[Spring Music](https://github.com/cloudfoundry-samples/spring-music)** repo to your local workstation.
-1. `cd ./spring-music`
-1. Assemble the jar by running `./gradlew assemble` (if your workstation doesn't have the JDK, looks like that's part of this step too).
-1. Create a `/share/workspace/spring-music` directory path on your bosh-bastion VM.
-1. [Copy the repo](https://cloud.google.com/compute/docs/instances/transfer-files) from your local `spring-music` directory to your bosh-bastion VM.
-```
-gcloud compute copy-files . bosh-bastion:/share/workspace/spring-music
-```
-### Expected Result
-The spring-music repo with your assembled `spring-music.jar` should be in the `workspace` directory of your bosh-bastion VM.
-
-### Resources
-[Spring by Pivotal](https://spring.io/)
-[Gcloud Compute Tips](https://cloud.google.com/compute/docs/gcloud-compute/tips)
-L: app-dev, cloud foundry, gcp
----
-Push a Spring app
-### What?
-Cloud Foundry applications are deployed by `cf push`-ing your code or some compiled artifact. When you push an app, you can optionally include an [application manifest.yml](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) that contains properties about your application's deployment.
-
-The appropriate [buildpack](https://docs.cloudfoundry.org/buildpacks/) will be selected for you by detect scripts and a 'droplet' will be produced that contains all your application dependencies. This droplet will be uploaded to the cells that run your application instances.
-
-### How?
-1. Navigate to the `./spring-music` directory you created in the last story.
-1. In the `manifest.yml`, delete the line `random-route: true`
-1. Set the disk quota to 1024M
-1. Set the number of instances to 2
-1. `cf push` your app
-
-### Expected Result
-`cf app spring-music` will print the app's status, including the URL. Visiting the URL in the browser should show you a list of albums.
-
-### Resources
-[Cf Buildpacks](https://docs.cloudfoundry.org/buildpacks/)
-[CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
-L: app-dev, cloud foundry, iaas-agnostic
----
 Get recent Spring app logs
 ### What?
 
@@ -141,7 +99,7 @@ Your applications run on Diego Cells, which create containers for each of your a
 1. Run `env` to view environment variables. You'll see there are additional environment variables that the cf CLI doesn't print, but that are available to your application. The full [list of variables can be viewed here](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html).
 1. `exit`, then SSH back into a specific instance of your app, using the `-i app-instance-index` flag. View the [CLI SSH flags](http://cli.cloudfoundry.org/en-US/cf/ssh.html) to see what else is possible.
 
-**TRIVIA:** did you notice that you're SSH-ed in as the `vcap` user? VCAP stands for VMware's Cloud Application Platform, an old name for Cloud Foundry. Catchy, right?
+**TRIVIA:** If you're running a full Cloud Foundry deployment, you'll notice you're SSH-ed in as the `vcap` user. VCAP stands for VMware's Cloud Application Platform, an old name for Cloud Foundry. Catchy, right?
 
 ### Resources
 [Differences Between DEA and Diego Architectures](https://docs.cloudfoundry.org/concepts/diego/dea-vs-diego.html)
