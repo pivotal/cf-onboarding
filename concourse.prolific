@@ -1,22 +1,3 @@
-Create a shared Github repo for your new CI
-### What?
-![The elegance of Git](http://imgs.xkcd.com/comics/git.png)
-
-### How?
-1. Whichever pair gets to this step first, create a Github repo
-1. Post the link in the Slack channel
-1. Clone it locally
-1. Checkout a branch
-1. Merge to master often
-1. Deal with the confusion that ensues while completing the following stories
-
-### Expected Result
-You have a (soon to be full of merge conflicts) initialized git repository on your workstation.
-
-### Resources
-[https://try.github.io](https://try.github.io/levels/1/challenges/1)
-L: concourse, git, multiple-pairs
----
 Create your Concourse cloud-config file
 ### What?
 
