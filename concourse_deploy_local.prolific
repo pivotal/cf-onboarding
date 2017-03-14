@@ -1,0 +1,22 @@
+Deploy Concourse to BOSH
+### What?
+Okay, the training wheels are coming **off**. This Concourse deployment is gonna be just you + the same docs anyone else uses ("whhaaaaaat?" "I know, they grow up so fast!"). But first, a little preamble:
+
+Concourse is a Pivotal-sponsored, pipeline-based continuous integration (CI) system. The "pipelines" are a collection of [three core concepts (jobs, tasks, and resources)](http://concourse.ci/concepts.html) that you'll learn more about in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and checkout the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
+
+### How?
+Instead of deploying up a full Concourse, you're gonna _Easy Button_ your way out of it by **[spinning up a local VM with Vagrant](http://concourse.ci/vagrant.html)**.
+
+### Expected Result
+![Lonely Concourse, no pipelines](http://danoncoding.com/assets/images/concourse-simple-redux/no-pipelines.png)
+
+### Resources
+[Terraform + Google Cloud Platform docs](https://www.terraform.io/docs/providers/google/index.html)
+
+[Concourse Architecture Overview](https://concourse.ci/architecture.html)
+[All About Concourse for Continuous Integration (video)](https://blog.pivotal.io/pivotal-perspectives/features/all-about-concourse-for-continuous-integration)
+[BOSH 2.0: The Evolution - YouTube (video)](https://www.youtube.com/watch?v=Q5uvoL1OqSw)
+
+### Relevant Repos and Teams
+**Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
+L: concourse
