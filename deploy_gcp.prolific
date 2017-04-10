@@ -1,15 +1,243 @@
-Select a stemcell for your BOSH deployment
+Install bosh-bootloader and dependencies
 ### What?
-A **[stemcell](http://bosh.cloudfoundry.org/docs/stemcell.html)** is a versioned Operating System image wrapped with [IaaS](https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29) specific packaging.
+[BOSH](http://bosh.io/docs/about.html) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
 
-A typical stemcell contains a bare bones OS skeleton with a few common utilities pre-installed, some configuration files to securely configure the OS by default, and a BOSH Agent.
+While it is under the [Cloud Foundry Foundation umbrella](https://www.cloudfoundry.org/projects/#bosh), it is a distinct product. BOSH can be used to deploy just about any software and Cloud Foundry can (inadvisably) be deployed by something other than BOSH.
 
-The stemcell is the foundation of every VM the [BOSH Director](https://bosh.io/docs/bosh-components.html#director) deploys; the [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent) is there to listen for instructions from the Director and to carry them out.
+Since Cloud Foundry is a maintenance and monitoring system itself, it sometimes confuses people that there would be another maintenance and monitoring system underneath it. Think of it as the "who watches the watchmen" of [high availability](https://docs.cloudfoundry.org/concepts/high-availability.html). Or maybe "turtles all the way down". "Watchmen all the way down." Anyway...
 
-They are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure).
+There have been many ways to deploy BOSH over the years, but the latest, greatest, and under active development-est, is  **[bosh-bootloader (a.k.a. bbl)](https://github.com/cloudfoundry/bosh-bootloader)**.
+
+`bbl` stands up the BOSH Director (VM and persistent disk). The BOSH Director deploys and monitors Cloud Foundry VMs and processes. And Cloud Foundry is used to deploy and monitor applications and services in the form of containerized workloads.
+
+You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it and a few of its dependencies on your workstation. 
+
+This isn't the most exciting first story, but all good things to those who wait, right?
 
 ### How?
-Available stemcells **[are listed at bosh.io](http://bosh.io/)**. Select the latest appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy your BOSH.
+Install or update the following dependencies on your local machine:
+* **Golang** (run `brew install go`)
+* **Terraform** is a tool for building, changing, and versioning infrastructure safely and efficiently (run `brew install terraform`)
+* **bosh-init** is used for creating and updating a Director VM and its persistent disk in an environment (**[download](http://bosh.io/docs/install-bosh-init.html)**)
+* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set. Some `bbl` commands can eek by with V1, but it only works in full with V2 (**[download](https://bosh.io/docs/cli-v2.html#install)**)
+* The **latest bbl Github release** (**[download](https://github.com/cloudfoundry/bosh-bootloader/releases/latest)**)
+
+**NOTE:** command line utilities have to be *executable files* in your [computer's $PATH](https://coolestguidesontheplanet.com/add-shell-path-osx/) to work as expected. Use `chmod +x` to make a file executable.
+
+### Expected Result
+* Run `go version` => "go version go1.7 darwin/amd64" or above
+* `terraform --version` => "Terraform v0.8.7" or above
+* `bosh-init -v` => "version 0.0.102" or above
+* `bosh -v` => "version 2.0.1-...." or above
+* `bbl version` => "bbl 3.0.2 (darwin/amd64)" or above
+
+### Resources
+[BOSH.io](http://bosh.io/)
+[BOSH V2 CLI docs](https://bosh.io/docs/cli-v2.html)
+[What is Cloud Foundry?](https://www.cloudfoundry.org/platform/)
+[What is Terraform?](https://www.terraform.io/) 
+
+### Relevant Repos and Teams
+**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
+**BOSH:** [cloudfoundry/bosh-init](https://github.com/cloudfoundry/bosh-init)
+**BOSH:** [cloudfoundry/bosh-bootloader](https://github.com/cloudfoundry/bosh-bootloader)
+L: bbl
+---
+Install Google Cloud SDK
+### What?
+You're going to deploy your BOSH Director to [Google Cloud Platform](https://cloud.google.com). Although AWS was historically PCF's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
+
+The `gcloud` CLI manages authentication, local configuration, developer workflow, and interactions with the Cloud Platform APIs. Download and install the [Google SDK](https://cloud.google.com/sdk) to get `gcloud`, as you'll need it to `bbl up`.
+
+This is another "fun-sized" story (you know you'll miss them once you hit the 6-hour ones....)
+
+### How?
+Follow **[these instructions](https://cloud.google.com/sdk/downloads)** to install Google Cloud SDK on your workstation.
+
+Once you've done that, run `gcloud init` in your terminal.
+
+You should have received an invitation to join a GCP project from your facilitator or ask+cf@. Use your @pivotal.io email address and the name of your assigned project to configure the tool (the project name is in the GCP dashboard menu bar and the URL).
+
+### Expected Result
+Run `gcloud version` => "Google Cloud SDK 149.0.0 ..." or higher
+
+Run `gcloud config list` =>
+```
+[core]
+account = your-email@pivotal.io
+disable_usage_reporting = False
+project = PROJECT_ID
+
+Your active configuration is: [PROJECT_ID]
+```
+
+### Resources
+[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+[The Great GCP Migration of 2016 (internal doc)](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
+L: bbl
+---
+Create a GCP service account
+### What?
+We're going to create a **[service account](https://cloud.google.com/compute/docs/access/service-accounts)** using `gcloud`, which `bbl` can use to set up infrastructure on GCP. Service accounts authenticate applications running on your virtual machine instances to other Google Cloud Platform services, like APIs.
+
+### How?
+Create a new directory in your workspace and `cd` into it. You're going to be generating a few files over the next couple stories and it'll be good to put them somewhere logical.
+
+Finally, run the following commands to create the service account, generate its key, and add an [IAM role](https://cloud.google.com/compute/docs/access/iam). Remember to replace "some-account-name" with a name of your choice and "PROJECT_ID" with your assigned project's name.
+```
+gcloud iam service-accounts create some-account-name
+```
+```
+gcloud iam service-accounts keys create "service-account.key.json" --iam-account "some-account-name@PROJECT_ID.iam.gserviceaccount.com"
+```
+```
+gcloud projects add-iam-policy-binding PROJECT_ID --member 'serviceAccount:some-account-name@PROJECT_ID.iam.gserviceaccount.com' --role 'roles/editor'
+```
+### Expected Result
+Verify that the account is listed in your GCP dashboard under Menu > IAM & Admin > Service Accounts.
+
+### Resources
+[GCP Service Accounts](https://cloud.google.com/compute/docs/access/service-accounts)
+[Identity and Access Management (IAM) Roles](https://cloud.google.com/compute/docs/access/iam)
+[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+L: bbl
+---
+Stand up a BOSH Director with `bbl up`
+### What?
+As previously discussed, **[bbl](https://github.com/cloudfoundry/bosh-bootloader)** is a command line utility for standing up a BOSH Director (the VM and persistent disk) on an IAAS. In the past, you would have used Terraform (or on AWS, a CloudFormation template) to create the networks and VMs and [bosh-init](https://bosh.io/docs/using-bosh-init.html) to set up your Director. Under the hood that's what `bbl` uses too.
+
+### How?
+Make sure you're in the directory that you created in the last step, with the "service-account.key.json" file generated by `gcloud`.
+
+Run `bbl up --gcp-zone us-east1-b --gcp-region us-east1 --gcp-service-account-key service-account.key.json --iaas gcp --gcp-project-id PROJECT_ID`
+
+...and...*<<drumroll, please>>*...it fails. Sad panda. But the error is straightforward, so follow its instructions to fix the problem.
+
+**Pro-tip:** if you're using iTerm, hold down the command-⌘ key and click on the link to open it directly from the prompt.
+
+### Expected Results
+If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director!
+
+### Resources
+[Using bosh-init](https://bosh.io/docs/using-bosh-init.html)
+L: bbl
+---
+Connect to your BOSH environment
+### What?
+Time to target the Director VM you just `bbl up`ed.
+
+### How?
+To set the BOSH environment, run the following commands:
+
+`bbl print-env` to see the environment variables you'll set to use your new BOSH. 
+
+`eval "$(bbl print-env)"` to export them.
+
+### Expected Results
+When you run `bosh env`, it should print something like:
+
+![image](https://www.pivotaltracker.com/file_attachments/77821681/download)
+
+Annnd that's it!
+
+# Congratulations, you've successfully deployed BOSH! #bigpatontheback
+L: bbl
+---
+[RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
+L: bbl
+---
+Generate a TLS cert
+### What?
+Now that you've done your victory dance, on to bigger and better things. 
+
+In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so let's create one now.
+
+### How?
+We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
+
+**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with your Cloud Foundry system domain, *including a sub-domain wildcard* (e.g. \*.some-domain.com).
+
+Now you're wondering, "And what is my CF system domain...?" **Ask your facilitator for help, it will depend on how they've planned the week.**
+
+Once you have the answer, run:
+
+`openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -nodes`
+
+### Expected Result
+You should have two new files: key.pem and cert.pem.
+
+### Resources
+[Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
+[SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
+L: cf-deployment
+---
+Use bbl to create a load-balancer
+### What?
+Use `bbl` + your newly generated TLS certificate to create a **[load balancer](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)** in front of your future Cloud Foundry deployment. CF doesn't require a load balancer, nor does it include one, but as you read the CF and PCF docs you'll realize that it's assumed that you'll have one.
+
+### How?
+Run `bbl create-lbs` with the following parameters:
+
+`--type`: Tells bbl which set of load balancers to create. Possible values are concourse and cf (use cf).
+`--domain`: The domain that will resolve to your load balancer. In CF parlance, it typically matches your system_domain. In this case the *wildcard is excluded* (e.g. some-domain.com)
+`--cert`: A path to a file with a PEM-encoded SSL certificate. Remember that the cert should be valid for whichever domain you specify in the --domain flag.
+`--key`: A path to a file with a PEM-encoded SSL key that corresponds to the cert provided in `--cert`.
+
+All together that's: `bbl create-lbs --type cf --domain some-domain.com --cert cert.pem --key key.pem`
+
+**NOTE:** If bbl fails to create your load balancer, run the command again with the `--debug` flag after `bbl` to see what's up.
+
+### Expected Result
+Run `bbl lbs` to see load balancer details.
+
+Visit Menu > Networking > Cloud DNS and Menu > Networking > Load balancing to see what `bbl` generated on GCP.
+
+### Resources
+[Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
+[cf-deployment documentation](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md)
+L: cf-deployment
+---
+Update number of compilation workers in cloud-config
+### What?
+GCP creates fresh projects with surprisingly low CPU quotas (and a long turn-around time on getting an increase). We generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project. 
+
+A cloud-config is a YAML file that defines IaaS-specific configuration used by the BOSH Director and all of its deployments. It allows us to separate this configuration out into its own file and keep deployment manifests IaaS-agnostic (this wasn't always the case, btw).
+
+To deploy Cloud Foundry you'll be taking advantage of the **[cloud config](http://bosh.io/docs/cloud-config.html)** that `bbl` generated for you during `bbl up`.
+
+
+
+
+### How?
+Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
+
+Run `bosh cloud-config > cloud-config.yml`
+
+Then, open the new `cloud-config.yml` file in an editor. If you have a 24 CPU quota, reduce the number of compilation machines; if you have something way higher leave it alone.
+
+Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml`.
+
+### Expected Result
+When you run `bosh -d cf deploy` a couple stories down, it doesn't fail with a reached CPU quota error.
+
+### Resources
+[What is a cloud-config?](http://bosh.io/docs/cloud-config.html)
+[What's the difference between > and >>?](http://askubuntu.com/questions/382793/whats-is-the-difference-between-and-in-shell-command)
+L: cf-deployment
+---
+Select a stemcell for your BOSH deployment
+### What?
+The **[stemcell](http://bosh.cloudfoundry.org/docs/stemcell.html)** is the foundation of every VM the [BOSH Director](https://bosh.io/docs/bosh-components.html#director) deploys. It is a versioned Operating System image wrapped with [IaaS](https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29)-specific packaging.
+
+A typical stemcell contains a bare bones OS skeleton with a few common utilities pre-installed, some configuration files to securely configure the OS by default, and a BOSH Agent. The [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent) is there to listen for instructions from the Director and to carry them out.
+
+Stemcells are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure). You need to upload a stemcell for your BOSH Director to use when it deploys your Cloud Foundry VMs.
+
+### How?
+Available stemcells **[are listed at bosh.io](http://bosh.io/)**. Identify the latest appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy your BOSH.
+
+Upload the stemcell by running:
+`bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=VERSION`.
 
 ### Resources
 [What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
@@ -19,150 +247,33 @@ Available stemcells **[are listed at bosh.io](http://bosh.io/)**. Select the lat
 ### Relevant Repos and Teams
 **BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
 **BOSH:** [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent)
-L: bosh, gcp
+L: cf-deployment
 ---
-Modify your BOSH deployment manifest
+Deploy CF using BOSH + cf-deployment
 ### What?
-In the next story, you'll use [bosh init](https://bosh.io/docs/bosh-components.html#bosh-init) to deploy your BOSH Director. It is going to require a [deployment manifest](https://bosh.io/docs/deployment-manifest.html) (a YAML file that defines the components and properties of a deployment).
+The [`cf-deployment` project](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is another bleeding edge technology you'll be using during your CF adventure. It's not quite ready for use in production environments, but it's the future so it makes more sense to learn about this than about something that's about to be deprecated.
 
 ### How?
-Copy the `manifest.yml.erb` contents in these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/tree/master/docs/bosh)**. Follow the tasks below to modify the manifest locally. Ignore the rest of the instructions at that link for now.
+Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/cloudfoundry.md#create-a-bosh-deployment-manifest) with the following adjustments: 
 
-**NOTE:** Changing default passwords is important for security purposes. It is also a good opportunity to look into what each user does.
-
-### Resources
-[BOSH manifest](https://bosh.io/docs/deployment-manifest.html) 
-
-### Relevant Repos and Teams
-**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
-**BOSH:** [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent)
-**Release Integration:** [cloudfoundry/nats-release](https://github.com/cloudfoundry/nats-release)
-- [ ] Update the stemcell to be the latest BOSH stemcell you chose in an earlier story
-- [ ] Change the Admin default password wherever it appears
-- [ ] Change the Health Manager (user: 'hm') default password wherever it appears
-- [ ] Change the Director default password wherever it appears
-- [ ] Change the Agent default password wherever it appears
-- [ ] Change the NATS default password wherever it appears
-- [ ] Change the Postgres default password wherever it appears
-- [ ] Change the mbus default password wherever it appears
-L: bosh, gcp
----
-Deploy BOSH to GCP
-### What?
-BOSH is an open source tool for release engineering, deployment, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry, but it is not exclusively for CF.
-
-### How?
-Follow these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/tree/master/docs/bosh)** to deploy BOSH to Google Cloud Platform with your pair.
-
-The instructions are thorough and incremental, which makes it easy to lose a lot of the context of what you're doing if you copy/paste commands. For this reason, enter each set of commands by hand and discuss what you're doing with your pair. If you don't feel confident that you know what a given command is doing, take the time to look up the corresponding vocabulary.
-
-**IMPORTANT:** When you get to the step where you add the BOSH manifest, use the `manifest.yml.erb` you prepared in the last story instead of the manifest provided.
+1. Ignore the stemcell step, you'll use the one you uploaded a couple stories ago.
+1. Set system_domain in the `cf-deployment-vars.yml` to the sub-domain you used when creating your cert and creating your load balancer, leaving the wildcard `*.` off the front (e.g. some-domain.com)
+1. See the `-o operations/gcp.yml` part of the deploy command? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. Add `-o operations/scale-to-one-az.yml` to include a second ops file that will make your deploy less ridiculously large.
 
 ### Expected Result
-You can target your new BOSH with `bosh target 10.0.0.6` and login as the admin account (remember, you changed the password).
+Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
 
 ### Resources
-[BOSH.io](http://bosh.io/)
-[What is Terraform?](https://www.terraform.io/) 
-[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
-
-### Relevant Repos and Teams
-**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
-**BOSH:** [cloudfoundry/bosh-init](https://github.com/cloudfoundry/bosh-init)
-L: bosh, gcp
----
-Verify compatibility of releases in manifest
-### What?
-BOSH deploys Cloud Foundry with another deployment manifest, similar to the one you just used to deploy BOSH itself. The manifest contains, among other things, a stemcell and a list of [releases](https://bosh.io/docs/release.html).
-
-### How?
-Review the stemcell and releases in the **[CF manifest for the next story](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to ensure they are compatible with one another ([cf-release release notes](https://github.com/cloudfoundry/cf-release/releases) are a good place to find this information). This is also a good opportunity to review what each of the releases (CF, Diego, Garden-Linux, etcd, and cf-mysql) is responsible for.
-
-**NOTE:** Past onboard-ers have found it helpful to add tasks to this story to track which components you've verified + brief comments to keep track of findings.
-
-### Resources
-[cf-release release notes](https://github.com/cloudfoundry/cf-release/releases)
-[diego-release release notes](https://github.com/cloudfoundry/diego-release/releases)
-
-### Relevant Repos and Teams
-**Release Integration:** [cloudfoundry/cf-release](https://github.com/cloudfoundry/cf-release), [cloudfoundry/diego-release](https://github.com/cloudfoundry/diego-release), [cloudfoundry/garden-runc-release](https://github.com/cloudfoundry/garden-runc-release), [cloudfoundry-incubator/etcd-release](https://github.com/cloudfoundry-incubator/etcd-release), [cloudfoundry/cf-mysql-release](https://github.com/cloudfoundry/cf-mysql-release)
-**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/auction](https://github.com/cloudfoundry/auction), [cloudfoundry/auctioneer](https://github.com/cloudfoundry/auctioneer), [cloudfoundry/bbs](https://github.com/cloudfoundry/bbs), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
-**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
-**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
-**CoreOS (external):** [coreos/etcd](https://github.com/coreos/etcd)
-**MariaDB (external):** [https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/](https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/)
-L: bosh, cloud foundry, gcp
----
-Configure Diego cells in manifest to be highly available
-### What?
-One of the value propositions of Cloud Foundry is  the ["high availability"](https://en.wikipedia.org/wiki/High_availability) of applications that run on it. High availability is a characteristic of a system that aims to ensure an agreed level of operational performance, usually uptime, for a higher than normal period.
-
-### How?
-A big part of how we achieve HA is by having redundant components. Copy the **[CF manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** from the previous story and edit it locally to increase the number of instances of Diego cells to the [minimum number](http://docs.pivotal.io/pivotalcf/1-8/concepts/high-availability.html) you would need to ensure high availability (HA).
-
-We'd have to scale many more CF components to make the entire deployment HA, but that would be a little overkill (not to mention costly) for an onboarding exercise.
-
-### Resources
-[What is a manifest?](https://bosh.io/docs/deployment-manifest.html)
-[Editing the CF Manifest](http://docs.cloudfoundry.org/deploying/aws/cf-stub.html#editing)
-[High availability in CF (including recommended instances per component)](http://docs.pivotal.io/pivotalcf/1-8/concepts/high-availability.html)
-["The Four Levels of HA in Pivotal CF" by Cornelia Davis](https://blog.pivotal.io/pivotal-cloud-foundry/products/the-four-levels-of-ha-in-pivotal-cf) 
-
-### Relevant Repos and Teams
-**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
-**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
-**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
-L: cloud foundry, gcp
----
-Replace "common-password" in manifest
-### What?
-You will discover in your time at Pivotal that there are myriad default passwords sprinkled throughout tutorials, instructions, and docs. It should be obvious why deploying with these default passwords in place would be bad (\*cough\* *has* been bad).
-
-### How?
-Edit your **[CF manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to change the default "common_password" to something else. As a bonus: interpolate this password into the manifest using LastPass notes.
-
-**Note:** one of the users that will be created with this new password is the admin user, which you will use to login through the `cf cli`.
-
-### Resources
-[What is a manifest?](https://bosh.io/docs/deployment-manifest.html)
-[Editing the CF Manifest](http://docs.cloudfoundry.org/deploying/aws/cf-stub.html#editing)
-L: cloud foundry, gcp
----
-Deploy Cloud Foundry
-### What?
-Now that you have your Bosh and bosh-bastion machine set up, it's time to deploy Cloud Foundry. You'll use Terraform to set up your infrastructure and a deployment manifest to declaratively describe how to set up your Cloud Foundry.
-
-### How?
-Follow these **[instructions](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/README.md)**. As with the previous set of instructions, paste each set of commands and discuss what you're doing with your pair. If you don't feel confident that you know what a given command is doing, take the time to look up the corresponding vocabulary.
-
-**IMPORTANT:** When you get to the step where you deploy your CF manifest, edit **[the manifest](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/manifest.yml)** to reflect the changes in the previous two stories.
-
-Once deployed, copy your environment variables to a local file. If you close your shell you will need to re-export them.
-
-### Expected Results
-You can target your API and login, like so:
-```
- cf api https://api.${vip}.xip.io --skip-ssl-validation
- cf login
-```
-### Resources
-[What is Terraform?](https://www.terraform.io/) 
-[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
-
-### Relevant Repos and Teams
-**Release Integration:** [cloudfoundry/cf-release](https://github.com/cloudfoundry/cf-release), [cloudfoundry/diego-release](https://github.com/cloudfoundry/diego-release), [cloudfoundry/garden-runc-release](https://github.com/cloudfoundry/garden-runc-release), [cloudfoundry-incubator/etcd-release](https://github.com/cloudfoundry-incubator/etcd-release), [cloudfoundry/cf-mysql-release](https://github.com/cloudfoundry/cf-mysql-release)
-**Diego:** [cloudfoundry/diego-design-notes](https://github.com/cloudfoundry/diego-design-notes), [cloudfoundry/diego-ssh](https://github.com/cloudfoundry/diego-ssh), [cloudfoundry/auction](https://github.com/cloudfoundry/auction), [cloudfoundry/auctioneer](https://github.com/cloudfoundry/auctioneer), [cloudfoundry/bbs](https://github.com/cloudfoundry/bbs), [cloudfoundry/executor](https://github.com/cloudfoundry/executor), [cloudfoundry/rep](https://github.com/cloudfoundry/rep)
-**Loggregator:** [cloudfoundry/loggregator](https://github.com/cloudfoundry/loggregator)
-**Garden Core:** [cloudfoundry/garden](https://github.com/cloudfoundry/garden)
-**CoreOS (external):** [coreos/etcd](https://github.com/coreos/etcd)
-**MariaDB (external):** [https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/](https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/)
-L: cloud foundry, gcp
+[What is a BOSH release?](https://bosh.io/docs/release.html)
+[Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
+L: cf-deployment
 ---
 Entertain yourself during the CF deploy "intermission"
 ### What?
 You have some time to kill while your CF deploys. Keep an eye on it (it could flake out at any moment), but otherwise here's some light reading:
 
-* The official [overview of Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html)™
+* [How the Cloud Balances its load](https://docs.cloudfoundry.org/concepts/overview.html#balances) on the official [overview of Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html)™
+* [PCF Linux Containers Overview by Onsi](https://docs.google.com/a/pivotal.io/document/d/1QNcmQCrHZNAr17ULoYis_sDPNV0X4IUO1grFDBlQdO8/edit?usp=sharing)—I really recommend this one, even if you don't get to it now.
 * The [Diego design notes](https://github.com/cloudfoundry/diego-design-notes): a comprehensive, up-to-date, and (most importantly) readable overview of Cloud Foundry components and their interaction. Plus, that diagram (diagram, *so* hot right now).
 
 Some good videos:
@@ -179,133 +290,23 @@ And some basic tutorials, specific to topics you might be wondering about right 
 Mastery of the material.
 
 (I'm joking)
-L: cloud foundry
+L: cf-deployment
 ---
-Install Google Cloud SDK on local workstation
+Set up your cf target domain
 ### What?
-So far you've probably been using the [Google Cloud Shell](https://cloud.google.com/shell/docs/) to interact with your BOSH and CF deployments. Let's switch to working locally.
+We're almost there. The final step is to target your newly deployed Cloud Foundry without having to buy a domain.
 
 ### How?
-Install Google Cloud SDK locally following **[these instructions](https://cloud.google.com/sdk/docs/quickstart-mac-os-x)**.
+There are two ways to do this:
 
-Point it at the sandbox org you've been assigned.
-
-### Expected Result
-You can SSH to your bosh-bastion VM by running:
-```
-gcloud compute ssh bosh-bastion
-```
-And after exporting your `$vip` environment variable:
-```
-export vip=<your vip>
-```
-You can target CF by running:
-```
-cf api https://api.${vip}.xip.io --skip-ssl-validation
-cf login
-```
-L: gcp
----
-Create an org and space
-### What?
-Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces).
-
-**[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
-
-Let's make a new organization and associated space!
-
-### How?
-1. View orgs `cf orgs` and spaces `cf spaces` (each space is scoped to an org)
-1. Target the system org `cf target -o system` and view spaces `cf spaces` and apps `cf apps`
-1. Create a new `onboarding` organization and a space named `week`
+1. Ask Keaty to create a nameserver entry using Route 53 on a shared CF AWS account. Propagation won't take that long and it Just Works™.
+1. Be Keaty's favorite person/set of people ever and achieve the same ends with [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html). Then tell her how you did it.
 
 ### Expected Result
-When creating the organization the current user will be assigned the role of 'Org Manager'.
+`cf api api.YOUR_SUBDOMAIN.cf-app.com --skip-ssl-validation` works.
 
-`cf org-users onboarding`
-
-When creating the space the current user will be assigned two new roles in the space - 'Space Manager' and 'Space Developer'
-
-`cf space-users onboarding week`
-
-### Resources
-[Orgs, Spaces, Roles, and Permissions](https://docs.cloudfoundry.org/concepts/roles.html)
-[Creating and managing users with the cf CLI](https://docs.cloudfoundry.org/adminguide/cli-user-management.html)
-
-### Relevant Repos and Teams
-**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
-**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: cloud foundry
+`cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'uaa_scim_users_admin_password')
+L: cf-deployment
 ---
-Create a new user
-### What?
-Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces). **[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
-
-### How?
-1. Create a new user
-`cf create-user some-user some-password`
-1. Login as that user and view orgs
-`cf auth some-user some-password`
-`cf orgs`
-
-Not much there, huh? By default `some-user` cannot view or perform any actions, so as an admin, you'll have to assign some roles. Log back in as the admin user and update `some-user`'s roles so they can push an application in the onboarding / week org and space.
-1. Login back in as admin
-`cf auth admin <your-password>`
-1. And give some-user the SpaceDeveloper role for onboarding/week
-`cf set-space-role some-user onboarding week SpaceDeveloper`
-
-### Expected Result
-`some-user` can now see "onboarding" in their list of orgs and "week" in their list of spaces.
-
-### Resources
-[Role permissions](https://docs.cloudfoundry.org/concepts/roles.html)
-[Setting user roles](https://docs.cloudfoundry.org/concepts/roles.html#roles)
-
-### Relevant Repos and Teams
-**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
-**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: cloud foundry
----
-Prepare a Spring app for CF deployment
-### What?
-In the next story we're going to deploy the [Spring Music](https://github.com/cloudfoundry-samples/spring-music) app, but first we need to assemble the jar.
-
-### How?
-1. Clone the **[Spring Music](https://github.com/cloudfoundry-samples/spring-music)** repo to your local workstation.
-1. `cd ./spring-music`
-1. Assemble the jar by running `./gradlew assemble` (if your workstation doesn't have the JDK, looks like that's part of this step too).
-1. Create a `/share/workspace/spring-music` directory path on your bosh-bastion VM.
-1. [Copy the repo](https://cloud.google.com/compute/docs/instances/transfer-files) from your local `spring-music` directory to your bosh-bastion VM.
-```
-gcloud compute copy-files . bosh-bastion:/share/workspace/spring-music
-```
-### Expected Result
-The spring-music repo with your assembled `spring-music.jar` should be in the `workspace` directory of your bosh-bastion VM.
-
-### Resources
-[Spring by Pivotal](https://spring.io/)
-[Gcloud Compute Tips](https://cloud.google.com/compute/docs/gcloud-compute/tips)
-L: app-dev, cloud foundry, gcp
----
-Push a Spring app
-### What?
-Cloud Foundry applications are deployed by `cf push`-ing your code or some compiled artifact. When you push an app, you can optionally include an [application manifest.yml](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) that contains properties about your application's deployment.
-
-The appropriate [buildpack](https://docs.cloudfoundry.org/buildpacks/) will be selected for you by detect scripts and a 'droplet' will be produced that contains all your application dependencies. This droplet will be uploaded to the cells that run your application instances.
-
-### How?
-1. Navigate to the `./spring-music` directory you created in the last story.
-1. In the `manifest.yml`, delete the line `random-route: true`
-1. Set the disk quota to 1024M
-1. Set the number of instances to 2
-1. `cf push` your app
-
-### Expected Result
-`cf app spring-music` will print the app's status, including the URL. Visiting the URL in the browser should show you a list of albums.
-
-### Resources
-[Cf Buildpacks](https://docs.cloudfoundry.org/buildpacks/)
-[CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
-L: app-dev, cloud foundry
----
-[RELEASE] Deploy BOSH + CF to GCP and push first app ⇧
+[RELEASE] Deploy CF with cf-deployment ⇧
+L: cf-deployment
