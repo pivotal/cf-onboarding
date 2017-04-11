@@ -1,4 +1,106 @@
-Get recent Spring app logs
+Create an org and space
+### What?
+Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces).
+
+**[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
+
+Let's make a new organization and associated space!
+
+### How?
+1. View orgs `cf orgs` and spaces `cf spaces` (each space is scoped to an org)
+1. Target the system org `cf target -o system` and view spaces `cf spaces` and apps `cf apps`
+1. Create a new `onboarding-org` organization with an `onboarding-space` space
+
+### Expected Result
+When creating the organization the current user will be assigned the role of 'Org Manager'.
+
+Run `cf org-users onboarding-org` to verify.
+
+When creating the space the current user will be assigned two new roles in the space - 'Space Manager' and 'Space Developer'
+
+Run `cf space-users onboarding-org onboarding-space` to verify.
+
+### Resources
+[Orgs, Spaces, Roles, and Permissions](https://docs.cloudfoundry.org/concepts/roles.html)
+[Creating and managing users with the cf CLI](https://docs.cloudfoundry.org/adminguide/cli-user-management.html)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
+L: app-dev
+---
+Create a new user
+### What?
+Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces). **[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
+
+### How?
+1. Create a new user
+`cf create-user some-user some-password`
+1. Login as that user
+`cf auth some-user some-password`
+1.  And view orgs
+`cf orgs`
+
+Not much there, huh? By default `some-user` cannot view or perform any actions, so as an admin, you'll have to assign some roles. Log back in as the admin user and update `some-user`'s roles so they can push an application in the onboarding-org / onboarding-space org and space.
+1. Login back in as admin
+`cf auth admin <your-password>`
+1. And give some-user the SpaceDeveloper role for onboarding-org/onboarding-space
+`cf set-space-role some-user onboarding-org onboarding-space SpaceDeveloper`
+
+### Expected Result
+When logged in as `some-user`, you can see "onboarding-org" in your list of orgs and "onboarding-space" in your list of spaces.
+
+### Resources
+[Role permissions](https://docs.cloudfoundry.org/concepts/roles.html)
+[Setting user roles](https://docs.cloudfoundry.org/concepts/roles.html#roles)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+**CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
+L: app-dev
+---
+Push a sample app
+### What?
+Cloud Foundry applications are deployed by `cf push`-ing your code or some compiled artifact. When you push an app, you can optionally include an [application manifest.yml](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) that contains properties about your application's deployment.
+
+The appropriate [buildpack](https://docs.cloudfoundry.org/buildpacks/) is identified by detect scripts, a staging container is created to prepare your app's environment, and a droplet is produced. This droplet will be used by the cells to run your application instances.
+
+### How?
+1. Clone the **[cloudfoundry/cf-acceptance-tests](https://github.com/cloudfoundry/cf-acceptance-tests)** repo to your local workstation.
+1. `cd ./cf-acceptance-tests/assets/dora`
+1. **[Create a `manifest.yml` file](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#minimal-manifest)**
+1. In the `manifest.yml`, set "dora" as the app's name
+1. In the `manifest.yml`, set the [disk quota](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#disk-quota) to 1024M
+1. In the `manifest.yml`, set the [number of instances](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#instances) to 2
+1. In the `manifest.yml`, [generate a unique route](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#random-route) for your app every time you push.
+1. `cf push` your app
+
+### Expected Result
+`cf app dora` will print the app's status, including the URL. When your visit the URL in your browser you should see the words "Hi, I'm Dora!"
+
+### Resources
+[Cf Buildpacks](https://docs.cloudfoundry.org/buildpacks/)
+[CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
+[A beginner-friendly introduction to containers, VMs, and Docker](https://medium.freecodecamp.com/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
+L: app-dev
+---
+HTTP trace a CLI command
+### What?
+Behind the scenes the command line depends on several components in Cloud Foundry. If a cf CLI command fails or produces unexpected results, re-run it with HTTP tracing enabled to view raw requests and responses between the cf CLI and the other components. The majority of those calls will be to the Cloud Controller REST API, but for logging the CLI hits the Loggregator.
+
+### How?
+Enable HTTP tracing with the CF_TRACE environment variable (`CF_TRACE=true`) or the -v flag (`-v`).
+
+Try this now with `cf app` by running `cf app dora -v`.
+
+### Expected Result
+You should see each of the requests and responses that resulted in `cf app` delivering information about your app. Now give it a shot with other cf CLI commands!
+
+### Resources
+[Trace Cloud Controller REST API Calls](https://docs.cloudfoundry.org/devguide/deploy-apps/troubleshoot-app-health.html#trace)
+L: app-dev
+---
+Get recent app logs
 ### What?
 
 Cloud Foundry applications are expected to log to [stdout and stderr](https://en.wikipedia.org/wiki/Standard_streams). This is part of [The Twelve-Factor](https://12factor.net/logs) app design.
@@ -14,7 +116,7 @@ System components logs will also appear in relation to your application. Below i
 - [See more components](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html#format)
 
 ### How?
-`cf logs spring-music --recent`
+`cf logs dora --recent`
 
 ### Expected Result
 The output will look something like:
@@ -25,59 +127,77 @@ The output will look something like:
 2016-12-05T21:37:34.11-0500 [CELL/0]     OUT Creating container
 2016-12-05T21:37:35.07-0500 [CELL/0]     OUT Successfully created container
 2016-12-05T21:37:39.40-0500 [CELL/0]     OUT Starting health monitoring of container
-2016-12-05T21:37:41.95-0500 [APP/0]      OUT  :: Spring Boot ::        (v1.3.5.RELEASE)
 2016-12-05T21:37:42.08-0500 [APP/0]      OUT 2016-12-06 02:37:42.078  INFO 14 --- [           main] pertySourceApplicationContextInitializer : Adding 'cloud' PropertySource to ApplicationContext
-2016-12-05T21:45:25.23-0500 [RTR/0]      OUT spring-music.pcfdev.io - "GET /favicon.ico HTTP/1.1" 200 0 946 "http://spring-music.local.pcfdev.io/service" ....
+2016-12-05T21:45:25.23-0500 [RTR/0]      OUT dora.pcfdev.io - "GET /favicon.ico HTTP/1.1" 200 0 946 "http://dora.local.pcfdev.io/service" ....
 ```
 
 ### Resources
 [Logs for CF components](https://docs.cloudfoundry.org/running/managing-cf/logging.html)
 [Logs for applications](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html)
-L: app-dev, cloud foundry
+L: app-dev
 ---
 Get streaming logs
 ### What?
-By omitting the `--recent` Loggregator will stream logs from the application.
+By omitting the `--recent` Loggregator will stream logs from the application. You'll use this most often as a diagnosing tool. Let's trigger some app activity to verify that it shows up in the logs.
 
 ### How?
-`cf logs spring-music`
+1. Run `cf logs dora`
+1. In another terminal buffer, run `watch cf app dora`
+1. Visit the dora endpoint `/sigterm/KILL`
 
-### Things to see
-1. Observe stack traces being logged when visiting the endpoint `/errors/throw`
-1.  Observe the stack trace of your app exiting by visiting the endpoint `/errors/kill`
-1. Run `watch cf app spring-music` to see it resurrect
-
-### Did I just see my app just restart?
-CloudFoundry applications are monitored with a constant health check that ensure they are listening on a specific port. When your application stops listening it'll be automatically restarted. 
+### Expected Result
+Cloud Foundry applications are monitored with a constant health check that ensure they are listening on a specific port. When your application stops listening it'll be automatically restarted. 
 
 You can see this in the logs tagged with `CELL` and `API`
 
 When your application is down, in the `RTR` logs, you will see that HTTP requests will return a 502 Bad Gateway.
-L: app-dev, cloud foundry
+
+Refer to the [dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora) to find other useful endpoints to experiment with.
+
+L: app-dev
 ---
 View a list of app events
 ### What?
-Cloud Foundry stores a history of events about your application. This varies from an application being created to it crashing.
+Cloud Foundry stores a history of events about your application. You'll generally use `cf logs` when debugging your app's behavior, but every once and awhile the select, well-formatted information contained in `cf events` is more helpful than a firehose of data.
 
 ### How?
-1. `cf stop spring-music`
-1. `cf start spring-music`
-1. `cf events spring-music`
+1. `cf stop dora`
+1. `cf start dora`
+1. `cf events dora`
 
 ### Expected Result
 You should see the list of events including the recent stop & start.
 
 ### Resources
 [StackOverflow: When to use cf events?](http://stackoverflow.com/questions/24545838/when-to-use-cf-events)
-L: app-dev, cloud foundry
+[CF CLI docs](http://docs.cloudfoundry.org/cf-cli/cf-help.html)
+L: app-dev
+---
+Scale your app with the CLI
+### What?
+Your application runs in a container hosted on a Diego Cell. A Cloud Foundry deployment may have many cells distributed among multiple Availability Zones. Diego will automatically balance the applications you deploy across the defined AZs. If an AZ went down (along with your application), Diego would start a new instance of your application in a healthy cell in a different AZ. Depending on demand, you may want to scale your application horizontally (more instances) and/or vertically (more disk & memory).
+
+You already have two instances of dora, but let's bump that up to five.
+
+### How?
+1. `cf scale -m 512M -i 5 dora`
+1. `cf app dora`
+
+### Expected Result
+`cf app dora` should show five instances and the disk and memory they are each allotted.
+`cf env dora` should show my new disk and memory limits listed under VCAP_APPLICATION.
+
+### Resources
+[Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
+L: app-dev
 ---
 View your app's environment variables
 ### What?
 Environment variables are the means by which the Cloud Foundry runtime communicates with a deployed application about its environment. You can use them too!
 
 ### How?
-1. `cf set-env spring-music MYVAR hello`
-1. `cf env spring-music`
+1. `cf set-env dora MYVAR hello`
+1. `cf env dora`
 
 ### Expected Result
 The CLI will show the application's environment variables classified as System-Provided (i.e. `VCAP_APPLICATION`) and User Provided (`MYVAR`). Running and Stage variables are provided by operators that apply to all applications.
@@ -86,103 +206,61 @@ The CLI will show the application's environment variables classified as System-P
 [Cloud Foundry Environment Variables](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html)
 [VCAP_APPLICATION](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-APPLICATION)
 [VCAP_SERVICES](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
-L: app-dev, cloud foundry
+L: app-dev
 ---
 SSH into a running app container
 ### What?
 Your applications run on Diego Cells, which create containers for each of your application instances. One of the features of Diego (new way of doing things) versus DEAs (original way) is that you have the ability to [SSH](https://en.wikipedia.org/wiki/Secure_Shell) into the containers for debugging purposes.
 
 ### How?
-1. `cf ssh spring-music`
+1. `cf ssh dora`
 1. `ls` around the directory tree
 1. Use the `ps aux` command to see what processes are running.
 1. Run `env` to view environment variables. You'll see there are additional environment variables that the cf CLI doesn't print, but that are available to your application. The full [list of variables can be viewed here](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html).
-1. `exit`, then SSH back into a specific instance of your app, using the `-i app-instance-index` flag. View the [CLI SSH flags](http://cli.cloudfoundry.org/en-US/cf/ssh.html) to see what else is possible.
+1. `exit`, then SSH back into a specific instance of your app, using the `-i app-instance-index` flag (when you run `cf app app-name` you'll see the indexes of the instances displayed in turquoise to the left of their information). View the [CLI SSH flags](http://cli.cloudfoundry.org/en-US/cf/ssh.html) to see what else is possible.
 
-**TRIVIA:** If you're running a full Cloud Foundry deployment, you'll notice you're SSH-ed in as the `vcap` user. VCAP stands for VMware's Cloud Application Platform, an old name for Cloud Foundry. Catchy, right?
+**TRIVIA:** did you notice that you're SSH-ed in as the `vcap` user? VCAP stands for VMware's Cloud Application Platform, an old name for Cloud Foundry. Catchy, right?
 
 ### Resources
 [Differences Between DEA and Diego Architectures](https://docs.cloudfoundry.org/concepts/diego/dea-vs-diego.html)
 [Unix/Linux StackExchange: What does aux mean in `ps aux`?](http://unix.stackexchange.com/questions/106847/what-does-aux-mean-in-ps-aux)
-L: app-dev, cloud foundry
----
-Scale your app with the CLI
-### What?
-Your application runs in a container hosted on a Diego Cell. A Cloud Foundry deployment could have many cells that span multiple Availability Zones. Diego will automatically balance the applications you deploy across the defined AZs. Then when an AZ goes down (along with your application), Diego will start a new instance of your application in a healthy cell in a different AZ. Depending on demand, you may want to scale your application horizontally (more instances) and/or vertically (more disk & memory).
-
-You already have two instances of spring-music, but lets bump that up to five.
-
-### How?
-1. `cf scale -m 512M -i 5 spring-music`
-1. `cf app spring-music`
-
-### Expected Result
-`cf app spring-music` should show five instances and the disk and memory they are each allotted.
-`cf env spring-music` should show my new disk and memory limits listed under VCAP_APPLICATION.
-
-### Resources
-[Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
-L: app-dev, cloud foundry
+L: app-dev
 ---
 Kill a specific instance of an application
 ### What?
 Sometimes it's clear a particular instance of your app is having a problem, but it isn't being identified and culled by the HealthCheck. This is a good way to take it out yourself.
 
 ### How?
-Using `cf curl`, kill a specific instance of spring-music.
+Run `watch cf app dora`.
+
+In another buffer, kill a specific instance of dora using `cf curl` (reading the `cf curl` help content may clarify some things).
 
 ### Expected Result
-Run `watch cf app spring-music`. You should see your app recovering.
+You should see the correct instance of your app dying and recovering.
 
 ### Resources
-[VCAP environment variables docs](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html)
-L: app-dev, cloud foundry
+[API Docs: Terminate the running app instance at the given index](http://apidocs.cloudfoundry.org/253/apps/terminate_the_running_app_instance_at_the_given_index.html)
+L: app-dev
 ---
 Add an additional route to the application
 ### What?
-All network requests are managed by the [gorouter](https://github.com/cloudfoundry/gorouter).  Your application needs a route mapped to itself so that the gorouter will redirect traffic to it.
-
-The route your app currently has (e.g.`http://spring-music.<ip>.xip.io/` or `https://spring-music.local.pcfdev.io`) consists of the IP of your gorouter coupled with a domain name that provides wildcard DNS for any IP address ([xip.io](http://xip.io/)) *or* a normal domain like pcfdev.io. It also has a host, `spring-music`.
-
-Domains are set up by administrators/operators. This requires a DNS record to be configured outside of the CF deployment. The record must resolve to the gorouter IP or to a load balancer which forwards requests to multiple gorouters.
+CF creates a route for your app when it is first pushed, but you can create additional routes using the CF CLI.
 
 ### How?
-1. View global domains 
-`cf domains` and routes in your space `cf routes`
-1. Create a new route 
-`cf create-route week <ip>.xip.io --hostname fall-music`
-1. Visit `http://fall-music.<ip>.xip.io`
-1. Map the route to the spring-music app 
-`cf map-route spring-music local.pcfdev.io -n fall-music`
-1. Visit `http://fall-music.<ip>.xip.io` again
+**[Create and map a new route in your space](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#map-route)**
 
 ### Expected Result
-`cf domains` lists domains for the organization and indicates which ones are TCP vs HTTP.  You will additionally see `shared` domains which are created by the administrator and available to all organizations. `cf routes` will list all the routes in the targeted space (onboarding). You should see a default route mapped to your spring-music app.
-
-When the new route was not mapped to the spring-music app, the router should have returned HTTP Status Code 404 Not Found. It will behave normally when the mapping is made.
+1. Run `cf routes` to verify your route has been created and correctly mapped to dora
+1. Visit route and see dora content
 
 ### Additional notes
-The combination of route and domain names are unique. Even though you may not see a route in your space, that doesn't mean it's not taken by another application in a different org or space. 
+If you had created the new route using `cf create-route` without mapping it to the dora app, it would have existed un-mapped and the router would have returned 404 Not Found.
+
+Combinations of route and domain names must be unique. Even though you may not see a particular route listed in your space, that doesn't mean it's not taken by another application in a different org or space. 
 
 ### Resources
 [CF Routes and Domains](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html)
 [Basic Linux Networking reference](http://www.penguintutor.com/linux/basic-network-reference)
-L: app-dev, cloud foundry
----
-HTTP trace a CLI command
-### What?
-Behind the scenes the command line depends on several components in Cloud Foundry. If a cf CLI command fails or produces unexpected results, re-run it with HTTP tracing enabled to view raw requests and responses between the cf CLI and the other components. The majority of those calls will be to the Cloud Controller REST API, but for logging the CLI hits the Loggregator.
-
-### How?
-Enable HTTP tracing with the CF_TRACE environment variable (`CF_TRACE=true`) or the -v flag (`-v`).
-
-Try this now with `cf app`.  Just run `cf app spring-music -v`.
-
-### Expected Result
-You should see each of the requests and responses that resulted in `cf app` delivering information about your app. Now give it a shot with other cf CLI commands!
-
-### Resources
-[Trace Cloud Controller REST API Calls](https://docs.cloudfoundry.org/devguide/deploy-apps/troubleshoot-app-health.html#trace)
-L: app-dev, cloud foundry
+L: app-dev
 ---
 [RELEASE] App Development ⇧
