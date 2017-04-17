@@ -205,9 +205,6 @@ A cloud-config is a YAML file that defines IaaS-specific configuration used by t
 
 To deploy Cloud Foundry you'll be taking advantage of the **[cloud config](http://bosh.io/docs/cloud-config.html)** that `bbl` generated for you during `bbl up`.
 
-
-
-
 ### How?
 Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
 
@@ -299,11 +296,11 @@ We're almost there. The final step is to target your newly deployed Cloud Foundr
 ### How?
 There are two ways to do this:
 
-1. Ask Keaty to create a nameserver entry using Route 53 on a shared CF AWS account. Propagation won't take that long and it Just Works™.
-1. Be Keaty's favorite person/set of people ever and achieve the same ends with [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html). Then tell her how you did it.
+1. Ask your facilitator to create a nameserver entry using Route 53 on a shared CF AWS account. Propagation won't take that long and it Just Works™.
+1. Be Keaty's favorite person/set of people ever and achieve the same ends with [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) or [unbound](https://www.unbound.net/). Then clearly document how you did it.
 
 ### Expected Result
-`cf api api.YOUR_SUBDOMAIN.cf-app.com --skip-ssl-validation` works.
+`cf api api.YOUR_DOMAIN.com --skip-ssl-validation` works.
 
 `cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'uaa_scim_users_admin_password')
 L: cf-deployment
