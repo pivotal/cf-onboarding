@@ -1,4 +1,4 @@
-[CHORE] Facilitating an Onboarding Week [a note for managers]
+Facilitating an Onboarding Week [a note for managers]
 Hi there, facilitators!
 
 This is a reminder to read the **[facilitation documentation](https://github.com/pivotal-cf/onboarding-week/blob/master/FACILITATING.md)** on GitHub.
@@ -8,14 +8,15 @@ It's also a short task list of things you might want to do before Onboarding Wee
 - [ ] Designate workstation(s).
 - [ ] Get one "floater" laptop per pair to facilitate independent docs reading.
 - [ ] Create and populate private Tracker Project(s). Invite participants.
-- [ ] For GCP track **only**: Create IAAS account(s). Add participants as Owners.
 - [ ] Add morning standup to participant calendars so they know where to be Monday morning.
+- [ ] Add CF business and value proposition overview to participant calendars (ideally Mon)
+- [ ] Add CF technical overview to participant calendars (ideally Weds or Thurs)
+- [ ] Add Retro to participant calendars (ideally EOD Fri)
+- [ ] For GCP track **only**: Create IAAS account(s). Add participants as Owners.
 ---
-[CHORE] Kicking Off Onboarding Week!
-### Welcome to Onboarding Week
-
+Welcome to Onboarding Week!
 ### What?
-Onboarding Week is intended to be a guided exploration of the Cloud Foundry product, embarked upon with another Cloud Foundry newbie. What we hope you get out of it:
+Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. What we hope you get out of it:
 1. A coherent, if cursory, overview of a complicated product.
 1. Empathy for the customer who uses that product.
 1. A little knowledge of the breadth of work 70+ teams are doing around the world.
@@ -24,6 +25,7 @@ Onboarding Week is intended to be a guided exploration of the Cloud Foundry prod
 ### How?
 1. Take your time.
 1. Be conscious of your pair's progress. Check in frequently to make sure you're both getting the most out of the material.
-1. If something in a story is missing / is wrong / could be improved, write a comment on it to let us know.
+1. If something in a story is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding-week repo](https://github.com/pivotal-cf/onboarding-week/issues)**.
 1. Seriously, take your time.
 - [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
+- [ ] For GCP track **only**: Log in to GCP IAAS dashboard. You should have received an invitation from your facilitator.
