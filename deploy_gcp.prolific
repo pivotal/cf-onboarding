@@ -155,7 +155,7 @@ In the next story, we're going to use `bbl` to create a load balancer for our so
 ### How?
 We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
 
-**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with your Cloud Foundry system domain, *including a sub-domain wildcard* (e.g. \*.some-domain.com).
+**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with your Cloud Foundry system domain, including a sub-domain wildcard (e.g. \*.domain.com).
 
 Now you're wondering, "And what is my CF system domain...?" **Ask your facilitator for help, it will depend on how they've planned the week.**
 
@@ -179,13 +179,13 @@ Use `bbl` + your newly generated TLS certificate to create a **[load balancer](h
 Run `bbl create-lbs` with the following parameters:
 
 `--type`: Tells bbl which set of load balancers to create. Possible values are concourse and cf (use cf).
-`--domain`: The domain that will resolve to your load balancer. In CF parlance, it typically matches your system_domain. In this case the *wildcard is excluded* (e.g. some-domain.com)
+`--domain`: The domain that will resolve to your load balancer. It should match your system_domain. In this case the *wildcard is excluded* (e.g. domain.com).
 `--cert`: A path to a file with a PEM-encoded SSL certificate. Remember that the cert should be valid for whichever domain you specify in the --domain flag.
 `--key`: A path to a file with a PEM-encoded SSL key that corresponds to the cert provided in `--cert`.
 
-All together that's: `bbl create-lbs --type cf --domain some-domain.com --cert cert.pem --key key.pem`
+All together that's: `bbl create-lbs --type cf --domain domain.com --cert cert.pem --key key.pem`
 
-**NOTE:** If bbl fails to create your load balancer, run the command again with the `--debug` flag after `bbl` to see what's up.
+**NOTE:** If `bbl` fails to create your load balancer, run the command again with the `--debug` flag after `bbl` to see what's up.
 
 ### Expected Result
 Run `bbl lbs` to see load balancer details.
@@ -199,7 +199,7 @@ L: cf-deployment
 ---
 Update number of compilation workers in cloud-config
 ### What?
-GCP creates fresh projects with surprisingly low CPU quotas (and a long turn-around time on getting an increase). We generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project. 
+GCP creates fresh projects with surprisingly low CPU quotas. We generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project.
 
 A cloud-config is a YAML file that defines IaaS-specific configuration used by the BOSH Director and all of its deployments. It allows us to separate this configuration out into its own file and keep deployment manifests IaaS-agnostic (this wasn't always the case, btw).
 

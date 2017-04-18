@@ -26,6 +26,7 @@ Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product
 1. Take your time.
 1. Be conscious of your pair's progress. Check in frequently to make sure you're both getting the most out of the material.
 1. If something in a story is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding-week repo](https://github.com/pivotal-cf/onboarding-week/issues)**.
+1. Read every story completely. You'll feel very silly if you struggle for hours with a problem that turns out to have been addressed in plain English...in a story you didn't read.
 1. Seriously, take your time.
 - [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
 - [ ] For GCP track **only**: Log in to GCP IAAS dashboard. You should have received an invitation from your facilitator.
