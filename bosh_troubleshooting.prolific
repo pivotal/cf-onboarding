@@ -22,7 +22,7 @@ When a BOSH VM is healthy, it is listed with the status "running". Let's use **[
 
 ### How?
 1. Ensure you are still targeting your `cf` bosh deployment. If not, run `bosh deployment <path/to/your/manifest.yml>`
-1. From your bosh-bastion run `watch bosh vms`
+1. Run `watch bosh vms`
 1. In another buffer or tab, `bosh ssh` into one of your Diego cells
 1. Run `sudo -i` to run as root
 1. Run `monit summary` (need root access to do this)
@@ -31,7 +31,7 @@ When a BOSH VM is healthy, it is listed with the status "running". Let's use **[
 1. Run `monit start all`
 
 ### Expected Result
-The Diego job for the cell you SSHed to should be listed as `failing` as soon as you stop the Monit jobs. When you run `monit start all` it should return to the `running` state.
+The Diego job for the cell you SSHed to should be listed as `failing` as soon as you stop the Monit jobs. When you run `monit start all` it should return to the `running` state. The resurrector doesn't cull and recreate the failing VM because BOSH considers Monit "stop" to be a good/healthy state.
 
 ### Resources
 [BOSH CLI health commands](https://bosh.io/docs/sysadmin-commands.html#health)
@@ -72,11 +72,11 @@ L: bosh operator
 ---
 Update your BOSH deployment's properties (a.k.a. let's break some stuff)
 ### What?
-Each BOSH job can specify customizable properties in a **[spec file](http://bosh.io/docs/jobs.html#spec)**. Some will be required, others will have defaults. 
+Each BOSH job can specify customizable properties in a **[spec file](http://bosh.io/docs/jobs.html#spec)**. Some will be required, others will have defaults. We're going to fiddle with the values and see what happens.
 
 ### How?
-1. From your bosh-bastion, run `bosh releases --jobs`
-1. Select a job, your pick (Ooh, roulette. Let's get risky.)
+1. Run `bosh releases`
+1. Select a job, your pick. Ooh, roulette. Let's get risky. Or not. This is a good time to revisit the [diego-design-notes](https://github.com/cloudfoundry/diego-design-notes) if you'd like to be incisive about this.
 1. Find the spec file for the job on Github. A spec file resides at `some-release/jobs/some-job-name/spec`. For instance, the spec path of the cf-release haproxy job is `https://github.com/cloudfoundry/cf-release/blob/master/jobs/haproxy/spec`.
 1. Choose a spec property where you expect to be able to tell if the value changes. An example in haproxy might be `cc.allow_app_ssh_access` (read the property description in the spec to learn more). A more straight-forward option might be a port. Whatever it is, establish how you plan to test the change before implementing it.
 1. Update your Cloud Foundry manifest to reflect a change in that job's property. This will be under jobs: some-job-name: properties: some-property. If you don't see the property you're looking for it's because it has been left as its default value.
@@ -88,7 +88,7 @@ A few things could happen at this point. The deployment could run successfully (
 ### Resources
 [What is a BOSH spec file?](http://bosh.io/docs/jobs.html#spec)
 [Chaos Lemur](https://github.com/strepsirrhini-army/chaos-lemur)
-BOSH's Wikipedia entry is also pretty damn good, but it has parentheses in the URL and that's well past the limits of my Markdown skills at this hour of night
+BOSH's Wikipedia entry is also good, but it has parentheses in the URL and that's well past the limits of my Markdown skills at this hour of night
 L: bosh operator
 ---
 [RELEASE] BOSH Operator Troubleshooting ⇧
