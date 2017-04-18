@@ -1,15 +1,14 @@
-Destroy the CF environment
+Tear down your CF and Concourse deployments
 ### What?
-
-Do you have any idea [how much all this costs](https://cloud.google.com/products/calculator)?! We're definitely cleaning up after ourselves, and not just because other onboarding Pivots will be using this GCP Project after you.
+Do you have any idea **[how much all this costs](https://cloud.google.com/products/calculator)?!** Time to clean up after ourselves.
 
 ### How?
-
-Follow the [instructions at the end of the README you followed to deploy your Cloud Foundry](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/cloudfoundry/README.md#delete-resources).
+List BOSH deployments by running `bosh deployments`.
+Run `bosh delete-deployment <DEPLOYMENT-NAME>` for each of them.
 L: gcp
 ---
-Destroy the BOSH director and bosh-bastion
+Destroy the BOSH director
 ### How?
-
-Follow the [instructions at the end of the README you followed to deploy BOSH](https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/blob/master/docs/bosh/README.md#delete-resources).
+Run `bbl delete-lbs` to destroy your load balancer.
+Run `bbl destroy` to tear down your BOSH director. Bye, Felicia!
 L: gcp
