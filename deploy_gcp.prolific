@@ -10,7 +10,7 @@ There have been many ways to deploy BOSH over the years, but the latest, greates
 
 `bbl` stands up the BOSH Director (VM and persistent disk). The BOSH Director deploys and monitors Cloud Foundry VMs and processes. And Cloud Foundry is used to deploy and monitor applications and services in the form of containerized workloads.
 
-You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it and a few of its dependencies on your workstation. 
+You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it (and a few of its dependencies) on your workstation. 
 
 This isn't the most exciting first story, but all good things to those who wait, right?
 
@@ -22,7 +22,7 @@ Install or update the following dependencies on your local machine:
 * **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set. Some `bbl` commands can eek by with V1, but it only works in full with V2 (**[download](https://bosh.io/docs/cli-v2.html#install)**)
 * The **latest bbl Github release** (**[download](https://github.com/cloudfoundry/bosh-bootloader/releases/latest)**)
 
-**NOTE:** command line utilities have to be *executable files* in your [computer's $PATH](https://coolestguidesontheplanet.com/add-shell-path-osx/) to work as expected. Use `chmod +x` to make a file executable.
+**NOTE:** command line utilities have to be [executable files](http://www.macinstruct.com/node/415) in your [computer's $PATH](https://coolestguidesontheplanet.com/add-shell-path-osx/) to work as expected.
 
 ### Expected Result
 * Run `go version` => "go version go1.7 darwin/amd64" or above
@@ -45,7 +45,7 @@ L: bbl
 ---
 Install Google Cloud SDK
 ### What?
-You're going to deploy your BOSH Director to [Google Cloud Platform](https://cloud.google.com). Although AWS was historically PCF's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
+You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically Pivotal Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
 
 The `gcloud` CLI manages authentication, local configuration, developer workflow, and interactions with the Cloud Platform APIs. Download and install the [Google SDK](https://cloud.google.com/sdk) to get `gcloud`, as you'll need it to `bbl up`.
 
@@ -78,22 +78,28 @@ L: bbl
 ---
 Create a GCP service account
 ### What?
-We're going to create a **[service account](https://cloud.google.com/compute/docs/access/service-accounts)** using `gcloud`, which `bbl` can use to set up infrastructure on GCP. Service accounts authenticate applications running on your virtual machine instances to other Google Cloud Platform services, like APIs.
+We're going to create a **[service account](https://cloud.google.com/compute/docs/access/service-accounts)** with `gcloud`, which `bbl` can use to set up infrastructure on GCP. Service accounts authenticate applications running on your virtual machine instances to other Google Cloud Platform services, like APIs.
 
 ### How?
 Create a new directory in your workspace and `cd` into it. You're going to be generating a few files over the next couple stories and it'll be good to put them somewhere logical.
 
-Finally, run the following commands to create the service account, generate its key, and add an [IAM role](https://cloud.google.com/compute/docs/access/iam). Remember to replace "some-account-name" with a name of your choice and "PROJECT_ID" with your assigned project's name.
+Then, follow these steps to set up your GCP service account, replacing ACCOUNT_NAME with the name you just chose and PROJECT_ID with your assigned project's name:
+1. Run the following command to create a new GCP service account:
 ```
-gcloud iam service-accounts create some-account-name
+gcloud iam service-accounts create ACCOUNT_NAME
 ```
+1. Create a key for that account:
 ```
-gcloud iam service-accounts keys create "service-account.key.json" --iam-account "some-account-name@PROJECT_ID.iam.gserviceaccount.com"
+gcloud iam service-accounts keys create "service-account.key.json" --iam-account "ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com"
 ```
+1. Add the "editor" [IAM policy](https://cloud.google.com/compute/docs/access/iam) for your project to the service account:
 ```
-gcloud projects add-iam-policy-binding PROJECT_ID --member 'serviceAccount:some-account-name@PROJECT_ID.iam.gserviceaccount.com' --role 'roles/editor'
+gcloud projects add-iam-policy-binding PROJECT_ID --member 'serviceAccount:ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com' --role 'roles/editor'
 ```
+
 ### Expected Result
+You should now have a `service-account.key.json` in your workspace.
+
 Verify that the account is listed in your GCP dashboard under Menu > IAM & Admin > Service Accounts.
 
 ### Resources
@@ -146,22 +152,34 @@ L: bbl
 [RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
 L: bbl
 ---
+Register a domain name
+### What
+Now that you've done your victory dance, on to bigger and better things&mdash;like getting a domain name for your Cloud Foundry deployment.
+
+We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. UAA, for instance, is `login.your-domain.com`. Cloud Controller is `api.your-domain.com`.
+
+### How?
+Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
+
+### Expected Result
+Freenom says that you have successfully registered your domain. Should look something like this:
+
+![Freenom success](https://s3.amazonaws.com/prod.tracker2/resource/78649685/Screen%20Shot%202017-04-18%20at%203.16.42%20PM.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJEX3ET63U5T77TYA%2F20170418%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170418T192112Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=6bb77602dba4aa5dabb787a93c665ec85802ed90ae2117ed9a9dcf6fec600bf9)
+
+### Resources
+[What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
+L: cf-deployment
+---
 Generate a TLS cert
 ### What?
-Now that you've done your victory dance, on to bigger and better things. 
-
-In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so let's create one now.
+In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so we'll create one now.
 
 ### How?
 We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
 
-**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with your Cloud Foundry system domain, including a sub-domain wildcard (e.g. \*.domain.com).
-
-Now you're wondering, "And what is my CF system domain...?" **Ask your facilitator for help, it will depend on how they've planned the week.**
-
-Once you have the answer, run:
-
 `openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -nodes`
+
+**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
 
 ### Expected Result
 You should have two new files: key.pem and cert.pem.
@@ -169,6 +187,8 @@ You should have two new files: key.pem and cert.pem.
 ### Resources
 [Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
 [SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
+[How encryption works: SSL and TLS](http://computer.howstuffworks.com/encryption4.htm)
+[Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
 L: cf-deployment
 ---
 Use bbl to create a load-balancer
@@ -179,27 +199,46 @@ Use `bbl` + your newly generated TLS certificate to create a **[load balancer](h
 Run `bbl create-lbs` with the following parameters:
 
 `--type`: Tells bbl which set of load balancers to create. Possible values are concourse and cf (use cf).
-`--domain`: The domain that will resolve to your load balancer. It should match your system_domain. In this case the *wildcard is excluded* (e.g. domain.com).
-`--cert`: A path to a file with a PEM-encoded SSL certificate. Remember that the cert should be valid for whichever domain you specify in the --domain flag.
-`--key`: A path to a file with a PEM-encoded SSL key that corresponds to the cert provided in `--cert`.
+`--domain`: The domain that will resolve to your load balancer. It should match the domain that you registered on Freenom and the Common Name you entered when creating your TLS cert.
+`--cert`: A path to a file with a PEM-encoded TLS certificate (the cert.pem you created in the last story). Remember that the cert should be valid for whichever domain you specify in the --domain flag.
+`--key`: A path to a file with a PEM-encoded TLS key that corresponds to the cert provided in `--cert`.
 
-All together that's: `bbl create-lbs --type cf --domain domain.com --cert cert.pem --key key.pem`
+All together that's: `bbl create-lbs --type cf --domain some-domain.com --cert cert.pem --key key.pem`
 
-**NOTE:** If `bbl` fails to create your load balancer, run the command again with the `--debug` flag after `bbl` to see what's up.
+**NOTE:** If `bbl` fails to create your load balancer, run the command again with the `--debug` to see what's up.
 
 ### Expected Result
 Run `bbl lbs` to see load balancer details.
 
-Visit Menu > Networking > Cloud DNS and Menu > Networking > Load balancing to see what `bbl` generated on GCP.
+Visit Menu > Networking > Cloud DNS and Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
+
+Visit Menu > Networking > Cloud DNS and Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
 [Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
 [cf-deployment documentation](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md)
 L: cf-deployment
 ---
+Set domain nameservers
+### What
+A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
+
+### How
+Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`).
+
+### Expected Result
+Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
+
+Remember, propagation of the DNS changes may take a little while, so it might not work immediately.
+
+### Resources
+[What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
+[How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
+L: cf-deployment
+---
 Update number of compilation workers in cloud-config
 ### What?
-GCP creates fresh projects with surprisingly low CPU quotas. We generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project.
+GCP creates fresh projects with surprisingly low CPU quotas, which means we generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project. 
 
 A cloud-config is a YAML file that defines IaaS-specific configuration used by the BOSH Director and all of its deployments. It allows us to separate this configuration out into its own file and keep deployment manifests IaaS-agnostic (this wasn't always the case, btw).
 
@@ -218,8 +257,9 @@ Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml`.
 When you run `bosh -d cf deploy` a couple stories down, it doesn't fail with a reached CPU quota error.
 
 ### Resources
-[What is a cloud-config?](http://bosh.io/docs/cloud-config.html)
+[What is a cloud config?](http://bosh.io/docs/cloud-config.html)
 [What's the difference between > and >>?](http://askubuntu.com/questions/382793/whats-is-the-difference-between-and-in-shell-command)
+[YAML Validator](http://codebeautify.org/yaml-validator)
 L: cf-deployment
 ---
 Select a stemcell for your BOSH deployment
@@ -253,9 +293,9 @@ The [`cf-deployment` project](https://github.com/cloudfoundry/cf-deployment/blob
 ### How?
 Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/cloudfoundry.md#create-a-bosh-deployment-manifest) with the following adjustments: 
 
-1. Ignore the stemcell step, you'll use the one you uploaded a couple stories ago.
-1. Set system_domain in the `cf-deployment-vars.yml` to the sub-domain you used when creating your cert and creating your load balancer, leaving the wildcard `*.` off the front (e.g. some-domain.com)
-1. See the `-o operations/gcp.yml` part of the deploy command? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. Add `-o operations/scale-to-one-az.yml` to include a second ops file that will make your deploy less ridiculously large.
+1. Ignore the stemcell step, you'll use the one you uploaded in the last story.
+1. Set system_domain in the `cf-deployment-vars.yml` to the domain you used when creating your cert and creating your load balancer, leaving the wildcard `*.` off the front (e.g. your-domain.com)
+1. See the `-o operations/gcp.yml` that's part of the interpolate and deploy commands? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. To include a second ops file that will make your deployment less ridiculously large, add `-o operations/scale-to-one-az.yml` to both the interpolate and the deploy commands.
 
 ### Expected Result
 Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
@@ -291,18 +331,27 @@ L: cf-deployment
 ---
 Set up your cf target domain
 ### What?
-We're almost there. The final step is to target your newly deployed Cloud Foundry without having to buy a domain.
+We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
 ### How?
-There are two ways to do this:
-
-1. Ask your facilitator to create a nameserver entry using Route 53 on a shared CF AWS account. Propagation won't take that long and it Just Works™.
-1. Be Keaty's favorite person/set of people ever and achieve the same ends with [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) or [unbound](https://www.unbound.net/). Then clearly document how you did it.
+Run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`
 
 ### Expected Result
-`cf api api.YOUR_DOMAIN.com --skip-ssl-validation` works.
-
 `cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'uaa_scim_users_admin_password')
+
+### Troubleshooting
+* Do the domain names associated with your TLS cert, your load balancer, and your `cf-deployment-vars.yml` system_domain all match the domain you registered on Freenom?
+* Are the nameservers associated with your domain on Freenom the same as those associated with your load balancer? (run `bbl lbs` to check)
+* When you `dig` or `ping` your CC api endpoint, is the IP you hit what you expect it to be?
+* If you were redeploying, did you run the `bosh -n interpolate` step before running `bosh -d cf deploy`?
+
+### Resources
+[Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+L: cf-deployment
+---
+Party on, Garth
+## You just deployed Cloud Foundry
+![party](https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif)
 L: cf-deployment
 ---
 [RELEASE] Deploy CF with cf-deployment ⇧
