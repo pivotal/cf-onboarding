@@ -152,8 +152,7 @@ You can see this in the logs tagged with `CELL` and `API`
 
 When your application is down, in the `RTR` logs, you will see that HTTP requests will return a 502 Bad Gateway.
 
-Refer to the [dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora) to find other useful endpoints to experiment with.
-
+Refer to the **[dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora)** to find other useful endpoints to experiment with. It's good to know what common logs, warnings, and errors look like so you can recognize them in the wild.
 L: app-dev
 ---
 View a list of app events
@@ -200,7 +199,7 @@ Environment variables are the means by which the Cloud Foundry runtime communica
 1. `cf env dora`
 
 ### Expected Result
-The CLI will show the application's environment variables classified as System-Provided (i.e. `VCAP_APPLICATION`) and User Provided (`MYVAR`). Running and Stage variables are provided by operators that apply to all applications.
+The CLI will show the application's environment variables classified as System-Provided (i.e. `VCAP_APPLICATION`) and User Provided (`MYVAR`). Running and Staging variables are provided by operators that apply to all applications.
 
 ### Resources
 [Cloud Foundry Environment Variables](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html)
@@ -256,7 +255,7 @@ CF creates a route for your app when it is first pushed, but you can create addi
 ### Additional notes
 If you had created the new route using `cf create-route` without mapping it to the dora app, it would have existed un-mapped and the router would have returned 404 Not Found.
 
-Combinations of route and domain names must be unique. Even though you may not see a particular route listed in your space, that doesn't mean it's not taken by another application in a different org or space. 
+Combinations of route and domain names must be unique. Even though you may not see a particular route listed in your space, that doesn't mean it's available—it may be taken by another application in a different org or space.
 
 ### Resources
 [CF Routes and Domains](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html)
@@ -264,3 +263,4 @@ Combinations of route and domain names must be unique. Even though you may not s
 L: app-dev
 ---
 [RELEASE] App Development ⇧
+L: app-dev
