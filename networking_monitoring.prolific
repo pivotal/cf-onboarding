@@ -1,6 +1,6 @@
 View Application Security Groups
 ### What?
-Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers send outbound traffic. Because security groups define "allow" rules, their order of evaluation is unimportant when multiple application security groups apply to the same space, org, or deployment. Application containers use these rules to filter and log outbound network traffic.
+Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers send outbound traffic. Security groups define rules that allow traffic instead of omitting it. Their order of evaluation is unimportant when multiple application security groups apply to the same space, org, or deployment. Application containers use these rules to filter and log outbound network traffic.
 
 When applications begin staging, they need traffic rules permissive enough to allow them to pull resources from the network. After an application is running, the traffic rules can be more restrictive and secure. To distinguish between these two security requirements, administrators can define one security group for application _staging_, and another for _runtime_.
 
@@ -30,7 +30,7 @@ Because of the `all_open` (or `all_pcfdev`) security group any other group would
 [Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
 ["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://blog.pivotal.io/pivotal-cloud-foundry/products/taking-security-to-the-next-level-application-security-groups)
 ["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
-L: cloud foundry, security
+L: security
 ---
 Securing your network traffic
 ### What?
@@ -39,15 +39,14 @@ The `all_open` (or `all_pcfdev`) security group allows containers to access your
 Let's verify this access and secure it.
 
 ### How?
-1. `cf ssh` to an application's container
-1. Download the [nmap](https://nmap.org/) tool and make it executable, like so:
-`curl -L -O https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/nmap && chmod +x nmap`
+1. `cf ssh` to an application's container.
+1. Download the **[nmap](https://nmap.org/#intro)** tool and make it executable.
 1. Scan a section of the private network by running:
 `./nmap -v YOUR-IP/24`
-1.  Find a IP with an open HTTP port (80) and curl that IP address
-`curl -H "Host: spring-music.<YOUR-IP>.xip.io" http://<OPEN-IP>`
-1. As an admin, unbind `all_open` (or `all_pcfdev`) from the running security groups and restart your application
-1. Run the scan again and try to hit the same IP with the open HTTP port
+1.  Find a IP with an open HTTP port (80) and curl that IP address:
+`curl -H "Host: dora.<YOUR-IP>.xip.io" http://<OPEN-IP>`
+1. As an admin, unbind `all_open` (or `all_pcfdev`) from the running security groups and restart your application.
+1. Run the scan again and try to hit the same IP with the open HTTP port.
 
 ### Expected Result
 The initial scan and curl should succeed. After removing the security group and restarting your application curling the open port should fail.
@@ -59,6 +58,6 @@ Poke around to see what else you can and can't do without that Security Group. R
 [SecTools.Org: Top 125 Network Security Tools](http://sectools.org/)
 [TCP and UDP Ports Explained](https://www.bleepingcomputer.com/tutorials/tcp-and-udp-ports-explained/)
 [Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
-L: cloud foundry, security
+L: security
 ---
 [RELEASE] Networking and Monitoring ⇧

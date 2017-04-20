@@ -1,6 +1,6 @@
 Scale the number of Diego Cells
 ### What?
-With BOSH it is easy to scale deployments. All you need to do is modify the number of instances of that job in the deployment manifest and redeploy.
+With BOSH it is easy to scale deployments. All you need to do is modify the number of instances of that [job](https://bosh.io/docs/jobs.html) in the deployment manifest and redeploy.
 
 ### How?
 1. Edit the number of Diego Cell instances in the manifest
@@ -14,6 +14,7 @@ You should easily be able to scale the number of Diego Cells up or down. What ha
 [BOSH Deploying, a step-by-step walk through](http://bosh.io/docs/deploying-step-by-step.html)
 [BOSH Deployment Manifest docs](http://bosh.io/docs/deployment-manifest.html)
 [Creating a new BOSH VM](http://bosh.io/docs/bosh-components.html#create-vm)
+[YAML Validator](http://codebeautify.org/yaml-validator)
 L: bosh operator
 ---
 Trigger a failing BOSH job
@@ -21,7 +22,6 @@ Trigger a failing BOSH job
 When a BOSH VM is healthy, it is listed with the status "running". Let's use **[Monit](https://mmonit.com/monit/)** to trigger a state change.
 
 ### How?
-1. Ensure you are still targeting your `cf` bosh deployment. If not, run `bosh deployment <path/to/your/manifest.yml>`
 1. Run `watch bosh vms`
 1. In another buffer or tab, `bosh ssh` into one of your Diego cells
 1. Run `sudo -i` to run as root
@@ -31,7 +31,7 @@ When a BOSH VM is healthy, it is listed with the status "running". Let's use **[
 1. Run `monit start all`
 
 ### Expected Result
-The Diego job for the cell you SSHed to should be listed as `failing` as soon as you stop the Monit jobs. When you run `monit start all` it should return to the `running` state. The resurrector doesn't cull and recreate the failing VM because BOSH considers Monit "stop" to be a good/healthy state.
+The Diego job for the cell you SSHed to should be listed as `failing` as soon as you stop the Monit jobs. When you run `monit start all` it should return to the `running` state.
 
 ### Resources
 [BOSH CLI health commands](https://bosh.io/docs/sysadmin-commands.html#health)
@@ -87,6 +87,7 @@ A few things could happen at this point. The deployment could run successfully (
 
 ### Resources
 [What is a BOSH spec file?](http://bosh.io/docs/jobs.html#spec)
+[YAML Validator](http://codebeautify.org/yaml-validator)
 [Chaos Lemur](https://github.com/strepsirrhini-army/chaos-lemur)
 BOSH's Wikipedia entry is also good, but it has parentheses in the URL and that's well past the limits of my Markdown skills at this hour of night
 L: bosh operator

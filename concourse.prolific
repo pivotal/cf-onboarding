@@ -2,27 +2,52 @@ Deploy Concourse with BOSH
 ### What?
 Okay, the training wheels are coming **off**. This Concourse deployment is gonna be you + the same docs anyone else uses ("whhaaaaaat?" "I know, they grow up so fast!"). But first, a little preamble:
 
-Concourse is a Pivotal-sponsored, pipeline-based continuous integration (CI) system. The "pipelines" are a collection of [three core concepts (jobs, tasks, and resources)](http://concourse.ci/concepts.html) that you'll learn more about in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
+Concourse is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of [three core concepts (jobs, tasks, and resources)](http://concourse.ci/concepts.html) that you'll learn more about in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
 ### How?
-You already have a BOSH Director, a cloud-config, and at least one stemcell, so all that's left is to prepare your deployment manifest. You can follow **[these instructions](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md)** to set it up and BOSH deploy, with one medium-sized change: you need to deploy it without a load balancer (`bbl` only supports one load balancer at a time and we'd like to keep your CF up and connected).
+You already have a BOSH Director, a cloud-config, and at least one stemcell, so all that's left is to prepare your deployment manifest. You can follow **[these instructions](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md)** to set it up and BOSH deploy, but as per the yooj there are a few changes...
+1. `bbl` only supports one load balancer at a time so you'll have to delete your CF load balancer before continuing. Bye bye, CF!
+1. You'll need to create a new domain and TLS cert following the same instructions as you did when deploying Cloud Foundry.
 
-**NOTE:** if you hit an IP quota, go to Home > IAM & Admin > Quotas and click the ✏  button. This will take you to a form where you can request an increased quota. 
-
-**NOTE:** if this ends up being frustrating in a "please, please don't make me do another minute" kind of way, no sweat. Don't waste time on a story you're not getting anything out of, just _Choose Your Own Adventure_ your way out of it by **[spinning up a local VM with Vagrant](http://concourse.ci/vagrant.html)**. Either way, same result →
+### Troubleshooting
+1. Is your `tls_bind_port: 443` property nested within the `properties` section of the `atc` job?
+1. Did you remember to include `https://` in the domain provided under the `external_url` of the `atc` job?
+1. Are you visiting the `https://` address in your browser?
+1. If you hit an IP quota, go to Home > IAM & Admin > Quotas in your GCP dashboard and click the ✏  button. This will take you to a form where you can request an increased quota.
+1. If this ends up being frustrating in a "please, please don't make me do another minute" kind of way, no sweat. Don't waste time on a story you're not getting anything out of, just _Choose Your Own Adventure_ your way out of it by **[spinning up a local VM with Vagrant](http://concourse.ci/vagrant.html)**. Either way, same result →
 
 ### Expected Result
 ![Lonely Concourse, no pipelines](http://danoncoding.com/assets/images/concourse-simple-redux/no-pipelines.png)
 
 ### Resources
+[How to setup A, MX, CNAME or other records for a domain name on Freenom](https://my.freenom.com/knowledgebase.php?action=displayarticle&id=4)
 [Terraform + Google Cloud Platform docs](https://www.terraform.io/docs/providers/google/index.html)
-
 [Concourse Architecture Overview](https://concourse.ci/architecture.html)
 [All About Concourse for Continuous Integration (video)](https://blog.pivotal.io/pivotal-perspectives/features/all-about-concourse-for-continuous-integration)
 [BOSH 2.0: The Evolution - YouTube (video)](https://www.youtube.com/watch?v=Q5uvoL1OqSw)
+[YAML Validator](http://codebeautify.org/yaml-validator)
 
 ### Relevant Repos and Teams
 **Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
+L: concourse
+---
+Download and hook up your Concourse CLI
+### What?
+Now that you have Concourse deployed, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
+
+### How?
+1. Download the `fly` CLI from the "no pipelines configured" page.
+1. Move it to your computer's $PATH and make it executable.
+1. Run `fly login --help` for instructions to login to Concourse.
+
+### Expected Result
+You successfully enter your credentials and the CLI prints "target saved."
+
+### Resources
+[Fly login documentation](https://concourse.ci/fly-login.html)
+
+### Relevant Repos and Teams
+[concourse/fly](https://github.com/concourse/fly)
 L: concourse
 ---
 Create a pipeline with a single job
@@ -30,10 +55,10 @@ Create a pipeline with a single job
 Every great Concourse behemoth of the 21st century started in the same place as yours is about to: with an empty `pipeline.yml`. You can kick it off with as little as a single, manually-triggered job.
 
 ### How?
-1. Set up a `jobs:` section
-1. Define a job with a name and a [plan](http://concourse.ci/build-plans.html)
-1. Give the job a task that you define in the pipeline itself (this is good to know how to do to test new configurations quickly).
-1. "fly" your pipeline using the `fly` cli
+1. Set up a `jobs:` section.
+1. Define a **[job](https://concourse.ci/concepts.html#jobs)** with a name and a [plan](http://concourse.ci/build-plans.html).
+1. Give the job a task that you define inline, in the pipeline itself (this is good to know how to do to test new configurations quickly).
+1. "fly" your pipeline using the `fly` CLI.
 
 ### Expected Result
 A job that always goes green. How idyllic.
@@ -44,14 +69,14 @@ A job that always goes green. How idyllic.
 [Pipeline Mechanics](http://concourse.ci/pipeline-mechanics.html)
 L: concourse
 ---
-Add git resource to pipeline
+Add Git resource to pipeline
 ### What?
-A  [resource](http://concourse.ci/concepts.html#resources) is any entity that can be checked for new versions, pulled down at a specific version, and/or pushed up to idempotently create new versions. A few of the usual suspects are [listed here](http://concourse.ci/resource-types.html). They include a number of ideas that you're used to thinking of in terms of versioning (`git resource`, `git-release resource`, `tracker resource`, etc.), but also a few that you might not be, like `time`.
+A  **[resource](http://concourse.ci/concepts.html#resources)** is any entity that can be checked for new versions, pulled down at a specific version, and/or pushed up to idempotently create new versions. A few of the usual suspects are [listed here](http://concourse.ci/resource-types.html). They include a number of ideas that you're used to thinking of in terms of versioning (`git resource`, `git-release resource`, `tracker resource`, etc.), but also a few that you might not be, like `time`.
 
 The [`git resource`](https://github.com/concourse/git-resource) tracks the commits in a git repository and, though I have no numbers on this, I expect it's the most commonly used Concourse resource. And you can have one of your very own!
 
 ### How?
-Set up a `git resource` that fetches the repo you created to house your Concourse code. It will be useful to have access to this once we add tasks and a Dockerfile that you'll want to reference in your pipeline. Move your inline task to a yaml file and either a Bash or Ruby script in that repo.
+Create a repo to house your Concourse code (`pipeline.yml` etc.) and set up a [git resource](https://github.com/concourse/git-resource) that fetches it. It will be useful to have access to this once we add tasks and a Dockerfile that you'll want to reference in your pipeline. Move your inline task to a yaml file and either a Bash or Ruby script in that repo.
 
 ### Expected Result
 A one job, one resource pipeline that is always green.
@@ -63,17 +88,17 @@ L: concourse
 ---
 Add docker-image resource to pipeline
 ### What?
-Another popular Concourse resource is [`docker-image`](https://github.com/concourse/docker-image-resource). It's very useful for creating a reproducible environment for your tests and builds with all of the dependencies a growing pipeline needs to succeed.
+Another popular Concourse resource is the **[`docker-image` resource](https://github.com/concourse/docker-image-resource)**. It's useful for creating a reproducible environment for your tests and builds with all of the dependencies a growing pipeline needs to succeed.
 
 ### How?
-1. Create a simple Dockerfile
-1. Upload it to the DockerHub registry (if you do not have an account, create one at this point)
-1. Set up the `docker-image` resource to fetch it
-1. Build the image and use it to do something cool
+1. Write a simple Dockerfile.
+1. Upload it to the DockerHub registry (if you do not have an account, create one at this point).
+1. Set up the `docker-image` resource to fetch it.
+1. Build the image and use it to do something cool.
 
 ### Resources
 [Docker-image resource repo](https://github.com/concourse/docker-image-resource)
-[Docker Tutorial Series: writing a DockerFile](https://rominirani.com/docker-tutorial-series-writing-a-dockerfile-ce5746617cd)
+[Get Started with Docker](https://docs.docker.com/get-started/)
 - [ ] Create DockerFile
 L: concourse
 ---

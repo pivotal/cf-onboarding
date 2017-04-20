@@ -4,7 +4,7 @@ Do you have any idea **[how much all this costs](https://cloud.google.com/produc
 
 ### How?
 List BOSH deployments by running `bosh deployments`.
-Run `bosh delete-deployment <DEPLOYMENT-NAME>` for each of them.
+Run `bosh -d <DEPLOYMENT-NAME> delete-deployment` for each of them.
 L: gcp
 ---
 Destroy the BOSH director
