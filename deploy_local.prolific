@@ -44,9 +44,9 @@ L: core tools
 ---
 Install PCF Dev
 ### What?
-[PCF Dev](https://pivotal.io/pcf-dev) is a slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry to test your applications in the cloud.
+[PCF Dev](https://pivotal.io/pcf-dev) is a slimmed down Pivotal Cloud Foundry that is able to run on a developer machine. This is the quickest way to play with Cloud Foundry or test your applications for the cloud.
 
-#### How?
+### How?
 Download PCF Dev from **[Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). This zip file is not actually PCF Dev, but a script that installs the PCF Dev plugin for the cf cli. It only downloads the PCF Dev image from S3 when you first run `cf dev start`.
 
 Get further instructions **[here](https://github.com/pivotal-cf/pcfdev#install)** if you need help!
@@ -68,26 +68,4 @@ Successfully logged in to api.local.pcfdev.io as user.
 **Also PCF Dev:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 L: core tools
 ---
-Push a Spring app
-### What?
-Cloud Foundry applications are deployed by `cf push`-ing your code or some compiled artifact. When you push an app, you can optionally include an [application manifest.yml](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) that contains properties about your application's deployment.
-
-The appropriate [buildpack](https://docs.cloudfoundry.org/buildpacks/) will be selected for you by detect scripts and a 'droplet' will be produced that contains all your application dependencies. This droplet will be uploaded to the cells that run your application instances.
-
-### How?
-1. Run `git clone https://github.com/cloudfoundry-samples/spring-music.git`
-1. Navigate to `./spring-music`
-1. In the `manifest.yml`, delete the line `random-route: true`
-1. Set the disk quota to 1024M
-1. Set the number of instances to 2
-1. `cf push` your app
-
-### Expected Result
-`cf app spring-music` will print the app's status, including the URL. Visiting the URL in the browser should show you a list of albums.
-
-### Resources
-[Cf Buildpacks](https://docs.cloudfoundry.org/buildpacks/)
-[CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
-L: app-dev, cloud foundry
----
-[RELEASE] Set up local development environment and push app with PCF Dev ⇧
+[RELEASE] Set up local development environment with PCF Dev ⇧

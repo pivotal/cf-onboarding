@@ -5,7 +5,9 @@ Okay, the training wheels are coming **off**. This Concourse deployment is gonna
 Concourse is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of [three core concepts (jobs, tasks, and resources)](http://concourse.ci/concepts.html) that you'll learn more about in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
 ### How?
-You already have a BOSH Director, a cloud-config, and at least one stemcell, so all that's left is to prepare your deployment manifest. You can follow **[these instructions](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md)** to set it up and BOSH deploy, but as per the yooj there are a few changes...
+If you've been doing the Local Development track, spin up a local Concourse VM with Vagrant **[by following these instructions](http://concourse.ci/vagrant.html)**.
+
+If you're been doing the GCP Development track then you already have a BOSH Director, a cloud-config, and at least one stemcell, so to spin up a full Concourse deployment all you have to do is prepare your deployent manifest. You can follow **[these instructions](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md)** to set it up and BOSH deploy, but as per the yooj there are a few changes...
 1. `bbl` only supports one load balancer at a time so you'll have to delete your CF load balancer before continuing. Bye bye, CF!
 1. You'll need to create a new domain and TLS cert following the same instructions as you did when deploying Cloud Foundry.
 
