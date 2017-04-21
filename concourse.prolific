@@ -15,6 +15,7 @@ If you're been doing the GCP Development track then you already have a BOSH Dire
 1. Is your `tls_bind_port: 443` property nested within the `properties` section of the `atc` job?
 1. Did you remember to include `https://` in the domain provided under the `external_url` of the `atc` job?
 1. Are you visiting the `https://` address in your browser?
+1. Try `bosh ssh`ing into your web VM and curling localhost. It should return the html for your pipeline-less Concourse webpage. If it does, then your problem is with routing/DNS, not with Concourse itself.
 1. If you hit an IP quota, go to Home > IAM & Admin > Quotas in your GCP dashboard and click the ✏  button. This will take you to a form where you can request an increased quota.
 1. If this ends up being frustrating in a "please, please don't make me do another minute" kind of way, no sweat. Don't waste time on a story you're not getting anything out of, just _Choose Your Own Adventure_ your way out of it by **[spinning up a local VM with Vagrant](http://concourse.ci/vagrant.html)**. Either way, same result →
 

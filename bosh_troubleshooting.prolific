@@ -17,6 +17,25 @@ You should easily be able to scale the number of Diego Cells up or down. What ha
 [YAML Validator](http://codebeautify.org/yaml-validator)
 L: bosh operator
 ---
+SSH into a running BOSH job
+### What?
+To SSH into a BOSH job, you need to use your BOSH Director as a gateway host (like a proxy).
+
+### How?
+Set up your gateway host by passing a few flags into your `bosh ssh` command or by setting environment variables.
+* `--gw-user=` or $BOSH_GW_USER should be set to `vcap`.
+* `--gw-host=` or $BOSH_GW_HOST should be set to your BOSH Director's IP address.
+* `--gw-private-key=` or $BOSH_GW_PRIVATE_KEY is a little more complicated. You'll need to print your BOSH ssh key into a file by running `bbl ssh-key > bosh.pem` and using the path of that file as the environment variable or argument value.
+
+To remember the required commands/environmental variable names you can run `bosh ssh --help`.
+
+### Expected Result
+Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
+
+### Resources
+[What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
+L: bosh operator
+---
 Trigger a failing BOSH job
 ### What?
 When a BOSH VM is healthy, it is listed with the status "running". Let's use **[Monit](https://mmonit.com/monit/)** to trigger a state change.
