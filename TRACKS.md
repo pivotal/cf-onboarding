@@ -1,4 +1,5 @@
-CF Onboarding Week contains two separate tracks: GCP and Local. The biggest difference is how you deploy your Cloud Foundry / Concourse environments, other than that they share many of the same stories. Choose the track that makes sense for your Onboarders based on the following differences:
+## CF Onboarding Week contains two separate tracks: GCP and Local
+The biggest difference is how you deploy your Cloud Foundry / Concourse environments, other than that they share many of the same stories. Choose the track that makes sense for your Onboarders based on the following differences:
 
 **GCP Development**
 *Ideal for Pivots whose jobs include BOSH / CF / Concourse deploys and troubleshooting*
