@@ -163,7 +163,7 @@ Register a domain name for free with **[Freenom](http://www.freenom.com/en/index
 ### Expected Result
 Freenom says that you have successfully registered your domain. Should look something like this:
 
-![Freenom success](https://s3.amazonaws.com/prod.tracker2/resource/78649685/Screen%20Shot%202017-04-18%20at%203.16.42%20PM.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJEX3ET63U5T77TYA%2F20170418%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170418T192112Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=6bb77602dba4aa5dabb787a93c665ec85802ed90ae2117ed9a9dcf6fec600bf9)
+![Imgur](http://i.imgur.com/E3WnV24.png)
 
 ### Resources
 [What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
@@ -295,7 +295,7 @@ Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)*
 
 1. Ignore the stemcell step, you'll use the one you uploaded in the last story.
 1. Set system_domain in the `cf-deployment-vars.yml` to the domain you used when creating your cert and creating your load balancer (e.g. your-domain.com).
-1. See the `-o operations/gcp.yml` that's part of the interpolate and deploy commands? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. To include a second ops file that will make your deployment less ridiculously large, add `-o operations/scale-to-one-az.yml` to both the interpolate and the deploy commands.
+1. See the `-o operations/gcp.yml` that's part of the interpolate and deploy commands? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. To include a second ops file that will make your deployment less ridiculously large, add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
 
 ### Expected Result
 Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
