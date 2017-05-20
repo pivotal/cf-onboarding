@@ -83,7 +83,7 @@ We're going to create a **[service account](https://cloud.google.com/compute/doc
 ### How?
 Create a new directory in your workspace and `cd` into it. You're going to be generating a few files over the next couple stories and it'll be good to put them somewhere logical.
 
-Then, follow these steps to set up your GCP service account, replacing ACCOUNT_NAME with the name you just chose and PROJECT_ID with your assigned project's name:
+Then, follow these steps to set up your GCP service account, replacing ACCOUNT_NAME with a name of your choice and PROJECT_ID with your assigned project's name:
 1. Run the following command to create a new GCP service account:
 ```
 gcloud iam service-accounts create ACCOUNT_NAME
@@ -237,9 +237,9 @@ L: cf-deployment
 ---
 Update number of compilation workers in cloud-config
 ### What?
-GCP creates fresh projects with surprisingly low CPU quotas, which means we generally have to reduce the number of [compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) in our **[cloud config](http://bosh.io/docs/cloud-config.html)** if we want to deploy CF on a fresh project. 
+GCP creates fresh projects with surprisingly low CPU quotas, which means we generally have to reduce the number of machines we use if we want to deploy CF on a fresh project. [Compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) temporarily increase your CPU usage beyond what will ultimately be needed by CF once it's up and running, so since we have flexibility on how many we need this is where we have wiggle room to slip in under the barebones quota.
 
-A cloud-config is a YAML file that defines IaaS-specific configuration used by the BOSH Director and all of its deployments. It allows us to separate this configuration out into its own file and keep deployment manifests IaaS-agnostic.
+To do this, we edit our **[cloud config](http://bosh.io/docs/cloud-config.html)**, a YAML file that defines the IaaS-specific configuration used by the BOSH Director and all of its deployments. It allows us to separate this configuration out into its own file and keep deployment manifests IaaS-agnostic.
 
 To deploy Cloud Foundry you'll be taking advantage of the [cloud config](http://bosh.io/docs/cloud-config.html) that `bbl` generated for you during `bbl up`.
 
@@ -248,7 +248,7 @@ Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you hav
 
 Run `bosh cloud-config > cloud-config.yml`
 
-Then, open the new `cloud-config.yml` file in an editor. If you have a 24 CPU quota, reduce the number of compilation machines; if you have something way higher leave it alone.
+Then, open the new `cloud-config.yml` file in an editor. If you have a 24 CPU quota on GCP, reduce the number of compilation machines to two; if you have something way higher than 24 CPU leave it alone.
 
 Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml`.
 
