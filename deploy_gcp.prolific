@@ -176,12 +176,17 @@ In the next story, we're going to use `bbl` to create a load balancer for our so
 ### How?
 We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
 
-`openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -nodes`
+To do this, run `openssl req` with a few arguments:
+
+* `-x509`outputs a x509 structure, a standard that defines the format of public key certificates.
+* `-newkey rsa:2048`generates a new RSA key of 2048 bits in size.
+* `-keyout` and `-out` arguments set output file paths.
+* The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM pass phrase.
 
 **Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
 
 ### Expected Result
-You should have two new files: key.pem and cert.pem.
+You should have two new .pem files, one containing your private key and one containing your cert.
 
 ### Resources
 [Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
