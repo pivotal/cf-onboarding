@@ -17,13 +17,15 @@ To provide granular control when securing a deployment, an administrator can als
 `cf security-group $group_name`
 
 #### Expected Result
-If you've deployed a full Cloud Foundry on GCP you should have only one security group, applied to both staging and running apps: `all_open`.
+If you've deployed a full Cloud Foundry on GCP you should have only two security groups, applied to both staging and running apps: `public_networks` and `dns`.
 
 If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev`.
 
-For either circumstance if you run `cf security-groups <SECURITY-GROUP NAME>` you'll see that they do exactly what it sounds like they do&mdash;leave everything open by allowing containers to access all IPs on any port.
+For either circumstance if you run `cf security-groups <SECURITY-GROUP NAME>` you'll see that `public_networks` and `all_pcfdev` do what it sounds like they do&mdash;leave everything open by allowing containers to access all IPs on any port.
 
 Because of the `all_open` (or `all_pcfdev`) security group any other group would be redundant.
+
+The `dns` security group makes it easy to block access to `public_networks` (i.e. the internet at large) without breaking hostname resolution by separating out this more innocuous function; `dns` allows access to literally any ip, but only on port 53.
 
 ### Resources
 [Application Security Groups Documentation](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html)
