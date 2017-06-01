@@ -8,7 +8,8 @@ Let's create one backed by [RedisLabs](https://redislabs.com/).
 
 ### How?
 1. Create an account with [RedisLabs](https://redislabs.com/) and generate a New Redis Subscription (select the free 30MB option).
-1. Run `cf cups redis -p "host, port, username, password"` and it will prompt you for those attributes. Fill them with the endpoint and port RedisLabs provides, and the email and password you used when creating your RedisLabs account.
+1. As part of setting up that Redis database, set the password (by default there is no password).
+1. Run `cf cups redis -p "host, port, password"` and it will prompt you for those attributes. Fill them with the endpoint and port RedisLabs provides, and the password you used when setting up your database.
 
 ### Expected Result
 I can see my new user-provided service in `cf services`.
