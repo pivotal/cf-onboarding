@@ -3,3 +3,6 @@ People have participated in Onboarding Week as early as their first week and as 
 
 ## What's up with Google Cloud Compute quotas?
 If I knew, I promise I'd tell you. Resources are allocated in an inscrutably arbitrary fashion, such that some Onboarders will hit many quota walls while others have no problems at all. You have the option of requesting quota increases for all GCP accounts before allocating them to pairs, but since it is a problem they're likely to hit in the wild, I tend to let them troubleshoot it themselves.
+
+## Should I push my bbl-state.json to Github and expose my credentials?
+No, please don't. This mistake costs the company a lot of money.
