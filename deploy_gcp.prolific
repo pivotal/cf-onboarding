@@ -125,6 +125,8 @@ Run `bbl up --gcp-zone us-east1-b --gcp-region us-east1 --gcp-service-account-ke
 ### Expected Results
 If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director!
 
+**Financially important:** Please do not expose your GCP credentials by pushing bbl-state.json to Github. You'd be surprised how quickly malicious VMs appear in your project. This costs the company beaucoup moolah.
+
 ### Resources
 [Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 L: bbl
