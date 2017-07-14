@@ -1,8 +1,8 @@
 View Application Security Groups
 ### What?
-Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers send outbound traffic. Security groups define rules that allow traffic instead of omitting it. Their order of evaluation is unimportant when multiple application security groups apply to the same space, org, or deployment. Application containers use these rules to filter and log outbound network traffic.
+Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers can send traffic. Security groups define rules that *allow* traffic instead of omitting it, which means that the order of evaluation for security groups that apply to the same space, org, or deployment is unimportant. Application containers use these rules to filter and log outbound network traffic.
 
-When applications begin staging, they need traffic rules permissive enough to allow them to pull resources from the network. After an application is running, the traffic rules can be more restrictive and secure. To distinguish between these two security requirements, administrators can define one security group for application _staging_, and another for _runtime_.
+When applications begin staging, they need traffic rules permissive enough to allow them to pull resources from the network. After an application is running, the traffic rules can be more restrictive and secure. To distinguish between these two security requirements, administrators can define different security groups for *staging* containers versus *runtime* containers.
 
 To provide granular control when securing a deployment, an administrator can also assign security groups to apply across a CF deployment, or to specific spaces or orgs within a deployment.
 
@@ -17,15 +17,11 @@ To provide granular control when securing a deployment, an administrator can als
 `cf security-group $group_name`
 
 #### Expected Result
-If you've deployed a full Cloud Foundry on GCP you should have only two security groups, applied to both staging and running apps: `public_networks` and `dns`.
+If you've deployed a full Cloud Foundry on GCP you should have two security groups applied to both staging and running apps: `public_networks` and `dns`.
 
-If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev`.
+If you run `cf security-group public_networks` you'll see that it allows traffic on all ports with all protocols on all IPs, save four gaps that correspond to [private IPv4 address spaces](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_address_spaces) and the [APIPA reserved range](https://www.pctechbytes.com/networking/fix-169-254-address-problem/). The `dns` security group allows access to any IP, but only on [port 53](https://en.wikipedia.org/wiki/Domain_Name_System#Protocol_transport). The combination of the two groups is that private IPs can be accessed only on port 53, and all other IPs have all ports open.
 
-For either circumstance if you run `cf security-groups <SECURITY-GROUP NAME>` you'll see that `public_networks` and `all_pcfdev` do what it sounds like they do&mdash;leave everything open by allowing containers to access all IPs on any port.
-
-Because of the `all_open` (or `all_pcfdev`) security group any other group would be redundant.
-
-The `dns` security group makes it easy to block access to `public_networks` (i.e. the internet at large) without breaking hostname resolution by separating out this more innocuous function; `dns` allows access to literally any ip, but only on port 53.
+(If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev` and opens all egress traffic. Because of the `all_pcfdev` security group any other group would be redundant.)
 
 ### Resources
 [Application Security Groups Documentation](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html)
@@ -36,18 +32,18 @@ L: security
 ---
 Securing your network traffic
 ### What?
-The `all_open` (or `all_pcfdev`) security group allows containers to access your CF deployment's private network.  A malicious user could access internal systems that would not normally be exposed to the public internet. Thus, in a production environment you wouldn't have such a security group.
+The `public_networks` (or `all_pcfdev`) security group allows broad access to your CF deployment's network.  A malicious user could likely access internal systems that would not normally be exposed to the public internet. Thus, in a production environment you wouldn't have such open security groups.
 
 Let's verify this access and secure it.
 
 ### How?
 1. `cf ssh` to an application's container.
-1. Download the **[nmap](https://nmap.org/#intro)** tool and make it executable.
+1. Download the **[nmap](https://nmap.org/download.html)** tool (the .tar.bz2 is your best bet, as you can run it as an executable file without requiring root priviledges to install it).
 1. Scan a section of the private network by running:
 `./nmap -v YOUR-IP/24`
 1.  Find a IP with an open HTTP port (80) and curl that IP address:
 `curl -H "Host: dora.<YOUR-IP>.xip.io" http://<OPEN-IP>`
-1. As an admin, unbind `all_open` (or `all_pcfdev`) from the running security groups and restart your application.
+1. As an admin, unbind `public_networks` (or `all_pcfdev`) from the running security groups and restart your application.
 1. Run the scan again and try to hit the same IP with the open HTTP port.
 
 ### Expected Result
