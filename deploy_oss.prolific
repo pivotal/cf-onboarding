@@ -350,7 +350,7 @@ We're almost there. The final step is to target your newly deployed Cloud Foundr
 Run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`
 
 ### Expected Result
-`cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'uaa_scim_users_admin_password')
+`cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'cf_admin_password')
 
 ### Troubleshooting
 * Do the domain names associated with your TLS cert, your load balancer, and your `cf-deployment-vars.yml` system_domain all match the domain you registered on Freenom?
