@@ -20,7 +20,7 @@ If you're been doing the GCP Development track then you already have a BOSH Dire
 1. If this ends up being frustrating in a "please, please don't make me do another minute" kind of way, no sweat. Don't waste time on a story you're not getting anything out of, just _Choose Your Own Adventure_ your way out of it by **[spinning up a local VM with Vagrant](http://concourse.ci/vagrant.html)**. Either way, same result →
 
 ### Expected Result
-![Lonely Concourse, no pipelines](http://danoncoding.com/assets/images/concourse-simple-redux/no-pipelines.png)
+![Lonely Concourse, no pipelines](http://engineering.pivotal.io/images/concourse-000/no_pipelines.png)
 
 ### Resources
 [How to setup A, MX, CNAME or other records for a domain name on Freenom](https://my.freenom.com/knowledgebase.php?action=displayarticle&id=4)
