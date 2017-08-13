@@ -23,7 +23,7 @@ To SSH into a BOSH job, you need to use your BOSH Director as a gateway host (li
 
 ### How?
 Set up your gateway host by passing a few flags into your `bosh ssh` command or by setting environment variables.
-* `--gw-user=` or $BOSH_GW_USER should be set to `vcap`.
+* `--gw-user=` or $BOSH_GW_USER should be set to `jumpbox`.
 * `--gw-host=` or $BOSH_GW_HOST should be set to your BOSH Director's IP address.
 * `--gw-private-key=` or $BOSH_GW_PRIVATE_KEY is a little more complicated. You'll need to print your BOSH ssh key into a file by running `bbl ssh-key > bosh.pem` and using the path of that file as the environment variable or argument value.
 
@@ -65,11 +65,10 @@ The Resurrector is a plugin to the BOSH Health Monitor that is responsible for a
 * create a new VM if the old VM is missing
 * replace a VM if the Agent on that VM is not responding to commands
 
-You've already enabled this plugin in your deployment manifest, but you can improve your feedback loop time for this story by updating the resurrector's `time_threshold` property in the manifest and re-deploying.
 
 ### How?
 1. Run `watch bosh vms` so you can keep an eye on the effect you're having on VM state.
-1. Open a second terminal buffer and `cf ssh` into one of the Diego cells.
+1. Open a second terminal buffer and `bosh ssh` into one of the Diego cells.
 
 Killing off a BOSH agent is a little harder than it looks. This is a great thing for CF operators, but less of a good thing when creating exercises to learn about the system. For instance, try killing off an agent process:
 
@@ -86,7 +85,7 @@ Watch the process choke, the VM fail, and the resurrector bring it back!
 
 ### Resources
 [Configuring Health Monitor](https://bosh.io/docs/hm-config.html)
-[BOSH Disaster Recovery](http://bosh.io/docs/disaster-recovery.html)
+[BOSH Resurrector](http://bosh.io/docs/resurrector.html)
 L: bosh operator
 ---
 Update your BOSH deployment's properties (a.k.a. let's break some stuff)
