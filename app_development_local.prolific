@@ -138,6 +138,9 @@ By omitting the `--recent` from your `cf logs dora` command, Loggregator will st
 1. In another terminal tab or buffer, run `watch cf app dora`
 1. Keep an eye on both, and visit the dora endpoint `http://dora.local.pcfdev.io/sigterm/KILL` in your browser
 
+### Troubleshooting
+If you get an error saying that `watch` is not installed on your computer, install it with brew by running `brew install watch`. If you are on a Mac and don't have brew either...I'm confused.
+
 ### Expected Result
 Cloud Foundry applications are monitored with a constant health check that ensures they are listening on a specific port. When your application stops listening it will be automatically restarted. You can see this in the logs tagged with `CELL` and `API`. If you try to access your app while it is down, the logs will include `RTR` HTTP requests that return a 502 Bad Gateway error.
 
