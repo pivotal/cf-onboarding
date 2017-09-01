@@ -14,8 +14,8 @@ The [jwt.io](https://jwt.io/) site will say the token is invalid, but ignore tha
 Are the contents what you expected? What does the header mean? What do you think each of the keys does? (Hint: the links immediately below might help answer that).
 
 ### Resources
-[A Note on UAA Tokens](https://github.com/cloudfoundry/uaa/blob/master/docs/UAA-Tokens.md)
-[OpenID Connect: validating an ID token](https://developers.google.com/identity/protocols/OpenIDConnect#validatinganidtoken)
+[Docs: A Note on UAA Tokens](https://github.com/cloudfoundry/uaa/blob/master/docs/UAA-Tokens.md)
+[Docs: Validating an ID token](https://developers.google.com/identity/protocols/OpenIDConnect#validatinganidtoken)
 
 ### Relevant Repos and Teams
 **UAA:** [cloudfoundry/uaa](https://github.com/cloudfoundry/uaa)
@@ -35,9 +35,9 @@ Following **[these instructions](https://docs.cloudfoundry.org/adminguide/uaa-us
 Potentially a new UAA user. Potentially an inability to use uaac due to an invalid token.
 
 ### Resources
-[Creating and Managing Users with the UAA CLI (UAAC)](https://docs.cloudfoundry.org/adminguide/uaa-user-management.html)
-[UAA SysAdmin Guide](https://github.com/cloudfoundry/uaa/blob/master/docs/Sysadmin-Guide.rst)
-["Introducing the UAA and Security for Cloud Foundry" (written in '12)](https://blog.pivotal.io/pivotal-cloud-foundry/products/introducing-the-uaa-and-security-for-cloud-foundry)
+[Docs: Creating and Managing Users with the UAA CLI (UAAC)](https://docs.cloudfoundry.org/adminguide/uaa-user-management.html)
+[Docs: UAA SysAdmin Guide](https://github.com/cloudfoundry/uaa/blob/master/docs/Sysadmin-Guide.rst)
+[Blog post: Introducing the UAA and Security for Cloud Foundry](https://blog.pivotal.io/pivotal-cloud-foundry/products/introducing-the-uaa-and-security-for-cloud-foundry) (written in '12)
 
 ### Relevant Repos and Teams
 **UAA:** [cloudfoundry/cf-uaac](https://github.com/cloudfoundry/cf-uaac)
