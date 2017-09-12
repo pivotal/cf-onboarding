@@ -19,17 +19,17 @@ Install or update the following dependencies on your local machine:
 * **Golang** (run `brew install go`)
 * **Terraform** is a tool for building, changing, and versioning infrastructure safely and efficiently (run `brew install terraform`)
 
-The following dependencies can be installed through the Cloud Foundry [homebrew tap]:(https://github.com/cloudfoundry/homebrew-tap)
-* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew install bosh-cli --without-bosh2`)
+The following dependencies can be installed through the Cloud Foundry [homebrew tap](https://github.com/cloudfoundry/homebrew-tap)
+* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew install bosh-cli`)
 * **bbl** is a tool for paving infrastructure in your desired IAAS as well as deploying a BOSH director (run `brew install bbl`)
 * **cf cli** is a tool for interacting with a Cloud Foundry deployment (run `brew install cf-cli`)
 
 ### Expected Result
-* Run `go version` => "go version go1.8 darwin/amd64" or above
-* `terraform --version` => "Terraform v0.9.6" or above
-* `bosh -v` => "version 2.0.22-...." or above
-* `bbl version` => "bbl 3.2.0 (darwin/amd64)" or above
-* `cf version` => "cf version 6.26.0+9c9a261fd.2017-04-06" or above
+* Run `go version` => "go version go1.9 darwin/amd64" or above
+* `terraform --version` => "Terraform v0.10.2" or above
+* `bosh -v` => "version 2.0.33-...." or above
+* `bbl version` => "bbl 4.2.2 (darwin/amd64)" or above
+* `cf version` => "cf version 6.29.2+...." or above
 
 ### Resources
 [BOSH.io](http://bosh.io/)
@@ -119,14 +119,14 @@ Make sure you're in the directory that you created in the last step, with the `s
 
 Run `bbl up --gcp-zone us-east1-b --gcp-region us-east1 --gcp-service-account-key service-account.key.json --iaas gcp --gcp-project-id PROJECT_ID`
 
-...and...*<<drumroll, please>>*...it fails. Sad panda. But the error is straightforward, so follow its instructions to fix the problem.
+...and...*<<drumroll, please>>*...it might fail. Sad panda. But if it does, the error is straightforward, so follow its instructions to fix the problem.
 
 **Pro-tip:** if you're using iTerm, hold down the command-⌘ key and click on the link to open it directly from the prompt.
 
 ### Expected Results
-If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director!
+If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a `bbl-state.json`in the current working directory. This file is very important as it contains credentials and other metadata related to your BOSH director and infrastructure.
 
-**Financially important:** Please do not expose your GCP credentials by pushing bbl-state.json to Github. You'd be surprised how quickly malicious VMs appear in your project. This costs the company beaucoup moolah.
+**Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
 ### Resources
 [Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
@@ -188,13 +188,15 @@ To do this, run `openssl req` with a few arguments:
 
 * `-x509`outputs a x509 structure, a standard that defines the format of public key certificates.
 * `-newkey rsa:2048`generates a new RSA key of 2048 bits in size.
-* `-keyout` and `-out` arguments set output file paths.
+* `-keyout` and `-out` arguments set output file paths (I generally use `key.pem` and `cert.pem`, respectively)
 * The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM passphrase.
 
 **Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
 
 ### Expected Result
-You should have two new .pem files, one containing your private key and one containing your cert.
+You should have two new `.pem` files, one containing your private key and one containing your cert.
+
+When you run `openssl x509 -noout -subject -in cert.pem` the information returned matches what you entered.
 
 ### Resources
 [Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
@@ -236,7 +238,7 @@ Set domain nameservers
 A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
 
 ### How
-Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`).
+Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`). Remember to select the "Use custom nameservers (enter below)" radio button!
 
 ### Expected Result
 Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
@@ -302,12 +304,12 @@ Deploy CF using BOSH + cf-deployment
 ### What?
 [Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is another bleeding edge technology you'll be using during your CF adventure. It's not quite ready for use in production environments, but it's the future so it makes more sense to learn about this than about something that's about to be deprecated.
 
-### How?
-Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/cloudfoundry.md#create-a-bosh-deployment-manifest) with the following adjustments: 
+The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html).
 
-1. Ignore the stemcell step, you'll use the one you uploaded in the last story.
-1. Set system_domain in the `cf-deployment-vars.yml` to the domain you used when creating your cert and creating your load balancer (e.g. your-domain.com).
-1. See the `-o operations/gcp.yml` that's part of the interpolate and deploy commands? That's an operations file and it augments the core `cf-deployment.yml` manifest you're passing in. You can have multiple ops files. To include a second ops file that will make your deployment less ridiculously large, add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
+### How?
+Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md#2-deploying-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
+
+Add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
 
 ### Expected Result
 Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
@@ -329,6 +331,7 @@ Some good videos:
 * [Pivotal Cloud Foundry Overview with Onsi Fakhouri](https://www.youtube.com/watch?v=7APZD0me1nU)
 * [CF Container to Container Networking with Jay Dunkelberger](https://docs.google.com/file/d/0B9Srlx6zCCQtdXVjSG5JZklUYmc/view)
 * [Diego Runtime Overview with Eric Malm](https://www.youtube.com/watch?v=iv5EpheLLh0)
+* [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
 
 And some basic tutorials, specific to topics you might be wondering about right now:
 * [Basic Bash scripting tutorial](http://ryanstutorials.net/bash-scripting-tutorial/)
