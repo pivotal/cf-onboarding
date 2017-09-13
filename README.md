@@ -1,6 +1,6 @@
 # CF Onboarding
 ## Onboarding Tracker: Local
-Onboarding Tracker Local is a hands-on tour of some of the systems you'll be working on / with during your time as a CF Pivot. It's good solo-able material, and good preparation for the paired Onboarding Week.
+Onboarding Tracker Local is a hands-on tour of some of the systems you'll be working on / with during your time as a CF Pivot. It's good solo-able material, and good preparation for the paired [Onboarding Week](https://github.com/pivotal-cf/onboarding#onboarding-tracker-oss-aka-onboarding-week).
 
 Whether you are Engineering, Product, Design, Docs, or one of dozens of other roles that make our engine run and you're curious about the essentials of the CF or Concourse user experience, then this backlog is for you.
 
