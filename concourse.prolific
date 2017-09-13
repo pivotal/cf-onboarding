@@ -93,7 +93,7 @@ Another popular Concourse resource is the **[`docker-image` resource](https://gi
 1. Write a simple Dockerfile.
 1. Upload it to the DockerHub registry (if you do not have an account, create one at this point).
 1. Set up the `docker-image` resource to fetch it.
-1. Build the image and use it to do something cool.
+1. Use it as the [image resource](http://concourse.ci/single-page.html#image_resource) in your task.
 
 ### Resources
 [Docker-image resource repo](https://github.com/concourse/docker-image-resource)
