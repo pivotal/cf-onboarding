@@ -263,9 +263,9 @@ Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you hav
 
 Run `bosh cloud-config > cloud-config.yml`
 
-Then, open the new `cloud-config.yml` file in an editor. If you have a 24 CPU quota on GCP, reduce the number of compilation machines to two; if you have something way higher than 24 CPU leave it alone.
+Then, open the new `cloud-config.yml` file in an editor and locate `compilation: workers:`. If you have a 24 CPU quota on GCP, reduce the number of compilation machines to two; if you have something way higher than 24 CPU leave it alone.
 
-Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml`.
+Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml` to apply your changes.
 
 ### Expected Result
 When you run `bosh -d cf deploy` a couple stories down, it doesn't fail with a reached CPU quota error.
