@@ -24,8 +24,8 @@ To SSH into a BOSH job, you need to use your BOSH Director as a gateway host (li
 ### How?
 Set up your gateway host by passing a few flags into your `bosh ssh` command or by setting environment variables.
 * `--gw-user=` or $BOSH_GW_USER should be set to `jumpbox`.
-* `--gw-host=` or $BOSH_GW_HOST should be set to your BOSH Director's IP address.
-* `--gw-private-key=` or $BOSH_GW_PRIVATE_KEY is a little more complicated. You'll need to print your BOSH ssh key into a file by running `bbl ssh-key > bosh.pem` and using the path of that file as the environment variable or argument value.
+* `--gw-host=` or $BOSH_GW_HOST should be set to your Bosh Director's IP address.
+* `--gw-private-key=` or $BOSH_GW_PRIVATE_KEY is a little more complicated. You'll need to print your Bosh SSH key into a file by running `bbl ssh-key > bosh.pem` and using the path of that file as the environment variable or argument value (you may have to adjust the `.pem` file permissions for this to work).
 
 To remember the required commands/environmental variable names you can run `bosh ssh --help`.
 
