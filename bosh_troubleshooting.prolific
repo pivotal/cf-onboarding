@@ -4,7 +4,7 @@ With BOSH it is easy to scale deployments. All you need to do is modify the numb
 
 ### How?
 1. Edit the number of Diego Cell instances in the manifest
-1. Perform a deploy using `bosh deploy`
+1. Perform a deploy using `bosh -d DEPLOYMENT_NAME deploy MANIFEST`
 1. Observe the new VM appearing by running `bosh vms`
 
 ###  Expected Result
