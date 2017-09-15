@@ -32,11 +32,10 @@ The following dependencies can be installed through the Cloud Foundry [homebrew 
 * `cf version` => "cf version 6.29.2+...." or above
 
 ### Resources
-[BOSH.io](http://bosh.io/)
-[BOSH V2 CLI docs](https://bosh.io/docs/cli-v2.html)
-[CF CLI docs](http://docs.cloudfoundry.org/cf-cli/)
-[What is Cloud Foundry?](https://www.cloudfoundry.org/platform/)
-[What is Terraform?](https://www.terraform.io/)
+[Docs: BOSH V2 CLI](https://bosh.io/docs/cli-v2.html)
+[Docs: CF CLI](http://docs.cloudfoundry.org/cf-cli/)
+[Docs: What is Cloud Foundry?](https://www.cloudfoundry.org/platform/)
+[Docs: What is Terraform?](https://www.terraform.io/intro/index.html)
 
 ### Relevant Teams and Repos
 **BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
@@ -74,8 +73,8 @@ Your active configuration is: [PROJECT_ID]
 ```
 
 ### Resources
-[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
-[The Great GCP Migration of 2016 (internal doc)](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
+[Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+[Internal Doc: The Great GCP Migration of 2016](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
 L: bbl
 ---
 Create a GCP service account
@@ -105,9 +104,9 @@ You should now have a `service-account.key.json` in your workspace.
 Verify that the account is listed in your GCP dashboard under Menu > IAM & Admin > Service Accounts.
 
 ### Resources
-[GCP Service Accounts](https://cloud.google.com/compute/docs/access/service-accounts)
-[Identity and Access Management (IAM) Roles](https://cloud.google.com/compute/docs/access/iam)
-[Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+[Docs: GCP Service Accounts](https://cloud.google.com/compute/docs/access/service-accounts)
+[Docs: Identity and Access Management (IAM) Roles](https://cloud.google.com/compute/docs/access/iam)
+[Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
 L: bbl
 ---
 Stand up a BOSH Director with `bbl up`
@@ -129,7 +128,7 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
 ### Resources
-[Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
+[Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 L: bbl
 ---
 Connect to your BOSH environment
@@ -174,7 +173,7 @@ Freenom says that you have successfully registered your domain. Should look some
 ![Imgur](http://i.imgur.com/E3WnV24.png)
 
 ### Resources
-[What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
+[Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 L: cf-deployment
 ---
 Generate a TLS cert
@@ -199,10 +198,10 @@ You should have two new `.pem` files, one containing your private key and one co
 When you run `openssl x509 -noout -subject -in cert.pem` the information returned matches what you entered.
 
 ### Resources
-[Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
-[SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
-[How encryption works: SSL and TLS](http://computer.howstuffworks.com/encryption4.htm)
-[Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+[Blog post: Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
+[Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
+[Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
+[How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
 L: cf-deployment
 ---
 Use bbl to create a load-balancer
@@ -229,8 +228,8 @@ Visit Menu > Networking > Load balancing to see the load balancer that `bbl` gen
 Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
-[Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
-[cf-deployment documentation](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md)
+[Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
+[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md)
 L: cf-deployment
 ---
 Set domain nameservers
@@ -246,7 +245,7 @@ Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`.
 Remember, propagation of the DNS changes may take a little while, so it might not work immediately.
 
 ### Resources
-[What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
+[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 L: cf-deployment
 ---
@@ -271,8 +270,8 @@ Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml` to
 When you run `bosh -d cf deploy` a couple stories down, it doesn't fail with a reached CPU quota error.
 
 ### Resources
-[What is a cloud config?](http://bosh.io/docs/cloud-config.html)
-[What's the difference between > and >>?](http://askubuntu.com/questions/382793/whats-is-the-difference-between-and-in-shell-command)
+[Docs: What is a cloud config?](http://bosh.io/docs/cloud-config.html)
+[Forum question: What's the difference between > and >>?](http://askubuntu.com/questions/382793/whats-is-the-difference-between-and-in-shell-command)
 [YAML Validator](http://codebeautify.org/yaml-validator)
 L: cf-deployment
 ---
@@ -291,9 +290,9 @@ Upload the stemcell by running:
 `bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=VERSION`.
 
 ### Resources
-[What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
-[What are light stemcells?](https://bosh.io/docs/build-stemcell.html#light-stemcells)
-[Tarball structure](https://bosh.io/docs/build-stemcell.html#tarball-structure)
+[Docs: What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
+[Docs: What are light stemcells?](https://bosh.io/docs/build-stemcell.html#light-stemcells)
+[Docs: Tarball structure](https://bosh.io/docs/build-stemcell.html#tarball-structure)
 
 ### Relevant Repos and Teams
 **BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
@@ -315,8 +314,8 @@ Add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the depl
 Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
 
 ### Resources
-[What is a BOSH release?](https://bosh.io/docs/release.html)
-[Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
+[Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
+[Github README: Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
 L: cf-deployment
 ---
 Entertain yourself during the CF deploy "intermission"
@@ -361,7 +360,7 @@ Run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`
 * If you were redeploying, did you run the `bosh -n interpolate` step before running `bosh -d cf deploy`?
 
 ### Resources
-[Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+[Forum question: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
 L: cf-deployment
 ---
 Party on, Garth
