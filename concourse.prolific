@@ -5,7 +5,7 @@ Deploy Concourse with BOSH
 ### How?
 You already have a BOSH Director, a cloud-config, and at least one stemcell, so to spin up a full Concourse deployment all you have to do is prepare your deployment manifest. You can follow **[these instructions](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md)** to set it up and BOSH deploy, but as per the yooj there are a few changes...
 1. `bbl` only supports one load balancer at a time so you'll have to delete your CF load balancer before continuing. Bye bye, CF!
-1. You'll need to create a new domain and TLS cert following the same instructions as you did when deploying Cloud Foundry.
+1. You'll need to create a new domain and TLS cert following the same instructions as you did when deploying Cloud Foundry (this includes the part where you set up DNS for the domain on Freenom).
 
 ### Troubleshooting
 1. Is your `tls_bind_port: 443` property nested within the `properties` section of the `atc` job?
