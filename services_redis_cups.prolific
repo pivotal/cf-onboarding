@@ -34,7 +34,7 @@ You can see the service listed under `cf services`, and see that it is bound to 
 
 From your terminal, run:
 ```
-export APP=redis-example-app.my-cloud-foundry.com
+export APP=APP_NAME.YOUR_CF_DOMAIN.com
 curl -X PUT $APP/foo -d 'data=some-value'
 ```
 This should return `success`. Next run:
