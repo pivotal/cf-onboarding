@@ -6,7 +6,7 @@ Whether you are Engineering, Product, Design, Docs, or one of dozens of other ro
 
 ### How?
 1. Take your time.
-1. Read the **[troubleshooting](https://github.com/pivotal-cf/onboarding-week/blob/master/TROUBLESHOOTING.md)** doc on GitHub.
-1. If something is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding-week repo](https://github.com/pivotal-cf/onboarding-week/issues)**.
+1. Read the **[troubleshooting](https://github.com/pivotal-cf/onboarding/blob/master/TROUBLESHOOTING.md)** doc on GitHub.
+1. If something is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding repo](https://github.com/pivotal-cf/onboarding/issues)**.
 
 **Pro Tip:** As you begin stories, click the "Start" button. If you feel confident about their content when you finish, click "Finish", "Deliver", and "Accept". If you still have questions on the material, leave it in the delivered state (i.e. with the "Accept"/"Reject" buttons showing) and decide at the end how you would like to follow up on your questions.

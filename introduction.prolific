@@ -1,7 +1,7 @@
 Facilitating an Onboarding Week [a note for managers]
 Hi there, facilitators!
 
-This is a reminder to read the **[facilitation documentation](https://github.com/pivotal-cf/onboarding-week/blob/master/FACILITATING.md)** on GitHub.
+This is a reminder to read the **[facilitation documentation](https://github.com/pivotal-cf/onboarding/blob/master/FACILITATING.md)** on GitHub.
 
 It's also a short task list of things you might want to do before Onboarding Week starts. After you've completed the tasks you need to, remove this chore from the backlog. (I cannot make it self-destruct. Sad!)
 - [ ] Allocate participants for the week.
@@ -26,7 +26,9 @@ Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product
 1. Take your time.
 1. Be conscious of your pair's progress. Check in frequently to make sure you're both getting the most out of the material.
 1. Read every story completely. You'll feel very silly if you struggle for hours with a problem that turns out to have been addressed in plain English...in a story you didn't read.
-1. If something in a story is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding-week repo](https://github.com/pivotal-cf/onboarding-week/issues)**.
+1. If something in a story is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding repo](https://github.com/pivotal-cf/onboarding/issues)**.
 1. Seriously, take your time. How often are you paid just to learn?
+
+**Pro Tip:** As you begin stories, click the "Start" button. If you feel confident about their content when you finish, click "Finish", "Deliver", and "Accept". If you still have questions on the material, leave it in the delivered state (i.e. with the "Accept"/"Reject" buttons showing) and decide at the end how you would like to follow up on your questions.
 - [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
 - [ ] For GCP track **only**: Log in to GCP IAAS dashboard. You should have received an invitation from your facilitator.
