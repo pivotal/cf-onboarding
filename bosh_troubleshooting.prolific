@@ -11,9 +11,9 @@ With BOSH it is easy to scale deployments. All you need to do is modify the numb
 You should easily be able to scale the number of Diego Cells up or down. What happens to your apps at that point? Are they redistributed as soon as there is a new cell or do you have to scale the app to trigger a relocation? The `watch` and `tail` bash commands will be your friends during this investigation.
 
 ### Resources
-[BOSH Deploying, a step-by-step walk through](http://bosh.io/docs/deploying-step-by-step.html)
-[BOSH Deployment Manifest docs](http://bosh.io/docs/deployment-manifest.html)
-[Creating a new BOSH VM](http://bosh.io/docs/bosh-components.html#create-vm)
+[Docs: BOSH Deploying, a step-by-step walk through](http://bosh.io/docs/deploying-step-by-step.html)
+[Docs: BOSH Deployment Manifest docs](http://bosh.io/docs/deployment-manifest.html)
+[Docs: Creating a new BOSH VM](http://bosh.io/docs/bosh-components.html#create-vm)
 [YAML Validator](http://codebeautify.org/yaml-validator)
 L: bosh operator
 ---
@@ -33,7 +33,7 @@ To remember the required commands/environmental variable names you can run `bosh
 Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
 
 ### Resources
-[What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
+[Forum question: What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
 L: bosh operator
 ---
 Trigger a failing BOSH job
@@ -53,9 +53,9 @@ When a BOSH VM is healthy, it is listed with the status "running". Let's use **[
 The Diego job for the cell you SSHed to should be listed as `failing` as soon as you stop the Monit jobs. When you run `monit start all` it should return to the `running` state.
 
 ### Resources
-[BOSH CLI health commands](https://bosh.io/docs/sysadmin-commands.html#health)
-[BOSH Job Lifecycle](http://bosh.io/docs/job-lifecycle.html)
-[Monit](https://mmonit.com/monit/)
+[Docs: BOSH CLI health commands](https://bosh.io/docs/sysadmin-commands.html#health)
+[Docs: BOSH Job Lifecycle](http://bosh.io/docs/job-lifecycle.html)
+[Docs: Monit](https://mmonit.com/monit/)
 L: bosh operator
 ---
 Watch the BOSH Resurrector resurrect Bosh jobs
@@ -64,7 +64,6 @@ The Resurrector is a plugin to the BOSH Health Monitor that is responsible for a
 
 * create a new VM if the old VM is missing
 * replace a VM if the Agent on that VM is not responding to commands
-
 
 ### How?
 1. Run `watch bosh vms` so you can keep an eye on the effect you're having on VM state.
@@ -84,8 +83,8 @@ Looks like we'll have to get creative if we're ever going to see this resurrecto
 Watch the process choke, the VM fail, and the resurrector bring it back!
 
 ### Resources
-[Configuring Health Monitor](https://bosh.io/docs/hm-config.html)
-[BOSH Resurrector](http://bosh.io/docs/resurrector.html)
+[Docs: Configuring Health Monitor](https://bosh.io/docs/hm-config.html)
+[Docs: BOSH Resurrector](http://bosh.io/docs/resurrector.html)
 L: bosh operator
 ---
 Update your BOSH deployment's properties (a.k.a. let's break some stuff)
@@ -104,10 +103,10 @@ Each BOSH job can specify customizable properties in a **[spec file](http://bosh
 A few things could happen at this point. The deployment could run successfully (woot!) and you are able to demonstrate that the change took effect (double woot). The update could fail, but now you have something to diagnose (hint: it might have something to do with the user permissions of the user responsible for making changes to that job). Orrrrr you could break something! That one is a super exciting option, chalk full of investigative opportunities.
 
 ### Resources
-[What is a BOSH spec file?](http://bosh.io/docs/jobs.html#spec)
+[Docs: What is a BOSH spec file?](http://bosh.io/docs/jobs.html#spec)
+[Tool: Chaos Lemur](https://github.com/strepsirrhini-army/chaos-lemur)
 [YAML Validator](http://codebeautify.org/yaml-validator)
-[Chaos Lemur](https://github.com/strepsirrhini-army/chaos-lemur)
-BOSH's Wikipedia entry is also good, but it has parentheses in the URL and that's well past the limits of my Markdown skills at this hour of night
+BOSH's Wikipedia entry is also good, but it has parentheses in the URL and that's well past the limits of my markdown skills at this hour of night
 L: bosh operator
 ---
 [RELEASE] BOSH Operator Troubleshooting ⇧
