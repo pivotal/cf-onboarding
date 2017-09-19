@@ -310,6 +310,8 @@ Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)*
 
 Add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
 
+If you want to speed up the deploy, you can also add `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
+
 ### Expected Result
 Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
 
