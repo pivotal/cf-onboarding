@@ -21,10 +21,21 @@ As we've seen, a [Concourse resource](http://concourse.ci/concepts.html#resource
 There's a whole host of [system resource types](https://concourse.ci/resource-types.html) available, but they don't cover every potential use case. It won't be too long till you'll need to create one of your very own.
 
 ### How?
-Use the **[Concourse documentation](https://concourse.ci/implementing-resources.html)** to create your own resource. I encourage liberal referencing of resource repos on Github to guide you on your path.
+Use the **[Concourse documentation](https://concourse.ci/implementing-resources.html)** to create your own resource. Make liberal use of resource repos on Github to guide you on your path. Your steps will broadly be:
+
+1. Write check / in / out scripts that make sense for your resource.
+1. Package in a Docker container and publish to the docker registry.
+1. Configure your pipeline to include your new resource type, create an instance of that resource type, and consume that resource.
+1. Lots of debugging, with poor feedback mechanisms.
+
+**Debugging Note:** write errors to `stderr` because `stdout` must be only a JSON object.
 
 ### Expected Result
-A resource that can be used as a trigger for a job in your pipeline. To date, my favorite combination involved a Slack bot spamming a Slack channel with Danish vocabulary. Let's get creative!
+A resource that can be used as a trigger for a job in your pipeline. To date, my favorite combinations have been:
+* an XKCD notifier
+* a bot that spammed a Slack channel with Danish vocabulary
+
+Let's get creative!
 
 ### Resources
 [Docs / Github : List of resource types and links to their implementation](https://concourse.ci/resource-types.html)
