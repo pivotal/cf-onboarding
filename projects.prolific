@@ -31,9 +31,9 @@ Use the **[Concourse documentation](https://concourse.ci/implementing-resources.
 **Debugging Note:** write errors to `stderr` because `stdout` must be only a JSON object.
 
 ### Expected Result
-A resource that can be used as a trigger for a job in your pipeline. To date, my favorite combinations have been:
+A resource that can be used as a trigger for a job in your pipeline. To date, my favorite combinations of resources/tasks have been:
 * an XKCD notifier
-* a bot that spammed a Slack channel with Danish vocabulary
+* a bot that spammed a Slack channel with vocabulary from a Danish thesaurus
 
 Let's get creative!
 
