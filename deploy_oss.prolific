@@ -229,7 +229,7 @@ Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.go
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
-[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md)
+[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
 L: cf-deployment
 ---
 Set domain nameservers
