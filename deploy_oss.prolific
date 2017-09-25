@@ -308,7 +308,7 @@ The standard cf-deployment is fairly hefty, so we're going to scale ours down to
 ### How?
 Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md#deploy-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
 
-Add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
+Add `-o operations/scale-to-one-az.yml` to the deploy command.
 
 If you want to speed up the deploy, you can also add `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
 
