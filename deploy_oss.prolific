@@ -306,7 +306,7 @@ Deploy CF using BOSH + cf-deployment
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
 
 ### How?
-Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/gcp-deployment-guide.md#2-deploying-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
+Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md#2-deploying-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
 
 Add `-o operations/scale-to-one-az.yml` to **both** the interpolate and the deploy commands.
 
