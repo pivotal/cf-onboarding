@@ -8,7 +8,8 @@ With BOSH it is easy to scale deployments. All you need to do is modify the numb
 1. Observe the new VM appearing by running `bosh vms`
 
 ###  Expected Result
-You should easily be able to scale the number of Diego Cells up or down. What happens to your apps at that point? Are they redistributed as soon as there is a new cell or do you have to scale the app to trigger a relocation? The `watch` and `tail` bash commands will be your friends during this investigation.
+You should easily be able to scale the number of Diego Cells up or down. What happens to your apps at that point? Are they redistributed as soon as there is a new cell or do you have to scale the app to trigger a relocation?
+cf-deployment installs [`cfdot`](https://github.com/cloudfoundry/cfdot) on the diego cells, which you can use to interrogate Diego. The `watch` and `tail` bash commands will also be your friends during this investigation.
 
 ### Resources
 [Docs: BOSH Deploying, a step-by-step walk through](http://bosh.io/docs/deploying-step-by-step.html)
