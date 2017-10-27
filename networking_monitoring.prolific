@@ -30,32 +30,40 @@ If you run `cf security-group public_networks` you'll see that it allows traffic
 ["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
 L: security
 ---
-Securing your network traffic
+Allowing network traffic to other apps
 ### What?
-The `public_networks` (or `all_pcfdev`) security group allows broad access to your CF deployment's network.  A malicious user could likely access internal systems that would not normally be exposed to the public internet. Thus, in a production environment you wouldn't have such open security groups.
+By default, security groups are configured not to allow app containers to address each other directly.
+For example, if `app1` has IP address 10.255.11.9 and `app2` has IP address 10.255.11.14,
+`app1` would fail to curl 10.255.11.14,
+and `app2` would fail to curl 10.255.11.9.
 
-Let's verify this access and secure it.
+[Container networking features](https://github.com/cloudfoundry/cf-networking-release) allow `cf` users
+to define network policies between apps that override security groups.
+
+Let's see how can manage the networking security of an app that needs to communicate with other apps.
 
 ### How?
-1. `cf ssh` to an application's container.
-1. Download the **[nmap](https://nmap.org/download.html)** tool (the .tar.bz2 is your best bet, as you can run it as an executable file without requiring root priviledges to install it).
-1. Scan a section of the private network by running:
-`./nmap -v YOUR-IP/24`
-1.  Find a IP with an open HTTP port (80) and curl that IP address:
-`curl -H "Host: dora.<YOUR-IP>.xip.io" http://<OPEN-IP>`
-1. As an admin, unbind `public_networks` (or `all_pcfdev`) from the running security groups and restart your application.
-1. Run the scan again and try to hit the same IP with the open HTTP port.
+Before applying a network policy
+1. Make sure you have two apps pushed. If don't have any apps pushed, `cf push dora1 -p <PATH_TO_DORA> && cf push dora2 -p <PATH_TO_DORA>`.
+1. In two different terminals, `cf ssh` to dora1 and dora2's application container.
+1. On dora2, run `netstat -n` to discover it's container IP address. It should have a value like 10.255.X.Y
+1. On dora1, run `curl <DORA_2_IP>`.
+
+Apply the network policy to allow access:
+1. On your command line, run `cf add-network-policy dora1 --destination-app dora2 --protocol tcp --port 8080`
+
+See if the app containers can communicate
+1. In your ssh session on dora1, try this again: `curl <DORA_2_IP>`
 
 ### Expected Result
-The initial scan and curl should succeed. After removing the security group and restarting your application curling the open port should fail.
+The initial curl should fail. After applying the networking policy, the curl should succeed.
 
-Poke around to see what else you can and can't do without that Security Group. Remember to re-bind it at the end or, if you'd like, try creating and testing your own based on those [most commonly used](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups).
+Poke around to see what else you can and can't do with the network policy commands.
+Can you allow access to mutliple ports?
+What happens if you allow access to a port that the app doesn't listen to? Is it give the same error?
 
 ### Resources
-[Nmap Security Scanner](https://nmap.org/) 
-[SecTools.Org: Top 125 Network Security Tools](http://sectools.org/)
-[TCP and UDP Ports Explained](https://www.bleepingcomputer.com/tutorials/tcp-and-udp-ports-explained/)
-[Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
+[Container networking docs](https://github.com/cloudfoundry/cf-networking-release/tree/develop/docs)
 L: security
 ---
 Configure container-to-container networking
