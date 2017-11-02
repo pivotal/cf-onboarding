@@ -14,7 +14,7 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 * Designate workstation(s).
 * Provide one "floater" laptop per pair to facilitate independent docs reading.
 * Create and populate *private* Tracker Project(s). Invite participants.
-* Create IAAS account(s). Add participants as Owners.
+* [Request GCP IAAS project(s)](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform). Once they're created, add participants as Owners.
 
 ### Communication Suggestions
 * **Morning Standup:** to review how the week is going / answer questions.
