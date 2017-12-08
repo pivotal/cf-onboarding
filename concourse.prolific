@@ -7,8 +7,10 @@ You already have a Bosh Director, a cloud-config, and at least one stemcell, so 
 
 **Pre-deploy**
 `bbl` only supports one load balancer at a time so in lieu of depriving our CF deployment of its lb, we're going to have Concourse go without. To do this:
-1. Omit `tls_bind_port`, `tls_cert`, and `tls_key` attributes from your Concourse manifest.
-1. Replace them with `bind_port: 80`
+1. Omit `tls_bind_port`, `tls_cert`, `tls_key` attributes from the GCP operations file applied to the Concourse manifest.
+1. Only retain the `bind_port: 80` attribute within the GCP operations file.
+1. Remove the blocks for `vm_extensions`, `atc_ca` and `atc` from the Concourse manifest.
+1. Change the `external_url` prefix to http.
 
 Also, register a new domain on Freenom. Don't do any configuration yet.
 
