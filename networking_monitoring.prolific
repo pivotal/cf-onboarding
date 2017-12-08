@@ -34,13 +34,15 @@ Securing your network traffic
 ### What?
 The `public_networks` (or `all_pcfdev`) security group allows broad access to your CF deployment's network.  A malicious user could likely access internal systems that would not normally be exposed to the public internet. Thus, in a production environment you wouldn't have such open security groups.
 
+**Warning**: On GCP, running an nmap scan against external IP addresses is [not advised](https://nmap.org/book/legal-issues.html).  Please ensure you use the GCP allocated 'internal IP address' for your virtual machine.  You will find the internal IP range allocated to your network from the GCP console.
+
 Let's verify this access and secure it.
 
 ### How?
 1. `cf ssh` to an application's container.
 1. Download the **[nmap](https://nmap.org/download.html)** tool (the .tar.bz2 is your best bet, as you can run it as an executable file without requiring root priviledges to install it).
 1. Scan a section of the private network by running:
-`./nmap -v YOUR-IP/24`
+`./nmap -v YOUR-INTERNAL-IP/24`
 1.  Find a IP with an open HTTP port (80) and curl that IP address:
 `curl -H "Host: dora.<YOUR-IP>.xip.io" http://<OPEN-IP>`
 1. As an admin, unbind `public_networks` (or `all_pcfdev`) from the running security groups and restart your application.
