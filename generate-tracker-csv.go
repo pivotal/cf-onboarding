@@ -55,7 +55,7 @@ func main() {
 		}
 
 		if i != 0 {
-			csvContent = bytes.TrimLeft(csvContent, "Title, Type, Description, Labels\n")
+			csvContent = bytes.TrimLeft(csvContent, "Title, Type, Description, Labels,Task\n")
 		}
 
 		_, err = outputFile.Write(csvContent)

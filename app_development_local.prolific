@@ -1,4 +1,5 @@
 Create an org and space
+
 ### What?
 Cloud Foundry uses role-based access control, with each role granting permissions in either an **[organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs)** or an **[application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces)**. Let's make a new organization and associated space!
 
@@ -20,8 +21,11 @@ When creating the space the current user will have been assigned two new roles f
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
 L: app-dev
+
 ---
+
 Create a new user
+
 ### What?
 Cloud Foundry uses role-based access control, with each role granting permissions in either an [organization](https://docs.cloudfoundry.org/concepts/roles.html#orgs) or an [application space](https://docs.cloudfoundry.org/concepts/roles.html#spaces). **[View the types of roles and their abilities](https://docs.cloudfoundry.org/concepts/roles.html#roles)**. Without a certain role in an org and space you won't be able to perform specific actions.
 
@@ -49,8 +53,11 @@ When logged in as `some-user`, you can see your org's name in your list of orgs 
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
 L: app-dev
+
 ---
+
 Push a sample app
+
 ### What?
 Cloud Foundry applications are deployed by `cf push`-ing your code or some compiled artifact. You can specify the appropriate [buildpack](https://docs.cloudfoundry.org/buildpacks/) for your app in the command line or in your app manifest, but you can also leave it blank and let the buildpack detect scripts determine which is the most appropriate.
 
@@ -77,8 +84,11 @@ When you push an app, you can optionally include an [application manifest.yml](h
 [Docs: How Applications are Staged](https://docs.cloudfoundry.org/concepts/how-applications-are-staged.html)
 [Blog post: A beginner-friendly introduction to containers, VMs, and Docker](https://medium.freecodecamp.com/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
 L: app-dev
+
 ---
+
 HTTP trace a CLI command
+
 ### What?
 Behind the scenes the command line depends on several components in Cloud Foundry. If a cf CLI command fails or produces unexpected results, you can re-run it with HTTP tracing enabled to view raw requests and responses between the cf CLI and the other components. The majority of those calls will be to the Cloud Controller REST API, but for logging the CLI hits the Loggregator.
 
@@ -93,8 +103,11 @@ You should see each of the requests and responses that occurs behind the scenes 
 ### Resources
 [Docs: Trace Cloud Controller REST API Calls](https://docs.cloudfoundry.org/devguide/deploy-apps/troubleshoot-app-health.html#trace)
 L: app-dev
+
 ---
+
 Get recent app logs
+
 ### What?
 Cloud Foundry applications are expected to log to [stdout and stderr](https://en.wikipedia.org/wiki/Standard_streams). This is part of [Twelve-Factor app design](https://12factor.net/logs).
 
@@ -128,8 +141,11 @@ The output will look something like:
 [Docs: Logs for CF components](https://docs.cloudfoundry.org/running/managing-cf/logging.html)
 [Docs: Logs for applications](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html)
 L: app-dev
+
 ---
+
 Get streaming logs
+
 ### What?
 By omitting the `--recent` from your `cf logs dora` command, Loggregator will stream logs from the application in realtime. You'll use this most often as a diagnosing tool. Let's trigger some app activity to verify that it shows up in the logs.
 
@@ -146,8 +162,11 @@ Cloud Foundry applications are monitored with a constant health check that ensur
 
 Refer to the **[dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora)** to find other useful endpoints to experiment with. It's good to know what common logs, warnings, and errors look like so you can recognize them in the wild.
 L: app-dev
+
 ---
+
 View a list of app events
+
 ### What?
 Cloud Foundry stores a history of events about your application. You'll generally use `cf logs` when debugging your app's behavior, but every once and awhile the select, well-formatted information contained in `cf events` is more helpful than a firehose of data.
 
@@ -163,8 +182,11 @@ You should see the list of events including the recent stop & start.
 [Docs: cf CLI](http://docs.cloudfoundry.org/cf-cli/cf-help.html)
 [StackOverflow: When to use cf events?](http://stackoverflow.com/questions/24545838/when-to-use-cf-events)
 L: app-dev
+
 ---
+
 Scale your app with the CLI
+
 ### What?
 Your application runs in a container hosted on a [Diego Cell](How the Diego Auction Allocates Jobs). A Cloud Foundry deployment may have many cells distributed among multiple Availability Zones (AZs). Diego will automatically balance the applications you deploy across the defined zones. If an AZ goes down (along with your application), Diego will start a new instance of your application in a healthy cell in a different AZ. Depending on demand, you may want to scale your application horizontally (more instances) and/or vertically (more disk & memory).
 
@@ -182,8 +204,11 @@ You already have two instances of `dora`. Now we'll scale your app _horizontally
 [Docs: How the Diego Auction Allocates Jobs](https://docs.cloudfoundry.org/concepts/diego/diego-auction.html)
 [Docs: Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
 L: app-dev
+
 ---
+
 View your app's environment variables
+
 ### What?
 Environment variables are the means by which the Cloud Foundry [runtime](https://www.techopedia.com/definition/5466/runtime-environment-rte) communicates with a deployed application about its environment. You can use them too!
 
@@ -201,8 +226,11 @@ The cf CLI will show the application's environment variables classified as Syste
 [Docs: VCAP_SERVICES](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
 [Wikipedia: What is an environment variable?](https://en.wikipedia.org/wiki/Environment_variable)
 L: app-dev
+
 ---
+
 View Application Security Groups
+
 ### What?
 Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers can send traffic. Security groups define rules that *allow* traffic instead of omitting it, which means that the order of evaluation for security groups that apply to the same space, org, or deployment is unimportant. Application containers use these rules to filter and log outbound network traffic.
 
@@ -230,8 +258,11 @@ Run `cf security-group public_networks` to see that it allows traffic on all por
 ["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://blog.pivotal.io/pivotal-cloud-foundry/products/taking-security-to-the-next-level-application-security-groups)
 ["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
 L: security
+
 ---
+
 SSH into a running app container
+
 ### What?
 Your applications run on Diego Cells, which create containers for each of your application instances. One of the features of [Diego (the new CF Runtime)](http://www.starkandwayne.com/blog/demystifying-cloud-foundrys-diego/) versus DEAs (the original Runtime) is that you have the ability to [SSH](https://en.wikipedia.org/wiki/Secure_Shell) into the containers for debugging purposes.
 
@@ -249,8 +280,11 @@ Your applications run on Diego Cells, which create containers for each of your a
 [Blog post: Demystifying Cloud Foundry's Diego](http://www.starkandwayne.com/blog/demystifying-cloud-foundrys-diego/)
 [Unix/Linux StackExchange: What does aux mean in `ps aux`?](http://unix.stackexchange.com/questions/106847/what-does-aux-mean-in-ps-aux)
 L: app-dev
+
 ---
+
 Add an additional route to the application
+
 ### What?
 CF creates a route for your app when it is first pushed, but you can create additional routes using the cf CLI.
 
@@ -270,5 +304,9 @@ If you had created the new route using `cf create-route` without mapping it to t
 [CF Routes and Domains](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html)
 [Basic Linux Networking reference](http://www.penguintutor.com/linux/basic-network-reference)
 L: app-dev
+
 ---
+
 [RELEASE] App Development ⇧
+
+
