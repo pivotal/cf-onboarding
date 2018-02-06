@@ -237,14 +237,10 @@ To set the BOSH environment, run the following commands:
 
 `bbl print-env` to see the environment variables you'll set to use your new BOSH. 
 
-`eval "$(bbl print-env)"` to export them.
-
-Run the following command to alias your BOSH environment, replacing `YOUR-ENV` with an environment name of your choice:
-
-`bosh --environment="$BOSH_ENVIRONMENT" --ca-cert="$BOSH_CA_CERT" --client="$BOSH_CLIENT" --client-secret="$BOSH_CLIENT_SECRET" alias-env YOUR-ENV`
+`eval "$(bbl print-env)"` to export them. **Note: you will definitely need to include the double-quotes for this command to work properly.** Once you've run it, you should be able to start working with your bosh director. If you ever have a hard time connecting to your BOSH director, your first step should be to re-run `eval "$(bbl print-env)"`.
 
 ### Expected Results
-When you run `bosh -e YOUR-ENV env`, it should print something like:
+When you run `bosh env`, it should print something like:
 
 ![image](https://www.pivotaltracker.com/file_attachments/77821681/download)
 
