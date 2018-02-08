@@ -13,7 +13,7 @@ You already have a Bosh Director, a cloud-config, and at least one stemcell, so 
 Also, register a new domain on Freenom. Don't do any configuration yet.
 
 **Post-deploy**
- Once `cf -d concourse deploy concourse.yml` is finished running, reserve a static IP address through GCP and attach it to your web VM (you can find its VM CID by running `bosh -d concourse vms`).
+ Once `bosh -d concourse deploy concourse.yml` is finished running, reserve a static IP address through GCP and attach it to your web VM (you can find its VM CID by running `bosh -d concourse vms`).
 
 Then, on Freenom go to Services > My Domains > Manage Domain > Manage Freenom DNS and create an A record that targets the static IP you just attached to your Concourse web VM.
 In GCP, go to Compute Engine > VM instances > the VM with your concourse deployment, and check 'Allow HTTP traffic' under Firewalls.
