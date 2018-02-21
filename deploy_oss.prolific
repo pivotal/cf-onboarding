@@ -168,7 +168,7 @@ CF doesn't require a load balancer, nor does it include one, but as you read the
 For reference, these are the parameters that you'll use to tell `bbl` about your load balancers:
 * `--lb-type`: Tells bbl which set of load balancers to create. Possible values are concourse and cf (use cf).
 * `--lb-domain`: The domain that will resolve to your load balancer. It should match the domain that you registered on Freenom and the Common Name you entered when creating your TLS cert.
-* `--lb-cert`: A path to a file with a PEM-encoded TLS certificate (the cert.pem you created in the last story). Remember that the cert should be valid for whichever domain you specify in the --domain flag.
+* `--lb-cert`: A path to a file with a PEM-encoded TLS certificate (the cert.pem you created in the last story). Remember that the cert should be valid for whichever domain you specify in the --lb-domain flag.
 * `--lb-key`: A path to a file with a PEM-encoded TLS key that corresponds to the cert provided in --cert.
 
 ### How?
