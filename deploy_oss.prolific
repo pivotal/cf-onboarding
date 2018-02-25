@@ -215,6 +215,20 @@ Ok, we're getting closer to deploying. Before you can go prime time with BOSH an
 
 We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. Cloud Controller, for instance, is `api.your-domain.com`.
 
+#### Side note: How does DNS work exactly?
+As part of this story, you'll pick a domain like `onboarding.cf` and register it. That means that if anyone tries to make an HTTP request to `onboarding.cf`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `onboarding.cf`?"
+
+The simplest way to manage such a request is to create an **A record.** These records map a domain, `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries it's nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
+
+However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
+
+To achieve that, we first set up a different kind of record, an **NS record**, which maps a domain to other DNS servers. It essentially says, "If you're looking for information about domains that end with `onboarding.cf`, go ask this other set of DNS servers. Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers. You're going to leverage this functionality in order to register your `onboarding.cf`-like domain with Freenom, but then manage all subdomains like `ssh.onboarding.cf` and `*.onboarding.cf` with Google Cloud DNS using bbl.
+
+In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
+- An NS record that defines the Google DNS servers. You'll take that list of servers to Freenom to configure it to defer to Google Cloud DNS.
+- An A record for a few reserved subdomains like `ssh.onboarding.cf`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
+- An A record for `*.onboarding.cf`. This record maps **all** other subdomains of `onboarding.cf` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `onboarding.cf` domain, so that you can make subdomains on the fly like `my-app.onboarding.cf`.
+
 ### How?
 Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
 
