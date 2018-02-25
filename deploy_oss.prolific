@@ -269,6 +269,47 @@ When you run `openssl x509 -noout -subject -in cert.pem` the information returne
 [How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
 L: bbl
 ---
+Create load balancers
+### What
+We've been alluding to load balancers for a few stories, but now we'll actually get around to creating them with bbl.
+
+A load balancer is some machine -- or set of machines -- that serve as the entry point to the system and delegate traffic to other components. Importantly, one of their jobs is to make sure that traffic is distributed evenly among VMs that do similar work. The easiest load balancer to understand is the HTTP load balancer, which balances traffic to the [CF routers](http://docs.cloudfoundry.org/concepts/architecture/router.html).
+
+Most public IaaSes provide load balancing solutions, but some do not. For example, if you were deploying to vSphere, you'd need to come up with your own load balancing solution: most people use [HAProxy](https://github.com/cloudfoundry-incubator/haproxy-boshrelease) or hardware load balancers for this.
+
+bbl will make a few different load balancers for you:
+- HTTP and Websocket load balancers that delegate to the router
+- SSH load balancer the delegates to the SSH proxy
+- TCP load balancer that delegates to the TCP routers
+- Credhub load balancer that delegates directly to Credhub
+
+### How
+To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update it's plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
+
+Run
+```
+bbl plan \
+  --lb-type cf \
+  --lb-cert PATH_TO_TLS_CERT --lb-key PATH_TO_TLS_KEY \
+  --lb-domain YOUR_DOMAIN \
+  --gcp-service-account-key service-account.key.json
+```
+You should be able to see that a handful of files in your bbl state directory have been updates -- specifically, your terraform and cloud-configs directory.
+
+Next, run
+```
+bbl up --gcp-service-account-key service-account.key.json
+```
+
+
+### Expected Results
+Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
+
+### Resources
+[Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
+[Docs: HAProxy](http://www.haproxy.org/)
+L: bbl
+---
 Set domain nameservers
 ### What
 A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
