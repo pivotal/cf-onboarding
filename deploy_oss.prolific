@@ -170,7 +170,12 @@ bbl up \
 
 
 ### Expected Result
-If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a `bbl-state.json` in the current working directory. This file is very important as it contains credentials and other metadata related to your BOSH director and infrastructure.
+If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a whole slew of files and directories that represent bbl's internal state in the current working directory. Those directories and files correspond, more or less, to the different steps outlined above. Just as importantly, they all have some interface for customizing your BOSH setup. No worries, we won't make you do that here.
+- `bbl-state.json`. This file is very important as it contains credentials and other metadata related to your BOSH director and infrastructure.
+- `terraform`. This directory includes the terraform templates that bbl used to pave your IaaS.
+- `jumpbox-deployment`, `create-jumpbox.sh`, and `delete-jumpbox.sh` -- for bootstrapping a jumpbox. The shell scripts actually contain the `create-env` commands that bbl used to set up your jumpbox.
+- `bosh-deployment`, `create-director.sh`, and `delete-director.sh` -- for bootstrapping a BOSH director. The shell scripts actually contain the `create-env` commands that bbl used to set up your director.
+- `cloud-config`, which includes the cloud-config bbl generates for you.
 
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
