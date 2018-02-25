@@ -179,14 +179,11 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
-Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
-
 Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
-[Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
 L: bbl
