@@ -109,52 +109,6 @@ Verify that the account is listed in your GCP dashboard under Menu > IAM & Admin
 [Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
 L: bbl
 ---
-Register a domain name
-### What?
-Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment.
-
-We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. Cloud Controller, for instance, is `api.your-domain.com`.
-
-### How?
-Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
-
-### Expected Result
-Freenom says that you have successfully registered your domain. Should look something like this:
-
-![Imgur](http://i.imgur.com/E3WnV24.png)
-
-### Resources
-[Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
-L: bbl
----
-Generate a TLS cert
-### What?
-In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so we'll create one now.
-
-### How?
-We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
-
-To do this, run `openssl req` with a few arguments:
-
-* `-x509`outputs a x509 structure, a standard that defines the format of public key certificates.
-* `-newkey rsa:2048`generates a new RSA key of 2048 bits in size.
-* `-keyout` and `-out` arguments set output file paths (I generally use `key.pem` and `cert.pem`, respectively)
-* The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM passphrase.
-
-**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
-
-### Expected Result
-You should have two new `.pem` files, one containing your private key and one containing your cert.
-
-When you run `openssl x509 -noout -subject -in cert.pem` the information returned matches what you entered.
-
-### Resources
-[Blog post: Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
-[Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
-[Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
-[How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
-L: bbl
----
 Pave your IaaS and stand up a BOSH Director with `bbl up`
 ### What?
 As previously discussed, **[bbl](https://github.com/cloudfoundry/bosh-bootloader)** is a command line utility for standing up a BOSH Director (the VM and persistent disk) on an IAAS.
@@ -232,23 +186,6 @@ Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.go
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
 L: bbl
 ---
-Set domain nameservers
-### What
-A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
-
-### How
-Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`). Remember to select the "Use custom nameservers (enter below)" radio button!
-
-### Expected Result
-Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
-
-Remember, propagation of the DNS changes may take a little while, so it might not work immediately.
-
-### Resources
-[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
-[Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
-L: bbl
----
 Connect to your BOSH environment
 ### What?
 Time to target the Director VM you just `bbl up`ed.
@@ -268,6 +205,69 @@ When you run `bosh env`, it should print something like:
 Annnd that's it!
 
 # Congratulations, you've successfully deployed BOSH! #bigpatontheback
+L: bbl
+---
+Register a domain name
+### What?
+Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment.
+
+We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. Cloud Controller, for instance, is `api.your-domain.com`.
+
+### How?
+Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
+
+### Expected Result
+Freenom says that you have successfully registered your domain. Should look something like this:
+
+![Imgur](http://i.imgur.com/E3WnV24.png)
+
+### Resources
+[Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
+L: bbl
+---
+Generate a TLS cert
+### What?
+In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so we'll create one now.
+
+### How?
+We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
+
+To do this, run `openssl req` with a few arguments:
+
+* `-x509`outputs a x509 structure, a standard that defines the format of public key certificates.
+* `-newkey rsa:2048`generates a new RSA key of 2048 bits in size.
+* `-keyout` and `-out` arguments set output file paths (I generally use `key.pem` and `cert.pem`, respectively)
+* The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM passphrase.
+
+**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
+
+### Expected Result
+You should have two new `.pem` files, one containing your private key and one containing your cert.
+
+When you run `openssl x509 -noout -subject -in cert.pem` the information returned matches what you entered.
+
+### Resources
+[Blog post: Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
+[Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
+[Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
+[How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+L: bbl
+---
+Set domain nameservers
+### What
+A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
+
+### How
+Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`). Remember to select the "Use custom nameservers (enter below)" radio button!
+
+### Expected Result
+Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
+
+Remember, propagation of the DNS changes may take a little while, so it might not work immediately.
+
+### Resources
+[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
+[Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 L: bbl
 ---
 [RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
