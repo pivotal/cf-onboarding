@@ -179,8 +179,6 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
-Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
-
 
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
@@ -283,6 +281,8 @@ bbl will make a few different load balancers for you:
 - TCP load balancer that delegates to the TCP routers
 - Credhub load balancer that delegates directly to Credhub
 
+One last thing: if you provoide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
+
 ### How
 To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update it's plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
 
@@ -304,6 +304,8 @@ bbl up --gcp-service-account-key service-account.key.json
 
 ### Expected Results
 Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
+
+Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
