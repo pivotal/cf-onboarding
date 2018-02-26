@@ -381,7 +381,7 @@ L: cf-deployment
 ---
 Deploy CF using BOSH + cf-deployment
 ### What?
-[Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is another bleeding edge technology you'll be using during your CF adventure. It's not quite ready for use in production environments, but it's the future so it makes more sense to learn about this than about something that's about to be deprecated.
+[Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is the supported way to deploy CF in the OSS world. It consists primarily of a deployment manifest, as well as **operators files**, or ops-files, that transform the manifest to create a slightly different deployment.
 
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
 
