@@ -121,27 +121,82 @@ L: bbl
 
 ---
 
-Stand up a BOSH Director with `bbl up`
+Pave your IaaS and stand up a BOSH Director with `bbl up`
 
 ### What?
-As previously discussed, **[bbl](https://github.com/cloudfoundry/bosh-bootloader)** is a command line utility for standing up a BOSH Director (the VM and persistent disk) on an IAAS. In the past, you would have used Terraform (or on AWS, a CloudFormation template) to create the networks and VMs and [bosh create-env](https://bosh.io/docs/init-google.html) to set up your Director. Under the hood that's what `bbl` uses too.
+As previously discussed, **[bbl](https://github.com/cloudfoundry/bosh-bootloader)** is a command line utility for standing up a BOSH Director (the VM and persistent disk) on an IAAS.
+In the past, you would have used Terraform (or on AWS, a CloudFormation template) to create the networks and VMs and [bosh create-env](https://bosh.io/docs/init-google.html) to set up your Director.
+Under the hood that's what `bbl` uses too.
+
+#### Digging in: What does `bbl` do, actually?
+`bbl`'s responsbilities can be broken down into the following things:
+1. IaaS paving
+2. Bootstrping a BOSH director and jumpbox
+3. Uploading a cloud-config to the BOSH director
+
+[Let's break it down.](https://giphy.com/gifs/L253rIFQkyXSg/tile)
+
+**IaaS Paving**
+Before you deploy a BOSH director or CF (or anything else), you'll need to set up some back IaaS resources. This varies a bit by IaaS (AWS, GCP, etc.), but most of the time that includes the following things:
+- A private network for deploying your VMs. The network will typically include a subnet for each **availability zone** (or AZ) you're hoping to use. Each subnet is defined by a specific range of IP addresses that it's allowed to use. For example, if you want to use 3 AZs, you'll end up with three subnets defined by IP ranges 10.0.32.0/24, 10.0.48.0/24, and 10.0.64.0/24. Each subnet would live in a different AZ, so that if one AZ were to experience issues, software deployed to the other AZs would continue to function.
+- Routing rules. These are closely related to your network and subnet definitions, but they express how traffic **from your VMs** gets to the public internet, or even to other VMs. For example, you'll see rules that say "Traffic to 10.0.0.0/16" -- meaning, all private IP addresses -- "should get routed to the gateway for my private network."
+- Firewall rules. These allow or disallow netowrk traffic to your VMs from certain IP addresses. Most commonly, we want to block all traffic from public IP addresses, and then allow a few exceptions so that users can, you know, use the platform and apps deployed there.
+- External IP addresses. Most VMs will use **private IPs** from your `10.0.X.Y` ranges, but a few VMs need to be available on the public internet. In our example, these will eventually be used by load balancers and the BOSH jumpbox.
+You might see a few other things that are specific to a certain IaaS -- instance groups on GCP and security groups on AWS, for example -- the resources listed above are the most common across platforms.
+
+**Bootstraping a BOSH Director and Jumpbox**
+All that IaaS-paving was done for the purpose of getting a BOSH director running. HOWEVER, for super security fun time reasons, we want to deploy the director a private IP -- that means that any IP address outside of our private network will fail to send traffic to it.
+
+Well, in that case, how do _I_ access the BOSH director from my local machine? That's where the jumpbox becomes your friend. The jumpbox is a pretty lazy VM: all it does is hang out on both a public and private IP address, and it acts as the bridge between the outside world (i.e. you) and your private network. Any time you want to communicate with the BOSH director, you have to go through the jumpbox. If that sounds like a lot of work, you wouldn't be wrong, but have no fear: `bbl` is on the case.
+
+If you run `bbl print-env`, you'll see a lot of output, but one of the most important lines you'll see will say something like:
+```
+export BOSH_ALL_PROXY=ssh+socks5://jumpbox@<some IP address>:22?private-key=/path/to/some/bosh_jumpbox_private.key
+```
+This line of `bash` would set environment variables that the BOSH CLI can use to discover the location and credentials for your jumpbox, so that you can tunnel through the jumpbox and issue CLI commands against the director.
+
+So, to **actually** set all of the variables, you'll need to run:
+```
+eval "$(bbl print-env)"
+```
+from the bbl state directory.
+
+**Uploading a cloud-config to the BOSH director**
+The point of a [cloud-config](https://bosh.io/docs/cloud-config) is to hold IaaS- and environment-specific information about your deployment, so that your deployment manifest -- in this case, cf-deployment, which you'll use soon -- doesn't have to know about things like your IaaS credentials or identifiers for resources on your IaaS.
+
+If you were setting up your environment without bbl, after paving your IaaS with Terraform, and [bootstrapping a bosh director with the `create-env` command](https://bosh.io/docs/init-google.html), you'd need to build a cloud-config by hand based on the output from your Terraform work. `bbl` bails you out of this work by constructing that cloud-config for you, and uploading it to your BOSH director.
 
 ### How?
 Make sure you're in the directory that you created in the last step, with the `service-account.key.json` file generated by `gcloud`.
 
-Run `bbl up --gcp-zone us-east1-b --gcp-region us-east1 --gcp-service-account-key service-account.key.json --iaas gcp --gcp-project-id PROJECT_ID`
+Run
+```
+bbl up \
+  --gcp-region us-east1 \
+  --gcp-service-account-key service-account.key.json \
+  --iaas gcp
+```
 
 ...and...*<<drumroll, please>>*...it might fail. Sad panda. But if it does, the error is straightforward, so follow its instructions to fix the problem.
 
 **Pro-tip:** if you're using iTerm, hold down the command-⌘ key and click on the link to open it directly from the prompt.
 
-### Expected Results
-If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a `bbl-state.json`in the current working directory. This file is very important as it contains credentials and other metadata related to your BOSH director and infrastructure.
+
+### Expected Result
+If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a whole slew of files and directories that represent bbl's internal state in the current working directory. Those directories and files correspond, more or less, to the different steps outlined above. Just as importantly, they all have some interface for customizing your BOSH setup. No worries, we won't make you do that here.
+- `bbl-state.json`. This file is very important as it contains credentials and other metadata related to your BOSH director and infrastructure.
+- `terraform`. This directory includes the terraform templates that bbl used to pave your IaaS.
+- `jumpbox-deployment`, `create-jumpbox.sh`, and `delete-jumpbox.sh` -- for bootstrapping a jumpbox. The shell scripts actually contain the `create-env` commands that bbl used to set up your jumpbox.
+- `bosh-deployment`, `create-director.sh`, and `delete-director.sh` -- for bootstrapping a BOSH director. The shell scripts actually contain the `create-env` commands that bbl used to set up your director.
+- `cloud-config`, which includes the cloud-config bbl generates for you.
 
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
+
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
+[Docs: cloud-configs](https://bosh.io/docs/cloud-config)
+[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
 
 L: bbl
 
@@ -157,14 +212,10 @@ To set the BOSH environment, run the following commands:
 
 `bbl print-env` to see the environment variables you'll set to use your new BOSH. 
 
-`eval "$(bbl print-env)"` to export them.
-
-Run the following command to alias your BOSH environment, replacing `YOUR-ENV` with an environment name of your choice:
-
-`bosh --environment="$BOSH_ENVIRONMENT" --ca-cert="$BOSH_CA_CERT" --client="$BOSH_CLIENT" --client-secret="$BOSH_CLIENT_SECRET" alias-env YOUR-ENV`
+`eval "$(bbl print-env)"` to export them. **Note: you will definitely need to include the double-quotes for this command to work properly.** Once you've run it, you should be able to start working with your bosh director. If you ever have a hard time connecting to your BOSH director, your first step should be to re-run `eval "$(bbl print-env)"`.
 
 ### Expected Results
-When you run `bosh -e YOUR-ENV env`, it should print something like:
+When you run `bosh env`, it should print something like:
 
 ![image](https://www.pivotaltracker.com/file_attachments/77821681/download)
 
@@ -182,9 +233,23 @@ L: bbl
 Register a domain name
 
 ### What?
-Now that you've done your victory dance, on to bigger and better things&mdash;like getting a domain name for your Cloud Foundry deployment.
+Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment.
 
 We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. Cloud Controller, for instance, is `api.your-domain.com`.
+
+#### Side note: How does DNS work exactly?
+As part of this story, you'll pick a domain like `onboarding.cf` and register it. That means that if anyone tries to make an HTTP request to `onboarding.cf`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `onboarding.cf`?"
+
+The simplest way to manage such a request is to create an **A record.** These records map a domain, `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries it's nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
+
+However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
+
+To achieve that, we first set up a different kind of record, an **NS record**, which maps a domain to other DNS servers. It essentially says, "If you're looking for information about domains that end with `onboarding.cf`, go ask this other set of DNS servers. Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers. You're going to leverage this functionality in order to register your `onboarding.cf`-like domain with Freenom, but then manage all subdomains like `ssh.onboarding.cf` and `*.onboarding.cf` with Google Cloud DNS using bbl.
+
+In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
+- An NS record that defines the Google DNS servers. You'll take that list of servers to Freenom to configure it to defer to Google Cloud DNS.
+- An A record for a few reserved subdomains like `ssh.onboarding.cf`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
+- An A record for `*.onboarding.cf`. This record maps **all** other subdomains of `onboarding.cf` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `onboarding.cf` domain, so that you can make subdomains on the fly like `my-app.onboarding.cf`.
 
 ### How?
 Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
@@ -197,7 +262,7 @@ Freenom says that you have successfully registered your domain. Should look some
 ### Resources
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 
-L: cf-deployment
+L: bbl
 
 ---
 
@@ -229,38 +294,55 @@ When you run `openssl x509 -noout -subject -in cert.pem` the information returne
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
 [How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
 
-L: cf-deployment
+L: bbl
 
 ---
 
-Use bbl to create a load-balancer
-### What?
-Use `bbl` + your newly generated TLS certificate to create a **[load balancer](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)** in front of your future Cloud Foundry deployment. CF doesn't require a load balancer, nor does it include one, but as you read the (P)CF docs you'll realize that it's assumed that you'll have one.
+Create load balancers
+### What
+We've been alluding to load balancers for a few stories, but now we'll actually get around to creating them with bbl.
 
-### How?
-Run `bbl create-lbs` with the following parameters:
+A load balancer is some machine -- or set of machines -- that serve as the entry point to the system and delegate traffic to other components. Importantly, one of their jobs is to make sure that traffic is distributed evenly among VMs that do similar work. The easiest load balancer to understand is the HTTP load balancer, which balances traffic to the [CF routers](http://docs.cloudfoundry.org/concepts/architecture/router.html).
 
-`--type`: Tells bbl which set of load balancers to create. Possible values are concourse and cf (use cf).
-`--domain`: The domain that will resolve to your load balancer. It should match the domain that you registered on Freenom and the Common Name you entered when creating your TLS cert.
-`--cert`: A path to a file with a PEM-encoded TLS certificate (the cert.pem you created in the last story). Remember that the cert should be valid for whichever domain you specify in the --domain flag.
-`--key`: A path to a file with a PEM-encoded TLS key that corresponds to the cert provided in --cert.
+Most public IaaSes provide load balancing solutions, but some do not. For example, if you were deploying to vSphere, you'd need to come up with your own load balancing solution: most people use [HAProxy](https://github.com/cloudfoundry-incubator/haproxy-boshrelease) or hardware load balancers for this.
 
-All together that's: `bbl create-lbs --type cf --domain some-domain.com --cert cert.pem --key key.pem`
+bbl will make a few different load balancers for you:
+- HTTP and Websocket load balancers that delegate to the router
+- SSH load balancer the delegates to the SSH proxy
+- TCP load balancer that delegates to the TCP routers
+- Credhub load balancer that delegates directly to Credhub
 
-**NOTE:** If `bbl` fails to create your load balancer, run the command `bbl latest-error` to see what's up.
+One last thing: if you provoide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
 
-### Expected Result
-Run `bbl lbs` to see load balancer details.
+### How
+To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update it's plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
 
+Run
+```
+bbl plan \
+  --lb-type cf \
+  --lb-cert PATH_TO_TLS_CERT --lb-key PATH_TO_TLS_KEY \
+  --lb-domain YOUR_DOMAIN \
+  --gcp-service-account-key service-account.key.json
+```
+You should be able to see that a handful of files in your bbl state directory have been updates -- specifically, your terraform and cloud-configs directory.
+
+Next, run
+```
+bbl up --gcp-service-account-key service-account.key.json
+```
+
+
+### Expected Results
 Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
 
 Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
-[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+[Docs: HAProxy](http://www.haproxy.org/)
 
-L: cf-deployment
+L: bbl
 
 ---
 
@@ -281,7 +363,10 @@ Remember, propagation of the DNS changes may take a little while, so it might no
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 
-L: cf-deployment
+L: bbl
+---
+
+[RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
 
 ---
 
