@@ -1,4 +1,5 @@
 Create a Redis BOSH Release
+
 ### What?
 Okay, the training wheels are coming **off**. This BOSH Release is gonna be you + the same docs anyone else uses ("whhaaaaaat?" "I know, they grow up so fast!"). But first, a little preamble:
 
@@ -13,8 +14,11 @@ A BOSH release that facilitates the use of Redis by a CF deployed app.
 ### Resources
 [http://bosh.io/docs/create-release.html](http://bosh.io/docs/create-release.html)
 L: bosh
+
 ---
+
 Create a Concourse resource
+
 ### What?
 As we've seen, a [Concourse resource](http://concourse.ci/concepts.html#resources) can be checked for new versions, used as a trigger when new versions are found, pulled down at a specific version, and pushed up idempotently to create new versions.
 
@@ -40,5 +44,9 @@ Let's get creative!
 ### Resources
 [Docs / Github : List of resource types and links to their implementation](https://concourse.ci/resource-types.html)
 L: bosh
+
 ---
+
 [RELEASE] End of week projects, minimal instruction ⇧
+
+

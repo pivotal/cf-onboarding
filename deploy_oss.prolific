@@ -1,4 +1,5 @@
 Install bosh-bootloader and dependencies
+
 ### What?
 [BOSH](http://bosh.io/docs/about.html) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
 
@@ -42,9 +43,13 @@ The following dependencies can be installed through the Cloud Foundry [homebrew 
 **BOSH:** [cloudfoundry/bosh-cli](https://github.com/cloudfoundry/bosh-cli)
 **Infrastructure:** [cloudfoundry/bosh-bootloader](https://github.com/cloudfoundry/bosh-bootloader)
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+
 L: bbl
+
 ---
+
 Install Google Cloud SDK
+
 ### What?
 You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically Pivotal Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
 
@@ -75,9 +80,13 @@ Your active configuration is: [PROJECT_ID]
 ### Resources
 [Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
 [Internal Doc: The Great GCP Migration of 2016](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
+
 L: bbl
+
 ---
+
 Create a GCP service account
+
 ### What?
 We're going to create a **[service account](https://cloud.google.com/compute/docs/access/service-accounts)** with `gcloud`, which `bbl` can use to set up infrastructure on GCP. Service accounts authenticate applications running on your virtual machine instances to other Google Cloud Platform services, like APIs.
 
@@ -107,9 +116,13 @@ Verify that the account is listed in your GCP dashboard under Menu > IAM & Admin
 [Docs: GCP Service Accounts](https://cloud.google.com/compute/docs/access/service-accounts)
 [Docs: Identity and Access Management (IAM) Roles](https://cloud.google.com/compute/docs/access/iam)
 [Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+
 L: bbl
+
 ---
+
 Pave your IaaS and stand up a BOSH Director with `bbl up`
+
 ### What?
 As previously discussed, **[bbl](https://github.com/cloudfoundry/bosh-bootloader)** is a command line utility for standing up a BOSH Director (the VM and persistent disk) on an IAAS.
 In the past, you would have used Terraform (or on AWS, a CloudFormation template) to create the networks and VMs and [bosh create-env](https://bosh.io/docs/init-google.html) to set up your Director.
@@ -184,9 +197,13 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+
 L: bbl
+
 ---
+
 Connect to your BOSH environment
+
 ### What?
 Time to target the Director VM you just `bbl up`ed.
 
@@ -206,8 +223,15 @@ Annnd that's it!
 
 # Congratulations, you've successfully deployed BOSH! #bigpatontheback
 L: bbl
+
 ---
+
+[RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
+
+---
+
 Register a domain name
+
 ### What?
 Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment.
 
@@ -237,9 +261,13 @@ Freenom says that you have successfully registered your domain. Should look some
 
 ### Resources
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
+
 L: bbl
+
 ---
+
 Generate a TLS cert
+
 ### What?
 In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so we'll create one now.
 
@@ -265,8 +293,11 @@ When you run `openssl x509 -noout -subject -in cert.pem` the information returne
 [Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
 [How to: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+
 L: bbl
+
 ---
+
 Create load balancers
 ### What
 We've been alluding to load balancers for a few stories, but now we'll actually get around to creating them with bbl.
@@ -310,9 +341,13 @@ Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.go
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
 [Docs: HAProxy](http://www.haproxy.org/)
+
 L: bbl
+
 ---
+
 Set domain nameservers
+
 ### What
 A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
 
@@ -327,11 +362,16 @@ Remember, propagation of the DNS changes may take a little while, so it might no
 ### Resources
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
+
 L: bbl
 ---
+
 [RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
+
 ---
+
 Update number of compilation workers in cloud-config
+
 ### What?
 GCP creates fresh projects with surprisingly low CPU quotas, which means we generally have to reduce the number of machines we use if we want to deploy CF on a fresh project. [Compilation workers](https://bosh.io/docs/deployment-manifest.html#compilation) temporarily increase your CPU usage beyond what will ultimately be needed by CF once it's up and running, so since we have flexibility on how many we need this is where we have wiggle room to slip in under the barebones quota.
 
@@ -355,9 +395,13 @@ When you run `bosh -d cf deploy` a couple stories down, it doesn't fail with a r
 [Docs: What is a cloud config?](http://bosh.io/docs/cloud-config.html)
 [Forum question: What's the difference between > and >>?](http://askubuntu.com/questions/382793/whats-is-the-difference-between-and-in-shell-command)
 [YAML Validator](http://codebeautify.org/yaml-validator)
+
 L: cf-deployment
+
 ---
+
 Select a stemcell for your BOSH deployment
+
 ### What?
 The **[stemcell](http://bosh.cloudfoundry.org/docs/stemcell.html)** is the foundation of every VM the [BOSH Director](https://bosh.io/docs/bosh-components.html#director) deploys. It is a versioned Operating System [image](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/#images-and-layers) wrapped with [IaaS](https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29)-specific packaging.
 
@@ -380,8 +424,11 @@ Upload the stemcell by running:
 **BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
 **BOSH:** [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent)
 L: cf-deployment
+
 ---
+
 Deploy CF using BOSH + cf-deployment
+
 ### What?
 [Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is another bleeding edge technology you'll be using during your CF adventure. It's not quite ready for use in production environments, but it's the future so it makes more sense to learn about this than about something that's about to be deprecated.
 
@@ -400,9 +447,13 @@ Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should ha
 ### Resources
 [Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
 [Github README: Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
+
 L: cf-deployment
+
 ---
+
 Entertain yourself during the CF deploy "intermission"
+
 ### What?
 You have some time to kill while your CF deploys. Keep an eye on it (it could flake out at any moment), but otherwise here's some light reading:
 
@@ -425,9 +476,13 @@ And some basic tutorials, specific to topics you might be wondering about right 
 Mastery of the material.
 
 (I'm joking)
+
 L: cf-deployment
+
 ---
+
 Set up your CF target domain
+
 ### What?
 We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
@@ -445,11 +500,18 @@ Run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`
 
 ### Resources
 [Forum question: Get Common Name from TLS cert](https://unix.stackexchange.com/questions/103461/get-common-name-cn-from-ssl-certificate)
+
 L: cf-deployment
+
 ---
+
 Party on, Garth
+
 ## You just deployed Cloud Foundry
 ![party](https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif)
+
 L: cf-deployment
+
 ---
+
 [RELEASE] Deploy CF with cf-deployment ⇧
