@@ -1,4 +1,5 @@
 Install the Bosh v2 CLI
+
 ### What?
 In this next section you are going to deploy Concourse locally in a single VM using `bosh create-env`, for which you'll need to install the Bosh v2 CLI.
 
@@ -8,8 +9,11 @@ Install the [Bosh v2 CLI](https://bosh.io/docs/cli-v2.html#install) with brew by
 ### Expected Result
 Running `bosh -v` should print "version 2.0.33-...." or above.
 L: concourse
+
 ---
+
 Stand up Concourse locally
+
 ### What?
 Concourse is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system.
 
@@ -28,8 +32,11 @@ The "pipelines" are a collection of [three core concepts (jobs, tasks, and resou
 ### Relevant Repos and Teams
 **Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
 L: concourse
+
 ---
+
 Download and configure the Concourse CLI
+
 ### What?
 Now that you have Concourse deployed, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
 
@@ -54,8 +61,11 @@ Run `fly login --help` to learn about other commands.
 ### Relevant Repos and Teams
 [concourse/fly](https://github.com/concourse/fly)
 L: concourse
+
 ---
+
 Follow the Concourse "Hello, world!" tutorial
+
 ### What?
 To get started with Concourse, you'll use [their official "Hello, world!" tutorial](http://concourse.ci/hello-world.html) to set up two very simple pipelines.
 
@@ -77,5 +87,9 @@ Have you clicked "Login"? You won't see your pipeline or jobs in your browser un
 ### Resources
 [Docs: Pipeline Mechanics](http://concourse.ci/pipeline-mechanics.html)
 L: concourse
+
 ---
+
 [RELEASE] Spin up and configure Concourse-in-a-box ⇧
+
+

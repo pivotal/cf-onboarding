@@ -1,4 +1,5 @@
 Facilitating an Onboarding Week [a note for managers]
+
 Hi there, facilitators!
 
 This is a reminder to read the **[facilitation documentation](https://github.com/pivotal-cf/onboarding/blob/master/FACILITATING.md)** on GitHub.
@@ -14,8 +15,11 @@ It's also a short task list of things you might want to do before Onboarding Wee
 - [ ] Add Retro to participant calendars (ideally EOD Fri)
 - [ ] For GCP track **only**: Create IAAS account(s). Add participants as Owners.
 - [ ] For GCP track **only**: Ensure GCP quotas for VM instances, external IP addresses and global external IP addresses are sufficient (greater than 24). 
+
 ---
+
 Welcome to Onboarding Week!
+
 ### What?
 Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. What we hope you get out of it:
 1. A coherent, if cursory, overview of a complicated product.
