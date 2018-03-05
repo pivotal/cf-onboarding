@@ -1,4 +1,5 @@
 View Application Security Groups
+
 ### What?
 Application Security Groups are a collection of egress (outbound) rules that specify the protocols, ports, and IP ranges where application containers can send traffic. Security groups define rules that *allow* traffic instead of omitting it, which means that the order of evaluation for security groups that apply to the same space, org, or deployment is unimportant. Application containers use these rules to filter and log outbound network traffic.
 
@@ -29,7 +30,9 @@ If you run `cf security-group public_networks` you'll see that it allows traffic
 ["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://blog.pivotal.io/pivotal-cloud-foundry/products/taking-security-to-the-next-level-application-security-groups)
 ["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
 L: security
+
 ---
+
 Allowing network traffic to other apps
 ### What?
 By default, security groups are configured not to allow app containers to address each other directly.
@@ -68,7 +71,9 @@ What happens if you allow access to a port that the app doesn't listen to? Is it
 [Docs: Deploy Apps with CF C2C Networking](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html)
 [Video: CF Networking: All Your Packets are Belong to Us](https://www.youtube.com/watch?v=WrTXd42_m10)
 L: security
+
 ---
+
 Deploy an app that uses container-to-container networking
 ### What?
 You already understand the basics of why container-to-container networking is valuable, now let's see it in action!
@@ -86,4 +91,6 @@ Follow [these instructions](https://github.com/cloudfoundry-incubator/cf-network
 ### Relevant Repos and Teams
 L: bosh, needs-work
 ---
+
 [RELEASE] Networking and Monitoring ⇧
+

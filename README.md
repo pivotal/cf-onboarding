@@ -17,8 +17,10 @@ To run an Onboarding Week in your office, **read the [facilitation](FACILITATING
 
 ## Usage
 ### Import stories to Tracker (from release)
-1. Download latest release from the releases page
-1. Use the Import CSV function to add the stories to your project with the CSV file. The account used to import the CSV file will be the requester associated with the resulting stories.
+**This is the easiest way to get started, and recommended for most people.**
+1. [Download latest release](https://github.com/pivotal-cf/onboarding/releases/latest) from the releases page
+1. Create a [new Tracker project](https://www.pivotaltracker.com/dashboard)
+1. Use the Import CSV function (on the Settings page) to add the stories to your project with the CSV file. The account used to import the CSV file will be the requester associated with the resulting stories.
 
 ### Import stories to Tracker (from source)
 The stories in this repo are divided by epic (e.g. Deploying with GCP, Redis CUPS, etc.) They are provided in .prolific format. To grab the most recent versions of stories from master or another branch:

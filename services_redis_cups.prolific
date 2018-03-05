@@ -1,4 +1,5 @@
 Create a RedisLabs user-provided service
+
 ### What?
 Cloud Foundry offers a [marketplace of services](https://docs.run.pivotal.io/marketplace/) from which users can provision reserved resources on-demand. Think of a service as a factory that delivers service instances. Examples include databases on a shared or dedicated server or accounts on a Software as a Service (SaaS) application.
 
@@ -20,8 +21,11 @@ I can see my new user-provided service in `cf services`.
 ### Relevant Repos and Teams
 **CAPI:** https://github.com/cloudfoundry/cloud_controller_ng
 L: app-dev, services
+
 ---
+
 Deploy an application for use with a RedisLabs user-provided service
+
 ### What?
 To play around with the RedisLabs user-provided service instance we just created, we're going to need an app to use it. Let's deploy and bind one now!
 
@@ -49,5 +53,9 @@ The value should also be present in your RedisLabs Dashboard.
 [User Provided Services (CUPS) Documentation](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
 [Bind a Service Instance Documentation](https://docs.cloudfoundry.org/devguide/services/application-binding.html)
 L: app-dev, services
+
 ---
+
 [RELEASE] Services: Redis CUPS ⇧
+
+
