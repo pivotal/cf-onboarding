@@ -19,6 +19,7 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 ### Communication Suggestions
 * **Morning Standup:** to review how the week is going / answer questions.
 * **After-lunch pow-wow:** more review and questions (for some groups this is indispensable, for others it's less necessary).
+* **Second Afternoon Check-in:** Have a facilitator stop by the participants' workstations again later in the afternoon (around 4pm) to see if they have any additional questions.
 * **+/∆s ("plus deltas"):** An end-of-day email to everyone involved in the week (e.g. onboarders, managers, interested third parties) reviewing what went well and what they would have liked to change about the day. This is an opportunity to reflect and give prompt feedback on how the week is going (it's also something that CF NYC teams do for real).
 * **Group Slack:** Start a message thread to share resources and post reminders (a channel is probably overkill).
 * **Retro:** What Pivotal experience could be complete without a retro? Order goodies and treat it like a celebration.
