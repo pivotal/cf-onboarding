@@ -380,7 +380,7 @@ To do this, we edit our **[cloud config](http://bosh.io/docs/cloud-config.html)*
 To deploy Cloud Foundry you'll be taking advantage of the [cloud config](http://bosh.io/docs/cloud-config.html) that `bbl` generated for you during `bbl up`.
 
 ### How?
-Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
+Check your CPU quota by navigating to Home > IAM & Admin > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
 
 Run `bosh cloud-config > cloud-config.yml`
 
@@ -435,7 +435,7 @@ Deploy CF using BOSH + cf-deployment
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
 
 ### How?
-Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md#deploy-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
+Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md) (ignore the stemcell step, you'll use the one you uploaded in the last story).
 
 Add `-o operations/scale-to-one-az.yml` to the deploy command.
 
