@@ -1,4 +1,5 @@
 Create a Redis BOSH Release
+
 ### What?
 Okay, the training wheels are coming **off**. This BOSH Release is gonna be you + the same docs anyone else uses ("whhaaaaaat?" "I know, they grow up so fast!"). But first, a little preamble:
 
@@ -13,8 +14,11 @@ A BOSH release that facilitates the use of Redis by a CF deployed app.
 ### Resources
 [http://bosh.io/docs/create-release.html](http://bosh.io/docs/create-release.html)
 L: bosh
+
 ---
+
 Create a Concourse resource
+
 ### What?
 As we've seen, a [Concourse resource](http://concourse.ci/concepts.html#resources) can be checked for new versions, used as a trigger when new versions are found, pulled down at a specific version, and pushed up idempotently to create new versions.
 
@@ -40,5 +44,126 @@ Let's get creative!
 ### Resources
 [Docs / Github : List of resource types and links to their implementation](https://concourse.ci/resource-types.html)
 L: bosh
+
 ---
+
+Make a BOSH release
+
+### What?
+Create a BOSH release of an app (e.g.: a simple NginX app or of your choosing )
+
+### Expected Result
+Have a VM running your application code on it's own VM released and managed by BOSH, and be able to scale it by editing the YAML.
+
+### Resources
+https://bosh.io/docs/create-release.html
+https://bosh.io/docs/packages.html
+https://starkandwayne.com/blog/your-first-bosh-release/
+https://content.pivotal.io/blog/how-to-create-a-bosh-release-of-a-dns-server
+
+---
+
+Make a BOSH Errand
+
+### What?
+Create a BOSH errand a task that can be triggered via bosh ( run specific set of tests )
+
+### Expected Result
+Be able to run `bosh -d <your cf> errands` and have your errand run.
+
+### Resources
+https://bosh.io/docs/errands.html
+
+---
+
+Create a tile to deploy with OPS Manager
+
+### Resources
+https://docs.pivotal.io/tiledev/2-0/
+https://docs.pivotal.io/tiledev/2-0/tile-structure.html
+https://docs.pivotal.io/tiledev/2-0/tile-generator.html
+
+---
+
+Deploy OPS Manager
+
+### What?
+Deploy OPS Manager, a key component of th Pivotal's packaged version of CF
+
+### Resources
+https://docs.pivotal.io/pivotalcf/2-0/customizing/
+
+---
+
+Container networking
+
+### What?
+Explore how and why of container to container networking.
+
+### Resources
+https://github.com/cloudfoundry/cf-networking-notes
+https://github.com/cloudfoundry/cf-networking-release
+https://docs.cloudfoundry.org/concepts/understand-cf-networking.html
+https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html
+
+---
+
+Deploy, scale and tune an app on PWS
+
+### What?
+
+Get to kick the tires as a user of what PWS can offer. Deploy an app, scale it, benchmark it and view it's metrics by using all the tools that PWS puts at your disposal.
+
+1. AppsManager
+1. Metrics
+1. AutoScaling
+1. and more!
+
+--- 
+
+Deploy CFCR
+
+### What?
+
+Deploy CF flavored Kubernetes, with the aide of BOSH.
+
+### Resources
+https://www.cloudfoundry.org/container-runtime/
+https://github.com/cloudfoundry/docs-cfcr
+https://content.pivotal.io/slides/cloud-foundry-container-runtime-cfcr-production-kubernetes
+http://engineering.pivotal.io/post/deploy-kubernetes-cfcr/
+
+---
+
+Deploy PKS
+
+### What?
+
+Deploy the Pivotal flavored Kubernetes with the aide of BOSH and OpsManager
+
+### Caveat
+You will need OpsManager
+
+### Resources
+https://pivotal.io/platform/pivotal-container-service
+https://docs.pivotal.io/runtimes/pks/1-0/
+
+---
+
+Diego cell tunning
+
+### What?
+Did you know you could tune up or down Diego cells and affect placement and performance? The platform will allow you to do such things as:
+1. overcommiting on memory resources
+1. enable or disable end to end encryption between your app and the router (aka route integrity )
+1. tune the amount of extra memory that is allocated to a user's container, to allow for such things as envoy and other sidecar processes
+1. and more...
+
+### Result
+Explore the different knobs that are offered on the Diego BOSH release.
+
+---
+
 [RELEASE] End of week projects, minimal instruction ⇧
+
+

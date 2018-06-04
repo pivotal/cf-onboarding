@@ -1,4 +1,5 @@
 Deploy Concourse with BOSH
+
 ### What?
 [Concourse](http://concourse.ci/) is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of [three core concepts (jobs, tasks, and resources)](http://concourse.ci/concepts.html) that you'll learn more about in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
@@ -7,8 +8,10 @@ You already have a Bosh Director, a cloud-config, and at least one stemcell, so 
 
 **Pre-deploy**
 `bbl` only supports one load balancer at a time so in lieu of depriving our CF deployment of its lb, we're going to have Concourse go without. To do this:
-1. Omit `tls_bind_port`, `tls_cert`, and `tls_key` attributes from your Concourse manifest.
-1. Replace them with `bind_port: 80`
+1. Omit `tls_bind_port`, `tls_cert`, `tls_key` attributes from the GCP operations file applied to the Concourse manifest.
+1. Only retain the `bind_port: 80` attribute within the GCP operations file.
+1. Remove the blocks for `vm_extensions`, `atc_ca` and `atc` from the Concourse manifest.
+1. Change the `external_url` prefix to http.
 
 Also, register a new domain on Freenom. Don't do any configuration yet.
 
@@ -39,8 +42,11 @@ In GCP, go to Compute Engine > VM instances > the VM with your concourse deploym
 ### Relevant Repos and Teams
 **Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
 L: concourse
+
 ---
+
 Download and hook up your Concourse CLI
+
 ### What?
 Now that you have Concourse deployed, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
 
@@ -58,8 +64,11 @@ You successfully enter your credentials and the CLI prints "target saved."
 ### Relevant Repos and Teams
 [concourse/fly](https://github.com/concourse/fly)
 L: concourse
+
 ---
+
 Create a pipeline with a single job
+
 ### What?
 Every great Concourse behemoth of the 21st century started in the same place as yours is about to: with an empty `pipeline.yml`. You can kick it off with as little as a single, manually-triggered job.
 
@@ -77,8 +86,11 @@ A job that always goes green. How idyllic.
 [Build Plans](http://concourse.ci/build-plans.html)
 [Pipeline Mechanics](http://concourse.ci/pipeline-mechanics.html)
 L: concourse
+
 ---
+
 Add a Git resource to the pipeline
+
 ### What?
 A  **[resource](http://concourse.ci/concepts.html#resources)** is any entity that can be checked for new versions, pulled down at a specific version, and/or pushed up to idempotently create new versions. A few of the usual suspects are [listed here](http://concourse.ci/resource-types.html). They include a number of ideas that you're used to thinking of in terms of versioning (`git resource`, `git-release resource`, `tracker resource`, etc.), but also a few that you might not be, like `time`.
 
@@ -94,8 +106,11 @@ A one job, one resource pipeline that is always green.
 [Pipeline Mechanics](http://concourse.ci/pipeline-mechanics.html)
 [Common Concourse "resources"](http://concourse.ci/concepts.html#resources)
 L: concourse
+
 ---
+
 Add a docker-image resource to the pipeline
+
 ### What?
 Another popular Concourse resource is the **[`docker-image` resource](https://github.com/concourse/docker-image-resource)**. It's useful for providing a reproducible environment for your tests and builds with all of the dependencies a growing pipeline needs to succeed.
 
@@ -110,5 +125,9 @@ Another popular Concourse resource is the **[`docker-image` resource](https://gi
 [Get Started with Docker](https://docs.docker.com/get-started/)
 - [ ] Create DockerFile
 L: concourse
+
 ---
+
 [RELEASE] Concourse ⇧
+
+

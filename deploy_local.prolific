@@ -1,4 +1,5 @@
 Download PCF Dev from Pivotal Network
+
 ### What?
 [PCF Dev](https://pivotal.io/pcf-dev) is a lightweight [Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html) installation that runs on a single virtual machine on your workstation.
 
@@ -22,8 +23,11 @@ You have a zip file and a new found sense of accomplishment.
 **PCF Dev:** [pivotal-cf/pcfdev](https://github.com/pivotal-cf/pcfdev)
 **PCF Dev CLI plugin:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 L: core tools
+
 ---
+
 Install the Cloud Foundry CLI
+
 ### What?
 
 The [Cloud Foundry Command Line Interface (cf CLI)](https://docs.cloudfoundry.org/cf-cli/) is a tool you use to deploy and manage your applications, users, and services in a CF environment.
@@ -48,8 +52,11 @@ And for those uninitiated in the dark darks of the command line, check out [this
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 L: core tools
+
 ---
+
 Install VirtualBox
+
 ### What?
 [VirtualBox](https://www.virtualbox.org/manual/ch01.html) is a tool that creates and manages virtual machines (VMs) on your development environment. [PCF Dev](https://pivotal.io/pcf-dev) uses VirtualBox as its virtualizer, so you'll need to install VirtualBox in order to run PCF Dev.
 
@@ -63,8 +70,11 @@ When you run `VBoxManage --version`, your output looks something like `5.1.18r11
 [Blog post: containers vs. virtual machines, what’s the difference?](https://www.solidfire.com/blog/containers-vs-vms/)
 [Internal Google Doc: PCF Linux Containers Overview](https://docs.google.com/a/pivotal.io/document/d/1QNcmQCrHZNAr17ULoYis_sDPNV0X4IUO1grFDBlQdO8/edit?usp=sharing)—by CF's Senior VP of Engineering Onsi Fakhouri. I really recommend this one, even if you don't get to it now.
 L: core tools
+
 ---
+
 Start PCF Dev and login
+
 ### What?
 You've already downloaded PCF Dev from Pivotal Network. Now you're going to run it!
 
@@ -92,5 +102,9 @@ Run `cf target`. You'll see a line that says `API endpoint:   https://api.local.
 **Also PCF Dev:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 
 L: core tools
+
 ---
+
 [RELEASE] Set up local development environment with PCF Dev ⇧
+
+

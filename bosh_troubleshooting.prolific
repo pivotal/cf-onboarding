@@ -1,4 +1,5 @@
 Scale the number of Diego Cells
+
 ### What?
 With BOSH it is easy to scale deployments. All you need to do is modify the number of instances of that [job](https://bosh.io/docs/jobs.html) in the deployment manifest and redeploy.
 
@@ -17,18 +18,18 @@ cf-deployment installs [`cfdot`](https://github.com/cloudfoundry/cfdot) on the d
 [Docs: Creating a new BOSH VM](http://bosh.io/docs/bosh-components.html#create-vm)
 [YAML Validator](http://codebeautify.org/yaml-validator)
 L: bosh operator
+
 ---
+
 SSH into a running BOSH job
+
 ### What?
-To SSH into a BOSH job, you need to use your BOSH Director as a gateway host (like a proxy).
+To SSH into a BOSH job, you'll use the `bosh` cli.
 
 ### How?
-Set up your gateway host by passing a few flags into your `bosh ssh` command or by setting environment variables.
-* `--gw-user=` or $BOSH_GW_USER should be set to `jumpbox`.
-* `--gw-host=` or $BOSH_GW_HOST should be set to your Bosh Director's IP address.
-* `--gw-private-key=` or $BOSH_GW_PRIVATE_KEY is a little more complicated. You'll need to print your Bosh SSH key into a file by running `bbl ssh-key > bosh.pem` and using the path of that file as the environment variable or argument value (you may have to adjust the `.pem` file permissions for this to work).
-
-To remember the required commands/environmental variable names you can run `bosh ssh --help`.
+bosh-bootloader sets up a jumpbox that allows `bosh` commands to be run from your workstation
+* `eval "$(bbl print-env)"` to target the director
+* `bosh ssh` should just work with no further information needed from bbl.
 
 ### Expected Result
 Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
@@ -36,8 +37,11 @@ Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
 ### Resources
 [Forum question: What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
 L: bosh operator
+
 ---
+
 Trigger a failing BOSH job
+
 ### What?
 When a BOSH VM is healthy, it is listed with the status "running". Let's use **[Monit](https://mmonit.com/monit/)** to trigger a state change.
 
@@ -58,8 +62,11 @@ The Diego job for the cell you SSHed to should be listed as `failing` as soon as
 [Docs: BOSH Job Lifecycle](http://bosh.io/docs/job-lifecycle.html)
 [Docs: Monit](https://mmonit.com/monit/)
 L: bosh operator
+
 ---
+
 Watch the BOSH Resurrector resurrect Bosh jobs
+
 ### What?
 The Resurrector is a plugin to the BOSH Health Monitor that is responsible for automatically recreating VMs that become inaccessible. It continuously cross-references VMs expected to be running against the VMs that are sending heartbeats. When the resurrector does not receive heartbeats for a VM for a certain period of time, it will kick off a task on the Director to try to “resurrect” that VM. The Director may do one of two things:
 
@@ -87,8 +94,11 @@ Watch the process choke, the VM fail, and the resurrector bring it back!
 [Docs: Configuring Health Monitor](https://bosh.io/docs/hm-config.html)
 [Docs: BOSH Resurrector](http://bosh.io/docs/resurrector.html)
 L: bosh operator
+
 ---
+
 Update your BOSH deployment's properties (a.k.a. let's break some stuff)
+
 ### What?
 Each BOSH job can specify customizable properties in a **[spec file](http://bosh.io/docs/jobs.html#spec)**. Some will be required, others will have defaults. We're going to fiddle with the values and see what happens.
 
@@ -109,5 +119,7 @@ A few things could happen at this point. The deployment could run successfully (
 [YAML Validator](http://codebeautify.org/yaml-validator)
 BOSH's Wikipedia entry is also good, but it has parentheses in the URL and that's well past the limits of my markdown skills at this hour of night
 L: bosh operator
+
 ---
+
 [RELEASE] BOSH Operator Troubleshooting ⇧
