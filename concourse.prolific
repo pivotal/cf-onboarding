@@ -119,7 +119,7 @@ Now that you have Concourse deployed, the first thing you'll want to do is downl
 ### How?
 1. Download the `fly` CLI from the "no pipelines configured" page.
 1. Move it to your computer's $PATH and make it executable.
-1. Run `fly login --help` for instructions to login to Concourse.
+1. Run `fly login --help` for instructions to login to Concourse. Since we provided the `no-auth.yml` ops-file in our deploy command, you won't actually need to provide any credentials to log in.
 
 ### Expected Result
 You successfully enter your credentials and the CLI prints "target saved."
