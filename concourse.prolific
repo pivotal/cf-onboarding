@@ -75,7 +75,6 @@ Even though you already have your IaaS and BOSH Director set up, we're going to 
 ![Lonely Concourse, no pipelines](http://engineering.pivotal.io/images/concourse-000/no_pipelines.png)
 
 ### Resources
-[How to setup A, MX, CNAME or other records for a domain name on Freenom](https://my.freenom.com/knowledgebase.php?action=displayarticle&id=4)
 [Terraform + Google Cloud Platform docs](https://www.terraform.io/docs/providers/google/index.html)
 [Concourse Architecture Overview](https://concourse.ci/architecture.html)
 [All About Concourse for Continuous Integration (video)](https://blog.pivotal.io/pivotal-perspectives/features/all-about-concourse-for-continuous-integration)
@@ -84,6 +83,27 @@ Even though you already have your IaaS and BOSH Director set up, we're going to 
 
 ### Relevant Repos and Teams
 **Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
+L: concourse
+
+---
+
+**Extra Credit**: Give your Concourse a domain
+
+### What?
+You just set up your Concourse deployment with BOSH, but to use it in your browser you have to use a raw IP address. Janky.
+
+Let's use our new knowledge about DNS to make a pretty domain for our new Concourse deployment.
+
+### How?
+First, you're going to configure DNS in the GCP web console. So, start by going to the "Cloud DNS" service in GCP. There, you should see a single DNS "zone", and the "DNS name" column should match the domain you made for CF.
+
+If you click through to your DNS zone, you'll see a button called "Add record set". Let's do that.
+
+The GCP console will automatically populate the tail end of your DNS name (hint: it will be the same base domain as your entire zone); all you have to do for that field is choose the subdomain for your Concourse. How about... `concourse`? The other thing you need to configure is the IP address that your domain will resolve to; that needs to match the IP address of your Concourse load balancer. Paste that value in and save. Then wait a minute or two to let the DNS configuration propagate.
+
+### Expected Result
+You can enter your new `concourse.XYZ` domain into your browswer and end up on your Concourse pipeline. You'll still need to click through Chrome's warning that the site isn't safe.
+
 L: concourse
 
 ---
