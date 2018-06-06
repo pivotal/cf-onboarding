@@ -63,6 +63,9 @@ Even though you already have your IaaS and BOSH Director set up, we're going to 
     --var web_network_vm_extension=lb
   ```
 
+**Open Concourse in your browser**
+Now that you've got everything deployed, navigate to `https://$LOAD_BALANCER_IP` in your browser. Because we're using untrusted certificates, your browswer is likely to throw up a warning page that you're about to navigate to a dangerous site. Most browsers give you the option to move forward anyway. For example, if you're using Chrome, click the "Advanced" link, and then you should be able to proceed.
+
 ### Troubleshooting
 1. Did you remember to set the `external_url` paramter to your load balancer IP?
 1. Did you remember to add the `https://` scheme to your external url?
