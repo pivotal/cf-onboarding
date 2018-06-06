@@ -139,9 +139,10 @@ Create a pipeline with a single job
 Every great Concourse behemoth of the 21st century started in the same place as yours is about to: with an empty `pipeline.yml`. You can kick it off with as little as a single, manually-triggered job.
 
 ### How?
-1. Set up a `jobs:` section.
+1. Set up a `jobs:` section in your `pipeline.yml`.
 1. Define a **[job](https://concourse-ci.org/jobs.html)** with a name and a [plan](https://concourse-ci.org/steps.html).
-1. Give the job a task that you define inline, in the pipeline itself (this is good to know how to do to test new configurations quickly).
+1. Give the job [a task](https://concourse-ci.org/jobs.html) that you [configure inline](https://concourse-ci.org/task-step.html#config), in the pipeline itself (this is good to know how to do to test new configurations quickly).
+1. Use [this doc about task configuration](https://concourse-ci.org/tasks.html) to set up a basic task that prints out "Hello world." Make sure to include the `platform`, `image_resource`, and `run` sections. For the `image_resource` section, you can probably use the [busybox docker image](https://hub.docker.com/_/busybox/). If you need more help, take a look at [this example for configuring an inline task](https://gist.github.com/dsabeti/63caef81d5294b761bf92f5a7ebf70bd).
 1. "fly" your pipeline using the `fly` CLI.
 
 ### Expected Result
