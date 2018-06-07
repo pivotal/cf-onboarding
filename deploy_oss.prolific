@@ -314,7 +314,7 @@ In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to
 
 The other thing you'll do in this command is configure the load balancers with the TLS certificate you made in the previous story.
 
-Finally, if you provoide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
+Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
 
 ### How
 To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update its plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
