@@ -107,22 +107,4 @@ L: security
 
 ---
 
-Deploy an app that uses container-to-container networking
-### What?
-You already understand the basics of why container-to-container networking is valuable, now let's see it in action!
-
-### How?
-Follow [these instructions](https://github.com/cloudfoundry-incubator/cf-networking-release/tree/develop/src/example-apps/cats-and-dogs) to deploy an example app that makes use of container-to-container networking.
-
-### Expected Result
-
-### Resources
-[Docs: Understanding CF Networking](https://docs.cloudfoundry.org/concepts/understand-cf-networking.html)
-[Docs: Deploy Apps with CF C2C Networking](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html)
-[Blog post: Container Networking With Cloudfoundry](https://medium.com/@christophef/container-networking-with-cloudfoundry-pws-pcf-part1-8840d7f9a985)
-
-### Relevant Repos and Teams
-L: bosh, needs-work
----
-
 [RELEASE] Networking and Monitoring ⇧

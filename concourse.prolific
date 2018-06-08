@@ -1,7 +1,7 @@
 Deploy Concourse with BOSH
 
 ### What?
-[Concourse](http://concourse-ci.org/) is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of three core concepts: [jobs](https://concourse-ci.org/jobs.html), [tasks](https://concourse-ci.org/tasks.html), and [resources](https://concourse-ci.org/resources.html). You'll learn more about these in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
+[Concourse](https://concourse-ci.org/) is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of three core concepts: [jobs](https://concourse-ci.org/jobs.html), [tasks](https://concourse-ci.org/tasks.html), and [resources](https://concourse-ci.org/resources.html). You'll learn more about these in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
 ### How?
 Even though you already have your IaaS and BOSH Director set up, we're going to have  a hard time re-using them for your Concourse deployment. The primary impediment is that `bbl` only supports one set of load balancers (either CF or Concourse) at a time. We _could_ try to finagle our Concourse deployment into our existing BOSH setup, but to keep things simple, we're just going to create a second VPC, BOSH Director, and load balancer for our Concourse deployment.
@@ -140,7 +140,7 @@ Every great Concourse behemoth of the 21st century started in the same place as 
 
 ### How?
 1. Set up a `jobs:` section in your `pipeline.yml`.
-1. Define a **[job](https://concourse-ci.org/jobs.html)** with a name and a [plan](https://concourse-ci.org/steps.html).
+1. Define a **[job](https://concourse-ci.org/jobs.html)** with a name and a [plan](https://concourse-ci.org/jobs.html#job-plan).
 1. Give the job [a task](https://concourse-ci.org/jobs.html) that you [configure inline](https://concourse-ci.org/task-step.html#config), in the pipeline itself (this is good to know how to do to test new configurations quickly).
 1. Use [this doc about task configuration](https://concourse-ci.org/tasks.html) to set up a basic task that prints out "Hello world." Make sure to include the `platform`, `image_resource`, and `run` sections. For the `image_resource` section, you can probably use the [busybox docker image](https://hub.docker.com/_/busybox/). If you need more help, take a look at [this example for configuring an inline task](https://gist.github.com/dsabeti/63caef81d5294b761bf92f5a7ebf70bd).
 1. "fly" your pipeline using the `fly` CLI.
@@ -151,6 +151,7 @@ A job that always goes green. How idyllic.
 ### Resources
 [Configuring a Job](https://concourse-ci.org/jobs.html)
 [Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
+[Build Plans](https://concourse-ci.org/jobs.html#job-plan)
 L: concourse
 
 ---
@@ -180,6 +181,7 @@ A one job, one resource pipeline that is always green.
 ### Resources
 [Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
 [Implementing your own resource](https://concourse-ci.org/implementing-resources.html)
+[Concourse "resources"](https://concourse-ci.org/resources.html)
 L: concourse
 
 ---

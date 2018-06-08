@@ -240,7 +240,7 @@ We need this name before deployment because the load balancer we're about to cre
 #### Side note: How does DNS work exactly?
 As part of this story, you'll pick a domain like `onboarding.cf` and register it. That means that if anyone tries to make an HTTP request to `onboarding.cf`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `onboarding.cf`?"
 
-The simplest way to manage such a request is to create an **A record.** These records map a domain, `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries it's nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
+The simplest way to manage such a request is to create an **A record.** These records map a domain, `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries its nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
 
 However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
 
@@ -276,8 +276,8 @@ We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed
 
 To do this, run `openssl req` with a few arguments:
 
-* `-x509`outputs a x509 structure, a standard that defines the format of public key certificates.
-* `-newkey rsa:2048`generates a new RSA key of 2048 bits in size.
+* `-x509` outputs a x509 structure, a standard that defines the format of public key certificates.
+* `-newkey rsa:2048` generates a new RSA key of 2048 bits in size.
 * `-keyout` and `-out` arguments set output file paths (I generally use `key.pem` and `cert.pem`, respectively)
 * The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM passphrase.
 
@@ -306,16 +306,18 @@ A load balancer is some machine -- or set of machines -- that serve as the entry
 
 Most public IaaSes provide load balancing solutions, but some do not. For example, if you were deploying to vSphere, you'd need to come up with your own load balancing solution: most people use [HAProxy](https://github.com/cloudfoundry-incubator/haproxy-boshrelease) or hardware load balancers for this.
 
-bbl will make a few different load balancers for you:
+In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to `cf`, this flag will cause bbl to make a few different load balancers for you:
 - HTTP and Websocket load balancers that delegate to the router
 - SSH load balancer the delegates to the SSH proxy
 - TCP load balancer that delegates to the TCP routers
 - Credhub load balancer that delegates directly to Credhub
 
-One last thing: if you provoide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
+The other thing you'll do in this command is configure the load balancers with the TLS certificate you made in the previous story.
+
+Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
 
 ### How
-To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update it's plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
+To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update its plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
 
 Run
 ```
@@ -380,7 +382,7 @@ To do this, we edit our **[cloud config](http://bosh.io/docs/cloud-config.html)*
 To deploy Cloud Foundry you'll be taking advantage of the [cloud config](http://bosh.io/docs/cloud-config.html) that `bbl` generated for you during `bbl up`.
 
 ### How?
-Check your CPU quota by navigating to Menu > Compute Engine > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
+Check your CPU quota by navigating to Home > IAM & Admin > Quotas. If you have more than 24 us-east1 CPUs available, then there's no need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
 
 Run `bosh cloud-config > cloud-config.yml`
 
@@ -410,7 +412,7 @@ A typical stemcell contains a bare bones OS skeleton with a few common utilities
 Stemcells are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure). You need to upload a stemcell for your BOSH Director to use when it deploys your Cloud Foundry VMs.
 
 ### How?
-Available stemcells **[are listed at bosh.io](http://bosh.io/)**. Identify the latest appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy your BOSH.
+Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the latest appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy your BOSH.
 
 Upload the stemcell by running:
 `bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=VERSION`.
@@ -430,12 +432,12 @@ L: cf-deployment
 Deploy CF using BOSH + cf-deployment
 
 ### What?
-[Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is another bleeding edge technology you'll be using during your CF adventure. It's not quite ready for use in production environments, but it's the future so it makes more sense to learn about this than about something that's about to be deprecated.
+[Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is the supported way to deploy CF in the OSS world. It consists primarily of a deployment manifest, as well as **operations files**, or ops-files, that transform the manifest to create a slightly different deployment.
 
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
 
 ### How?
-Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions to create a BOSH deployment manifest](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md#deploy-cf) (ignore the stemcell step, you'll use the one you uploaded in the last story).
+Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation, then follow [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md) (ignore the stemcell step, you'll use the one you uploaded in the last story).
 
 Add `-o operations/scale-to-one-az.yml` to the deploy command.
 
