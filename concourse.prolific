@@ -39,15 +39,15 @@ L: concourse
 Download and hook up your Concourse CLI
 
 ### What?
-Now that you have Concourse deployed, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
+Now that you have Concourse set up, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
 
 ### How?
 1. Download the `fly` CLI from the "no pipelines configured" page.
 1. Move it to your computer's $PATH and make it executable.
-1. Run `fly login --help` for instructions to login to Concourse. Since we provided the `no-auth.yml` ops-file in our deploy command, you won't actually need to provide any credentials to log in.
+1. Run `fly login --help` for instructions to login to Concourse. Our concourse is configured to allow users to login without any credentials (take a look at the `docker-compose.yml` and you should see how that was achieved).
 
 ### Expected Result
-You successfully enter your credentials and the CLI prints "target saved."
+The CLI prints "target saved" and you can run `fly -t ...` with other commands.
 
 ### Resources
 [Fly login documentation](https://concourse-ci.org/fly.html#fly-login)
