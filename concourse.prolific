@@ -1,112 +1,37 @@
-Deploy Concourse with BOSH
+Set up a local Concourse using Docker Compose
 
 ### What?
 [Concourse](https://concourse-ci.org/) is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of three core concepts: [jobs](https://concourse-ci.org/jobs.html), [tasks](https://concourse-ci.org/tasks.html), and [resources](https://concourse-ci.org/resources.html). You'll learn more about these in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
+In this story, we're going to use a tool called [Docker Compose](https://docs.docker.com/compose/overview/) to set up Concourse in local docker containers. (Most engineering teams at Pivotal use BOSH and [concoruse-bosh-deployment](https://github.com/concourse/concourse-bosh-deployment) to set up their Concourse for CI. However, it's a much longer process and we'd rather jump straight to some cool Concourse concepts.)
+
 ### How?
-Even though you already have your IaaS and BOSH Director set up, we're going to have  a hard time re-using them for your Concourse deployment. The primary impediment is that `bbl` only supports one set of load balancers (either CF or Concourse) at a time. We _could_ try to finagle our Concourse deployment into our existing BOSH setup, but to keep things simple, we're just going to create a second VPC, BOSH Director, and load balancer for our Concourse deployment.
+Our friends at Start & Wayne actually have a pretty good Concourse tutorial. We'll start by using their documentation for setting up your local Concourse.
 
-**Set up your second BOSH Director**
-1. Set up a new bbl-state directory. If you're already the `bbl-state` directory that you made for deploying CF:
+Open https://concoursetutorial.com/#getting-started in your broswer and start there. Just in case you wanna know the outline, here's what youre going to do:
+1. Install [Docker](https://www.docker.com/community-edition#/download) and [Docker Compose](https://docs.docker.com/compose/install/)
+2. Download the Concourse team's pre-packaged Docker Compose YAML configuration:
   ```
-  cd ..
-  mkdir bbl-state-concourse
-  cd bbl-state-concourse
+  wget https://concourse-ci.org/docker-compose.yml
   ```
-1. Run the following command to create your "bbl plan":
+3. Use Docker Compose to start up your local Concourse in docker containers:
   ```
-  bbl plan \
-    --iaas gcp \
-    --gcp-service-account /path/to/service_account_key.json \
-    --gcp-region us-central1 \
-    --lb-type concourse
-  ```
-1. Put your plan into effect:
-  ```
-  bbl up \
-    --iaas gcp \
-    --gcp-service-account /path/to/service_account_key.json
-  ```
-
-**BOSH deploy Concourse**
-1. Clone `concourse-bosh-deployment`:
-  ```
-  git clone git@github.com:concourse/concourse-bosh-deployment
-  ```
-1. Jump into the `cluster/` directory. There are a few different ways to deploy Concourse with BOSH; we want to use the full cluster (as opposed to bosh-lite):
-  ```
-  cd concourse-bosh-deployment/cluster
-  ```
-1. Fetch the URL for your Concourse. All external traffic to Concourse goes through the load balancer you just created with `bbl`. Therefore, when you try to access Concourse in your browser, you'll need to access it using your load balancer IP. Query `bbl` for that address:
-  ```
-  bbl lbs
-  ```
-1. Run the following command to deploy Concourse (this command was largely cribbed from [this doc in the `bbl` repo](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md#steps)):
-  ```
-  bosh deploy -d concourse concourse.yml \
-    -l ../versions.yml \
-    --vars-store cluster-creds.yml \
-    -o operations/no-auth.yml \
-    -o operations/privileged-http.yml \
-    -o operations/privileged-https.yml \
-    -o operations/tls.yml \
-    -o operations/tls-vars.yml \
-    -o operations/web-network-extension.yml \
-    --var network_name=default \
-    --var external_url="https://$LOAD_BALANCER_IP" \
-    --var web_vm_type=default \
-    --var db_vm_type=default \
-    --var db_persistent_disk_type=10GB \
-    --var worker_vm_type=default \
-    --var deployment_name=concourse \
-    --var web_network_name=private \
-    --var web_network_vm_extension=lb
+  docker-compose up -d
   ```
 
 **Open Concourse in your browser**
-Now that you've got everything deployed, navigate to `https://$LOAD_BALANCER_IP` in your browser. Because we're using untrusted certificates, your browswer is likely to throw up a warning page that you're about to navigate to a dangerous site. Most browsers give you the option to move forward anyway. For example, if you're using Chrome, click the "Advanced" link, and then you should be able to proceed.
-
-### Troubleshooting
-1. Did you remember to set the `external_url` paramter to your load balancer IP?
-1. Did you remember to add the `https://` scheme to your external url?
-1. Double-check that you're visiting the `https://` address in your browser.
-1. Try `bosh ssh`ing into your web VM and curling localhost. It should return the html for your pipeline-less Concourse webpage. If it does, then your problem is with routing/DNS, not with Concourse itself.
-1. If you hit an IP quota, go to Home > IAM & Admin > Quotas in your GCP dashboard and click the ✏  button. This will take you to a form where you can request an increased quota.
-1. If this ends up being frustrating in a "please, please don't make me do another minute" kind of way, no sweat. Don't waste time on a story you're not getting anything out of, just _Choose Your Own Adventure_ your way out of it by **[spinning up a local VM with `bosh create-env` and VirtualBox](https://github.com/concourse/concourse-bosh-deployment/blob/master/lite/README.md)**. Either way, same result →
+Now that you've got everything set up, navigate to `http://127.0.0.1:8080` in your browser.
 
 ### Expected Result
 ![Lonely Concourse, no pipelines](http://engineering.pivotal.io/images/concourse-000/no_pipelines.png)
 
 ### Resources
-[Terraform + Google Cloud Platform docs](https://www.terraform.io/docs/providers/google/index.html)
 [Concourse Architecture Overview](https://concourse-ci.org/concepts.html)
 [All About Concourse for Continuous Integration (video)](https://blog.pivotal.io/pivotal-perspectives/features/all-about-concourse-for-continuous-integration)
-[BOSH 2.0: The Evolution - YouTube (video)](https://www.youtube.com/watch?v=Q5uvoL1OqSw)
 [YAML Validator](http://codebeautify.org/yaml-validator)
 
 ### Relevant Repos and Teams
 **Concourse:** [concourse/concourse](https://github.com/concourse/concourse)
-L: concourse
-
----
-
-**Extra Credit**: Give your Concourse a domain
-
-### What?
-You just set up your Concourse deployment with BOSH, but to use it in your browser you have to use a raw IP address. Janky.
-
-Let's use our new knowledge about DNS to make a pretty domain for our new Concourse deployment.
-
-### How?
-First, you're going to configure DNS in the GCP web console. So, start by going to the "Cloud DNS" service in GCP. There, you should see a single DNS "zone", and the "DNS name" column should match the domain you made for CF.
-
-If you click through to your DNS zone, you'll see a button called "Add record set". Let's do that.
-
-The GCP console will automatically populate the tail end of your DNS name (hint: it will be the same base domain as your entire zone); all you have to do for that field is choose the subdomain for your Concourse. How about... `concourse`? The other thing you need to configure is the IP address that your domain will resolve to; that needs to match the IP address of your Concourse load balancer. Paste that value in and save. Then wait a minute or two to let the DNS configuration propagate.
-
-### Expected Result
-You can enter your new `concourse.XYZ` domain into your browswer and end up on your Concourse pipeline. You'll still need to click through Chrome's warning that the site isn't safe.
-
 L: concourse
 
 ---
