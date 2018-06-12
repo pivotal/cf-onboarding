@@ -82,7 +82,7 @@ But, what if you want your app to be able to establish connections with other pr
 If you need help thinking of a reason you'd want to do this, imagine trying to connect your app to anything that was deployed by BOSH, which mostly deploys to private IPs (which, as we've pointed out in previous stories, are blocked from app containers by default).
 The most common example of this are BOSH-deployed services like [cf-mysql](https://github.com/cloudfoundry/cf-mysql-deployment).
 However, rather than force you to set up another BOSH deployment, let's instead use our existing CF deployment, and see if we can't think of some CF component as a "service" that an app may want to leverage.
-For the sake of this story, let's try to query the router for its list of route (it's a thing you can do!). We'll create our own ASG to allow our app containers to open a connection to the router's private IP.
+For the sake of this story, let's try to query the router for its list of routes (it's a thing you can do!). We'll create our own ASG to allow our app containers to open a connection to the router's private IP.
 
 ### How?
 The basic outline of this workflow is this:
