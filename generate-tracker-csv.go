@@ -19,7 +19,7 @@ func main() {
 		"services_redis_cups.prolific",
 		"authorization.prolific",
 		"networking_monitoring.prolific",
-		"concourse_local.prolific",
+		"concourse.prolific",
 
 		//// Onboarding Part 2: OSS Track / operator & CF developer experience / guided exploration
 		// "introduction.prolific",
