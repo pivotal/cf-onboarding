@@ -92,7 +92,7 @@ Run the login command, choose the `admin` user, then select the `cfdev-org` org.
 (The users have different permissions. We will need the `admin` permissions.)
 
 ### Expected Result
-Run `cf target`. You'll see a line that says `API endpoint:   https://api.local.pcfdev.io`, followed by your user, org, and space info.
+Run `cf target`. You'll see a line that says `API endpoint:   https://api.v3.pcfdev.io`, followed by your user, org, and space info.
 
 ### Troubleshooting
 
