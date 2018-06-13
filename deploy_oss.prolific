@@ -65,7 +65,7 @@ Once you've done that, run `gcloud init` in your terminal.
 You should have received an invitation to join a GCP project from your facilitator or ask+cf@pivotal.io. Use your @pivotal.io email address and the name of your assigned project to configure the tool (the project name is in the GCP dashboard menu bar and the URL).
 
 ### Expected Result
-Run `gcloud version` => "Google Cloud SDK 149.0.0 ..." or higher
+Run `gcloud version` => "Google Cloud SDK 203.0.0 ..." or higher
 
 Run `gcloud config list` =>
 ```
