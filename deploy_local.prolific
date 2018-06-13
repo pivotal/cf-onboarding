@@ -87,10 +87,16 @@ From the command line, run `cf dev start`. Because you are running it for the fi
 
 FYI ...this process takes awhile. How long of a while will be influenced by your internet connectivity and bandwidth. Go get a snack or read some of the links.
 
-When it wraps up, PCF Dev will have printed credentials for two users, `user` and `admin` and the command you should use to login. The users have different permissions, so make sure to choose `admin`, then select the `pivotal` org when prompted.
+When it wraps up, PCF Dev will have printed the command that you should use to login, followed by credentials for two users, `user` and `admin`.
+Run the login command, choose the `admin` user, then select the `cfdev-org` org.
+(The users have different permissions. We will need the `admin` permissions.)
 
 ### Expected Result
-Run `cf target`. You'll see a line that says `API endpoint:   https://api.local.pcfdev.io`, followed by your user, org, and space info.
+Run `cf target`. You'll see a line that says `API endpoint:   https://api.v3.pcfdev.io`, followed by your user, org, and space info.
+
+### Troubleshooting
+
+If there appears to be no progress for 20-30 minutes, double-check if your system has any disk space left. PCF Dev apparently does not handle this case well.
 
 ### Resources
 [Tutorial: Getting Started with PCF Dev](https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction)
