@@ -21,7 +21,7 @@ Install or update the following dependencies on your local machine:
 * **Terraform** is a tool for building, changing, and versioning infrastructure safely and efficiently (run `brew install terraform`)
 
 The following dependencies can be installed through the Cloud Foundry [homebrew tap](https://github.com/cloudfoundry/homebrew-tap)
-* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew install bosh-cli`)
+* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew tap cloudfoundry/tap && brew install cloudfoundry/tap/bosh-cli`)
 * **bbl** is a tool for paving infrastructure in your desired IAAS as well as deploying a BOSH director (run `brew install bbl`)
 * **cf cli** is a tool for interacting with a Cloud Foundry deployment (run `brew install cf-cli`)
 
