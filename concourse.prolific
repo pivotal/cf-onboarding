@@ -58,55 +58,24 @@ L: concourse
 
 ---
 
-Create a pipeline with a single job
+Learn you some Concourse
 
 ### What?
-Every great Concourse behemoth of the 21st century started in the same place as yours is about to: with an empty `pipeline.yml`. You can kick it off with as little as a single, manually-triggered job.
+There's a lot of ground to cover when it comes to learning Concourse. One of the best resources you can use is the [tutorial developed by the folks at Stark & Wayne](https://concoursetutorial.com).
 
-### How?
-1. Set up a `jobs:` section in your `pipeline.yml`.
-1. Define a **[job](https://concourse-ci.org/jobs.html)** with a name and a [plan](https://concourse-ci.org/jobs.html#job-plan).
-1. Give the job [a task](https://concourse-ci.org/jobs.html) that you [configure inline](https://concourse-ci.org/task-step.html#config), in the pipeline itself (this is good to know how to do to test new configurations quickly).
-1. Use [this doc about task configuration](https://concourse-ci.org/tasks.html) to set up a basic task that prints out "Hello world." Make sure to include the `platform`, `image_resource`, and `run` sections. For the `image_resource` section, you can probably use the [busybox docker image](https://hub.docker.com/_/busybox/). If you need more help, take a look at [this example for configuring an inline task](https://gist.github.com/dsabeti/63caef81d5294b761bf92f5a7ebf70bd).
-1. "fly" your pipeline using the `fly` CLI.
+To get started, we're gonna recommend that you dig into the following topics _at the very least_:
+- [Hello world](https://concoursetutorial.com/basics/task-hello-world/)
+- [Task Inputs](https://concoursetutorial.com/basics/task-inputs/)
+- [Task Scripts](https://concoursetutorial.com/basics/task-scripts/)
+- [Basic Pipeline](https://concoursetutorial.com/basics/basic-pipeline/)
+- [Pipeline Resources](https://concoursetutorial.com/basics/pipeline-resources/)
 
-### Expected Result
-A job that always goes green. How idyllic.
+Don't let this list stop you from trying out other parts of the tutorial. There's a lot you can dig in to here, so let this be one of those choose-your-own-adventure moments.
 
 ### Resources
 [Configuring a Job](https://concourse-ci.org/jobs.html)
 [Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
 [Build Plans](https://concourse-ci.org/jobs.html#job-plan)
-L: concourse
-
----
-
-Add a Git resource to the pipeline
-
-### What?
-A  **[resource](https://concourse-ci.org/resources.html)** is any entity that can be checked for new versions, pulled down at a specific version, and/or pushed up to idempotently create new versions. A few of the usual suspects are [listed here](https://concourse-ci.org/included-resources.html). They include a number of ideas that you're used to thinking of in terms of versioning (`git resource`, `git-release resource`, `tracker resource`, etc.), but also a few that you might not be, like `time`.
-
-The [`git resource`](https://github.com/concourse/git-resource) tracks the commits in a git repository and, though I have no numbers on this, I expect it's the most commonly used Concourse resource. And you can have one of your very own!
-
-In the previous story, you defined a task "in-line" -- meaning, directly in your pipeline configuration. That probably made sense when you were writing a simple "Hello world" script, but as you build more complex tasks -- [like this task for run `bbl up`](https://github.com/cloudfoundry/cf-deployment-concourse-tasks/tree/master/bbl-up) -- you'll want to save those tasks in a git repo, and then use a resource to pull down those scripts for your pipeline.
-
-### How?
-Create a repo to house your Concourse code (`pipeline.yml` etc.) and set up a [git resource](https://github.com/concourse/git-resource) that fetches it. If you need one ASAP, go ahead and borrow [our workspace repo](https://github.com:pivotal-cf-experimental/cf-onboarding-workspace). Just create a new directory in that repo with your name so you don't collide with another pair.
-
-The first thing you'll want to do is create a Bash or Ruby script to capture your logic. Then, you'll need to define your task interface in a `task.yml`. You can find the task interface definition [in this Concourse doc](https://concourse-ci.org/tasks.html). Hint: check out the "Examples" column on the right for more help.
-
-Finally, we're gonna update the `pipeline.yml` to include our new git-resource, configure our job to pull down the repo by using a `get` step, and then use the `task.yml` and script in that resource to run our task.
-1. Use the examples [on this page](https://concourse-ci.org/resource-types.html) to see how resource_types and resources are configured in a pipeline. Since the git-resource is pre-packaged with Concourse, you won't have to define the `resource_type` for it, but you will need to define the specific instance of the `resource` you want to use.
-1. Follow the [`get` step docs](https://concourse-ci.org/get-step.html) to have your job pull down the git repo.
-1. Configure your task to use [a file-based configuration](https://concourse-ci.org/task-step.html#file) rather than in-line configuration.
-
-### Expected Result
-A one job, one resource pipeline that is always green.
-
-### Resources
-[Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
-[Implementing your own resource](https://concourse-ci.org/implementing-resources.html)
-[Concourse "resources"](https://concourse-ci.org/resources.html)
 L: concourse
 
 ---
