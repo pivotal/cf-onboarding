@@ -26,11 +26,11 @@ The following dependencies can be installed through the Cloud Foundry [homebrew 
 * **cf cli** is a tool for interacting with a Cloud Foundry deployment (run `brew install cf-cli`)
 
 ### Expected Result
-* Run `go version` => "go version go1.9 darwin/amd64" or above
-* `terraform --version` => "Terraform v0.10.2" or above
-* `bosh -v` => "version 2.0.33-...." or above
-* `bbl version` => "bbl 4.2.2 (darwin/amd64)" or above
-* `cf version` => "cf version 6.29.2+...." or above
+* Run `go version` => "go version go1.10.2 darwin/amd64" or above
+* `terraform --version` => "Terraform v0.11.7" or above
+* `bosh -v` => "version 4.0.1-...." or above
+* `bbl version` => "bbl 6.7.2 (darwin/amd64)" or above
+* `cf version` => "cf version 6.37.0+...." or above
 
 ### Resources
 [Docs: BOSH V2 CLI](https://bosh.io/docs/cli-v2.html)
