@@ -71,7 +71,7 @@ Trigger a failing BOSH job
 When a BOSH VM is healthy, it is listed with the status "running". Let's use **[Monit](https://mmonit.com/monit/)** to trigger a state change.
 
 ### How?
-1. Run `watch bosh vms`
+1. Run `watch bosh vms`. (If you don't have `watch` installed, run `brew install watch`)
 1. In another buffer or tab, `bosh ssh` into one of your Diego cells
 1. Run `sudo -i` to run as root
 1. Run `monit summary` (need root access to do this)
