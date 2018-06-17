@@ -151,7 +151,7 @@ By omitting the `--recent` from your `cf logs dora` command, Loggregator will st
 
 ### How?
 1. Run `cf logs dora`
-1. In another terminal buffer, run `watch cf app dora`
+1. In another terminal buffer, run `watch cf app dora`. (If you don't have `watch` installed, you can get it by running `brew install watch`).
 1. Visit the dora endpoint `/sigterm/KILL`
 
 ### Expected Result
