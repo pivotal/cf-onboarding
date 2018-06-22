@@ -344,18 +344,19 @@ So far, you've created a TLS certificate, configured your domain, and then used 
 If you look back at our earlier description of DNS, you'll recall that you need a series of NS records to guide the resolver to more specific subdomains. The CF R&D Org has an NS record for `cf-app.com`, and the Onboarding Staff has created the NS record for `onboarding.cf-app.com`. You yourself created a series of A records for `*.my-env.onboarding.cf-app.com` and such -- all that's left to do is create one last NS record for `my-env.onboarding.cf-app.com`.
 
 ### How
-1.Find the nameservers for the DNS records that bbl created for you.
-  1. Open the GCP console in your browser.
-  2. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
-  3. Click on the zone created by `bbl` (it often has `bbl-` prepended ot th zone name).
-  4. The first entry in the table of DNS records should be an NS record for your system domain. In the `Data` column, you should see four values of the form `ns-cloud-b1.googledomains.com.`. Copy that list.
-1. Create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `onboarding.cf-app.com`.
-  1. Next to the Google Cloud Platform logo, you should see the name of a GCP project. Click on the dropdown and select the project called `CF-Onboarding-dns`.
-  2. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
-  3. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
-  4. Click `Add record set`
-  5. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier.
-  6. Finish by clicking `Create`
+**First, find the nameservers for the DNS records that bbl created for you.**
+1. Open the GCP console in your browser.
+1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
+1. Click on the zone created by `bbl` (it often has `bbl-` prepended ot th zone name).
+1. The first entry in the table of DNS records should be an NS record for your system domain. In the `Data` column, you should see four values of the form `ns-cloud-b1.googledomains.com.`. Copy that list.
+
+**Next, create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `onboarding.cf-app.com`.**
+1. Next to the Google Cloud Platform logo, you should see the name of a GCP project. Click on the dropdown and select the project called `CF-Onboarding-dns`.
+1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
+1. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
+1. Click `Add record set`
+1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier.
+1. Finish by clicking `Create`
 
 ### Expected Result
 DNS updates can take a minute to propogate, so go grab a cup of coffee or a snack. When you get back, go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
