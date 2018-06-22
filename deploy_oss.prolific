@@ -270,6 +270,8 @@ In a few stories, you'll use bbl to create load balancers that have IP addresses
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 
+L: bbl
+
 ---
 
 Choose a domain and create TLS certificates
