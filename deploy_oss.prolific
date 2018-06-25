@@ -230,65 +230,53 @@ L: bbl
 
 ---
 
-Register a domain name
+Choose a domain and create TLS certificates
 
 ### What?
-Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment.
+Ok, we're getting closer to deploying. Before you can go prime time with BOSH and CF, you'll need a way to make your platform addressable from the internet -- specifically, by getting a domain name for your Cloud Foundry deployment. In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, which will include your domain in its metadata. So, the order of operations here is:
+1. Choose a domain
+2. Create a TLS certificate that includes that domain as the "Common Name"
+3. Create load balancers and configure them with your TLS certificate
 
-We need this name before deployment because the load balancer we're about to create and the TLS cert for that load balancer both need to know the domain that they're serving. Also, BOSH needs to know this domain before deployment so that it can associate subdomains with each CF component. Cloud Controller, for instance, is `api.your-domain.com`.
+In this story, you'll do steps 1 and 2. The last step will come in the next story.
 
-#### Side note: How does DNS work exactly?
-As part of this story, you'll pick a domain like `onboarding.cf` and register it. That means that if anyone tries to make an HTTP request to `onboarding.cf`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `onboarding.cf`?"
-
-The simplest way to manage such a request is to create an **A record.** These records map a domain, `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries its nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
-
-However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
-
-To achieve that, we first set up a different kind of record, an **NS record**, which maps a domain to other DNS servers. It essentially says, "If you're looking for information about domains that end with `onboarding.cf`, go ask this other set of DNS servers. Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers. You're going to leverage this functionality in order to register your `onboarding.cf`-like domain with Freenom, but then manage all subdomains like `ssh.onboarding.cf` and `*.onboarding.cf` with Google Cloud DNS using bbl.
-
-In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
-- An NS record that defines the Google DNS servers. You'll take that list of servers to Freenom to configure it to defer to Google Cloud DNS.
-- An A record for a few reserved subdomains like `ssh.onboarding.cf`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
-- An A record for `*.onboarding.cf`. This record maps **all** other subdomains of `onboarding.cf` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `onboarding.cf` domain, so that you can make subdomains on the fly like `my-app.onboarding.cf`.
-
-### How?
-Register a domain name for free with **[Freenom](http://www.freenom.com/en/index.html?lang=en)**. We do not know the nameservers for your load balancer because we haven't created it yet, so hang tight on setting up the DNS.
-
-### Expected Result
-Freenom says that you have successfully registered your domain. Should look something like this:
-
-![Imgur](http://i.imgur.com/E3WnV24.png)
-
-### Resources
-[Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
-
-L: bbl
-
----
-
-Generate a TLS cert
-
-### What?
-In the next story, we're going to use `bbl` to create a load balancer for our soon-to-be Cloud Foundry deployment. This load balancer requires a TLS certificate, so we'll create one now.
+(If you want some more information on DNS, jump down to the "Side note" below.)
 
 ### How?
 We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
 
-To do this, run `openssl req` with a few arguments:
+So, first, choose a subdomain of `onboarding.cf-app.com` -- something like `my-env.onboarding.cf-app.com`, but feel free to be creative and call it whatever you like. From here on out, we're going to call this domain your **system domain**, because this is the domain that the CF system will use for itself, including things like the CF API (AKA Cloud Controller).
+
+Next, we'll make a TLS certificate. To do this, run `openssl req` with a few arguments:
 
 * `-x509` outputs a x509 structure, a standard that defines the format of public key certificates.
 * `-newkey rsa:2048` generates a new RSA key of 2048 bits in size.
 * `-keyout` and `-out` arguments set output file paths (I generally use `key.pem` and `cert.pem`, respectively)
 * The `-nodes` argument sets it to not encrypt private keys, meaning you won't have to enter a PEM passphrase.
 
-**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with the Cloud Foundry system domain you registered in the last story (e.g. your-domain.com).
+**Caution:** when you run OpenSSL, it will ask you to enter values like your Country and State. The only one that really matters (and it matters a great deal) is the "Common Name," which you should fill with your system domain.
 
 ### Expected Result
 You should have two new `.pem` files, one containing your private key and one containing your cert.
 
 When you run `openssl x509 -noout -subject -in cert.pem` the information returned matches what you entered.
 
+### Side note: How does DNS work exactly?
+As part of this story, you'll pick a subdomain of `onboarding.cf-app.com` -- like `my-env.onboarding.cf-app.com` -- and use it for your environment. That means that if anyone tries to make an HTTP request to `my-env.onboarding.cf-app.com`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `my-env.onboarding.cf-app.com`?"
+
+The simplest way to manage such a request is to create an **A record.** These records map a domain, like `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries its nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
+
+However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
+
+To achieve that, we first set up a different kind of record, an **NS record**, which maps a domain to other DNS servers. It essentially says, "If you're looking for information about domains that end with `onboarding.cf`, go ask this other set of DNS servers." Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers or piggy-pack on existing domains. You're going to leverage this functionality in order to register your subdomain of `onboarding.cf-app.com` on GCP.
+
+In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
+- An NS record that defines the Google DNS servers. You'll take that list of servers to our "master" DNS account on GCP to configure it to defer to your DNS records.
+- An A record for a few reserved subdomains like `ssh.my-env.onboarding.cf-app.com`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
+- An A record for `*.my-env.onboarding.cf-app.com`. This record maps **all** other subdomains of `my-env.onboarding.cf-app.com` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `my-env.onboarding.cf-app.com` domain, so that you can make subdomains on the fly like `my-app.my-env.onboarding.cf-app.com`.
+
 ### Resources
+[Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 [Blog post: Signed vs Self-Signed Certificates](https://www.thoughtco.com/signed-vs-self-signed-certificates-3469534)
 [Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
@@ -300,7 +288,7 @@ L: bbl
 
 Create load balancers
 ### What
-We've been alluding to load balancers for a few stories, but now we'll actually get around to creating them with bbl.
+We've been alluding to load balancers for a while, but now we'll actually get around to creating them with bbl.
 
 A load balancer is some machine -- or set of machines -- that serve as the entry point to the system and delegate traffic to other components. Importantly, one of their jobs is to make sure that traffic is distributed evenly among VMs that do similar work. The easiest load balancer to understand is the HTTP load balancer, which balances traffic to the [CF routers](http://docs.cloudfoundry.org/concepts/architecture/router.html).
 
@@ -314,7 +302,7 @@ In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to
 
 The other thing you'll do in this command is configure the load balancers with the TLS certificate you made in the previous story.
 
-Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.onboarding.cf` and `ssh.onboarding.cf`
+Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.my-env.onboarding.cf-app.com` and `ssh.my-env.onboarding.cf-app.com`
 
 ### How
 To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update its plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
@@ -351,15 +339,27 @@ L: bbl
 Set domain nameservers
 
 ### What
-A nameserver is a server on the internet that specializes in handling queries regarding the location (e.g. IP) of a domain name’s content. The domain you registered on Freenom needs to point at the nameservers associated with your load balancer on GCP.
+So far, you've created a TLS certificate, configured your domain, and then used `bbl` to create both Load Balancers (which are configured with that certificate), as well as DNS records for your system domain -- which is itself a subdomain of `onboarding.cf-app.com`.
+
+If you look back at our earlier description of DNS, you'll recall that you need a series of NS records to guide the resolver to more specific subdomains. The CF R&D Org has an NS record for `cf-app.com`, and the Onboarding Staff has created the NS record for `onboarding.cf-app.com`. You yourself created a series of A records for `*.my-env.onboarding.cf-app.com` and such -- all that's left to do is create one last NS record for `my-env.onboarding.cf-app.com`.
 
 ### How
-Go to your **[Freenom dashboard](https://my.freenom.com/clientarea.php)**, select Services > My Domains, then click the Manage Domain button. From the Management Tools dropdown, select Nameservers. Fill the text boxes with the nameservers associated with your load balancer (you can find these by running `bbl lbs`). Remember to select the "Use custom nameservers (enter below)" radio button!
+**First, find the nameservers for the DNS records that bbl created for you.**
+1. Open the GCP console in your browser.
+1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
+1. Click on the zone created by `bbl` (it often has `bbl-` prepended ot th zone name).
+1. The first entry in the table of DNS records should be an NS record for your system domain. In the `Data` column, you should see four values of the form `ns-cloud-b1.googledomains.com.`. Copy that list.
+
+**Next, create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `onboarding.cf-app.com`.**
+1. Next to the Google Cloud Platform logo, you should see the name of a GCP project. Click on the dropdown and select the project called `CF-Onboarding-dns`.
+1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
+1. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
+1. Click `Add record set`
+1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier.
+1. Finish by clicking `Create`
 
 ### Expected Result
-Go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
-
-Remember, propagation of the DNS changes may take a little while, so it might not work immediately.
+DNS updates can take a minute to propogate, so go grab a cup of coffee or a snack. When you get back, go to your GCP Cloud DNS entry. Find the IP associated with `*.your-domain.com`. Running `dig api.your-domain.com` should return the same IP address.
 
 ### Resources
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
@@ -368,7 +368,7 @@ Remember, propagation of the DNS changes may take a little while, so it might no
 L: bbl
 ---
 
-[RELEASE] Deploy BOSH Director to GCP with Bosh Bootloader ⇧
+[RELEASE] Set up load balancers
 
 ---
 
@@ -495,8 +495,8 @@ Run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`
 `cf login` works (your username is 'admin' and your password is in your generated `cf-deployment-vars.yml` as 'cf_admin_password')
 
 ### Troubleshooting
-* Do the domain names associated with your TLS cert, your load balancer, and your `cf-deployment-vars.yml` system_domain all match the domain you registered on Freenom?
-* Are the nameservers associated with your domain on Freenom the same as those associated with your load balancer? (run `bbl lbs` to check)
+* Do the domain names associated with your TLS cert, your load balancer, and your `cf-deployment-vars.yml` system_domain all match the domain you registered on GCP?
+* Are the nameservers associated with your domain the same as those associated with your load balancer? (run `bbl lbs` to check)
 * When you `dig` or `ping` your CC api endpoint, is the IP you hit what you expect it to be?
 * If you were redeploying, did you run the `bosh -n interpolate` step before running `bosh -d cf deploy`?
 
