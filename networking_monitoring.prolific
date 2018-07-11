@@ -101,7 +101,7 @@ In order to curl the router's `/routes` endpoint, you'll to get the router's IP 
 
 Before creating the ASG:
 1. Make sure you have an app pushed. If don't have one running, `cf push dora -p <PATH_TO_DORA>`.
-1. `cf ssh` to dora's application container, and then run `curl router-status:$ROUTER_PASSWORD@$ROUTER_IP:8080`.
+1. `cf ssh` to dora's application container, and then run `curl router-status:$ROUTER_PASSWORD@$ROUTER_IP:8080/routes`.
 
 Create and bind an ASG:
 1. Write a file with contents like this:
@@ -120,7 +120,7 @@ Create and bind an ASG:
 1. Restart dora to allow the ASG to take effect: `cf restart dora`
 
 See if the app container can communicate with the router:
-1. SSH back onto dora, and re-run `curl router-status:$ROUTER_PASSWORD@$ROUTER_IP:8080`
+1. SSH back onto dora, and re-run `curl router-status:$ROUTER_PASSWORD@$ROUTER_IP:8080/routes`
 
 ### Expected Result
 The initial curl should fail. After applying the security group, the curl should succeed.
