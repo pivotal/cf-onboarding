@@ -241,7 +241,7 @@ Let's start of with some vocabulary:
 * A **domain** is a series of strings separated by the `.` character that serves as an alias for an IP address, or set of IP addresses. For example, `run.pivotal.io` is a domain that maps to the IP address(s) of the load balancers on PWS. We use domains for a few reasons. One is that IP addresses are hard for humans to remember, but `google.com` is pretty easy. We also use domains to group computers together and even do some load balancing. For example, `google.com` does not resolve to a single IP address (one poor computer could never handle that kind of load!).
   * A **subdomain** is a term you'll see as well. It's a relative term that describes the relationship of one domain to another -- for example, `my-site.example.com` is a subdomain of `example.com`.
 * **DNS** stands for "Domain Name System," which translates domains IP addresses. We'll explain how it works in a second.
-* **TLS** stands for "Transport Layer Security". You'll often also hear it referred to as **SSL**, which stands for "Secure Socket Layer," even though the term "SSL" is deprecated. Anywho, TLS is a system for validating that you're communicating with the right computer on the internet. To prove its identity, a computer will present a **certificate** to the machine making the request.
+* **TLS** stands for "Transport Layer Security". You'll often also hear it referred to as **SSL**, which stands for "Secure Socket Layer," even though the term "SSL" is deprecated. Anywho, TLS is a system for encrypting your communications and validating that you're communicating with the right computer on the internet. To prove its identity, a computer will present a **certificate** to the machine making the request.
 
 Why introduce all this now? Because you'll work on these bit-by-bit over the next few stories. Here's how.
 
@@ -262,6 +262,8 @@ In a few stories, you'll use bbl to create load balancers that have IP addresses
 - An NS record that defines the Google DNS servers. You'll take that list of servers to our "master" DNS account on GCP to configure it to defer to your DNS records.
 - An A record for a few reserved subdomains like `ssh.my-env.onboarding.cf-app.com`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
 - An A record for `*.my-env.onboarding.cf-app.com`. This record maps **all** other subdomains of `my-env.onboarding.cf-app.com` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `my-env.onboarding.cf-app.com` domain, so that you can make subdomains on the fly like `my-app.my-env.onboarding.cf-app.com`.
+
+To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to visualize how each part of the domain gets resolved.
 
 ### Resources
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
@@ -382,7 +384,7 @@ If you look back at our earlier description of DNS, you'll recall that you need 
 1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
 1. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
 1. Click `Add record set`
-1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier.
+1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier. (By default, the TTL is set at 5 minutes. The TTL, or Time to Live, indicates how long a DNS client is allowed to cache the DNS lookup result. A longer TTL means you don't need to query the DNS server as much, but if you make a change to your DNS record clients will be slower to pick up the change.)
 1. Finish by clicking `Create`
 
 ### Expected Result
