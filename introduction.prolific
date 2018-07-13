@@ -15,6 +15,7 @@ It's also a short task list of things you might want to do before Onboarding Wee
 - [ ] Add Retro to participant calendars (ideally EOD Fri)
 - [ ] For GCP track **only**: Create IAAS account(s). Add participants as Owners.
 - [ ] For GCP track **only**: Ensure GCP quotas for VM instances, external IP addresses and global external IP addresses are sufficient (greater than 24). 
+- [ ] For GCP track **only**: Ensure access to CF-Onboarding-dns project for DNS propagation.
 
 ---
 
