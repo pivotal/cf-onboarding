@@ -30,6 +30,7 @@ func main() {
 		// "bosh_troubleshooting.prolific",
 		// "bosh_release_redis.prolific",
 		// "concourse.prolific",
+		// "projects.prolific",
 		// "clean_up.prolific",
 	}
 
