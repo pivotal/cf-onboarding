@@ -29,7 +29,6 @@ func main() {
 		// "services_redis_cups.prolific",
 		// "networking_monitoring.prolific",
 		// "bosh_troubleshooting.prolific",
-		// "bosh_release_redis.prolific",
 		// "concourse.prolific",
 		// "projects.prolific",
 		// "clean_up.prolific",
