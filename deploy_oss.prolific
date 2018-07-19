@@ -131,7 +131,7 @@ Under the hood that's what `bbl` uses too.
 #### Digging in: What does `bbl` do, actually?
 `bbl`'s responsbilities can be broken down into the following things:
 1. IaaS paving
-2. Bootstrping a BOSH director and jumpbox
+2. Bootstrapping a BOSH director and jumpbox
 3. Uploading a cloud-config to the BOSH director
 
 [Let's break it down.](https://giphy.com/gifs/L253rIFQkyXSg/tile)
@@ -376,7 +376,7 @@ If you look back at our earlier description of DNS, you'll recall that you need 
 **First, find the nameservers for the DNS records that bbl created for you.**
 1. Open the GCP console in your browser.
 1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
-1. Click on the zone created by `bbl` (it often has `bbl-` prepended ot th zone name).
+1. Click on the zone created by `bbl` (it often has `bbl-` prepended to the zone name).
 1. The first entry in the table of DNS records should be an NS record for your system domain. In the `Data` column, you should see four values of the form `ns-cloud-b1.googledomains.com.`. Copy that list.
 
 **Next, create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `onboarding.cf-app.com`.**
@@ -384,7 +384,7 @@ If you look back at our earlier description of DNS, you'll recall that you need 
 1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
 1. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
 1. Click `Add record set`
-1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `IPv4 Address` should have one value for each of the values you copied earlier. (By default, the TTL is set at 5 minutes. The TTL, or Time to Live, indicates how long a DNS client is allowed to cache the DNS lookup result. A longer TTL means you don't need to query the DNS server as much, but if you make a change to your DNS record clients will be slower to pick up the change.)
+1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `Name server` list should have one value for each of the values you copied earlier. (By default, the TTL is set at 5 minutes. The TTL, or Time to Live, indicates how long a DNS client is allowed to cache the DNS lookup result. A longer TTL means you don't need to query the DNS server as much, but if you make a change to your DNS record clients will be slower to pick up the change.)
 1. Finish by clicking `Create`
 
 ### Expected Result
@@ -470,7 +470,7 @@ Add `-o operations/scale-to-one-az.yml` to the deploy command. This ops-file wil
 If you want to speed up the deploy, you can also add `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
 
 ### Expected Result
-Wait for the BOSH deploy to complete, then run `bosh vms`. All of them should have a status of "running".
+Wait for the BOSH deploy to complete (this may take a while...like 20 minutes or so...), then run `bosh vms`. All of them should have a status of "running".
 
 ### Resources
 [Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
@@ -519,6 +519,8 @@ To log in, you'll need to get your admin password, which is stored in Credhub. W
 
 First, make sure you've got your bbl env set up (`eval "$(bbl print-env)"`). If you run `env | grep CREDHUB`, you can look at all of the environment variables that get used to access Credhub.
 
+Next, make sure you've got the credhub CLI installed. You can do that with `brew install cloudfoundry/tap/credhub-cli`.
+
 Next, you can use the credhub CLI to search for the "path" that the variable is stored at:
 ```
 credhub find -n cf_admin_password
@@ -531,7 +533,9 @@ credhub get -n /bosh-bbl-env-baikal-2018-06-04t22-02z/cf/cf_admin_password
 
 The output should include a field called `value` -- that's your CF admin password.
 
-Finally, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation` and provide your credentials.
+Next, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. This will point the cf CLI at your deployed cloudfoundry.
+
+Finally, provide your credentials via `cf login` (hint: if it is not already apparent, your username is "admin").
 
 ### Expected Result
 `cf login` works.
