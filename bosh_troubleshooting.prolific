@@ -16,8 +16,8 @@ Ops files are a way for operators to make edits to a deployment manifest in a re
 1. Vet your changes by running `bosh interpolate`:
   ```
   bosh interpolate cf-deployment.yml \
-  -o scale-diego-cells \
   -o ... [any other ops-files you used to deploy orginally] ... \
+  -o scale-diego-cells.yml \
   -v system_domain=$SYSTEM_DOMAIN \
   --var-errs
   ```
@@ -25,8 +25,8 @@ Ops files are a way for operators to make edits to a deployment manifest in a re
 1. Deploy:
   ```
   bosh deploy cf-deployment.yml \
-  -o scale-diego-cells \
   -o ... [any other ops-files you used to deploy originally] ... \
+  -o scale-diego-cells.yml \
   -v system_domain=$SYSTEM_DOMAIN
   ```
   (Also, notice the parallels between the `interpolate` and `deploy` commands.)
