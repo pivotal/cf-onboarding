@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -11,26 +12,39 @@ import (
 // Build a CSV for import to Pivotal Tracker by uncommenting the track you'd like to output
 
 func main() {
-	modules := []string{
-		// Onboarding Part 1: Local Track / developer experience / step-by-step
-		"introduction_local.prolific",
-		"deploy_local.prolific",
-		"app_development_local.prolific",
-		"services_redis_cups.prolific",
-		"authorization.prolific",
-		"networking_monitoring.prolific",
-		"concourse.prolific",
+	if len(os.Args) < 2 {
+		log.Fatalf("Usage: %s local|oss", os.Args[0])
+	}
+	trackName := os.Args[1]
 
-		//// Onboarding Part 2: OSS Track / operator & CF developer experience / guided exploration
-		// "introduction.prolific",
-		// "deploy_oss.prolific",
-		// "app_development.prolific",
-		// "services_redis_cups.prolific",
-		// "networking_monitoring.prolific",
-		// "bosh_troubleshooting.prolific",
-		// "bosh_release_redis.prolific",
-		// "concourse.prolific",
-		// "clean_up.prolific",
+	var modules []string
+	switch trackName {
+	case "local":
+		modules = []string{
+			// Onboarding Part 1: Local Track / developer experience / step-by-step
+			"introduction_local.prolific",
+			"deploy_local.prolific",
+			"app_development_local.prolific",
+			"services_redis_cups.prolific",
+			"authorization.prolific",
+			"networking_monitoring.prolific",
+			"concourse.prolific",
+		}
+	case "oss":
+		modules = []string{
+			//// Onboarding Part 2: OSS Track / operator & CF developer experience / guided exploration
+			"introduction.prolific",
+			"deploy_oss.prolific",
+			"app_development.prolific",
+			"services_redis_cups.prolific",
+			"networking_monitoring.prolific",
+			"bosh_troubleshooting.prolific",
+			"bosh_release_redis.prolific",
+			"concourse.prolific",
+			"clean_up.prolific",
+		}
+	default:
+		log.Fatalf("Unrecognized track type '%s', only 'local' and 'oss' are support", trackName)
 	}
 
 	workingDir, err := os.Getwd()
@@ -43,15 +57,15 @@ func main() {
 		panic(err)
 	}
 
-	// outputFile, err = os.OpenFile(outputFile, os.O_APPEND, 0666)
 	defer outputFile.Close()
 
 	for i, module := range modules {
 		moduleFilePath := filepath.Join(workingDir, module)
 		cmd := exec.Command("prolific", moduleFilePath)
+		cmd.Stderr = os.Stderr
 		csvContent, err := cmd.Output()
 		if err != nil {
-			fmt.Println(err.Error())
+			log.Fatalf("Failed to run prolific: %s", err)
 		}
 
 		if i != 0 {
@@ -60,7 +74,7 @@ func main() {
 
 		_, err = outputFile.Write(csvContent)
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 	}
 
