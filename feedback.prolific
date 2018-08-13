@@ -1,0 +1,49 @@
+Give feedback to another team
+### What?
+While setting up and exploring Cloud Foundry you probably discovered some things that were confusing or didn't work the way you expected. As a relatively new user of Cloud Foundry, you've noticed things that people who work on it every day may have gotten used to, or forgotten about. You may have also ran into a place where documentation was incomplete, or confusing. 
+
+Let's share something that you've noticed and help make Cloud Foundry better.
+
+### How?
+There are a few ways that Cloud Foundry teams share feedback with each other.
+
+A good way to start is by asking a question in Slack.
+
+Go to `cloudfoundry.slack.com` and open the channel for the team that you want to talk to. Then, check the channel topic to find out how to interrupt the team.
+
+There might be a pair on duty, or an alias to contact the whole team. They might also list the PM separately.
+
+Once you've identified who to message, you'll want to say something like,
+"Hey <team name> friends, I'm working through the CF Onboarding Week stories, and had some trouble with <product>. When I tried to do <some action> I expected <something to happen> but instead <something else happened> which caused <problem>. Would you like me to open an issue, or drop a story in your backlog?"
+
+You can also suggest an improvement, but you don't need to know the best way to fix a problem in order for feedback about it to be valuable. The important part is to explain what you were trying to do, and why you had trouble doing it.
+
+The team may ask you a few questions, or they may tell you to go ahead and open the issue. If it's a very simple change, especially to documentation, they may ask you to open a pull request!
+
+If you open an issue, make sure to follow any instructions in the repository's README or issue template. If you create a story, make sure to make it in the icebox, and send a note to the team's product manager or anchor.
+
+
+### Expected Result
+Ideally the problem will get fixed, but that can take more time than we have in onboarding week, depending on what else a team is working on. For now, the goal is to have a friendly interaction with another team, and get your problem recorded in a place where it won't be forgotten about.
+
+### Resources
+[The RIMGEA Heuristic for Bug Reporting](https://testkeis.wordpress.com/2011/06/22/rimgea/)
+[Some tips on writing user stories](http://www.strongandagile.co.uk/index.php/what-makes-a-good-user-story/)
+
+### Relevant Repos and Teams
+**CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
+`#cli`
+**BBL:** [cloudfoundry/bosh-bootloader](https://github.com/cloudfoundry/bosh-bootloader)
+`#cf-infrastructure` or `#bbl-users`
+**BOSH CLI:** [cloudfoundry/bosh-cli](https://github.com/cloudfoundry/bosh-cli)
+`#bosh`
+**CF Deployment:** [cloudfoundry/cf-deployment](https://github.com/cloudfoundry/cf-deployment)
+`#release-integration` or `#cf-deployment`
+
+L: feedback
+
+---
+
+[RELEASE] Feedback ⇧
+
+
