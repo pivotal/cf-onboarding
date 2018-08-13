@@ -20,6 +20,7 @@ func main() {
 		"authorization.prolific",
 		"networking_monitoring.prolific",
 		"concourse.prolific",
+		"projects.prolific",
 
 		//// Onboarding Part 2: OSS Track / operator & CF developer experience / guided exploration
 		// "introduction.prolific",
@@ -28,8 +29,8 @@ func main() {
 		// "services_redis_cups.prolific",
 		// "networking_monitoring.prolific",
 		// "bosh_troubleshooting.prolific",
-		// "bosh_release_redis.prolific",
 		// "concourse.prolific",
+		// "projects.prolific",
 		// "clean_up.prolific",
 	}
 
