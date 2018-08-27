@@ -76,22 +76,55 @@ https://bosh.io/docs/errands.html
 
 ---
 
-Create a tile to deploy with OPS Manager
+Create a tile to deploy with Ops Manager
 
 ### Resources
-https://docs.pivotal.io/tiledev/2-0/
-https://docs.pivotal.io/tiledev/2-0/tile-structure.html
-https://docs.pivotal.io/tiledev/2-0/tile-generator.html
+- https://docs.pivotal.io/tiledev/2-2/
+- https://docs.pivotal.io/tiledev/2-2/tile-structure.html
+- https://docs.pivotal.io/tiledev/2-2/tile-generator.html
 
 ---
 
-Deploy OPS Manager
+Deploy Ops Manager
 
 ### What?
-Deploy OPS Manager, a key component of th Pivotal's packaged version of CF
+Ops Manager is a GUI application that streamlines deploying subsequent software to the cloud via BOSH.
+- Ops Manager represents PCF products as tiles with multiple configuration panes that let you input or select configuration values needed for the product.
+- Ops Manager generates BOSH manifests containing the user-supplied configuration values, and sends them to the Director.
+- After you install Ops Manager and BOSH, you use Ops Manager to deploy almost all PCF products.
+
+### Ops Manager Interface
+[Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/2-2/customizing/pcf-interface.html)
+
+## Deploying on GCP
+While we use BOSH to deploy a director and many of our services, Ops Manager is currently not deployed with BOSH.
+
+Follow the steps listed [here](https://docs.pivotal.io/pivotalcf/2-2/customizing/gcp.html) to install PCF on GCP. You may choose to setup the GCP resources (NAT instances, routes, firewalls, etc) manually or via terraform.
+
+Once you have Ops Manager running on GCP, you want to setup authentication, login into GUI, and configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/pivotalcf/2-2/customizing/gcp-om-config.html).
+
+## Deploy BOSH Director using Ops Manager
+- After you've configured the BOSH Director tile (it should be green), you can visit the **Review Pending Changes** page and click **Apply Changes**. You'll see the same logs as if you used `bbl` or the `bosh` CLI.
+- Once the deployment is done, you can visit `/change_log` to review the logs of past deployment.
+
+### Ops Manager API
+- You can visit `/docs` in your Ops Manager to see the API documentation. In order to make requests to the API, you must retrieve an authentication token. Follow the steps at `/docs#authentication` to install the uaac client.
+- You can also use an internal tool called [om](https://github.com/pivotal-cf/om) to communicate with the Ops Manager API without knowing the exact endpoints. This tool is managed by the Release Engineering team.
+
+### Expected Results
+- Able to stand up Ops Manager VM
+- Able to configure and deploy BOSH Director
+- Able to use Ops Manager API
+
+### Relevant Team
+- #ops-manager Slack
+- #pas-releng Slack
 
 ### Resources
-https://docs.pivotal.io/pivotalcf/2-0/customizing/
+- https://docs.pivotal.io/pivotalcf/2-2/customizing/ops-man.html
+- https://docs.pivotal.io/pivotalcf/2-2/customizing/
+- https://github.com/cloudfoundry/cf-uaac
+- https://github.com/pivotal-cf/om
 
 ---
 
@@ -119,7 +152,7 @@ Get to kick the tires as a user of what PWS can offer. Deploy an app, scale it, 
 1. AutoScaling
 1. and more!
 
---- 
+---
 
 Deploy CFCR
 
@@ -139,14 +172,36 @@ Deploy PKS
 
 ### What?
 
-Deploy the Pivotal flavored Kubernetes with the aide of BOSH and OpsManager
+Deploy the Pivotal flavored Kubernetes with the aide of BOSH and Ops Manager
 
 ### Caveat
-You will need OpsManager
+You will need to prepare Ops Manager on GCP differently than you prepare it for PAS.
+
+### Visualizing the Architecture
+![pks-architecture](https://docs.pivotal.io/runtimes/pks/1-1/images/pks-overview.png)
+
+Summary of steps
+1. Setup Ops Manager and deploy BOSH Director.
+2. Partially setup PKS API Load Balancer.
+3. Upload PKS tile, configure the tile, and deploy PKS Control Plane VM with some chosen API wildcard domain.
+4. After PKS tile is deployed, update the PKS API load balancer with the IP address of the control plane VM that BOSH deployed on GCP.
+5. Use `pks` CLI to deploy cluster
+6. Use `kubectl` to deploy workload on cluster
+
+You can find very detailed steps to setup everything on GCP [here](https://docs.pivotal.io/runtimes/pks/1-1/gcp.html).
+
+### Expected Results
+- Setup Ops Manager on GCP
+- Configure and deploy PKS tile on Ops Manager
+- Use `pks` CLI to create cluster
+- Use `kubectl` CLI to deploy workload on cluster
 
 ### Resources
-https://pivotal.io/platform/pivotal-container-service
-https://docs.pivotal.io/runtimes/pks/1-0/
+- https://pivotal.io/platform/pivotal-container-service
+- PCF documentation on PKS: https://docs.pivotal.io/runtimes/pks/1-1/
+- Installing pks CLI: https://docs.pivotal.io/runtimes/pks/1-1/installing-pks-cli.html
+- Using pks CLI: https://docs.pivotal.io/runtimes/pks/1-1/configure-api.html
+- Installing kubectl CLI: https://docs.pivotal.io/runtimes/pks/1-1/installing-kubectl-cli.html
 
 ---
 
@@ -165,5 +220,3 @@ Explore the different knobs that are offered on the Diego BOSH release.
 ---
 
 [RELEASE] End of week projects, minimal instruction ⇧
-
-
