@@ -13,6 +13,7 @@
 ### IaaS Setup
 - [ ] Make sure you have clean GCP projects set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Add all participants as **owners** to each of the GCP projects.
+- [ ] For GCP track **only**: Ensure access to CF-Onboarding-dns project for DNS propagation.
 
 ### Tracker Setup
 - [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
