@@ -473,7 +473,8 @@ Add `-o operations/scale-to-one-az.yml` to the deploy command. This ops-file wil
 If you want to speed up the deploy, you can also add `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
 
 ### Expected Result
-Wait for the BOSH deploy to complete (this may take a while...like 20 minutes or so...), then run `bosh vms`. All of them should have a status of "running".
+Wait for the BOSH deploy to complete. Stick around for a bit. It's going to prompt you after a few minutes to approve the actual deploy. Once the actual deploy starts, it will take a while...like 20 minutes or so...you might want to check out the next "intermission" story, or go grab a snack, or play game of ping pong.
+Once the deploy is finished, run `bosh vms`. All of them should have a status of "running".
 
 ### Resources
 [Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
