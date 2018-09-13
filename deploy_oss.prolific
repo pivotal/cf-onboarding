@@ -197,6 +197,8 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+[Video: Creating Cloud Environments](https://drive.google.com/file/d/1ltNggSltyLdRs8orh-qCzZTM_EAx3x7h/view?usp=sharing)
+  - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF
 
 L: bbl
 
@@ -271,6 +273,7 @@ To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
+[Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)
 
 L: bbl
 
