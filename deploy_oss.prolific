@@ -1,7 +1,7 @@
 Install bosh-bootloader and dependencies
 
 ### What?
-[BOSH](http://bosh.io/docs/about.html) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
+[BOSH](http://bosh.io/docs/) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
 
 While it is under the [Cloud Foundry Foundation umbrella](https://www.cloudfoundry.org/projects/#bosh), it is a distinct product. BOSH can be used to deploy just about any software and Cloud Foundry can (inadvisably) be deployed by something other than BOSH.
 
@@ -353,9 +353,9 @@ bbl up --gcp-service-account-key service-account.key.json
 
 
 ### Expected Results
-Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
+Network Services > Load balancing to see the load balancer that `bbl` generated on GCP.
 
-Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
+Network Services > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
