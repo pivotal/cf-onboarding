@@ -33,6 +33,9 @@ func main() {
 		// "concourse.prolific",
 		// "projects.prolific",
 		// "clean_up.prolific",
+
+		//// Onboarding Part 3: Optional projects - put these in the icebox so folks can pick them up after Part 2
+		// "projects.prolific",
 	}
 
 	workingDir, err := os.Getwd()
