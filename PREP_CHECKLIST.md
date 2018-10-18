@@ -23,6 +23,7 @@
 
 ### Workstation Setup
 - [ ] Make sure you have a workstation for each pair.
+- [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
   1. [ ] Run `Startup Disk`.
   1. [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
