@@ -441,10 +441,18 @@ A typical stemcell contains a bare bones OS skeleton with a few common utilities
 Stemcells are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure). You need to upload a stemcell for your BOSH Director to use when it deploys your Cloud Foundry VMs.
 
 ### How?
-Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section.
+Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Xenial](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_(Xenial_Xerus))) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section.
 
 Upload the stemcell by running:
 `bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=VERSION`.
+
+### Expected Result
+
+If all went according to plan, the stemcell should be visible via:
+
+```
+bosh stemcells
+```
 
 ### Resources
 [Docs: What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
