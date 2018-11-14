@@ -29,6 +29,8 @@ func main() {
 			"authorization.prolific",
 			"networking_monitoring.prolific",
 			"concourse.prolific",
+			"opsman.prolific",
+			"projects.prolific",
 		}
 	case "oss":
 		modules = []string{
@@ -36,11 +38,13 @@ func main() {
 			"introduction.prolific",
 			"deploy_oss.prolific",
 			"app_development.prolific",
+			"feedback.prolific",
 			"services_redis_cups.prolific",
 			"networking_monitoring.prolific",
 			"bosh_troubleshooting.prolific",
-			"bosh_release_redis.prolific",
 			"concourse.prolific",
+			"opsman.prolific",
+			"projects.prolific",
 			"clean_up.prolific",
 		}
 	default:

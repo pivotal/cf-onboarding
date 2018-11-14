@@ -1,0 +1,99 @@
+Deploy Ops Manager
+
+### What?
+Ops Manager is a GUI application that streamlines deploying subsequent software to the cloud via BOSH.
+- Ops Manager represents PCF products as tiles with multiple configuration panes that let you input or select configuration values needed for the product.
+- Ops Manager generates BOSH manifests containing the user-supplied configuration values, and sends them to the Director.
+- After you install Ops Manager and BOSH, you use Ops Manager to deploy almost all PCF products.
+
+### Ops Manager Interface
+[Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/2-2/customizing/pcf-interface.html)
+
+## Deploying on GCP
+While we use BOSH to deploy a director and many of our services, Ops Manager is currently not deployed with BOSH.
+
+The first step to installing Ops Manager is to set up your infrastructure.
+There are some terraform scripts that will do this for you that you can download from Pivotal Network.
+Go to [network.pivotal.io](https://network.pivotal.io) and make sure you're signed in to PivNet (if you don't have an account yet, click "Register" to create one.).
+Next, search for `Pivotal Application Service`. Once you open the product, you should see GCP Terraform templates in "Release Download Files".
+
+Unzip the file to get the terraform templates. You can take a look at the README to see how the whole repo works, but the important bit is in the section titled "Var File". Use those instructions to build a var file for terraform. **Take care to notice some of the following gotcha's.**
+1. The `project` variable needs to equal the ID of your GCP project. That's not the same thing as the _name_ of your GCP project. To find the ID, click on the project dropdown to the left of the search bar. You should say a table mapping project names to project IDs.
+2. The `opsman_image_url` bears some explanation. As it's name implies, it's a URL to an OpsMan image. In the GCP case specifically, that means tha the OpsManager team has already uploaded an image in a global GCP bucket, so all you need to do is point your terraform templates at the right image. To construct the URL, you'll first need to know that all buckets have a URL of the form `https://storage.googleapis.com/<bucket name>/<file name>`. To find the bucket and file name, you'll want to find the "Pivotal Cloud Foundry Operations Manager" product on PivNet, and then download "Ops Manager for GCP". Surprise! What you actually got was a PDF that includes the bucket and file name. Note that there are different buckets for different regions -- pick the one that makes the most sense. You can test your url by running `curl --head URL` -- if you get a 200, you're in good shape.
+3. `sevice_account_key` needs to contain your GCP credentials. You'll actually paste the contents of the service account key file (probably called `service-account.key.json` if you've already done the OSS GCP onboarding epic) into the var file. Make sure to keep the `<<SERVICE_ACCOUNT_KEY` and `SERVICE_ACCOUNT_KEY` tokens, as those designate the beginning and end of the creds.
+4. `dns_suffix` is like the `system_domain` from the OSS GCP track -- it should be some subdomain of `onboarding.cf-app.com` and is used to represent your particular environment.
+5. For SSL configuration, let's use self-signed certificates. That means you'll set values for `ssl_cert` and `ssl_private_key`. To generate SSL keys, run `openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -nodes`. When you generate the certificates, make sure that the "Common Name" field matches your `dns_suffix`.
+6. Leave `buckets_location`, `opsman_storage_bucket_count`, `create_iam_service_account_members` blank.
+
+Finially, you'll run
+```
+terraform init
+terraform apply
+```
+
+Terraform will not only pave your IaaS for you -- it will also deploy the OpsMan VM for you. However, before you can use the provided domain to access OpsMan, you need to do one last manual DNS hookup:
+1. In the "Cloud DNS" tab in the GCP console, click on the zone that matches your full OpsMan domain.
+2. You should see an `NS` record with four domains in the `Data` field. Copy them.
+3. Go back to the "Cloud DNS" and navigate to the zone that matches your DNS suffix (it should look like `<env-name>.<project-name>.cf-app.com`).
+4. Add a record set. It should be an `NS` record, you'll need to add each of the four domains you copied as a new name server.
+5. Test that it works by running `nslookup pcf.<env_name>.<dns_suffix>`. If it returns an IP address, you've successfully set up DNS.
+
+Congrats! You've got OpsManager up and running.
+
+Before you can use it, you need to configure authentication. Your best bet is to use "Internal Authentication." Create a user with whichever useername, password, and decryption passphrase you want (you can leave the http proxy information blank).
+
+### Expected Results
+OpsManager is running and you can log in.
+
+### Relevant Teams
+- #ops-manager Slack
+- #pas-releng Slack
+
+### Resources
+- https://docs.pivotal.io/pivotalcf/2-2/customizing/
+
+L: opsman
+
+---
+
+Deploy BOSH Director using Ops Manager
+
+Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/pivotalcf/2-2/customizing/gcp-om-config.html). Some tips to keep you from getting stuck:
+1. When you get to "Create Availability Zones", you'll want to use the same AZs that you specified in your terraform.
+2. Make sure to read in the instructions carefully when you configure the networks. Especially be careful when setting the network names: they have the form `<network-name>/<subnet-name>/<region>`
+
+After you've configured the BOSH Director tile (it should be green to indicate that you're finished configuring the tile), you can visit the **Review Pending Changes** page and click **Apply Changes**. You'll see the same logs as if you used `bbl` or the `bosh` CLI.
+Once the deployment is done, you can visit `/change_log` to review the logs of past deployment.
+
+After the deploy succeeds, click around and see if you can information about the BOSH Director's health. Can you the BOSH Director IP address? How much memory/disk/CPU it's using?
+
+### Expected Results
+OpsMan successfully deploys a BOSH Director.
+
+### Resources
+- https://docs.pivotal.io/pivotalcf/2-2/customizing/ops-man.html
+
+L: opsman
+
+---
+
+Deploy some tiles
+
+## What?
+OpsManager uses "tiles" to deploy different products. You can find tiles by searching on [PivNet](https://network.pivotal.io). Then you can download them, upload them to your OpsManager, and finally configure and deploy them.
+
+Some tiles have dependencies on other tiles. You should find information about that in the product description on PivNet.
+
+To understand the workflow of an actual PCF/OpsMan customer, choose a tile or two to install and follow the appropriate docs.
+
+## How?
+Let's start by installing the mother of them all: PAS. Go to PivNet, search for "Pivotal Application Service", and download the "Small Footprint PAS" -- we'll use this to save some time during the deploy. Your best bet is to choose the latest stable version (avoid releases with `alpha` or `rc` in it).
+
+And yes, the file is rather large (as of this writing, it's 13 GB), so feel free to take a ping pong break while it's downloading.
+
+Use the official docs as guide to configure and deploy PAS. You can the docs for PAS 2.3 [here](https://docs.pivotal.io/pivotalcf/2-3/customizing/gcp-er-config.html), but if you're using a new version than that, you can use the dropdown next to "Pivotal Cloud Foundry" to find docs for the appropriate version.
+
+## Expected Result
+You've got a running PAS.
+
+L: opsman

@@ -1,7 +1,7 @@
 Install bosh-bootloader and dependencies
 
 ### What?
-[BOSH](http://bosh.io/docs/about.html) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
+[BOSH](http://bosh.io/docs/) is an open source tool for deployment, release engineering, lifecycle management, and monitoring of distributed systems. It is what we use to deploy and manage Cloud Foundry.
 
 While it is under the [Cloud Foundry Foundation umbrella](https://www.cloudfoundry.org/projects/#bosh), it is a distinct product. BOSH can be used to deploy just about any software and Cloud Foundry can (inadvisably) be deployed by something other than BOSH.
 
@@ -197,6 +197,8 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+[Video: Creating Cloud Environments](https://drive.google.com/file/d/1ltNggSltyLdRs8orh-qCzZTM_EAx3x7h/view?usp=sharing)
+  - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF
 
 L: bbl
 
@@ -271,6 +273,7 @@ To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
+[Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)
 
 L: bbl
 
@@ -353,9 +356,9 @@ bbl up --gcp-service-account-key service-account.key.json
 
 
 ### Expected Results
-Visit Menu > Networking > Load balancing to see the load balancer that `bbl` generated on GCP.
+Network Services > Load balancing to see the load balancer that `bbl` generated on GCP.
 
-Visit Menu > Networking > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
+Network Services > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.com/dns/overview) and [record sets](https://cloud.google.com/dns/overview#supported_dns_record_types) that `bbl` generated on GCP.
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
@@ -438,10 +441,18 @@ A typical stemcell contains a bare bones OS skeleton with a few common utilities
 Stemcells are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure). You need to upload a stemcell for your BOSH Director to use when it deploys your Cloud Foundry VMs.
 
 ### How?
-Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Trusty](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29)) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section.
+Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Xenial](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_(Xenial_Xerus))) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section.
 
 Upload the stemcell by running:
 `bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=VERSION`.
+
+### Expected Result
+
+If all went according to plan, the stemcell should be visible via:
+
+```
+bosh stemcells
+```
 
 ### Resources
 [Docs: What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
