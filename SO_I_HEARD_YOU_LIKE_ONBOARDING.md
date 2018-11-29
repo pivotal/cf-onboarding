@@ -26,7 +26,7 @@ but in past onboarding weeks the senior facilitator has gotten sick,
 had a personal emergency,
 gotten assigned to a special project,
 or been kept awake all night by dogs,
-so plan to be able to run onboarding week mostly on your own.
+be ready to run onboarding week mostly on your own.
 
 If you're a new anchor
 a new manager,
