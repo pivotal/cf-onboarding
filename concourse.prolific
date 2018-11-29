@@ -9,7 +9,11 @@ In this story, we're going to use a tool called [Docker Compose](https://docs.do
 Our friends at Start & Wayne actually have a pretty good Concourse tutorial. We'll start by using their documentation for setting up your local Concourse.
 
 Open https://concoursetutorial.com/#getting-started in your browser and start there. Just in case you wanna know the outline, here's what youre going to do:
-1. Install [Docker](https://www.docker.com/community-edition#/download) and [Docker Compose](https://docs.docker.com/compose/install/)
+1. Install Docker and Docker Compose:
+  ```
+  brew cask install docker
+  brew install docker-compose
+  ```
 2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
   ```
   wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
