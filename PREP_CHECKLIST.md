@@ -21,6 +21,10 @@
   1. [ ] SF FACILITATORS: Generate and upload option/exploratory story set and leave in icebox
 - [ ] Add all participants as members to each of the tracker projects.
 
+### LastPass Setup
+- [ ] Give all participants access to the shared LastPass folder:
+  - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users
+
 ### Workstation Setup
 - [ ] Make sure you have a workstation for each pair.
 - [ ] Ensure ethernet cable is plugged into iMac, not monitor.
