@@ -172,15 +172,17 @@ Make sure you're in the directory that you created in the last step, with the `s
 Run
 ```
 bbl up \
+  --name FRIENDLY_ENV_NAME \
   --gcp-region us-east1 \
   --gcp-service-account-key service-account.key.json \
   --iaas gcp
 ```
 
+> If you don't supply a friendly name, bbl will pick a random name for you.
+
 ...and...*<<drumroll, please>>*...it might fail. Sad panda. But if it does, the error is straightforward, so follow its instructions to fix the problem.
 
 **Pro-tip:** if you're using iTerm, hold down the command-⌘ key and click on the link to open it directly from the prompt.
-
 
 ### Expected Result
 If your `bbl up` succeeds, it will have printed the list of steps it has taken to spin up your brand-spanking new BOSH Director and generated a whole slew of files and directories that represent bbl's internal state in the current working directory. Those directories and files correspond, more or less, to the different steps outlined above. Just as importantly, they all have some interface for customizing your BOSH setup. No worries, we won't make you do that here.
