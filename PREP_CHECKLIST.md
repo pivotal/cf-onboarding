@@ -13,13 +13,17 @@
 ### IaaS Setup
 - [ ] Make sure you have clean GCP projects set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Add all participants as **owners** to each of the GCP projects.
+- [ ] For GCP track **only**: Ensure access to CF-Onboarding-dns project for DNS propagation.
 
 ### Tracker Setup
 - [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
+  1. [ ] SF FACILITATORS: Generate and upload Track 2, then move from icebox to backlog
+  1. [ ] SF FACILITATORS: Generate and upload option/exploratory story set and leave in icebox
 - [ ] Add all participants as members to each of the tracker projects.
 
 ### Workstation Setup
 - [ ] Make sure you have a workstation for each pair.
+- [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
   1. [ ] Run `Startup Disk`.
   1. [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
@@ -41,5 +45,5 @@
 - [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
 - [ ] Schedule daily standup.
 - [ ] Schedule afternoon check in.
-- [ ] Schedule retro at the end of the week.
+- [ ] Schedule retro at the end of the week, include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.

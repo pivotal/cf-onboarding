@@ -3,12 +3,12 @@ Set up a local Concourse using Docker Compose
 ### What?
 [Concourse](https://concourse-ci.org/) is a Pivotal-sponsored, pipeline-based, continuous integration and deployment (CI/CD) system. The "pipelines" are a collection of three core concepts: [jobs](https://concourse-ci.org/jobs.html), [tasks](https://concourse-ci.org/tasks.html), and [resources](https://concourse-ci.org/resources.html). You'll learn more about these in upcoming stories. While CI may call to mind test automation, Pivotal teams use it for so much more than that. Take a stroll around the office and check out the jobs up on the CI screens to get a general idea of how broadly we use it to automate all that is automate-able.
 
-In this story, we're going to use a tool called [Docker Compose](https://docs.docker.com/compose/overview/) to set up Concourse in local docker containers. (Most engineering teams at Pivotal use BOSH and [concoruse-bosh-deployment](https://github.com/concourse/concourse-bosh-deployment) to set up their Concourse for CI. However, it's a much longer process and we'd rather jump straight to some cool Concourse concepts.)
+In this story, we're going to use a tool called [Docker Compose](https://docs.docker.com/compose/overview/) to set up Concourse in local docker containers. (Most engineering teams at Pivotal use BOSH and [concourse-bosh-deployment](https://github.com/concourse/concourse-bosh-deployment) to set up their Concourse for CI. However, it's a much longer process and we'd rather jump straight to some cool Concourse concepts.)
 
 ### How?
 Our friends at Start & Wayne actually have a pretty good Concourse tutorial. We'll start by using their documentation for setting up your local Concourse.
 
-Open https://concoursetutorial.com/#getting-started in your broswer and start there. Just in case you wanna know the outline, here's what youre going to do:
+Open https://concoursetutorial.com/#getting-started in your browser and start there. Just in case you wanna know the outline, here's what youre going to do:
 1. Install [Docker](https://www.docker.com/community-edition#/download) and [Docker Compose](https://docs.docker.com/compose/install/)
 2. Download the Concourse team's pre-packaged Docker Compose YAML configuration:
   ```
