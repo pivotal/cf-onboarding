@@ -10,9 +10,9 @@ Our friends at Start & Wayne actually have a pretty good Concourse tutorial. We'
 
 Open https://concoursetutorial.com/#getting-started in your browser and start there. Just in case you wanna know the outline, here's what youre going to do:
 1. Install [Docker](https://www.docker.com/community-edition#/download) and [Docker Compose](https://docs.docker.com/compose/install/)
-2. Download the Concourse team's pre-packaged Docker Compose YAML configuration:
+2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
   ```
-  wget https://concourse-ci.org/docker-compose.yml
+  wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
   ```
 3. Use Docker Compose to start up your local Concourse in docker containers:
   ```
