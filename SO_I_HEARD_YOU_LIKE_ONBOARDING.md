@@ -60,9 +60,12 @@ as long as you know who to ask
 or where to find documentation.
 
 # New Facilitator Checklist
+Open an issue with the title "Onboard YOUR NAME As a Facilitator" and the following checklist:
+```
 - [ ] Meet with a current facilitator to answer questions
 - [ ] Sign up to shadow onboarding week
 - [ ] Shadow an onboarding week
 - [ ] Shadow workstation setup
 - [ ] Added to facilitor e-mail list
 - [ ] Added to #sf-onboarding-staff
+```
