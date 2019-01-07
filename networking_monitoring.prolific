@@ -127,7 +127,7 @@ The initial curl should fail. After applying the security group, the curl should
 
 Poke around to see what else you can and can't do with the ASG commands.
 Can you allow access to mutliple ports?
-What happens if you allow access to a port that the router doesn't listen to? Is it give the same error?
+What happens if you allow access to a port that the router doesn't listen to? Does it give the same error?
 
 L: security
 
