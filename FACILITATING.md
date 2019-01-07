@@ -12,6 +12,7 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 ### Preparation Suggestions
 * Allocate participants for the week.
 * Designate workstation(s).
+* Setup remote pairing hardware for remote participants.
 * Provide one "floater" laptop per pair to facilitate independent docs reading.
 * Create and populate *private* Tracker Project(s). Invite participants.
 * [Request GCP IAAS project(s)](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform). Once they're created, add participants as Owners.
