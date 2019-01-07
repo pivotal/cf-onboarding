@@ -76,7 +76,7 @@ L: security
 
 Allowing network traffic to other, non-app, private IPs (AKA Making custom ASGs)
 ### What?
-In the previous story, you uses container networking policies to allow traffic between app containers. Cool beans.
+In the previous story, you used container networking policies to allow traffic between app containers. Cool beans.
 But, what if you want your app to be able to establish connections with other private IP addresses that aren't apps?
 
 If you need help thinking of a reason you'd want to do this, imagine trying to connect your app to anything that was deployed by BOSH, which mostly deploys to private IPs (which, as we've pointed out in previous stories, are blocked from app containers by default).
