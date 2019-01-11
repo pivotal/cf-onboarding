@@ -11,7 +11,8 @@
 - [ ] Send out an email to each of the participants. You can find a template in FACILITATING.md.
 
 ### IaaS Setup
-- [ ] Make sure you have clean GCP projects set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
+- [ ] Make sure you have GCP projects set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
+- [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
 - [ ] Add all participants as **owners** to each of the GCP projects.
 - [ ] For GCP track **only**: Ensure access to CF-Onboarding-dns project for DNS propagation.
 
