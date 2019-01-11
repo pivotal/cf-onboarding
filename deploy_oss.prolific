@@ -485,7 +485,7 @@ Add `-o operations/scale-to-one-az.yml` to the deploy command. This ops-file wil
 
 If you want to speed up the deploy, you can also add `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
 
-We also recommend you use the `--non-interactive` flag. Normally, after initial preprocessing steps, BOSH will present the "manifest changes", differences between the currently-deployed manifest (currently nothing) and the deploying manifest. Without this flag, you prompted ~5 minutes after the `bosh deploy` command.
+We also recommend you use the `--non-interactive` flag. Normally, after initial preprocessing steps, BOSH will present the "manifest changes", differences between the currently-deployed manifest (currently nothing) and the deploying manifest. Without this flag, you'll be prompted ~5 minutes after the `bosh deploy` command to approve the manifest changes.
 
 ### Expected Result
 Wait for the BOSH deploy to complete. It will take a while...like 20 minutes or so...you might want to check out the next "intermission" story, or go grab a snack, or play game of ping pong.
