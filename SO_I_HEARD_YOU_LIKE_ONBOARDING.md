@@ -67,5 +67,6 @@ Open an issue with the title "Onboard YOUR NAME As a Facilitator" and the follow
 - [ ] Shadow an onboarding week
 - [ ] Shadow workstation setup
 - [ ] Added to facilitor e-mail list
+- [ ] Added to contributors to `pivotal/cf-onboarding` repo
 - [ ] Added to #sf-onboarding-staff
 ```
