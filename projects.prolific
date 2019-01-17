@@ -135,7 +135,7 @@ Deploy the Pivotal flavored Kubernetes with the aide of BOSH and Ops Manager
 You will need to prepare Ops Manager on GCP differently than you prepare it for PAS.
 
 ### Visualizing the Architecture
-![pks-architecture](https://docs.pivotal.io/runtimes/pks/1-1/images/pks-overview.png)
+![pks-architecture](https://docs.pivotal.io/runtimes/pks/1-3/images/pks-overview.png)
 
 Summary of steps
 1. Setup Ops Manager and deploy BOSH Director.
@@ -145,7 +145,7 @@ Summary of steps
 5. Use `pks` CLI to deploy cluster
 6. Use `kubectl` to deploy workload on cluster
 
-You can find very detailed steps to setup everything on GCP [here](https://docs.pivotal.io/runtimes/pks/1-1/gcp.html).
+You can find very detailed steps to setup everything on GCP [here](https://docs.pivotal.io/runtimes/pks/1-3/gcp-index.html).
 
 ### Expected Results
 - Setup Ops Manager on GCP
@@ -155,10 +155,10 @@ You can find very detailed steps to setup everything on GCP [here](https://docs.
 
 ### Resources
 - https://pivotal.io/platform/pivotal-container-service
-- PCF documentation on PKS: https://docs.pivotal.io/runtimes/pks/1-1/
-- Installing pks CLI: https://docs.pivotal.io/runtimes/pks/1-1/installing-pks-cli.html
-- Using pks CLI: https://docs.pivotal.io/runtimes/pks/1-1/configure-api.html
-- Installing kubectl CLI: https://docs.pivotal.io/runtimes/pks/1-1/installing-kubectl-cli.html
+- PCF documentation on PKS: https://docs.pivotal.io/runtimes/pks/1-3/
+- Installing pks CLI: https://docs.pivotal.io/runtimes/pks/1-3/installing-pks-cli.html
+- Using pks CLI: https://docs.pivotal.io/runtimes/pks/1-3/configure-api.html
+- Installing kubectl CLI: https://docs.pivotal.io/runtimes/pks/1-3/installing-kubectl-cli.html
 
 ---
 
