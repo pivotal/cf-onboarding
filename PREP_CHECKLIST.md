@@ -18,8 +18,10 @@
 
 ### Tracker Setup
 - [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
-  1. [ ] SF FACILITATORS: Generate and upload Track 2, then move from icebox to backlog
-  1. [ ] SF FACILITATORS: Generate and upload option/exploratory story set and leave in icebox
+  1. [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this
+     will generate `onboarding-tracker.csv`
+  1. [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar >
+     More > Import CSV > Choose File)
 - [ ] Add all participants as members to each of the tracker projects.
 
 ### LastPass Setup

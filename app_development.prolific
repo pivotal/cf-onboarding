@@ -388,8 +388,3 @@ Using the API directly lets users do as much or as little of `cf push` as they l
 [Component: Cloud Controller](https://docs.cloudfoundry.org/concepts/architecture/cloud-controller.html)
 [Using Experimental of CLI Commands](https://docs.cloudfoundry.org/devguide/v3-commands.html)
 L: app-dev
-
----
-
-
-
