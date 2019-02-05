@@ -74,7 +74,7 @@ account = your-email@pivotal.io
 disable_usage_reporting = False
 project = PROJECT_ID
 
-Your active configuration is: [PROJECT_ID]
+Your active configuration is: [default]
 ```
 
 ### Resources
