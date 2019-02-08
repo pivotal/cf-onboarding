@@ -446,11 +446,17 @@ A typical stemcell contains a bare bones OS skeleton with a few common utilities
 Stemcells are distributed as [tarballs](https://bosh.io/docs/build-stemcell.html#tarball-structure). You need to upload a stemcell for your BOSH Director to use when it deploys your Cloud Foundry VMs.
 
 ### How?
-Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Xenial](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_(Xenial_Xerus))) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section.
 
-Upload the stemcell by running:
-`bosh upload-stemcell --sha1 798fed2cbdac65adb0b1daa4a7d473faeaafe27f \
-  https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-xenial-go_agent?v=170.9`.
+Available stemcells **[are listed at bosh.io](http://bosh.io/stemcells)**. Identify the appropriate stemcell for the IaaS  ([Google KVM](https://en.wikipedia.org/wiki/Google_Compute_Engine#Machine_Types)) and OS ([Ubuntu Xenial](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_(Xenial_Xerus))) you'll be using to deploy. You'll also need to pick a specific version of the stemcell; to find the version number, you'll need to look at [cf-deployment.yml](https://github.com/cloudfoundry/cf-deployment/blob/master/cf-deployment.yml) (you'll learn more about this file in the next story), and check in the `stemcells` section. You'll also notice that some stemcells on bosh.io have both a "Light" and "Full" version. A full stemcell includes the entire OS image while a light stemcell contains an ID or URI pointing to a public OS image which has already been uploaded on that IaaS. For public clouds like GCP you'll almost always use the light version.
+
+Now that we've selected which stemcell to upload, we can upload the stemcell tarball to our BOSH Director:
+
+```
+bosh upload-stemcell --sha1 $STEMCELL_SHA1 \
+  https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-xenial-go_agent?v=$STEMCELL_VERSION
+```
+
+Note: the SHA1 value should be listed next to the stemcell download link on bosh.io.
 
 ### Expected Result
 
