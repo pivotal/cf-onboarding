@@ -8,6 +8,7 @@
 ## Checklist
 
 ### Communication
+- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in FACILITATING.md.
 - [ ] Send out an email to each of the participants. You can find a template in FACILITATING.md.
 
 ### IaaS Setup
