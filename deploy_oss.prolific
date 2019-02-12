@@ -416,7 +416,7 @@ To do this, we edit our **[cloud config](http://bosh.io/docs/cloud-config.html)*
 To deploy Cloud Foundry you'll be taking advantage of the [cloud config](http://bosh.io/docs/cloud-config.html) that `bbl` generated for you during `bbl up`.
 
 ### How?
-Check your CPU quota in the GCP Console by navigating to Home > IAM & Admin > Quotas.  There are a lot of line items in this list, you can trim it down by setting the `Metric` drop-down to `CPUs` (only) and the setting the `Location` drop-down to `US-East1` (only).  Currently, we have quite a few more CPUs than the bare minimum of 24.  This means we do not need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
+Check your CPU quota in the GCP Console by navigating to Home > IAM & Admin > Quotas.  There are a lot of line items in this list, you can trim it down by setting the `Metric` drop-down to `CPUs` (only) and the setting the `Location` drop-down to `US-East1` (only).  Currently, we have quite a few more CPUs than the bare minimum of 24 (check the "Limit" column).  This means we do not need to change the cloud config but knowing how to do so for the future is a good thing, so read on.
 
 Run `bosh cloud-config > cloud-config.yml`
 
