@@ -47,16 +47,17 @@ Let's see how can manage the networking security of an app that needs to communi
 
 ### How?
 Before applying a network policy
-1. Make sure you have two apps pushed. If don't have any apps pushed, `cf push dora1 -p <PATH_TO_DORA> && cf push dora2 -p <PATH_TO_DORA>`.
-1. In two different terminals, `cf ssh` to dora1 and dora2's application container.
-1. On dora2, run `netstat -n` to discover it's container IP address. It should have a value like 10.255.X.Y
-1. On dora1, run `curl <DORA_2_IP>`.
+1. Make sure you have two apps pushed. If don't have any apps pushed, `cf push boots -p <PATH_TO_DORA> && cf push swiper -p <PATH_TO_DORA>`.
+1. In two different terminals, `cf ssh` to boots' and swiper's application container.
+1. On `swiper`, run `netstat -n` to discover it's container IP address (look under Local Address). It should have a value like 10.255.X.Y
+1. On `boots`, run `curl <SWIPER_IP>:8080`.
 
 Apply the network policy to allow access:
-1. On your command line, run `cf add-network-policy dora1 --destination-app dora2 --protocol tcp --port 8080`
+1. On your command line, run `cf add-network-policy boots --destination-app swiper --protocol tcp --port 8080`
 
 See if the app containers can communicate
-1. In your ssh session on dora1, try this again: `curl <DORA_2_IP>`
+1. In your ssh session on boots, try this again: `curl <SWIPER_IP>:8080`
+1. Now try the reverse, `curl <BOOTS_IP>:8080` on swiper
 
 ### Expected Result
 The initial curl should fail. After applying the networking policy, the curl should succeed.
