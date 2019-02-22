@@ -42,7 +42,7 @@
      ```
      curl -LOk https://github.com/pivotal-cf-experimental/onboarding-week-construct/archive/master.zip
      unzip master.zip
-     cd onboarding-week-construct
+     cd onboarding-week-construct-master
      ./construct
      ```
      You'll need to babysit this process, as it will prompt you for the password several times.
