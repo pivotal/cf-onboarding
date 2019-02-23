@@ -24,6 +24,7 @@
          - if this fails: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled` - enable experimental, restart docker, disable experiment and restart again. 
   1. [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar >
      More > Import CSV > Choose File)
+  1. [ ] Move all stories from icebox to backlog.
 - [ ] Add all participants as members to each of the tracker projects.
 
 ### LastPass Setup
