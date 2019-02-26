@@ -350,7 +350,8 @@ exit with a zero status code for success or non-zero for failure.
    times
 
 ### Expected Result
-1. If you have more than one Diego cell VM in your deployment, you should see
+1. If you have more than one Diego cell VM in your deployment (which you
+   will not if you used the 'scale-to-one-az.yml' opsfile), you should see
    different IP addresses printed in the logs each time you run the above task.
    This shows that Diego will schedule task containers on whatever cell happens
    to have capacity at that moment. The tasks do not need to be scheduled on the
