@@ -121,7 +121,7 @@ Deploy CF flavored Kubernetes, with the aide of BOSH.
 https://www.cloudfoundry.org/container-runtime/
 https://github.com/cloudfoundry/docs-cfcr
 https://content.pivotal.io/slides/cloud-foundry-container-runtime-cfcr-production-kubernetes
-http://engineering.pivotal.io/post/deploy-kubernetes-cfcr/
+https://github.com/cloudfoundry-incubator/kubo-release
 
 ---
 
