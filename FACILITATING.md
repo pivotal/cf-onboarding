@@ -16,6 +16,20 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 * Provide one "floater" laptop per pair to facilitate independent docs reading.
 * Create and populate *private* Tracker Project(s). Invite participants.
 * [Request GCP IAAS project(s)](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform). Once they're created, add participants as Owners.
+* A month before, send out an email to all participants, reminding them to clear their schedules for the week.  Schedule day-long meetings to help avoid people scheduling more meetings for that time.
+```
+Howdy folks!
+If you're getting this email, it means that you're scheduled to participate in CF Onboarding soon (the week of __________________).
+
+During the week you will be pairing full time with each other, working on stories exploring actual user journeys and workflows that are central to the CF ecosystem.
+
+There will be more communication closer to the start of CF Onboarding, so don't worry too much about the details of preparation just yet.  You will be pairing full time, however, so your teams should expect you to be away for the majority of the week.  We've put a meeting on your calendar to block out this time.  If you generally have a lot of meetings we recommend cancelling or moving as many of them as possible, but if you need to step out for a meeting here or there, that shouldn't be a problem.
+
+If this week doesn't work for you, let us know!  There will be more CF Onboarding weeks and we can move people.
+
+Thanks!
+The CF Onboarding Staff
+```
 * The week before, send out an email to all participants, reminding them that they are signed up for onboarding week and setting expectations about how the week will go. Here is a template that can be used as a starting point:
 
 ```
