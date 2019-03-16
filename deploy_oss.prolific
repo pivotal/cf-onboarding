@@ -420,7 +420,7 @@ Check your CPU quota in the GCP Console by navigating to Home > IAM & Admin > Qu
 
 Run `bosh cloud-config > cloud-config.yml`
 
-Then, open the new `cloud-config.yml` file in an editor and locate `compilation: workers:`. If you were to have 24 CPU quota on GCP, reduce the number of compilation machines to 2; if you have something way higher than 24 CPU (as we have), leave it alone.
+Then, open the new `cloud-config.yml` file in an editor and locate `compilation: workers:`. If you were to have 24 CPU quota on GCP, then you would want to reduce the number of compilation machines to 2; if you have something way higher than 24 CPU (as we have), you can leave it alone.
 
 Then, if you edited the file, run `bosh update-cloud-config cloud-config.yml` to apply your changes.
 
