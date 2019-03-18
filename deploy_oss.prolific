@@ -535,15 +535,17 @@ L: cf-deployment
 
 ---
 
-Set up your CF target domain
+Login to CF CLI using creds from Credhub 
 
 ### What?
 We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
 ### How?
-To log in, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
+First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. 
 
-First, make sure you've got your bbl env set up (`eval "$(bbl print-env)"`). If you run `env | grep CREDHUB`, you can look at all of the environment variables that get used to access Credhub.
+Next, before you can login to the CF CLI, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
+
+Make sure you've got your bbl env set up (`eval "$(bbl print-env)"`). If you run `env | grep CREDHUB`, you can look at all of the environment variables that get used to access Credhub.
 
 Next, make sure you've got the credhub CLI installed. You can do that with `brew install cloudfoundry/tap/credhub-cli`.
 
@@ -558,8 +560,6 @@ credhub get -n /bosh-bbl-env-baikal-2018-06-04t22-02z/cf/cf_admin_password
 ```
 
 The output should include a field called `value` -- that's your CF admin password.
-
-Next, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. This will point the cf CLI at your deployed cloudfoundry.
 
 Finally, provide your credentials via `cf login` (hint: if it is not already apparent, your username is "admin").
 
