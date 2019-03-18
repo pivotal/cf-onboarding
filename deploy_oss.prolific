@@ -332,7 +332,7 @@ A load balancer is some machine -- or set of machines -- that serve as the entry
 Most public IaaSes provide load balancing solutions, but some do not. For example, if you were deploying to vSphere, you'd need to come up with your own load balancing solution: most people use [HAProxy](https://github.com/cloudfoundry-incubator/haproxy-boshrelease) or hardware load balancers for this.
 
 In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to `cf`, this flag will cause bbl to make a few different load balancers for you:
-- HTTP and Websocket load balancers that delegate to the router
+- HTTP and Websocket load balancers that delegate to the HTTP router, commonly known as GoRouter
 - SSH load balancer the delegates to the SSH proxy
 - TCP load balancer that delegates to the TCP routers
 - Credhub load balancer that delegates directly to Credhub
