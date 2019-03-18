@@ -12,17 +12,20 @@
 - [ ] Send out an email to each of the participants. You can find a template in FACILITATING.md.
 
 ### IaaS Setup
-- [ ] Make sure you have GCP projects set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
+- [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
-- [ ] Add all participants as **owners** to each of the GCP projects.
-- [ ] For GCP track **only**: Ensure access to CF-Onboarding-dns project for DNS propagation.
+- [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
+- [ ] If your CF on-boarding will include the GCP track (`gcp` tracker label / the `oss` build) then ensure participants have access to the `CF-Onboarding-dns` project in GCP (for DNS propagation).
 
 ### Tracker Setup
 - [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
   1. [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this
      will generate `onboarding-tracker.csv`
+       - Note: you need docker installed `brew cask install docker`
+         - if this fails: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled` - enable experimental, restart docker, disable experiment and restart again. 
   1. [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar >
      More > Import CSV > Choose File)
+  1. [ ] Move all stories from icebox to backlog.
 - [ ] Add all participants as members to each of the tracker projects.
 
 ### LastPass Setup
@@ -43,7 +46,7 @@
      ```
      curl -LOk https://github.com/pivotal-cf-experimental/onboarding-week-construct/archive/master.zip
      unzip master.zip
-     cd onboarding-week-construct
+     cd onboarding-week-construct-master
      ./construct
      ```
      You'll need to babysit this process, as it will prompt you for the password several times.
