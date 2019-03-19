@@ -6,7 +6,7 @@ Set up a local Concourse using Docker Compose
 In this story, we're going to use a tool called [Docker Compose](https://docs.docker.com/compose/overview/) to set up Concourse in local docker containers. (Most engineering teams at Pivotal use BOSH and [concourse-bosh-deployment](https://github.com/concourse/concourse-bosh-deployment) to set up their Concourse for CI. However, it's a much longer process and we'd rather jump straight to some cool Concourse concepts.)
 
 ### How?
-Our friends at Start & Wayne actually have a pretty good Concourse tutorial. We'll start by using their documentation for setting up your local Concourse.
+Our friends at Stark & Wayne actually have a pretty good Concourse tutorial. We'll start by using their documentation for setting up your local Concourse.
 
 Open https://concoursetutorial.com/#getting-started in your browser and start there. Just in case you wanna know the outline, here's what youre going to do:
 1. Install Docker and Docker Compose:
