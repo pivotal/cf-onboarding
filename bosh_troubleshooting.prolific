@@ -113,7 +113,7 @@ Looks like we'll have to get creative if we're ever going to see this resurrecto
 1. While still SSHed into a VM, locate the `agent.json` and throw some un-parseable junk in there.
 
 ### Expected Result
-Watch the process choke, the VM fail, and the resurrector bring it back!
+Watch the process choke, the VM fail, and the resurrector bring it back! If it doesn't come back within a few minutes, check to see if resurrection is turned on.
 
 ### Resources
 [Docs: Configuring Health Monitor](https://bosh.io/docs/hm-config.html)
