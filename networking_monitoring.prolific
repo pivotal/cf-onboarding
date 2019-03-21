@@ -36,7 +36,7 @@ L: security
 Allowing network traffic to other apps (AKA Configure container networking policies)
 ### What?
 By default, security groups are configured not to allow app containers to address each other directly.
-For example, if `app1` has IP address 10.255.11.9 and `app2` has IP address 10.255.11.14,
+For example, if `app1` has an overlay IP address 10.255.11.9 and `app2` has overlay IP address 10.255.11.14,
 `app1` would fail to curl 10.255.11.14,
 and `app2` would fail to curl 10.255.11.9.
 
@@ -49,7 +49,7 @@ Let's see how can manage the networking security of an app that needs to communi
 Before applying a network policy
 1. Make sure you have two apps pushed. If don't have any apps pushed, `cf push boots -p <PATH_TO_DORA> && cf push swiper -p <PATH_TO_DORA>`.
 1. In two different terminals, `cf ssh` to boots' and swiper's application container.
-1. On `swiper`, run `netstat -n` to discover it's container IP address (look under Local Address). It should have a value like 10.255.X.Y
+1. Run `cf ssh swiper -c "env | grep CF_INSTANCE_INTERNAL_IP"` to discover it's overlay IP address. It should have a value like 10.255.X.Y
 1. On `boots`, run `curl <SWIPER_IP>:8080`.
 
 Apply the network policy to allow access:

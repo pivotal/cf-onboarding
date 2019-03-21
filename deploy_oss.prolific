@@ -140,7 +140,7 @@ Under the hood that's what `bbl` uses too.
 Before you deploy a BOSH director or CF (or anything else), you'll need to set up some back IaaS resources. This varies a bit by IaaS (AWS, GCP, etc.), but most of the time that includes the following things:
 - A private network for deploying your VMs. The network will typically include a subnet for each **availability zone** (or AZ) you're hoping to use. Each subnet is defined by a specific range of IP addresses that it's allowed to use. For example, if you want to use 3 AZs, you'll end up with three subnets defined by IP ranges 10.0.32.0/24, 10.0.48.0/24, and 10.0.64.0/24. Each subnet would live in a different AZ, so that if one AZ were to experience issues, software deployed to the other AZs would continue to function.
 - Routing rules. These are closely related to your network and subnet definitions, but they express how traffic **from your VMs** gets to the public internet, or even to other VMs. For example, you'll see rules that say "Traffic to 10.0.0.0/16" -- meaning, all private IP addresses -- "should get routed to the gateway for my private network."
-- Firewall rules. These allow or disallow netowrk traffic to your VMs from certain IP addresses. Most commonly, we want to block all traffic from public IP addresses, and then allow a few exceptions so that users can, you know, use the platform and apps deployed there.
+- Firewall rules. These allow or disallow network traffic to your VMs from certain IP addresses. Most commonly, we want to block all traffic from public IP addresses, and then allow a few exceptions so that users can, you know, use the platform and apps deployed there.
 - External IP addresses. Most VMs will use **private IPs** from your `10.0.X.Y` ranges, but a few VMs need to be available on the public internet. In our example, these will eventually be used by load balancers and the BOSH jumpbox.
 You might see a few other things that are specific to a certain IaaS -- instance groups on GCP and security groups on AWS, for example -- the resources listed above are the most common across platforms.
 
@@ -332,7 +332,7 @@ A load balancer is some machine -- or set of machines -- that serve as the entry
 Most public IaaSes provide load balancing solutions, but some do not. For example, if you were deploying to vSphere, you'd need to come up with your own load balancing solution: most people use [HAProxy](https://github.com/cloudfoundry-incubator/haproxy-boshrelease) or hardware load balancers for this.
 
 In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to `cf`, this flag will cause bbl to make a few different load balancers for you:
-- HTTP and Websocket load balancers that delegate to the router
+- HTTP and Websocket load balancers that delegate to the HTTP router, commonly known as GoRouter
 - SSH load balancer the delegates to the SSH proxy
 - TCP load balancer that delegates to the TCP routers
 - Credhub load balancer that delegates directly to Credhub
@@ -535,15 +535,17 @@ L: cf-deployment
 
 ---
 
-Set up your CF target domain
+Login to CF CLI using creds from Credhub 
 
 ### What?
 We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
 ### How?
-To log in, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
+First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. 
 
-First, make sure you've got your bbl env set up (`eval "$(bbl print-env)"`). If you run `env | grep CREDHUB`, you can look at all of the environment variables that get used to access Credhub.
+Next, before you can login to the CF CLI, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
+
+Make sure you've got your bbl env set up (`eval "$(bbl print-env)"`). If you run `env | grep CREDHUB`, you can look at all of the environment variables that get used to access Credhub.
 
 Next, make sure you've got the credhub CLI installed. You can do that with `brew install cloudfoundry/tap/credhub-cli`.
 
@@ -558,8 +560,6 @@ credhub get -n /bosh-bbl-env-baikal-2018-06-04t22-02z/cf/cf_admin_password
 ```
 
 The output should include a field called `value` -- that's your CF admin password.
-
-Next, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. This will point the cf CLI at your deployed cloudfoundry.
 
 Finally, provide your credentials via `cf login` (hint: if it is not already apparent, your username is "admin").
 
