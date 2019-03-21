@@ -1,3 +1,22 @@
+SSH into a running BOSH job
+
+### What?
+To SSH into a BOSH job, you'll use the `bosh` cli.
+
+### How?
+bosh-bootloader sets up a jumpbox that allows `bosh` commands to be run from your workstation
+* `eval "$(bbl print-env)"` to target the director
+* `bosh ssh` should just work with no further information needed from bbl.
+
+### Expected Result
+Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
+
+### Resources
+[Forum question: What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
+L: bosh operator
+
+---
+
 Scale the number of Diego Cells
 
 ### What?
@@ -18,8 +37,7 @@ Ops files are a way for operators to make edits to a deployment manifest in a re
   bosh interpolate cf-deployment.yml \
   -o ... [any other ops-files you used to deploy orginally] ... \
   -o scale-diego-cells.yml \
-  -v system_domain=$SYSTEM_DOMAIN \
-  --var-errs
+  -v system_domain=$SYSTEM_DOMAIN
   ```
   Dig around in the output, and see if it matches what you expected. Specifically, is the instance count for the `diego-cell` instance group set to what you wanted?
 1. Deploy:
@@ -42,25 +60,6 @@ cf-deployment installs [`cfdot`](https://github.com/cloudfoundry/cfdot) on the d
 [YAML Validator](http://codebeautify.org/yaml-validator)
 [JSON Patch, the inspriation for ops-files](JSON Patch](http://jsonpatch.com/)
 [cf-deployment ops-files](https://github.com/cloudfoundry/cf-deployment/tree/master/operations)
-L: bosh operator
-
----
-
-SSH into a running BOSH job
-
-### What?
-To SSH into a BOSH job, you'll use the `bosh` cli.
-
-### How?
-bosh-bootloader sets up a jumpbox that allows `bosh` commands to be run from your workstation
-* `eval "$(bbl print-env)"` to target the director
-* `bosh ssh` should just work with no further information needed from bbl.
-
-### Expected Result
-Running `bosh -d cf ssh ...` opens a shell in your targetted machine.
-
-### Resources
-[Forum question: What's the distinction between an HTTP proxy, tunnel, and gateway?](http://stackoverflow.com/questions/10377679/whats-distinction-of-http-proxy-tunnel-gateway)
 L: bosh operator
 
 ---
