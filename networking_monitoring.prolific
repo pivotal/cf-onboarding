@@ -156,4 +156,41 @@ L: security
 
 ---
 
+Debug Networking
+### What?
+Experiment with investigating black-box apps, and allowing network traffic.
+
+In this story you will push an app that is *trying* to access a website. However, without any ASGs this is not possible. Write the most specific ASG possible to get this app to work. However, you don't have access to the source code, so you're going to have to use some network debugging skills to figure out what it is trying to access. 
+
+Halp!
+
+### How?
+0. **Unbind all your running ASGs**
+    This locks down network security for all the apps on the cloud foundry foundation. If there are no running ASGs bound to any apps, then no apps can access anything on the big scary internet (like neopets! or the goodreads api!). 
+
+0. **Enable docker** 
+    `cf enable-feature-flag diego_docker`
+
+0. **Push our special secret app** 
+   `cf push pingaling -o c2cnetworking/pingaling --no-route -u process`
+   This app will continually make a request to a website. Your job is to make it work!
+
+0. **Check the logs** and see that something's wrong, oh no!
+    `cf logs pingaling`
+
+0.  **Use `tcpdump`**  on the diego-cell to discover what protocol, ip, and port pingaling is trying to use to make a request
+
+0. **Write the most specific ASG possible to get the app to succeed**
+
+### Expected Result
+When you look at the app logs for pingaling, it says `Hey! Everything's good! :)`
+
+### Resources
+[Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html)
+[tcpdump man page](https://www.tcpdump.org/manpages/tcpdump.1.html)
+[debugging non-c2c traffic in CF](https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/troubleshooting.md#debugging-non-c2c-packets)
+
+---
+
 [RELEASE] Networking and Monitoring ⇧
+
