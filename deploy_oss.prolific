@@ -599,16 +599,18 @@ Now that you have all of these CLIs set up already from prior stories, let's dig
 
 There is many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first. 
 
-Usually you can append `--help`, `-help`, `-h`, or `help` and get help text. 
+In your terminal type `bbl --help` and see the results. It will show everything that's available via the bbl cli.
 
-For example all of the following are valid commands for the `bbl` cli.
+Typically you can append `--help`, `-help`, `-h`, or `help` and get help text, but nothing is standardized, so you might need to try each to find out which one works.
+
+For example all of the following are valid commands to get help for the `bbl` cli.
 ```
 bbl --help
 bbl -h
 bbl help 
 ```
 
-If there is a specific CLI command you want to find out more about you can append the same help words at the end of the command. For example `bbl env-id --help` will give help text about the `env-id` command.
+The `help` results will typically return a list of commands you can run with the CLI. If there is a specific CLI command you want to find out more about you can append the same help words at the end of the command. For example `bbl env-id --help` will give help text about the `env-id` command.
 
 **Reading CLI usage syntax** 
 One of the common features of help text, is showing the CLI usage. The usage is written in a common syntax. 
@@ -616,9 +618,14 @@ One of the common features of help text, is showing the CLI usage. The usage is 
 For example here is the usage for the `bosh deploy` command: `bosh [OPTIONS] deploy [DEPLOY-OPTIONS] PATH`
 
 - `[Square brackets]` indicate an optional parameter
-- `CAPITALS` indicate a value (or values)  that the user needs to input and change for their needs
+- `CAPITALS` indicate a value (or values) that the user needs to input and change for their needs. When you replace the text it should not be capitalized.
 - `--words-prepended-with-dashes` indicates a flag to change how the command is run. The flags usage should be explained in the help text.
 -  `--words-prepended-with-dashes-with-equal-sign-after=VALUE` indicates an option that the user assigns a value to. Its usage should be explained in the help text.
+
+Let's try using a flag. Run `bosh instances`. 
+
+You will get the helpful error message `expected argument for flag `-d, --deployment`. This is telling you that you must use the `-d` flag to specify a bosh deployment, in order to return the bosh instances.
+Given this, let's try running `bosh -d YOUR-DEPLOYMENT-NAME instances`. Success! (If you're having trouble getting your deployment name try `bosh deployments --help`.
 
 **The Linux CLI** 
 If you've been using the terminal, you've been using a CLI. Commands like `cd` (change directory), `ls` (list), and `cp` (copy) are all apart of the linux and mac CLIs.
