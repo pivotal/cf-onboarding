@@ -597,7 +597,7 @@ Now that you have all of these CLIs set up already from prior stories, let's dig
 
 **How to get help!** 
 
-There is many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first. 
+There are many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first. 
 
 In your terminal type `bbl --help` and see the results. It will show everything that's available via the bbl cli.
 
