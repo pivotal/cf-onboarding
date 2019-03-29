@@ -156,41 +156,74 @@ L: security
 
 ---
 
-Debug Networking
+Debug Networking - tcpdump
+
 ### What?
-Experiment with investigating black-box apps, and allowing network traffic.
+Experiment with investigating black-box apps with tcpdump and allowing network traffic.
 
-In this story you will push an app that is *trying* to access a website. However, without any ASGs this is not possible. Write the most specific ASG possible to get this app to work. However, you don't have access to the source code, so you're going to have to use some network debugging skills to figure out what it is trying to access. 
-
-Halp!
+In this story you will push an app that is *trying* to access a website. However, without any ASGs this is not possible. Write the most specific ASG possible to get this app to work. However, you don't have access to the source code, so you're going to have to use some network debugging skills to figure out what it is trying to access. Halp!
 
 ### How?
-0. **Unbind all your running ASGs**
-    This locks down network security for all the apps on the cloud foundry foundation. If there are no running ASGs bound to any apps, then no apps can access anything on the big scary internet (like neopets! or the goodreads api!). 
 
-0. **Enable docker** 
-    `cf enable-feature-flag diego_docker`
+**Setup**
+0. Unbind all your running ASGs
+    This locks down network security for all the apps on the cloud foundry foundation. When there are no running ASGs bound to any apps, then no apps can access anything on the big scary internet (like neopets! or the goodreads api!). 
 
-0. **Push our special secret app** 
-   `cf push pingaling -o c2cnetworking/pingaling --no-route -u process`
-   This app will continually make a request to a website. Your job is to make it work!
+0. Enable docker `cf enable-feature-flag diego_docker`
 
-0. **Check the logs** and see that something's wrong, oh no!
-    `cf logs pingaling`
+0. Push our special secret app `cf push pingaling -o c2cnetworking/pingaling --no-route -u process`
+   This app will continually make a request to a website. Your job is to make it work! When you push make sure you are not in the directory of a different app with a manifest.yml or else the cf CLI will get confused.
 
-0.  **Use `tcpdump`**  on the diego-cell to discover what protocol, ip, and port pingaling is trying to use to make a request
+0. Check the logs and see that something's wrong, oh no! `cf logs pingaling`
+   You should see `Oh no! The HTTP request failed :(`. If not, make sure your running ASGs are unbound and then push the app again.
 
-0. **Write the most specific ASG possible to get the app to succeed**
+**Using tcpdump**
+0. Get the overlay ip address of pingaling. This will become important soon: `cf ssh proxy -c "env | grep CF_INSTANCE_INTERNAL_IP`
+0. ssh onto the Diego Cell the pingaling app is on and become root
+0. Run `tcpdump`.
+    Ahhhhh too much information! ctrl+c! ctrl+c!  On a Diego Cell there are many packets being sent around, and tcpdump gives information about ALL OF THEM. We need to figure out a to filter through this overwhelming stream of information.
+0. We want to find traffic related to the pingaling app. We know the source overlay IP for this app, so let's filter by that! Look at the man page for tcpdump and look for a way to filter by the source IP. [hint](https://www.rationallyparanoid.com/articles/tcpdump.html). If you're still having problems seeing any traffic, make sure you are looking for traffic on *any* interface.
+
+0. That's still a lot of information. Let's filter it down more by looking at **only** the UDP packets sent from our app. [hint](https://www.rationallyparanoid.com/articles/tcpdump.html) Much better! What you are seeing here are DNS requests. The app is making a request to a URL and is doing a DNS lookup to get the IP address. The IP `169.254.0.2` is bosh dns (you can see this by running `cat /etc/resolv.conf`).
+
+0. Now let's filter it by looking at only the TCP packets being sent from our app. We know from our resolv.conf that 169.254.0.2 is the bosh DNS server. There is one other IP address where TCP traffic is being sent to. Score! Record what IP address and port the app is attempting to connect to.
+
+**Make an ASG and see it work**
+0. Make an ASG for only the appropriate protocol, ip, and port (make it as specific as possible!) and run `bind-running-security-group`.
+
+0. Restart pingaling and look at the logs.
 
 ### Expected Result
-When you look at the app logs for pingaling, it says `Hey! Everything's good! :)`
+When you look at the app logs for pingaling, it says `Hey! Everything's good! :)` (Don't worry about the fact that it's an error. We just wanted it to always print out those happy lines).
+
+Don't forget to reset the security groups!
+
+### Halp!
+How to determine what cell your app is on:
+```
+cf ssh pingaling -c "env | grep CF_INSTANCE_IP"
+bosh instances #find the cell with the matching ip
+```
+
+How to determine the overlay IP address for an app instance
+```
+cf ssh proxy -c "env | grep CF_INSTANCE_INTERNAL_IP
+```
+
+How to see network traffic from a particular app with tcpdump
+```
+tcpdump  -i any -n  src host OVERLAY-IP
+```
 
 ### Resources
-[Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html)
+**tcpdump**
 [tcpdump man page](https://www.tcpdump.org/manpages/tcpdump.1.html)
+[helpful common tcpdump commands](https://www.rationallyparanoid.com/articles/tcpdump.html)
 [debugging non-c2c traffic in CF](https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/troubleshooting.md#debugging-non-c2c-packets)
 
----
+**ASGs**
+[Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html)
+[ASG API docs](https://docs.cloudfoundry.org/concepts/asg.html#asg-individual)
 
 [RELEASE] Networking and Monitoring ⇧
 
