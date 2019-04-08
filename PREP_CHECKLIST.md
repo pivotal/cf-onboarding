@@ -1,5 +1,5 @@
 ## Instructions
-- Start a new issue in the onboarding repo. The title should include the date and location of the Onboarding week (e.g. "SF Onboarding Week, July 16 2018").
+- Start a [new issue](https://github.com/pivotal/cf-onboarding/issues/new) in the onboarding repo. The title should include the date and location of the Onboarding week (e.g. "SF Onboarding Week, July 16 2018").
 - Copy the checklist below into the issue.
 - Create the issue
 - Use the checkboxes to track your work as you get set up.
