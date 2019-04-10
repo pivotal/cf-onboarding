@@ -63,7 +63,7 @@ or where to find documentation.
 Open an issue with the title "Onboard YOUR NAME As a Facilitator" and the following checklist:
 ```
 - [ ] Meet with a current facilitator to answer questions
-- [ ] Sign up to shadow onboarding week
+- [ ] [Sign up](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit#gid=0) to shadow onboarding week
 - [ ] Shadow an onboarding week
 - [ ] Shadow workstation setup
 - [ ] Added to facilitor e-mail list
