@@ -20,7 +20,7 @@
 - [ ] Schedule afternoon check in (30min at 1:30).
 - [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf (pw: onboarding-sf (pls don't change it))
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
-- [ ] In the past, non Engineers have appreciated it when we blocked out their whole day.
+- [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
 
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use [cf-sf-onboarding-env-1](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-1), [cf-sf-onboarding-env-2](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-2), and [cf-sf-onboarding-env-3](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-3), which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
