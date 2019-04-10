@@ -18,7 +18,7 @@
 - [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
 - [ ] Schedule daily standup (15min at 9:15, starting Tuesday).
 - [ ] Schedule afternoon check in (30min at 1:30).
-- [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
+- [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf (pw: onboarding-sf (pls don't change it))
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
 - [ ] In the past, non Engineers have appreciated it when we blocked out their whole day.
 
