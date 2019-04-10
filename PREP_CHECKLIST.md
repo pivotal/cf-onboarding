@@ -11,6 +11,13 @@
 - [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](FACILITATING.md).
 - [ ] Send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
 
+### Scheduling
+- [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
+- [ ] Schedule daily standup.
+- [ ] Schedule afternoon check in.
+- [ ] Schedule retro at the end of the week, include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
+- [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
+
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
@@ -51,10 +58,3 @@
      ```
      You'll need to babysit this process, as it will prompt you for the password several times.
   1. Record any issues you have with this process so we can update this checklist.
-
-### Scheduling
-- [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
-- [ ] Schedule daily standup.
-- [ ] Schedule afternoon check in.
-- [ ] Schedule retro at the end of the week, include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
-- [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
