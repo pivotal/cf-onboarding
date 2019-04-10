@@ -46,13 +46,13 @@
 - [ ] Make sure you have a workstation for each pair.
 - [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
-  1. [ ] Run `Startup Disk`.
-  1. [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
-  1. [ ] Select the network disk and click restart. It will likely be the rightmost start disk, and will definitely include the phrase "Network Disk." If you don't see that, try restarting the machine and try again.
-  1. [ ] Select deployment option 2, "macOS Sierra" and click the play button. If you look in between the parens of the option name, you'll see the default password for the image. A terminal will open and you’ll see a lot of output, including a bunch of lines that say `installer: PHASE: Running package scripts`. Don’t worry, this is fine. The boot script will search for updates -- you’ll see output about OS X, iTunes, and Safari updates, for example -- and the machine will probably restart a few times as it downloads and installs the updates.
-  1. [ ] Log into machine with the default password.
-  1. [ ] Open the security preferences and change the password to something sane. Write this down so you can give it to the participants later.
-  1. [ ] Open a terminal window and run
+  - [ ] Run `Startup Disk`.
+  - [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
+  - [ ] Select the network disk and click restart. It will likely be the rightmost start disk, and will definitely include the phrase "Network Disk." If you don't see that, try restarting the machine and try again.
+  - [ ] Select deployment option 2, "macOS Sierra" and click the play button. If you look in between the parens of the option name, you'll see the default password for the image. A terminal will open and you’ll see a lot of output, including a bunch of lines that say `installer: PHASE: Running package scripts`. Don’t worry, this is fine. The boot script will search for updates -- you’ll see output about OS X, iTunes, and Safari updates, for example -- and the machine will probably restart a few times as it downloads and installs the updates.
+  - [ ] Log into machine with the default password.
+  - [ ] Open the security preferences and change the password to something sane. Write this down so you can give it to the participants later.
+  - [ ] Open a terminal window and run
      ```
      curl -LOk https://github.com/pivotal-cf-experimental/onboarding-week-construct/archive/master.zip
      unzip master.zip
@@ -60,4 +60,4 @@
      ./construct
      ```
      You'll need to babysit this process, as it will prompt you for the password several times.
-  1. Record any issues you have with this process so we can update this checklist.
+- [ ] Record any issues you have with this process so we can update this checklist.
