@@ -11,7 +11,7 @@
 - [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](FACILITATING.md).
   - [ ] You will be communicating with these folks a lot. I find it helpful to save a copy/pasteable list of their names <emails> here:
     - `name <email>.name <email>`
-- [ ] Send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
+- [ ] The week before: send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
 
 ### Scheduling
 - [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
