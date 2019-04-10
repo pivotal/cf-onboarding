@@ -8,8 +8,8 @@
 ## Checklist
 
 ### Communication
-- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in FACILITATING.md.
-- [ ] Send out an email to each of the participants. You can find a template in FACILITATING.md.
+- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](FACILITATING.md).
+- [ ] Send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
 
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
