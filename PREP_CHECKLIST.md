@@ -8,11 +8,22 @@
 ## Checklist
 
 ### Communication
-- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in FACILITATING.md.
-- [ ] Send out an email to each of the participants. You can find a template in FACILITATING.md.
+- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](FACILITATING.md).
+  - [ ] You will be communicating with these folks a lot. I find it helpful to save a copy/pasteable list of their names <emails> here:
+    - `name <email>.name <email>`
+- [ ] The week before: send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
+- [ ] Get a [Zoom](https://zoom.us/) room setup for remote participants. `<can save link here>`  (Make sure to include this on your calendar invites.)
+
+### Scheduling
+- [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
+- [ ] Schedule daily standup (15min at 9:15, starting Tuesday).
+- [ ] Schedule afternoon check in (30min at 1:30).
+- [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf (pw: onboarding-sf (pls don't change it))
+- [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
+- [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
 
 ### IaaS Setup
-- [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use `cf-sf-onboarding-env-1`, `cf-sf-onboarding-env-2`, and `cf-sf-onboarding-env-3`, which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
+- [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use [cf-sf-onboarding-env-1](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-1), [cf-sf-onboarding-env-2](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-2), and [cf-sf-onboarding-env-3](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-3), which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
 - [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
 - [ ] If your CF on-boarding will include the GCP track (`gcp` tracker label / the `oss` build) then ensure participants have access to the `CF-Onboarding-dns` project in GCP (for DNS propagation).
@@ -36,13 +47,13 @@
 - [ ] Make sure you have a workstation for each pair.
 - [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
-  1. [ ] Run `Startup Disk`.
-  1. [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
-  1. [ ] Select the network disk and click restart. It will likely be the rightmost start disk, and will definitely include the phrase "Network Disk." If you don't see that, try restarting the machine and try again.
-  1. [ ] Select deployment option 2, "macOS Sierra" and click the play button. If you look in between the parens of the option name, you'll see the default password for the image. A terminal will open and you’ll see a lot of output, including a bunch of lines that say `installer: PHASE: Running package scripts`. Don’t worry, this is fine. The boot script will search for updates -- you’ll see output about OS X, iTunes, and Safari updates, for example -- and the machine will probably restart a few times as it downloads and installs the updates.
-  1. [ ] Log into machine with the default password.
-  1. [ ] Open the security preferences and change the password to something sane. Write this down so you can give it to the participants later.
-  1. [ ] Open a terminal window and run
+  - [ ] Run `Startup Disk`.
+  - [ ] Unlock with the workstation password (you may need to ask the previous facilitator for the machine's password).
+  - [ ] Select the network disk and click restart. It will likely be the rightmost start disk, and will definitely include the phrase "Network Disk." If you don't see that, try restarting the machine and try again.
+  - [ ] Select deployment option 2, "macOS Sierra" and click the play button. If you look in between the parens of the option name, you'll see the default password for the image. A terminal will open and you’ll see a lot of output, including a bunch of lines that say `installer: PHASE: Running package scripts`. Don’t worry, this is fine. The boot script will search for updates -- you’ll see output about OS X, iTunes, and Safari updates, for example -- and the machine will probably restart a few times as it downloads and installs the updates.
+  - [ ] Log into machine with the default password.
+  - [ ] Open the security preferences and change the password to something sane. Write this down so you can give it to the participants later.
+  - [ ] Open a terminal window and run
      ```
      curl -LOk https://github.com/pivotal-cf-experimental/onboarding-week-construct/archive/master.zip
      unzip master.zip
@@ -50,11 +61,4 @@
      ./construct
      ```
      You'll need to babysit this process, as it will prompt you for the password several times.
-  1. Record any issues you have with this process so we can update this checklist.
-
-### Scheduling
-- [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
-- [ ] Schedule daily standup.
-- [ ] Schedule afternoon check in.
-- [ ] Schedule retro at the end of the week, include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
-- [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
+- [ ] Record any issues you have with this process so we can update this checklist.
