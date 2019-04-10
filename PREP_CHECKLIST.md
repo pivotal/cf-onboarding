@@ -14,10 +14,10 @@
 - [ ] The week before: send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
 
 ### Scheduling
-- [ ] Schedule a welcome/orientation session for Monday morning. Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
-- [ ] Schedule daily standup.
-- [ ] Schedule afternoon check in.
-- [ ] Schedule retro at the end of the week, include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
+- [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
+- [ ] Schedule daily standup (15min at 9:15, starting Tuesday).
+- [ ] Schedule afternoon check in (30min at 1:30).
+- [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
 
 ### IaaS Setup
