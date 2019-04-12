@@ -31,13 +31,12 @@
 ### Tracker Setup
 - [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
 - [ ] Add all participants as members to each of the tracker projects.
-  1. [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this
-     will generate `onboarding-tracker.csv`
-       - Note: you need docker installed `brew cask install docker`. (To get the command line tool to show up you may have to first start docker via Spotlight Search)
+- [ ] Build the tracker back log csv
+  - [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
+- Note: you need docker installed `brew cask install docker`. (To get the command line tool to show up you may have to first start docker via Spotlight Search)
          - if this fails: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled` - enable experimental, restart docker, disable experiment and restart again. 
-  1. [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar >
-     More > Import CSV > Choose File)
-  1. [ ] Move all stories from icebox to backlog.
+- [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
+- [ ] Move all stories from icebox to backlog.
 
 ### LastPass Setup
 - [ ] Give all participants access to the shared LastPass folder:
