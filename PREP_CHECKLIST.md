@@ -23,19 +23,34 @@
 - [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
 
 ### IaaS Setup
-- [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up. In SF, we use [cf-sf-onboarding-env-1](https://console.cloud.google.com/home/dashboard?project=cf-sf-onboarding-env-1), [cf-sf-onboarding-env-2](https://console.cloud.google.com/home/dashboard?project=cf-sf-onboarding-env-2), and [cf-sf-onboarding-env-3](https://console.cloud.google.com/home/dashboard?project=cf-sf-onboarding-env-3), which already exist. Otherwise, fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
+- [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up.
+  - [ ] In SF, we use:
+    - [cf-sf-onboarding-env-1](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-1)
+    - [cf-sf-onboarding-env-2](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-2)
+    - [cf-sf-onboarding-env-3](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-3)
+  - [ ] Otherwise, Fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
-- [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects. [IAM for env-1](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-1), [IAM for env-2](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-2) and [IAM for env-3](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-3)
+- [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
+  - [ ] In SF:
+    - [IAM for env-1](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-1)
+    - [IAM for env-2](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-2)
+    - [IAM for env-3](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-3)
 - [ ] If your CF on-boarding will include the GCP track (`gcp` tracker label / the `oss` build) then ensure participants have access to the `CF-Onboarding-dns` project in GCP (for DNS propagation). [IAM for DNS](https://console.cloud.google.com/iam-admin/iam?project=cf-onboarding-dns)
 
 ### Tracker Setup
-- [ ] Make sure you have Tracker projects prepared. Again, in SF we re-use the same tracker projects for [Pair 1](https://www.pivotaltracker.com/n/projects/2125981), [Pair 2](https://www.pivotaltracker.com/n/projects/2125982), and [Pair 3](https://www.pivotaltracker.com/n/projects/2089066).
+- [ ] Make sure you have Tracker projects prepared.
+  - [ ] In SF, we use the following trackers projects:
+    - [Pair 1](https://www.pivotaltracker.com/n/projects/2125981)
+    - [Pair 2](https://www.pivotaltracker.com/n/projects/2125982)
+    - [Pair 3](https://www.pivotaltracker.com/n/projects/2089066)
 - [ ] Add all participants as members to each of the tracker projects.
 - [ ] Delete everything from the tracker projects.
 - [ ] Build the tracker back log csv
   - [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
        - Note: you need docker installed `brew cask install docker`
-         - If docker gives you this error: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled` - enable experimental mode, restart docker, then disable experiment and restart again. (not sure why but it works) 
+         - To get the command line tool to show up you may have to first start docker via Spotlight Search
+         - If docker gives you this error: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled`
+           - Enable experimental mode, restart docker, then disable experiment and restart again. (not sure why but it works) 
 - [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
 - [ ] Move all stories from icebox to backlog.
 
