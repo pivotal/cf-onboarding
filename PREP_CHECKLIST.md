@@ -12,7 +12,7 @@
   - [ ] You will be communicating with these folks a lot. I find it helpful to save a copy/pasteable list of their names <emails> here:
     - `name <email>.name <email>`
 - [ ] The week before: send out an email to each of the participants. You can find a template in [FACILITATING.md](FACILITATING.md).
-- [ ] Get a [Zoom](https://zoom.us/) room setup for remote participants. `<can save link here>`  (Make sure to include this on your calendar invites.)
+- [ ] Get a [Zoom](https://zoom.us/) room setup for remote participants. {<can save link here>}  (Make sure to include this on your calendar invites.)
 
 ### Scheduling
 - [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
