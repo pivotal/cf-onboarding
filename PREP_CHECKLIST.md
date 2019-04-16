@@ -50,7 +50,7 @@
        - Note: you need docker installed `brew cask install docker`
          - To get the command line tool to show up you may have to first start docker via Spotlight Search
          - If docker gives you this error: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled`
-           - Enable experimental mode, restart docker, then disable experiment and restart again. (not sure why but it works) 
+           - In docker settings: enable experimental, restart docker, disable experiment and restart again.
 - [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
 - [ ] Move all stories from icebox to backlog.
 
