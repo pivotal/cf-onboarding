@@ -39,7 +39,7 @@ If you're getting this email, it means that you're scheduled to participate in C
 
 For starters, we (_____________ and _____________) will be your facilitators. We'll continue working our "day jobs," but check in a few times a day to answer questions and make sure everyone is doing well. We will also be here for morning stand ups.
 
-You will be part of a group with different backgrounds and skills. The stories can get a bit technical, but by and large you'll be going through actual user journeys -- deploying CF with BOSH, pushing and app, debugging broken systems. Please help each other out as much as possible, write down what you learn, and think about how difficulties you have with the stories could be feedback for us as facilitators or for teams that build the products you're using.
+You will be part of a group with different backgrounds and skills. The stories can get a bit technical, but by and large you'll be going through actual user journeys -- deploying CF with BOSH, pushing an app, debugging broken systems. Please help each other out as much as possible, write down what you learn, and think about how difficulties you have with the stories could be feedback for us as facilitators or for teams that build the products you're using.
 
 I also wanted to point out that you will be pairing full time with each other. Your teams should expect you to be away for the majority of the week, but if you need to jump out for a meeting here or there, just let your pair know.
 
