@@ -97,19 +97,19 @@ L: security
 
 ---
 
-Inspect your c2c packets with tcpdump
+Inspect your container to container networking packets with tcpdump
 
 ### What?
-Sometimes a user says "container to container networking is broken! AppA can't talk to AppB". After making sure that they have c2c policies set, the next thing you might do is use tcpdump to inspect the packets.
+Sometimes a user says "container to container networking is broken! AppA can't talk to AppB". After making sure that they have container to container networking (c2c) policies set, the next thing you might do is use tcpdump to inspect the packets.
 
-Tcpdump is a CLI tool that allows you to inspect all of the traffic (not just TCP, despite the name) flowing through your container. This is a great tool to use to debug how far packets are making it, how long the packets are taking to reach their destination, and to look at where in the TCP handshake things are failing.
+Tcpdump is a CLI tool that allows you to inspect all of the traffic (not just TCP, despite the name) flowing through your container. This is a great tool for debugging how far packets are making it, determining how long the packets are taking to reach their destination, and figuring out where in the TCP handshake connections are failing.
 
-In this story you are going to look at the packets being sent from Boots to Swiper. Then you'll watch the packets being sent in response.
+In this story you are going to look at the packets being sent from boots to swiper. Then you'll watch the packets being sent in response.
 
 ### How?
 **Setup**
-1. You should have two apps pushed named Boots and Swiper.
-1. There should be no c2c network policies (`cf network-policies` and `cf remove-network-policies --help`).
+1. You should have two apps pushed named boots and swiper from the previous story ("Allowing network traffic to other apps").
+1. There should be no c2c network policies. Remove any policies that are left over from the previous story. (`cf network-policies` and `cf remove-network-policies --help`).
 
 **Curl swiper from boots**
 1. Get the overlay IPs of boots and swiper.
@@ -130,7 +130,7 @@ watch -n 15 curl SWIPER_OVERLAY_IP:8080
 1. In another terminal, ssh onto the Diego Cell where boots is running and become root (see the help section if you don't know how to do this).
 1. Run `tcpdump`.
     Ahhhhh too much information! ctrl+c! ctrl+c!  On a Diego Cell there are many packets being sent around, and tcpdump gives information about ALL OF THEM. You need to figure out a way to filter this overwhelming stream of information.
-1.  Filter by packets where the source IP is BOOTS_OVERLAY_IP and where the destination IP is SWIPER_OVERLAY_IP over any interface. (Interested in learning more about network interfaces? Contact Amelia Downs about CF Networking Onboarding week! Or google it.)
+1.  Filter by packets where the source IP is BOOTS_OVERLAY_IP and where the destination IP is SWIPER_OVERLAY_IP over any interface. (Interested in learning more about network interfaces? It's a little too much to go into here. Contact Amelia Downs about CF Networking Onboarding week! Or google it.)
  ```
 tcpdump -n src BOOTS_OVERLAY_IP and dst SWIPER_OVERLAY_IP -i any
  ```
@@ -143,17 +143,17 @@ tcpdump -n src BOOTS_OVERLAY_IP and dst SWIPER_OVERLAY_IP -i any
 
 If swiper was successfully responding, then you should also see packets being sent as a response in the opposite direction.
 
-1. See that no packets are being sent back from Swiper to Boots
+1. See that no packets are being sent back from swiper to boots
   ```
 tcpdump -n src SWIPER_OVERLAY_IP and dst BOOTS_OVERLAY_IP -i any
  ```
 
 **Add c2c policy**
-1. Add c2c policy to allow traffic from Boots to Swiper (`cf add-network-policy --help`)
-1. Continually try to curl Swiper from Boots
+1. Add c2c policy to allow traffic from boots to swiper (`cf add-network-policy --help`)
+1. In your original terminal, you should still be curling swiper from soots (if not go back to "curl swiper from boots" section).
 
-**Look at those packets**
-1. Look for packets from Boots to Swiper
+**Inspect packets**
+1. Look for packets from boots to swiper
  ```
 tcpdump -n src BOOTS_OVERLAY_IP and dst SWIPER_OVERLAY_IP -i any
  ```
@@ -164,13 +164,13 @@ tcpdump -n src BOOTS_OVERLAY_IP and dst SWIPER_OVERLAY_IP -i any
  ```
 How are these packets different from before?
 
-1. Look for packets from Swiper to Boots
+1. Look for packets from swiper to boots
  ```
 tcpdump -n src SWIPER_OVERLAY_IP and dst BOOTS_OVERLAY_IP -i any
  ```
 
 ### Expected Result
-You should see packets being sent in response from Swiper to Boots. You should see `200 OK`.
+You should see packets being sent in response from swiper to boots. You should see `200 OK`.
 
 ### Help
 How to determine what Diego Cell your app is running on:
@@ -184,8 +184,7 @@ bosh instances
 
 ### Resources
 [tcpdump man page](https://www.tcpdump.org/manpages/tcpdump.1.html)
-[helpful common tcpdump commands](https://www.rationallyparanoid.com/articles/tcpdump.html)
-[debugging non-c2c traffic in CF](https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/troubleshooting.md#debugging-non-c2c-packets)
+[helpful tcpdump commands](https://www.rationallyparanoid.com/articles/tcpdump.html)
 
 L: security
 ---
