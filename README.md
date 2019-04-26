@@ -23,7 +23,7 @@ To run an Onboarding Week in your office, **read the [facilitation](FACILITATING
 1. Use the Import CSV function (on the Settings page) to add the stories to your project with the CSV file. The account used to import the CSV file will be the requester associated with the resulting stories.
 
 ### Import stories to Tracker (from source)
-The stories in this repo are divided by epic (e.g. Deploying with GCP, Redis CUPS, etc.) They are provided in .prolific format. To grab the most recent versions of stories from master or another branch:
+The stories in this repo are divided by epic (e.g. Deploying with GCP, Redis CUPS, etc.) They are provided in .[prolific](https://github.com/onsi/prolific) format. To grab the most recent versions of stories from master or another branch:
 
 1. Clone this repo
 1. Run `./build local` or `./build oss` (requires Docker)
