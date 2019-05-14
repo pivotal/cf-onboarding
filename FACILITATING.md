@@ -62,6 +62,15 @@ The CF Onboarding Staff
 * **Group Slack:** Use the [#cf-onboarding-week](https://pivotal.slack.com/messages/C3HN8FALB) Slack channel to share resources and post reminders.
 * **Retro:** What Pivotal experience could be complete without a retro? Order goodies and treat it like a celebration.
 
+### Monday Briefing Suggestions
+* Make sure to introduce everyone to each other in the room and break the ice.  You are each others' greatest resource.
+* Make sure to leave space for questions and discussions at each part of the briefing.
+* Explain the structure of the week.  The participants will be pairing, working out of a backlog of prepared stories, at a pace they choose.
+* Set expectations around the goals of onboarding week.  The objective is to pursue whichever activities will help expand your understanding of how Cloud Foundry works.  Rabbit-holing is allowed.  Gaining deeper understanding is more important than finishing stories.
+* Set expectations that no one will finish the backlog, or even come close, and this is expected and OK.
+* Explain how there will be opportunities for exploration later in the week.  There a few "core" tracks (`bbl`, `cf-deployment`, `app-dev`).  After that point, it is recommended that participants look at other possible tracks and mindfully choose which they want to work on, since they won't have time to do everything.  Participants can also go rogue and make up their own track if they are interested in a certain question.
+* Explain how there will be talks, and solicit the participants for their interests so you can schedule talks for later in the week.
+
 ### Structure Suggestions
 * If you have more than one pair doing this at once (which is a better experience for all involved if you can swing it), try having them rotate after lunch instead of in the morning. This helps with context retention, knowledge sharing, and getting the day started promptly (instead of settling in with a new pair).
 * Don't load all modules at once at the beginning of the week. Start with stories to get their environment set up, then add others as-needed in response to Onboarder questions and requests.
@@ -74,3 +83,4 @@ The CF Onboarding Staff
 * Learn to be comfortable with the idea of breaking something. If you're afraid to break your environment, you'll have a harder time learning and exploring.
 * This is your week. Pursue the topics that interest you.
 * How will you apply what you've learned this week to the future?
+* Use Todd Sedano's [pairing cards](http://sedano.org/toddsedano/2017/10/23/considerate-pair-programming.html) to prompt a different pairing skill each day.
