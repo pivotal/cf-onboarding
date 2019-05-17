@@ -44,7 +44,7 @@
     - [Pair 1](https://www.pivotaltracker.com/n/projects/2125981)
     - [Pair 2](https://www.pivotaltracker.com/n/projects/2125982)
     - [Pair 3](https://www.pivotaltracker.com/n/projects/2089066)
-- [ ] Add all participants as members to each of the tracker projects.
+- [ ] Add all participants as members to each of the tracker projects. (A list of emails works here.)
 - [ ] Delete everything from the tracker projects.
 - [ ] Build the tracker back log csv
   - [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
@@ -57,7 +57,7 @@
 
 ### LastPass Setup
 - [ ] Give all participants access to the shared LastPass folder:
-  - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users
+  - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users (A list of emails works here.)
 
 ### Workstation Setup
 - [ ] Make sure you have a workstation for each pair.
