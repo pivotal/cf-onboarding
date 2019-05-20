@@ -505,7 +505,7 @@ Once the deploy is finished, run `bosh vms`. All of them (currently 15) should h
 
 ### Resources
 [Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
-[Github README: Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
+[cf-deployment Github README](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md)
 
 L: cf-deployment
 
