@@ -491,7 +491,7 @@ Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)*
 bosh -d cf deploy ../cf-deployment/cf-deployment.yml -v system_domain=<YOUR_DOMAIN> --non-interactive -o ../cf-deployment/operations/use-compiled-releases.yml -o ../cf-deployment/operations/scale-to-one-az.yml
 ```
 
-This one step is part of a step-by-step procedure listed in [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md), but this backlog has already set you up with everything you need.
+This one step is part of a step-by-step procedure listed in [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/texts/deployment-guide.md), but this backlog has already set you up with everything you need.
 
 Let's discuss the options we used:
 - We added `--non-interactive` flag. Normally, after initial preprocessing steps, BOSH will present the "manifest changes", differences between the currently-deployed manifest (currently nothing) and the deploying manifest. Without this flag, you'll be prompted ~5 minutes after the `bosh deploy` command to approve the manifest changes.
