@@ -201,7 +201,7 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
-[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/texts/deployment-guide.md)
 [Video: Creating Cloud Environments](https://drive.google.com/file/d/1ltNggSltyLdRs8orh-qCzZTM_EAx3x7h/view?usp=sharing)
   - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF
 
