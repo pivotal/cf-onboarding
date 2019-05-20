@@ -11,7 +11,7 @@ There have been many ways to deploy BOSH over the years, but the latest, greates
 
 `bbl` stands up the BOSH Director (VM and persistent disk). The BOSH Director deploys and monitors Cloud Foundry VMs and processes. And Cloud Foundry is used to deploy and monitor applications and services in the form of containerized workloads.
 
-You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it (and a few of its dependencies) on your workstation. 
+You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it (and a few of its dependencies) on your workstation.
 
 This isn't the most exciting first story, but all good things to those who wait, right?
 
@@ -149,13 +149,13 @@ All that IaaS-paving was done for the purpose of getting a BOSH director running
 
 Well, in that case, how do _I_ access the BOSH director from my local machine? That's where the jumpbox becomes your friend. The jumpbox is a pretty lazy VM: all it does is hang out on both a public and private IP address, and it acts as the bridge between the outside world (i.e. you) and your private network. Any time you want to communicate with the BOSH director, you have to go through the jumpbox. If that sounds like a lot of work, you wouldn't be wrong, but have no fear: `bbl` is on the case.
 
-If you run `bbl print-env`, you'll see a lot of output, but one of the most important lines you'll see will say something like:
+After running `bbl up` below, if you run `bbl print-env`, you'll see a lot of output. One of the most important lines you'll see will say something like:
 ```
 export BOSH_ALL_PROXY=ssh+socks5://jumpbox@<some IP address>:22?private-key=/path/to/some/bosh_jumpbox_private.key
 ```
 This line of `bash` would set environment variables that the BOSH CLI can use to discover the location and credentials for your jumpbox, so that you can tunnel through the jumpbox and issue CLI commands against the director.
 
-So, to **actually** set all of the variables, you'll need to run:
+So, to **actually** set all of the variables, you'd need to run:
 ```
 eval "$(bbl print-env)"
 ```
@@ -217,7 +217,7 @@ Time to target the Director VM you just `bbl up`ed.
 ### How?
 To set the BOSH environment, run the following commands:
 
-`bbl print-env` to see the environment variables you'll set to use your new BOSH. 
+`bbl print-env` to see the environment variables you'll set to use your new BOSH.
 
 `eval "$(bbl print-env)"` to export them. **Note: you will definitely need to include the double-quotes for this command to work properly.** Once you've run it, you should be able to start working with your bosh director. If you ever have a hard time connecting to your BOSH director, your first step should be to re-run `eval "$(bbl print-env)"`.
 
@@ -276,7 +276,7 @@ To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 [Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
-[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
+[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513)
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 [Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)
 
@@ -540,13 +540,13 @@ L: cf-deployment
 
 ---
 
-Login to CF CLI using creds from Credhub 
+Login to CF CLI using creds from Credhub
 
 ### What?
 We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
 ### How?
-First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. 
+First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`.
 
 Next, before you can login to the CF CLI, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
 
@@ -587,9 +587,9 @@ L: cf-deployment
 Dive into CLIs
 
 ### What?
-A CLI , or **Command-line interface** , is a way to issue commands via the terminal. Many Cloud Foundry products don't have any GUIs (Graphical User Interfaces, a website for example), instead the way users interact with our products is via many (many) CLIs.  You've been copying and pasting a lot of CLI commands as part of this onboarding, but for those of us who haven't used CLIs before, let us dig in a little more. 
+A CLI , or **Command-line interface** , is a way to issue commands via the terminal. Many Cloud Foundry products don't have any GUIs (Graphical User Interfaces, a website for example), instead the way users interact with our products is via many (many) CLIs.  You've been copying and pasting a lot of CLI commands as part of this onboarding, but for those of us who haven't used CLIs before, let us dig in a little more.
 
-Not all CLIs are the same, but after you start using them you will find a lot of commonality. 
+Not all CLIs are the same, but after you start using them you will find a lot of commonality.
 
 Here are some of the Cloud Foundry CLI's you will be using in this onboarding:
 - [gcloud](https://cloud.google.com/pubsub/docs/quickstart-cli)
@@ -600,9 +600,9 @@ Here are some of the Cloud Foundry CLI's you will be using in this onboarding:
 
 Now that you have all of these CLIs set up already from prior stories, let's dig into them.
 
-**How to get help!** 
+**How to get help!**
 
-There are many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first. 
+There are many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first.
 
 In your terminal type `bbl --help` and see the results. It will show everything that's available via the bbl cli.
 
@@ -677,7 +677,7 @@ type: value
 value: <redacted>
 version_created_at: "2019-03-22T23:51:13Z"
 ```
-You should be able to get bosh logs and see them downloaded on your computer 
+You should be able to get bosh logs and see them downloaded on your computer
 
 ```
 Task 3678 | 23:52:24 | Fetching logs for diego-cell/a21fbda8-0a3d-41cb-9f16-6ff3a3286cd2 (0): Finding and packing log files (00:00:05)
