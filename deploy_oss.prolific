@@ -627,9 +627,9 @@ For example here is the usage for the `bosh deploy` command: `bosh [OPTIONS] dep
 - `--words-prepended-with-dashes` indicates a flag to change how the command is run. The flags usage should be explained in the help text.
 -  `--words-prepended-with-dashes-with-equal-sign-after=VALUE` indicates an option that the user assigns a value to. Its usage should be explained in the help text.
 
-Let's try using a flag. Run `bosh instances`.
+Let's try using a flag. Run `bosh instances`.  `this command runs fine when you have only 1 deployment`
 
-You will get the helpful error message `expected argument for flag `-d, --deployment`. This is telling you that you must use the `-d` flag to specify a bosh deployment, in order to return the bosh instances.
+You will get the helpful error message `expected argument for flag -d, --deployment`. This is telling you that you must use the `-d` flag to specify a bosh deployment, in order to return the bosh instances.
 Given this, let's try running `bosh -d YOUR-DEPLOYMENT-NAME instances`. Success! (If you're having trouble getting your deployment name try `bosh deployments --help`.
 
 **The Linux CLI**
