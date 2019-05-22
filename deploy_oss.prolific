@@ -11,7 +11,7 @@ There have been many ways to deploy BOSH over the years, but the latest, greates
 
 `bbl` stands up the BOSH Director (VM and persistent disk). The BOSH Director deploys and monitors Cloud Foundry VMs and processes. And Cloud Foundry is used to deploy and monitor applications and services in the form of containerized workloads.
 
-You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it (and a few of its dependencies) on your workstation. 
+You'll use `bbl` to deploy your BOSH Director in a later story, but for now I've told you all of this just so you'll install it (and a few of its dependencies) on your workstation.
 
 This isn't the most exciting first story, but all good things to those who wait, right?
 
@@ -149,13 +149,13 @@ All that IaaS-paving was done for the purpose of getting a BOSH director running
 
 Well, in that case, how do _I_ access the BOSH director from my local machine? That's where the jumpbox becomes your friend. The jumpbox is a pretty lazy VM: all it does is hang out on both a public and private IP address, and it acts as the bridge between the outside world (i.e. you) and your private network. Any time you want to communicate with the BOSH director, you have to go through the jumpbox. If that sounds like a lot of work, you wouldn't be wrong, but have no fear: `bbl` is on the case.
 
-If you run `bbl print-env`, you'll see a lot of output, but one of the most important lines you'll see will say something like:
+After running `bbl up` below, if you run `bbl print-env`, you'll see a lot of output. One of the most important lines you'll see will say something like:
 ```
 export BOSH_ALL_PROXY=ssh+socks5://jumpbox@<some IP address>:22?private-key=/path/to/some/bosh_jumpbox_private.key
 ```
 This line of `bash` would set environment variables that the BOSH CLI can use to discover the location and credentials for your jumpbox, so that you can tunnel through the jumpbox and issue CLI commands against the director.
 
-So, to **actually** set all of the variables, you'll need to run:
+So, to **actually** set all of the variables, you'd need to run:
 ```
 eval "$(bbl print-env)"
 ```
@@ -201,7 +201,7 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
-[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md)
+[Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/texts/deployment-guide.md)
 [Video: Creating Cloud Environments](https://drive.google.com/file/d/1ltNggSltyLdRs8orh-qCzZTM_EAx3x7h/view?usp=sharing)
   - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF
 
@@ -217,7 +217,7 @@ Time to target the Director VM you just `bbl up`ed.
 ### How?
 To set the BOSH environment, run the following commands:
 
-`bbl print-env` to see the environment variables you'll set to use your new BOSH. 
+`bbl print-env` to see the environment variables you'll set to use your new BOSH.
 
 `eval "$(bbl print-env)"` to export them. **Note: you will definitely need to include the double-quotes for this command to work properly.** Once you've run it, you should be able to start working with your bosh director. If you ever have a hard time connecting to your BOSH director, your first step should be to re-run `eval "$(bbl print-env)"`.
 
@@ -276,7 +276,7 @@ To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 [Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
-[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513) 
+[Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513)
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
 [Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)
 
@@ -491,7 +491,7 @@ Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)*
 bosh -d cf deploy ../cf-deployment/cf-deployment.yml -v system_domain=<YOUR_DOMAIN> --non-interactive -o ../cf-deployment/operations/use-compiled-releases.yml -o ../cf-deployment/operations/scale-to-one-az.yml
 ```
 
-This one step is part of a step-by-step procedure listed in [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/deployment-guide.md), but this backlog has already set you up with everything you need.
+This one step is part of a step-by-step procedure listed in [these instructions](https://github.com/cloudfoundry/cf-deployment/blob/master/texts/deployment-guide.md), but this backlog has already set you up with everything you need.
 
 Let's discuss the options we used:
 - We added `--non-interactive` flag. Normally, after initial preprocessing steps, BOSH will present the "manifest changes", differences between the currently-deployed manifest (currently nothing) and the deploying manifest. Without this flag, you'll be prompted ~5 minutes after the `bosh deploy` command to approve the manifest changes.
@@ -505,7 +505,7 @@ Once the deploy is finished, run `bosh vms`. All of them (currently 15) should h
 
 ### Resources
 [Docs: What is a BOSH release?](https://bosh.io/docs/release.html)
-[Github README: Why are we replacing cf-release with cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose)
+[cf-deployment Github README](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md)
 
 L: cf-deployment
 
@@ -540,13 +540,13 @@ L: cf-deployment
 
 ---
 
-Login to CF CLI using creds from Credhub 
+Login to CF CLI using creds from Credhub
 
 ### What?
 We're almost there. The final step is to target your newly deployed Cloud Foundry.
 
 ### How?
-First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`. 
+First, point the CF CLI at your deployed cloudfoundry. To do this, run `cf api api.YOUR_DOMAIN.com --skip-ssl-validation`.
 
 Next, before you can login to the CF CLI, you'll need to get your admin password, which is stored in Credhub. When you used `bbl` to create your BOSH setup, it colocated a Credhub server with the BOSH director, so we can use `bbl` to get a handful of environment variables that will help you target the Credhub that was created as part of your BOSH setup.
 
@@ -587,9 +587,9 @@ L: cf-deployment
 Dive into CLIs
 
 ### What?
-A CLI , or **Command-line interface** , is a way to issue commands via the terminal. Many Cloud Foundry products don't have any GUIs (Graphical User Interfaces, a website for example), instead the way users interact with our products is via many (many) CLIs.  You've been copying and pasting a lot of CLI commands as part of this onboarding, but for those of us who haven't used CLIs before, let us dig in a little more. 
+A CLI , or **Command-line interface** , is a way to issue commands via the terminal. Many Cloud Foundry products don't have any GUIs (Graphical User Interfaces, a website for example), instead the way users interact with our products is via many (many) CLIs.  You've been copying and pasting a lot of CLI commands as part of this onboarding, but for those of us who haven't used CLIs before, let us dig in a little more.
 
-Not all CLIs are the same, but after you start using them you will find a lot of commonality. 
+Not all CLIs are the same, but after you start using them you will find a lot of commonality.
 
 Here are some of the Cloud Foundry CLI's you will be using in this onboarding:
 - [gcloud](https://cloud.google.com/pubsub/docs/quickstart-cli)
@@ -600,9 +600,9 @@ Here are some of the Cloud Foundry CLI's you will be using in this onboarding:
 
 Now that you have all of these CLIs set up already from prior stories, let's dig into them.
 
-**How to get help!** 
+**How to get help!**
 
-There are many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first. 
+There are many common ways to get help text about the CLI you want to use. Unfortunately, nothing is completely standardized, so you might have to try a few options first.
 
 In your terminal type `bbl --help` and see the results. It will show everything that's available via the bbl cli.
 
@@ -627,9 +627,9 @@ For example here is the usage for the `bosh deploy` command: `bosh [OPTIONS] dep
 - `--words-prepended-with-dashes` indicates a flag to change how the command is run. The flags usage should be explained in the help text.
 -  `--words-prepended-with-dashes-with-equal-sign-after=VALUE` indicates an option that the user assigns a value to. Its usage should be explained in the help text.
 
-Let's try using a flag. Run `bosh instances`.
+Let's try using a flag. Run `bosh instances`.  `this command runs fine when you have only 1 deployment`
 
-You will get the helpful error message `expected argument for flag `-d, --deployment`. This is telling you that you must use the `-d` flag to specify a bosh deployment, in order to return the bosh instances.
+You will get the helpful error message `expected argument for flag -d, --deployment`. This is telling you that you must use the `-d` flag to specify a bosh deployment, in order to return the bosh instances.
 Given this, let's try running `bosh -d YOUR-DEPLOYMENT-NAME instances`. Success! (If you're having trouble getting your deployment name try `bosh deployments --help`.
 
 **The Linux CLI**
@@ -677,7 +677,7 @@ type: value
 value: <redacted>
 version_created_at: "2019-03-22T23:51:13Z"
 ```
-You should be able to get bosh logs and see them downloaded on your computer 
+You should be able to get bosh logs and see them downloaded on your computer
 
 ```
 Task 3678 | 23:52:24 | Fetching logs for diego-cell/a21fbda8-0a3d-41cb-9f16-6ff3a3286cd2 (0): Finding and packing log files (00:00:05)
