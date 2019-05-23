@@ -171,7 +171,7 @@ Unzip the file to get the terraform templates. You can take a look at the README
 5. For SSL configuration, let's use self-signed certificates. That means you'll set values for `ssl_cert` and `ssl_private_key`. To generate SSL keys, run `openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -nodes`. When you generate the certificates, make sure that the "Common Name" field matches your `dns_suffix`.
 6. Leave `buckets_location`, `opsman_storage_bucket_count`, `create_iam_service_account_members` blank.
 
-Finially, you'll run
+Finally, you'll run
 ```
 terraform init
 terraform apply
@@ -204,7 +204,7 @@ L: opsman
 
 Deploy BOSH Director using Ops Manager
 
-Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html). Some tips to keep you from getting stuck:
+Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/pivotalcf/om/gcp/config-terraform.html). Some tips to keep you from getting stuck:
 1. When you get to "Create Availability Zones", you'll want to use the same AZs that you specified in your terraform.
 2. Make sure to read in the instructions carefully when you configure the networks. Especially be careful when setting the network names: they have the form `<network-name>/<subnet-name>/<region>`
 
