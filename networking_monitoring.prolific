@@ -48,10 +48,21 @@ Let's see how can manage the networking security of an app that needs to communi
 
 1) Deploy service discovery 
 
-Service Discovery is a container networking feature that allows CF apps to communicate with each other via internal routes. This way appA doesn't need to know appB's overlay IP address. Instead appA can just make a request to an internal route that might look like `appB.apps.internal`, and the service discovery controller will translate that route into the overlay IP. Service Discovery is not enabled by default, but can be enabled by using this opsfile, [Enable Service Discovery](https://github.com/cloudfoundry/cf-deployment/blob/master/operations/enable-service-discovery.yml). This opsfile also seeds the internal domain `apps.internal` for you. 
+Service Discovery is a container networking feature that allows CF apps to communicate with each other via internal routes. 
+This way appA doesn't need to know appB's overlay IP address. 
+Instead appA can just make a request to an internal route that might look like `appB.apps.internal`
+and the service discovery controller will translate that route into the overlay IP. 
+Service Discovery is not enabled by default, but can be enabled by using this opsfile, 
+[Enable Service Discovery](https://github.com/cloudfoundry/cf-deployment/blob/master/operations/enable-service-discovery.yml). 
+This opsfile also seeds the internal domain `apps.internal` for you. 
+
+The following commands download the BOSH manifest file into a tmp file, adds `enable-service-discovery.yml` to the manifest,
+and updates your BOSH deployment with service discovery enabled. Ensure that you are in the `onboarding-gcp` directory and that
+your BOSH environment variables are set. 
 
 ```
-  bosh deploy .... -o enable-service-discovery.yml
+  bosh -d cf manifest > /tmp/cf.yml
+  bosh deploy /tmp/cf.yml -o ../cf-deployment/operations/enable-service-discovery.yml -d cf
 ```
 
 To confirm an internal domain was seeded, run `cf domains` and see that there is a domain with the name `apps.internal` and that it is listed as `internal` under `details`.
