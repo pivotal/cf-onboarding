@@ -26,9 +26,9 @@
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up.
   - [ ] In SF, we use:
-    - [cf-sf-onboarding-env-1](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-1)
-    - [cf-sf-onboarding-env-2](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-2)
-    - [cf-sf-onboarding-env-3](https://console.cloud.google.com/net-services/dns/zones?project=cf-sf-onboarding-env-3)
+    - [cf-sf-onboarding-env-1](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-1)
+    - [cf-sf-onboarding-env-2](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-2)
+    - [cf-sf-onboarding-env-3](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-3)
   - [ ] Otherwise, Fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
 - [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
