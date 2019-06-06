@@ -46,13 +46,12 @@
 - [ ] Add all participants as members to each of the tracker projects. (A list of emails works here.)
 - [ ] Delete everything from the tracker projects.
 - [ ] Build the tracker back log csv
-  - [ ] SF FACILITATORS: Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
+  - [ ] Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
        - Note: you need docker installed `brew cask install docker`
          - To get the command line tool to show up you may have to first start docker via Spotlight Search
          - If docker gives you this error: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled`
            - In docker settings: enable experimental, restart docker, disable experiment and restart again.
-- [ ] SF FACILITATORS: Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
-- [ ] Move all stories from icebox to backlog.
+- [ ] Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
 
 ### LastPass Setup
 - [ ] Give all participants access to the shared LastPass folder:
