@@ -78,5 +78,4 @@
 
 ### Misc
 
-- [ ] Optionally get a floater laptop to help pairs split up when reading docs.
 - [ ] Record any issues you have with this process so we can update this checklist.
