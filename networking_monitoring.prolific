@@ -120,7 +120,7 @@ In this story you are going to look at the packets being sent from boots to swip
 ### How?
 **Setup**
 1. You should have two apps pushed named boots and swiper from the previous story ("Allowing network traffic to other apps").
-1. There should be no c2c network policies. Remove any policies that are left over from the previous story. (`cf network-policies` and `cf remove-network-policies --help`).
+1. There should be no c2c network policies. Remove any policies that are left over from the previous story. (`cf network-policies` and `cf remove-network-policy --help`).
 
 **Curl swiper from boots**
 1. Get the overlay IPs of boots and swiper.
