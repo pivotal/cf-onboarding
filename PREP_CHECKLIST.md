@@ -20,7 +20,6 @@
 - [ ] Schedule afternoon check in (30min at 1:30).
 - [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf (pw: onboarding-sf (pls don't change it))
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
-  - [ ] In SF we have a list of [prior speakers](https://docs.google.com/spreadsheets/d/1Sto5f2PC7u2kRZJlm91OAZ1jYwN9mqiNFGFOsAKb8g0/edit#gid=1010210050)
 - [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
 
 ### IaaS Setup
