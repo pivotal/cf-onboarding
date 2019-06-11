@@ -21,6 +21,13 @@
 - [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://retros.cfapps.io/retros/onboarding-sf (pw: onboarding-sf (pls don't change it))
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
 - [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
+---
+These are core CF topics, other topics are a bit more "extra credit".
+- [ ] BOSH {}
+- [ ] CF Overview {}
+- [ ] Concourse {}
+
+As a helpful reminder, you can save the name of the speaker w/ checkbox.
 
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up.
