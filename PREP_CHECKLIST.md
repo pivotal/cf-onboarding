@@ -65,6 +65,7 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
   - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users (A list of emails works here.)
 
 ### Workstation Setup
+Note: local IT departments can sometimes help with workstation setup. (Helpful for remote facilitation.)
 - [ ] Make sure you have a workstation for each pair.
 - [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
