@@ -219,8 +219,8 @@ The basic outline of this workflow is this:
 Construct the URL for querying the router
 In order to curl the router's `/routes` endpoint, you'll to get the router's IP address, port, as well as special credentials (username and password) for making this request. Don't worry, you can find all of this in your manifest or vars-store/Credhub.
 - Router IP Address: Run `bosh instances` and look for an instance group called `router` and copy the IP address.
-- Router Status Port: routing-release [sets port 8080 as the default](https://github.com/cloudfoundry/routing-release/blob/develop/jobs/gorouter/spec#L33-L35) -- unless you wrote an ops-file to override the default, you should use this port.
-- Router Status Username: Again, [routing-release has provided a default](https://github.com/cloudfoundry/routing-release/blob/develop/jobs/gorouter/spec#L36-L38). Go with that, most likely.
+- Router Status Port: routing-release [sets port 8080 as the default](https://github.com/cloudfoundry/routing-release/blob/b63e07857d90df0dc58339416bb09e860e32cf46/jobs/gorouter/spec#L38-L40) -- unless you wrote an ops-file to override the default, you should use this port.
+- Router Status Username: Again, [routing-release has provided a default](https://github.com/cloudfoundry/routing-release/blob/b63e07857d90df0dc58339416bb09e860e32cf46/jobs/gorouter/spec#L41-L43). Go with that, most likely.
 - Router Status Password: cf-deployment uses [a BOSH variable called `router_status_password` to configure this password](https://github.com/cloudfoundry/cf-deployment/blob/2118b5d8ac09feed153f6eea552fd561dd6aa999/cf-deployment.yml#L865). The way to fetch this value depends on whether you used Credhub or a vars-store to maintain your credentials. 
   For Credhub, make sure you've run `eval "$(bbl print-env)"` (don't forget the double quotes!). Then run `credhub find -n router_status_password` to discover the full name of the variable (it will look something like `/bosh-bbl-env-something/cf/router_status_password`). Copy the full name, and run `credhub get -n $FULL_NAME` to get find the password.
   For vars-store, just grep `router_status_password` from your vars-store
