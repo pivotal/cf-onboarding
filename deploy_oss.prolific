@@ -27,7 +27,7 @@ The following dependencies can be installed through the Cloud Foundry [homebrew 
 
 ### Expected Result
 * Run `go version` => "go version go1.10.2 darwin/amd64" or above
-* `terraform --version` => "Terraform v0.11.7" or above
+* `terraform --version` =>  any patch version of v0.11 from "Terraform v0.11.7" and above
 * `bosh -v` => "version 4.0.1-...." or above
 * `bbl version` => "bbl 6.7.2 (darwin/amd64)" or above
 * `cf version` => "cf version 6.37.0+...." or above
