@@ -129,8 +129,8 @@ Each BOSH job can specify customizable properties in a **[spec file](http://bosh
 ### How?
 1. Run `bosh releases`
 1. Select a job, your pick. Ooh, roulette. Let's get risky. Or not. This is a good time to revisit the [diego-design-notes](https://github.com/cloudfoundry/diego-design-notes) if you'd like to be incisive about this.
-1. Find the spec file for the job on Github. A spec file resides at `some-release/jobs/some-job-name/spec`. For instance, the spec path of the cf-release haproxy job is `https://github.com/cloudfoundry/cf-release/blob/master/jobs/haproxy/spec`.
-1. Choose a spec property where you expect to be able to tell if the value changes. An example in haproxy might be `cc.allow_app_ssh_access` (read the property description in the spec to learn more). A more straight-forward option might be a port. Whatever it is, establish how you plan to test the change before implementing it.
+1. Find the spec file for the job on Github. A spec file resides at `some-release/jobs/some-job-name/spec`. For instance, the spec path of the cf-release uaa job is `https://github.com/cloudfoundry-attic/cf-release/blob/master/jobs/uaa` which points to `https://github.com/cloudfoundry/uaa-release/blob/master/jobs/uaa/spec`.
+1. Choose a spec property where you expect to be able to tell if the value changes. An example in uaa might be `login.logout.redirect.url` (read the property description in the spec to learn more). A more straight-forward option might be a port. Whatever it is, establish how you plan to test the change before implementing it.
 1. Update your Cloud Foundry manifest to reflect a change in that job's property. This will be under jobs: some-job-name: properties: some-property. If you don't see the property you're looking for it's because it has been left as its default value.
 1. `bosh deploy` !!
 
