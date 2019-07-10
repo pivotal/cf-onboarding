@@ -56,7 +56,6 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
     - [Pair 3](https://www.pivotaltracker.com/n/projects/2089066)
     - [Pair 4](https://www.pivotaltracker.com/n/projects/2361806)
     - [Pair 5](https://www.pivotaltracker.com/n/projects/2361807)
-    
 - [ ] Add all participants as members to each of the tracker projects. (A list of emails works here.)
 - [ ] Delete everything from the tracker projects.
 - [ ] Build the tracker back log csv
