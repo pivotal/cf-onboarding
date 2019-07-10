@@ -35,6 +35,8 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
     - [cf-sf-onboarding-env-1](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-1)
     - [cf-sf-onboarding-env-2](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-2)
     - [cf-sf-onboarding-env-3](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-3)
+    - [cf-sf-onboarding-env-4](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-4)
+    - [cf-sf-onboarding-env-5](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-5)
   - [ ] Otherwise, Fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
 - [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
@@ -42,6 +44,8 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
     - [IAM for env-1](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-1)
     - [IAM for env-2](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-2)
     - [IAM for env-3](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-3)
+    - [IAM for env-4](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-4)
+    - [IAM for env-5](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-5)
 - [ ] If your CF on-boarding will include the GCP track (`gcp` tracker label / the `oss` build) then ensure participants have access to the `CF-Onboarding-dns` project in GCP (for DNS propagation). [IAM for DNS](https://console.cloud.google.com/iam-admin/iam?project=cf-onboarding-dns)
 
 ### Tracker Setup
@@ -50,6 +54,9 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
     - [Pair 1](https://www.pivotaltracker.com/n/projects/2125981)
     - [Pair 2](https://www.pivotaltracker.com/n/projects/2125982)
     - [Pair 3](https://www.pivotaltracker.com/n/projects/2089066)
+    - [Pair 4](https://www.pivotaltracker.com/n/projects/2361806)
+    - [Pair 5](https://www.pivotaltracker.com/n/projects/2361807)
+    
 - [ ] Add all participants as members to each of the tracker projects. (A list of emails works here.)
 - [ ] Delete everything from the tracker projects.
 - [ ] Build the tracker back log csv
