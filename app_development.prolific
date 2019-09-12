@@ -369,11 +369,11 @@ L: app-dev
 Advanced: Pushing an application using CF API directly
 
 ### What?
-Using the CLI push command solves a common use case. Users can make request to the Cloud Controller(CC) API directly for more complicated workflows.
+The `cf push` command suffices common use cases of running an app on Cloud Foundry, with a lot of tasks automated and running under the hood. But for more complicated workflows, as an advanced user, you might want to make requests to the Cloud Controller(CC) API directly. Are you up for the challenge?
 
 ### How?
 1. If dora is still running, `cf delete dora` to start fresh.
-1. **[How to Create an App Using V3 of the CC API](https://github.com/cloudfoundry/cloud_controller_ng/wiki/How-to-Create-an-App-Using-V3-of-the-CC-API)**
+1. ** Follow instructions on [How to Create an App Using V3 of the CC API](https://github.com/cloudfoundry/cloud_controller_ng/wiki/How-to-Create-an-App-Using-V3-of-the-CC-API)**
 
 ### Expected Result
 1. `cf app dora` will print the app's status, including the URL. When your visit the URL in your browser you should see the words "Hi, I'm Dora!"
