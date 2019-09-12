@@ -344,9 +344,9 @@ exit with a zero status code for success or non-zero for failure.
 
 ### Understanding container placement
 1. Continue tailing app logs in one terminal
-1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_IP'` (single quotes
+1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_INTERNAL_IP'` (single quotes
    are important)
-1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_IP'` a couple more
+1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_INTERNAL_IP'` a couple more
    times
 
 ### Expected Result
