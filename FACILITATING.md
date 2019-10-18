@@ -18,7 +18,7 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 * [Request GCP IAAS project(s)](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform). Once they're created, add participants as Owners.
 * A month before, send out an email to all participants, reminding them to clear their schedules for the week.  Schedule day-long meetings to help avoid people scheduling more meetings for that time.
 
-Subject: CF Onboarding (<DATE>)
+Subject: CF Onboarding ([DATE])
 ```
 Howdy folks!
 If you're getting this email, it means that you're scheduled to participate in CF Onboarding soon (the week of __________________).
