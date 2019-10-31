@@ -258,13 +258,19 @@ Sometimes it's clear that a particular instance of your app is having a problem,
 ### How?
 Run `watch cf app dora`.
 
-In another buffer, kill a specific instance of dora using `cf curl` (reading the `cf curl` help content may clarify some things).
+In another buffer, restart a specific instance of dora using `cf restart-app-instance APP_NAME INSTANCE_INDEX`.
+
+Alternatively, you can also kill a specific instance of dora using `cf curl /v2/apps/APP_GUID/instances/0 -d '' -X DELETE` (reading the `cf curl` help content and [API Docs: Terminate the running app instance at the given index](http://apidocs.cloudfoundry.org/253/apps/terminate_the_running_app_instance_at_the_given_index.html) may clarify some things).
 
 ### Expected Result
 You should see the correct instance of your app dying and recovering.
 
+### Explanation
+You might notice that `cf restart-app-instance` is way more straightforward. The alternative way of terminating an app instance using `cf curl` is part of Cloud Controller API v2.
+
 ### Resources
-[API Docs: Terminate the running app instance at the given index](http://apidocs.cloudfoundry.org/253/apps/terminate_the_running_app_instance_at_the_given_index.html)
+[Cloud Foundry CLI Reference Guide: restart-app-instance](http://cli.cloudfoundry.org/en-US/cf/restart-app-instance.html)
+
 L: app-dev
 
 ---
@@ -344,9 +350,9 @@ exit with a zero status code for success or non-zero for failure.
 
 ### Understanding container placement
 1. Continue tailing app logs in one terminal
-1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_IP'` (single quotes
+1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_INTERNAL_IP'` (single quotes
    are important)
-1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_IP'` a couple more
+1. Run `cf run-task dora 'echo MY INSTANCE IP: $CF_INSTANCE_INTERNAL_IP'` a couple more
    times
 
 ### Expected Result
@@ -369,11 +375,11 @@ L: app-dev
 Advanced: Pushing an application using CF API directly
 
 ### What?
-Using the CLI push command solves a common use case. Users can make request to the Cloud Controller(CC) API directly for more complicated workflows.
+The `cf push` command suffices common use cases of running an app on Cloud Foundry, with a lot of tasks automated and running under the hood. But for more complicated workflows, as an advanced user, you might want to make requests to the Cloud Controller(CC) API directly. Are you up for the challenge?
 
 ### How?
 1. If dora is still running, `cf delete dora` to start fresh.
-1. **[How to Create an App Using V3 of the CC API](https://github.com/cloudfoundry/cloud_controller_ng/wiki/How-to-Create-an-App-Using-V3-of-the-CC-API)**
+1. ** Follow instructions on [How to Create an App Using V3 of the CC API](https://github.com/cloudfoundry/cloud_controller_ng/wiki/How-to-Create-an-App-Using-V3-of-the-CC-API)**
 
 ### Expected Result
 1. `cf app dora` will print the app's status, including the URL. When your visit the URL in your browser you should see the words "Hi, I'm Dora!"
