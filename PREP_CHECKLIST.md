@@ -72,6 +72,12 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
 
 ### Workstation Setup
 Note: local IT departments can sometimes help with workstation setup. (Helpful for remote facilitation.)
+
+#### New setup process
+- https://docs.google.com/document/d/1Nya0jMdPAEEtx063xPTatMe6hb_O4oSsrHyUNG-5d1g/edit
+- TODO: maybe merge this doc directly into this markdown file?
+
+#### Old setup process
 - [ ] Make sure you have a workstation for each pair.
 - [ ] Ensure ethernet cable is plugged into iMac, not monitor.
 - [ ] Re-image each machine. Here are the steps:
