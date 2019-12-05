@@ -39,6 +39,7 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
     - [cf-sf-onboarding-env-5](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-5)
   - [ ] Otherwise, Fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
 - [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
+  - Take a look at [this bbl command](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/cleaning-up.md)
 - [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
   - [ ] In SF:
     - [IAM for env-1](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-1)
