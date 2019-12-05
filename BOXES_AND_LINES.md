@@ -6,6 +6,7 @@ As part of CF Onboarding, boxes and lines for various components have been valua
 - [Diego Routing](https://drive.google.com/open?id=1LEjeDm368HcAz6wl0SP2-R_kKSyP8ypV)*
 - [Diego](https://drive.google.com/open?id=1hLYiMfJsR1VieufFIAKr4exxPlpbc1sm)*
 - [Concourse](https://www.youtube.com/watch?v=H-4pvC7t2AI)*
+- [Concourse Intro How-To-Use](https://github.com/jchesterpivotal/concourse-build-resource#utility-tasks)
 
 ---
 *[Boxes and Lines Google Drive](https://drive.google.com/drive/u/0/folders/1AYobAUeCi8-f9YmTjqa3LuFD6TFYuT2C)
