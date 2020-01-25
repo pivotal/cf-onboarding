@@ -61,7 +61,9 @@ As a helpful reminder, you can save the name of the speaker w/ checkbox.
 - [ ] Build the tracker back log csv
   - [ ] Run `./build oss` from the onboarding project, this will generate `onboarding-tracker.csv`
        - Note: you need docker installed `brew cask install docker`
-         - To get the command line tool to show up you may have to first start docker via Spotlight Search
+         - To get the command line tool to show up you may have to first start Docker via Spotlight Search.
+           - Type "Docker" in the Spotlight Search bar to bring up the Docker whale icon in the search results. 
+           - Double-click on the Docker whale icon and agree to subsequent dialog prompts to start Docker. 
          - If docker gives you this error: `failed to dial gRPC: unable to upgrade to h2c, received 502 context canceled`
            - In docker settings: enable experimental, restart docker, disable experiment and restart again.
 - [ ] Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
