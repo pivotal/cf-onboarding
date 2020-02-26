@@ -27,7 +27,8 @@ These are core CF topics, other topics are a bit more "extra credit".
 - [ ] CF Overview {}
 - [ ] Concourse {}
 
-As a helpful reminder, you can save the name of the speaker w/ checkbox.
+As a helpful reminder, you can save the name of the speaker w/ checkbox. Tips to
+share with speakers can be found in [BOXES_AND_LINES.md](https://github.com/pivotal/cf-onboarding/blob/master/BOXES_AND_LINES.md).
 
 ### IaaS Setup
 - [ ] Make sure you have [GCP projects](https://console.cloud.google.com) set up.
