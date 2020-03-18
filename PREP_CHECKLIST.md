@@ -69,9 +69,9 @@ share with speakers can be found in [BOXES_AND_LINES.md](https://github.com/pivo
 - [ ] Import the CSV into each Tracker project (Taskbar > More > Import CSV > Choose File)
 
 ### LastPass Setup
-- [ ] Give all participants access to the shared LastPass folder:
+- Skip this step for participants who are not authorized to access closed-source content (e.g. Pivotal Labs client participants.)
+- [ ] Give participants access to the shared LastPass folder:
   - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users (A list of emails works here.)
-
 ### Workstation Setup
 Note: local IT departments can sometimes help with workstation setup. (Helpful for remote facilitation.)
 
