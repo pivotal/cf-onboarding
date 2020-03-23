@@ -259,11 +259,28 @@ Ok, so we've got domains that resolve to load balancers, which are deployed to p
 ### Side note: How does DNS work exactly?
 As part of these stories, you'll pick a subdomain of `onboarding.cf-app.com` -- like `my-env.onboarding.cf-app.com` -- and use it for your environment. That means that if anyone tries to make an HTTP request to `my-env.onboarding.cf-app.com`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `my-env.onboarding.cf-app.com`?"
 
-The simplest way to manage such a request is to create an **A record.** These records map a domain, like `onboarding.cf`, to a specific IP address like `1.2.3.4`. In this setup, when a user runs `curl onboarding.cf`, their DNS resolver first queries its nearest DNS server for `.cf`. The DNS server redirects your computer to _another_ DNS server that knows about `.cf` domains. Then your computer asks that server about `onboarding.cf`. That DNS server has the A record, and returns an answer: `1.2.3.4`
+The simplest way to manage such a request is to create an **A record** (Address record).
+These records map a domain, like `onboarding.example.com`, to a specific IP address like `1.2.3.4`.
+In this setup, when a user runs `curl onboarding.example.com`, their DNS resolver first queries its nearest DNS server for the `.com` TLD (Top Level Domain).
+The DNS server redirects your computer to _another_ DNS server that knows about `.com` domains.
+Then your computer asks that server about `example.com`.
+The DNS server redirects your computer to _yet another_ DNS server that knows about the `example.com` domain.
+Then your computer asks that server about the `onboarding.example.com` domain.
+That name server has the A record, and returns an answer: `1.2.3.4`
 
-However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.cf` -- for example, `api.onboarding.cf` or `my-app.onboarding.cf`. We also often want to reserve certain subdomains like `bosh.onboarding.cf` or `ssh.onboarding.cf`.
 
-To achieve that, we first set up a different kind of record, an **NS record**, which maps a domain to other DNS servers. It essentially says, "If you're looking for information about domains that end with `onboarding.cf`, go ask this other set of DNS servers." Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers or piggy-pack on existing domains. You're going to leverage this functionality in order to register your subdomain of `onboarding.cf-app.com` on GCP.
+The following table is an example request and response flow to resolve `onboarding.example.com` to the A record `1.2.3.4` by your computer:
+
+  | # | DNS Request  | DNS Response  |
+  |---|---|---|
+  | 1 | `.com`  to local DNS | `NS Record 1.1.1.1`  |
+  | 2 | `example.com` to `1.1.1.1`  | `NS Record 2.2.2.2`  |
+  | 3 | `onboarding.example.com` to `2.2.2.2`  | `A Record 1.2.3.4`   |
+
+However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.example.com` -- for example, `api.onboarding.example.com` or `my-app.onboarding.example.com`. We also often want to reserve certain subdomains like `bosh.onboarding.example.com` or `ssh.onboarding.example.com`.
+
+To achieve that, we first set up a different kind of record, an **NS record** (Nameserver record), which maps a domain to other DNS servers.
+It essentially says, "If you're looking for information about domains that end with `onboarding.example.com`, go ask this other set of DNS servers." Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers or piggy-pack on existing domains. You're going to leverage this functionality in order to register your subdomain of `onboarding.cf-app.com` on GCP.
 
 In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
 - An NS record that defines the Google DNS servers. You'll take that list of servers to our "master" DNS account on GCP to configure it to defer to your DNS records.
