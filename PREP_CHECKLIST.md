@@ -39,8 +39,7 @@ share with speakers can be found in [BOXES_AND_LINES.md](https://github.com/pivo
     - [cf-sf-onboarding-env-4](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-4)
     - [cf-sf-onboarding-env-5](https://console.cloud.google.com/billing/0076DC-766E1F-EBDCB8/reports?project=cf-sf-onboarding-env-5)
   - [ ] Otherwise, Fill out [this form to create new environments](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform).
-- [ ] Clean up any VMs, networks, and DNS records that may have been leftover from the previous week
-  - Take a look at [this bbl command](https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/cleaning-up.md)
+- [ ] Run [this script](scripts/clean_up_gcp_project.sh) to clean up any VMs, networks, and DNS records that may have been leftover from the previous session.
 - [ ] Add all [participants](https://docs.google.com/spreadsheets/d/1eW23iJRD56CE859o0j6ArSaGtLfP0JlHXSCdXFhbCdI/edit?usp=sharing) as **owners** to each of the GCP projects.
   - [ ] In SF:
     - [IAM for env-1](https://console.cloud.google.com/iam-admin/iam?project=cf-sf-onboarding-env-1)
