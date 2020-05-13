@@ -1,0 +1,130 @@
+Routing Control Plane Overview
+
+### What?
+In previous stories you pushed apps and created routes. In this set of stories you are going to learn the "behind-the-scenes" on how routes are propagated.
+
+Here is the entire overview. Each step marked with a ✨will be explained in more detail in a story in this track.
+
+**When an app dev maps a route**
+1. The app dev maps a route to an app using CAPI.
+1. CAPI sends this information to Diego BBS.
+1. The Route Emitter on each Diego Cell polls Diego BBS for updated information about the apps on its Cell.
+1. ✨ The Route Emitter continually sends the route registration information it gets from the Diego BBS and the IP and port of the app to the GoRouter via NATS.
+1. ✨ The GoRouter keeps a mapping of routes -> ip:ports in a routes table, which is consulted when someone curls the route.
+
+### How?
+The following stories will look at how many components (CAPI, Diego BBS, Route Emitter, Nats, GoRouter) work together to make routes work.
+
+### Expected Result
+You can talk about route propagation at a high level.
+
+### Resources
+[CF Routes and Domains](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html)
+
+
+L: routing
+---
+
+Subscribe to Route Emitter NATS Messages
+
+### What?
+There is one Route Emitter per Diego Cell and its job is to... emit routes.
+
+The Route Emitter tracks the desired route mappings for all of the apps it shares a Cell with. When a change is detected, the Route Emitter emits route registration and unregistration messages to the GoRouter via the NATS message bus. Even when no change is detected, the Route Emitter will periodically emit the current state of the world as a kind of heartbeat.
+
+For this story, let's look at the messages that the Route Emitter is publishing via NATS. Subscribing to these NATs messages can be a helpful debugging technique when it seems like routes are not being registered properly.
+
+### How?
+0. Bosh ssh onto a Diego Cell
+0. Download ruby and the NATS gem
+    ```
+    apt-get install -y ruby ruby-dev
+    gem install nats
+    ```
+0. Get the NATS username, password, and server address
+    ```
+    cat /var/vcap/jobs/route_emitter/config/route_emitter.json | jq . | grep nats
+    ```
+0. Use the nats gem to connect to nats:
+```nats-sub "*.*" -s nats://NATS_USERNAME:NATS_PASSWORD@NATS_ADDRESS```
+
+ The Route Emitter registers routes every 20 seconds (by default) so that the GoRouter (which subscribes to these messages) has the most up-to-date information about which IPs map to which apps and routes. Depending on how many routes there are, this might be a lot of information.
+
+0. Make a new route for one of your apps and find the route registration message.
+
+### Expected Result
+Inspect NATs messages. Look at what route information is sent to the GoRouter.
+
+## Resources
+[NATS message bus repo](https://github.com/nats-io/gnatsd)
+[NATS ruby gem repo](https://github.com/nats-io/ruby-nats)
+
+
+L: routing
+---
+
+Look at the GoRouter Routes Table
+
+### What?
+So the Route Emitter emits routes via the NATS message Bus. GoRouter _subscribes_ to those messages and keeps a route table that is uses to route network traffic bound for CF apps and CF components.
+
+Let's take a look at that route table.
+
+### How?
+0. Bosh ssh onto the router vm and become root.
+0. Install jq (a json manipulation and display tool)
+ ```
+ apt-get install jq
+ ```
+0. Get the username and password for the routing api
+ ```
+ head /var/vcap/jobs/gorouter/config/gorouter.yml
+ ```
+0. Get the routes table
+ ```
+ curl "http://USERNAME:PASSWORD@localhost:8080/routes" | jq .
+ ```
+0. Make a new route for one of your apps and find the route in the routes table.
+
+ It should look something like this (I took out some extra bits):
+    ```
+    "proxy.meow.cloche.c2c.cf-app.com": [   <------ The name of the route!
+        {
+          "address": "10.0.1.12:61014",     <------ This is the Diego Cell IP and port where GoRouter will send traffic for this route
+          "tls": true                       <------ This means the GoRouter will use send traffic to this app over TLS
+        }
+      ]
+    ```
+
+0. Check the environment variables for your app and see that the information matches the routing table
+ ```
+cf ssh MY-APP -c "env | grep CF_INSTANCE_ADDR"
+ ```
+
+### Expected Result
+You are able to access the route table on the router VM.
+
+## Resources
+[GoRouter routing table docs](https://github.com/cloudfoundry/gorouter#the-routing-table)
+
+L: routing
+---
+
+Interested in learning more about routing?
+
+🤓 If you are interested in learning even more about routing and networking, check out these [CF Networking Onboarding stories](https://github.com/pivotal/cf-networking-program-onboarding).
+
+🐞 These stories are intended to help engineers to learn how container networking and routing components work under-the-hood and how to debug them.
+
+➕ To add these stories to this tracker: clone the [repo](https://github.com/pivotal/cf-networking-program-onboarding), run the build script, and then import the created CSV to your tracker.
+
+🙋 Also, the networking program is experimenting with running CF _Networking_ Onboarding weeks, much like the CF Onboarding week that you are apart of right now.
+So instead of doing these extra stories now (there are a lot of them), you could sign up for a Networking Onboarding week. Reach out to Amelia Downs (@ameowlia) if this interests you.
+
+📅 Or if you don't have yet another week free to learn, you could complete the stories in your flex time.
+
+L: routing
+---
+
+[RELEASE] Routing Deep Dive ⇧
+L: routing
