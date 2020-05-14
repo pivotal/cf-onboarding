@@ -1,0 +1,46 @@
+What is Kubernetes?
+
+### What?
+Over the past few years, kubernetes (k8s) has become the industry-standard container orchestration system. K8s components and resouces will soon replace BOSH and Diego to improve the CF deployment and app management experience. If you are new to k8s, the tutorials and resources referenced below would be a great way to kickstart your exploration!
+
+Learn about k8s fundamentals [here](https://kubernetes.io/docs/tutorials/kubernetes-basics/).
+* Tutorial on [creating a cluster with minikube](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+* Tutorial on [using kubectl (k8s CLI) to deploy an app](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
+
+NOTE: You don't need any prior setup/tools on your machine to do these interactive tutorials. If you want to experiment more with a cluster of your own, deploy a k8s cluster using minikube on your machine following the guidance from the [minikube installation doc](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation) and the [minikube quickstart guide](https://kubernetes.io/docs/setup/learning-environment/minikube/#quickstart). 
+
+### Learning Goals
+1. What is Kubernetes?
+2. What is a cluster and how are the components organized (i.e.: Nodes, Pods, Containers)
+3. When an app gets deployed, from which component does it run?
+4. What is minikube? What is kubectl?
+
+L: k8s
+---
+Why Kubernetes?
+
+### What?
+Why is kubernetes rapidly becoming so popular and standard in the cloud tech industry? Currently, component teams such as UAA, CAPI, and the Networking Program are working with the Release Integration team to replatform the Cloud Foundry control plane onto kubernetes. Learning about the value of k8s will provide insight on the motivation behind this decision.
+
+### Learning Goals
+1. History and context of why containerization/container orchestration is so important for modern workload and resource management: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#going-back-in-time
+2. Key features of k8s: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
+3. K8s Declarative Model of Object Management: https://www.leverege.com/iot-ebook/kubernetes-object-management-model
+
+L: k8s
+---
+Interested in learning more about k8s?
+
+🤓 If you are interested in learning even more about kubernetes, check out these [Kubernetes Learning Week stories](https://github.com/pivotal/kubernetes-learning-week-syllabus/tree/master/modules).
+
+🐞 These stories are intended to give engineers a deep-dive into k8s concepts, resources, and tooling.
+
+➕ To add these stories to this tracker: clone the [repo](https://github.com/pivotal/kubernetes-learning-week-syllabus), run the build script, and then import the created CSV to your tracker.
+
+📅 Or if you don't have yet another week free to learn, you could complete the stories in your flex time.
+
+L: k8s
+---
+
+[RELEASE] CF on Kubernetes ⇧
+L: k8s
