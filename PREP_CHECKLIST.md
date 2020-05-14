@@ -27,6 +27,8 @@ These are core CF topics, other topics are a bit more "extra credit".
     - Contact: BOSH Slack channel
 - [ ] CF Overview {}
     - Contact: Release Integration team
+
+Other topics:
 - [ ] Concourse {}
     - Contact: Concourse team
 - [ ] Pairing Fundamentals {}
