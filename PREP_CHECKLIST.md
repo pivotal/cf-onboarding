@@ -24,8 +24,15 @@
 ---
 These are core CF topics, other topics are a bit more "extra credit".
 - [ ] BOSH {}
+    - Contact: BOSH Slack channel
 - [ ] CF Overview {}
+    - Contact: Release Integration team
 - [ ] Concourse {}
+    - Contact: Concourse team
+- [ ] Pairing Fundamentals {}
+    - Contact: Todd Sedano
+- [ ] k8s Expert Session
+    - Contact: CAPI or Release Integration teams
 
 As a helpful reminder, you can save the name of the speaker w/ checkbox. Tips to
 share with speakers can be found in [BOXES_AND_LINES.md](https://github.com/pivotal/cf-onboarding/blob/master/BOXES_AND_LINES.md).
