@@ -13,7 +13,7 @@ L: gcp
 Destroy the BOSH director
 
 ### How?
-Run `bbl destroy` to tear down your BOSH director. Bye, Felicia!
+Run `bbl destroy --gcp-service-account-key=service-account.key.json` to tear down your BOSH director. Bye, Felicia!
 L: gcp
 
 ---
@@ -26,7 +26,7 @@ If you created any other GCP resources please tear those down as well.
 ### How?
 If you deployed the environment via `bbl`:
 - Run `bosh -d <DEPLOYMENT-NAME> delete-deployment` to delete all deployed VMs
-- `bbl destroy` to delete the Director and any IaaS resources
+- `bbl destroy --gcp-service-account-key=service-account.key.json` to delete the Director and any IaaS resources
 
 If you deployed the environment via Ops Manager:
 - Click Username dropdown in top-right > Settings > Advanced > Delete this Installation

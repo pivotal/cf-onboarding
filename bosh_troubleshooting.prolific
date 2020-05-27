@@ -31,10 +31,11 @@ Ops files are a way for operators to make edits to a deployment manifest in a re
   - **Append** to a list
 
 ### How?
+1. Get your current bosh manifest by running `bosh -d cf manifest > /tmp/cf.yml`
 1. Write an ops-file called `scale-diego-cells.yml` that will scale up the number of Diego cells to 3 instances. See if you can use the ops-file documentation and examples to figure out how. (Some hints: think about which spot in the manifest you want to update. What operation do you need to carry out?)
 1. Vet your changes by running `bosh interpolate`:
   ```
-  bosh interpolate cf-deployment.yml \
+  bosh interpolate /tmp/cf.yml \
   -o ... [any other ops-files you used to deploy orginally] ... \
   -o scale-diego-cells.yml \
   -v system_domain=$SYSTEM_DOMAIN
@@ -42,7 +43,7 @@ Ops files are a way for operators to make edits to a deployment manifest in a re
   Dig around in the output, and see if it matches what you expected. Specifically, is the instance count for the `diego-cell` instance group set to what you wanted?
 1. Deploy:
   ```
-  bosh deploy cf-deployment.yml \
+  bosh deploy /tmp/cf.yml \
   -o ... [any other ops-files you used to deploy originally] ... \
   -o scale-diego-cells.yml \
   -v system_domain=$SYSTEM_DOMAIN
