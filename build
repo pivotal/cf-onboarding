@@ -8,6 +8,6 @@ if [ "$#" -lt 1 ]; then
 fi
 
 docker build -t pivotal-cf-onboarding .
-docker run -v "$PWD:/onboarding" -w /onboarding -it pivotal-cf-onboarding go run generate-tracker-csv.go "${1}"
+docker run -v "$PWD:/onboarding" -w /onboarding pivotal-cf-onboarding go run generate-tracker-csv.go "${1}"
 
 echo -e "\n\nGenerated output CSV at '$PWD/onboarding-tracker.csv'"
