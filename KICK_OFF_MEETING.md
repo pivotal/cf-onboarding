@@ -75,6 +75,11 @@ Things to consider: (prior feedback)
 
 -> This is an engineering heavy set of work so, consider dividing engs evenly across pairs.
 
+-> Consult the skill chart for an understanding of how epics fit together and which tracks rely on others. 
+
+![Skill Chart](./skill-chart.png)
+
+
 ——
 
 -> CF Onboarding is run by volunteers and we are always looking for more facilitators to help. (#onboarding-staff)
