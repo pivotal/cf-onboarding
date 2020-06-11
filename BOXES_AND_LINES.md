@@ -3,14 +3,15 @@
 ## Boxes and Lines Recordings
 As part of CF Onboarding, boxes and lines for various components have been valuable. This is a repository of recorded boxes and lines. Please add more as they are found and please feel free to update them if they grow stale or more comprehensive / newer recordings arise.
 
-- [CAPI](https://drive.google.com/open?id=1Qgpra8D7KlANKj9NNxtipOq9Vak9oXSC)
-- [Diego Routing](https://drive.google.com/open?id=1LEjeDm368HcAz6wl0SP2-R_kKSyP8ypV)*
-- [Diego](https://drive.google.com/open?id=1hLYiMfJsR1VieufFIAKr4exxPlpbc1sm)*
+- [CAPI](https://drive.google.com/drive/u/0/folders/1NgxpafoB8HDtY1qvM0MYQNAD4_qqo3Fo)
+- [Credhub](https://drive.google.com/drive/u/0/folders/1cYI3alg4gdAE8d24JYoBOngPUWOMifzb)
+- [Diego Routing](https://drive.google.com/drive/u/0/folders/1S6dIz2n-eu-B7AsSveGVrHqOGhzB1N0H)*
+- [Diego](https://drive.google.com/drive/u/0/folders/1QovpCO0ZIkrCkdilg7FqO-EZTJ2mE9Qe)*
 - [Concourse](https://www.youtube.com/watch?v=H-4pvC7t2AI)*
 - [Concourse Intro How-To-Use](https://github.com/jchesterpivotal/concourse-build-resource#utility-tasks)
 
 ---
-*[Boxes and Lines Google Drive](https://drive.google.com/drive/u/0/folders/1AYobAUeCi8-f9YmTjqa3LuFD6TFYuT2C)
+*[Boxes and Lines Google Drive](https://drive.google.com/drive/u/0/folders/1wp3wJnv6xrwGTho6308_5MmyiXnOoKWc)
 
 ## Tips for Boxes and Lines Speakers
 
