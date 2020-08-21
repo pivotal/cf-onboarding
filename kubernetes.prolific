@@ -20,7 +20,7 @@ L: k8s
 Why Kubernetes?
 
 ### What?
-Why is kubernetes rapidly becoming so popular and standard in the cloud tech industry? Currently, component teams such as UAA, CAPI, and the Networking Program are working with the Release Integration team to replatform the Cloud Foundry control plane onto kubernetes. Learning about the value of k8s will provide insight on the motivation behind this decision.
+Why is Kubernetes rapidly becoming such a popular standard in the cloud tech industry? Currently, component teams such as UAA, CAPI, and the Networking Program are working with the Release Integration team to replatform the Cloud Foundry control plane onto kubernetes. Learning about the value of k8s will provide insight on the motivation behind this decision.
 
 ### Learning Goals
 1. History and context of why containerization/container orchestration is so important for modern workload and resource management: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#going-back-in-time
