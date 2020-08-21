@@ -31,6 +31,7 @@ func main() {
 			"networking_monitoring.prolific",
 			"concourse.prolific",
 			"opsman.prolific",
+			"kubernetes.prolific",
 			"projects.prolific",
 		}
 	case "oss":
@@ -46,6 +47,7 @@ func main() {
 			"bosh_troubleshooting.prolific",
 			"concourse.prolific",
 			"opsman.prolific",
+			"kubernetes.prolific",
 			"projects.prolific",
 			"clean_up.prolific",
 		}
