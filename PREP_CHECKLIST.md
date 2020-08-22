@@ -9,11 +9,18 @@
 
 ### Communication
 - [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](https://github.com/pivotal/cf-onboarding/blob/master/FACILITATING.md).
+    - For remote participating, ask participants if they have Mac OS workstations, since the workstation setup script is written for Mac.
   - [ ] You will be communicating with / authing these folks a lot. I find it helpful to save a copy/pasteable list of their names <emails> here:
     - `name <email>.name <email>`
 - [ ] The week before: send out an email to each of the participants. You can find a template in [FACILITATING.md](https://github.com/pivotal/cf-onboarding/blob/master/FACILITATING.md).
 - [ ] Get a [Zoom](https://zoom.us/) room setup for remote participants. {<can save link here>}  (Make sure to include this on your calendar invites.)
 
+### Access Assessment
+- Check if participants have access to the followin.
+    - This will help identify [HelpNow+](https://help.vmware.com/user/#/) access requests need to submitted for:
+        - Pivotal alumni -managed Tracker 
+        - Pivotal alumni -managed LastPass 
+        - Pivotal alumni -managed GSuite (for Google Cloud Platform access)
 ### Scheduling
 - [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.
 - [ ] Schedule daily standup (15min at 9:15, starting Tuesday).
