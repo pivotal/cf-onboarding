@@ -16,7 +16,7 @@
 - [ ] Get a [Zoom](https://zoom.us/) room setup for remote participants. {<can save link here>}  (Make sure to include this on your calendar invites.)
 
 ### Access Assessment
-- Check if participants have access to the followin.
+- Check if participants have access to the following:
     - This will help identify [HelpNow+](https://help.vmware.com/user/#/) access requests need to submitted for:
         - Pivotal alumni -managed Tracker 
         - Pivotal alumni -managed LastPass 
