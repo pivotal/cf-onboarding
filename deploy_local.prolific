@@ -12,6 +12,12 @@ It's open source, but from [Pivotal Cloud Foundry (PCF)](https://pivotal.io/plat
 
 The content of this zip file is not PCF Dev itself, but a script that installs the PCF Dev plugin for the cf CLI. It will only download the PCF Dev image from [S3](https://aws.amazon.com/s3/) when you run `cf dev start` in a later story.
 
+**Note:** Later instructions are written for Linux,
+but you should choose the files specific to your operating system
+(hint: Darwin means Mac).
+Also, make sure to follow the **Usage Instructions** carefully
+(you should end up with one file, not two).
+
 ### Expected Result
 You have a zip file and a new found sense of accomplishment.
 
@@ -83,7 +89,12 @@ Unzip the file you downloaded in the first story (e.g. `unzip pcfdev-VERSION-lin
 
 Run the executable binary file inside (e.g. `./pcfdev-VERSION-linux`)
 
-From the command line, run `cf dev start`. Because you are running it for the first time it will download the image and import it to VirtualBox before starting the VM. In the future, the same command will start PCF Dev without downloading or importing it again.
+From the command line, run `cf dev start`.
+Because you are running it for the first time
+it will download the image and import it to VirtualBox before starting the VM.
+In the future, the same command will start PCF Dev without downloading or importing it again.
+
+**Note:** You may need to run `cf install-plugin cfdev` to ensure that you have the `cf dev` command.
 
 FYI ...this process takes awhile. How long of a while will be influenced by your internet connectivity and bandwidth. Go get a snack or read some of the links.
 
