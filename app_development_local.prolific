@@ -156,6 +156,8 @@ By omitting the `--recent` from your `cf logs dora` command, Loggregator will st
 1. In another terminal tab or buffer, run `watch cf app dora`
 1. Keep an eye on both, and visit the dora endpoint `http://dora.local.pcfdev.io/sigterm/KILL` in your browser
 
+**Note:** depending on how you installed your PCF Dev environment, the address may actually be `http://dora.dev.cfdev.sh/sigterm/KILL`. You can also find the route value in the output of `cf app dora` and append `sigterm/KILL`.
+
 ### Troubleshooting
 If you get an error saying that `watch` is not installed on your computer, install it with brew by running `brew install watch`. If you are on a Mac and don't have brew either...I'm confused.
 
@@ -244,8 +246,10 @@ To provide granular control when securing a deployment, an administrator can als
 1. Check that you are signed in as the admin user
 1. View the list of security groups by running `cf security-groups`
 1. View the security groups assigned to staging containers by running `cf staging-security-groups`
-1. View the security groups assigned to running containers be running `cf running-security-groups`
+1. View the security groups assigned to running containers by running `cf running-security-groups`
 1. View the specific rules of each group using `cf security-group GROUP-NAME`
+
+**Note:** If you ended up having to follow a slightly different process to get your PCF Dev environment to cooperate, you may see different security groups. This does not necessarily mean you did anything wrong.
 
 #### Expected Result
 If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev` and opens all egress traffic. Because of the `all_pcfdev` security group, any other group would be redundant.

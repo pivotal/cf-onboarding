@@ -14,7 +14,7 @@ Open https://concoursetutorial.com/#getting-started in your browser and start th
   brew cask install docker
   brew install docker-compose
   ```
-2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
+2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration (after ensuring that you're in the directory you intend to store files like these in):
   ```
   wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
   ```
@@ -23,11 +23,13 @@ Open https://concoursetutorial.com/#getting-started in your browser and start th
   docker-compose up -d
   ```
 
+**Note:** If `docker-compose` fails to run, make sure you started `docker` and that you typed `docker-compose` and not `docker compose`.
+
 **Open Concourse in your browser**
 Now that you've got everything set up, navigate to `http://127.0.0.1:8080` in your browser.
 
 ### Expected Result
-![Lonely Concourse, no pipelines](http://engineering.pivotal.io/images/concourse-000/no_pipelines.png)
+![Lonely Concourse, no pipelines](https://concoursetutorial.com/images/dashboard-no-pipelines.png)
 
 ### Resources
 [Concourse Architecture Overview](https://concourse-ci.org/concepts.html)
