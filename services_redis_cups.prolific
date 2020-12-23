@@ -34,6 +34,10 @@ To play around with the RedisLabs user-provided service instance we just created
 ### How?
 Use this [sample app](https://github.com/pivotal-cf/cf-redis-example-app) and the [instructions](https://github.com/pivotal-cf/cf-redis-example-app#using-redis-labs-cups) provided in the `README` to deploy the sample application and bind your service instance to it.
 
+**Note:** The instructions above actually have a slight error; the command `cf cups redis -p` should accept JSON format, not a comma-separated list. For example, `cf cups redis -p '{"username":"..."}'`. A PR has been created to fix this, so disregard this message and consider contributing back to the onboarding repo to remove this message when that PR is accepted.
+
+**P.S.:** Don't forget to register for an account on https://redislabs.com/ and create a DB!
+
 ### Expected Result
 You can see the sample app listed under `cf apps`.
 You can see the service listed under `cf services`, and see that it is bound to the sample app.
