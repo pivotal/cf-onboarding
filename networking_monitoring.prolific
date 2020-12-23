@@ -44,6 +44,10 @@ to define network policies between apps that override security groups.
 
 Let's see how can manage the networking security of an app that needs to communicate with other apps.
 
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
+
 ### How?
 
 1) Deploy service discovery 
@@ -116,6 +120,10 @@ Sometimes a user says "container to container networking is broken! AppA can't t
 Tcpdump is a CLI tool that allows you to inspect all of the traffic (not just TCP, despite the name) flowing through your container. This is a great tool for debugging how far packets are making it, determining how long the packets are taking to reach their destination, and figuring out where in the TCP handshake connections are failing.
 
 In this story you are going to look at the packets being sent from boots to swiper. Then you'll watch the packets being sent in response.
+
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
 
 ### How?
 **Setup**
@@ -209,6 +217,10 @@ If you need help thinking of a reason you'd want to do this, imagine trying to c
 The most common example of this are BOSH-deployed services like [cf-mysql](https://github.com/cloudfoundry/cf-mysql-deployment).
 However, rather than force you to set up another BOSH deployment, let's instead use our existing CF deployment, and see if we can't think of some CF component as a "service" that an app may want to leverage.
 For the sake of this story, let's try to query the router for its list of routes (it's a thing you can do!). We'll create our own ASG to allow our app containers to open a connection to the router's private IP.
+
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
 
 ### How?
 The basic outline of this workflow is this:

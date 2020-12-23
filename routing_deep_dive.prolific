@@ -34,6 +34,10 @@ The Route Emitter tracks the desired route mappings for all of the apps it share
 
 For this story, let's look at the messages that the Route Emitter is publishing via NATS. Subscribing to these NATs messages can be a helpful debugging technique when it seems like routes are not being registered properly.
 
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
+
 ### How?
 0. Bosh ssh onto a Diego Cell
 0. Download ruby and the NATS gem
@@ -69,6 +73,10 @@ Look at the GoRouter Routes Table
 So the Route Emitter emits routes via the NATS message Bus. GoRouter _subscribes_ to those messages and keeps a route table that is uses to route network traffic bound for CF apps and CF components.
 
 Let's take a look at that route table.
+
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
 
 ### How?
 0. Bosh ssh onto the router vm and become root.
