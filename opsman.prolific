@@ -13,7 +13,7 @@ A Tile is a zip file with a `.pivotal` extension containing:
 
 The Ops Manager Dashboard looks like the following:
 
-![Ops Manager Dashboard](https://docs.pivotal.io/pivotalcf/customizing/images/interface.png)
+![Ops Manager Dashboard](https://docs.pivotal.io/ops-manager/2-10/images/interface.png)
 
 The Ops Manager shown here has three Tiles installed:
 - The BOSH Director tile on the left comes pre-installed with your Ops Manager. Ops Manager will deploy a BOSH Director on your chosen IaaS to manage your deployments.
@@ -37,7 +37,18 @@ After filling out the Director forms and clicking Apply Changes, Ops Manager wil
 In addition to the UI, Ops Manager provides an [API](https://docs.pivotal.io/pivotalcf/opsman-api/) to allow users to configure Tiles via scripts.
 The UI provides a nice onboarding experience, but we still encourage customers to setup Concourse pipelines to automatically configure their tiles.
 This ensures configuration is checked into source control and is reproducible in case something goes wrong later on.
-The [om CLI](https://github.com/pivotal-cf/om) can be used to programmatically perform operations in Ops Manager rather than clicking around the UI.
+The [om CLI](https://github.com/pivotal-cf/om) can be used to programmatically perform operations in Ops Manager rather than clicking around the UI. For example, you can get current product config, make some changes, and update Ops Manager to reflect those changes using the following commands:
+
+```
+# This will output a STAGED-CONFIG.yml
+om -u USERNAME -p PASSWORD -k -t https://OPS-MAN-URL-OR-IP/uaa staged-config -p TILE-NAME
+
+# Whatever the file ended up being named in the previous command
+vim STAGED-CONFIG.yml
+
+# Re-upload it!
+om -u USERNAME -p PASSWORD -k -t https://OPS-MAN-URL-OR-IP/uaa configure-product -c STAGED-CONFIG.yml
+```
 
 ## One Platform
 
