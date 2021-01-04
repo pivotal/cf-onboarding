@@ -164,6 +164,10 @@ L: opsman
 
 Deploy Ops Manager Manually
 
+### Prerequisites
+
+If you already opted to use a Toolsmiths environment, run from this story as if it's got COVID :D
+
 ### Ops Manager Interface
 [Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html)
 
