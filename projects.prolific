@@ -105,19 +105,6 @@ https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html
 
 ---
 
-Deploy, scale and tune an app on PWS
-
-### What?
-
-Get to kick the tires as a user of what PWS can offer. Deploy an app, scale it, benchmark it and view it's metrics by using all the tools that PWS puts at your disposal.
-
-1. AppsManager
-1. Metrics
-1. AutoScaling
-1. and more!
-
----
-
 Deploy CFCR
 
 ### What?
