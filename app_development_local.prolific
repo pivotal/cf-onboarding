@@ -20,7 +20,7 @@ When creating the space the current user will have been assigned two new roles f
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -52,7 +52,7 @@ When logged in as `some-user`, you can see your org's name in your list of orgs 
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -85,7 +85,7 @@ When you push an app, you can optionally include an [application manifest.yml](h
 [Docs: CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
 [Docs: How Applications are Staged](https://docs.cloudfoundry.org/concepts/how-applications-are-staged.html)
 [Blog post: A beginner-friendly introduction to containers, VMs, and Docker](https://medium.freecodecamp.com/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -142,7 +142,7 @@ The output will look something like:
 ### Resources
 [Docs: Logs for CF components](https://docs.cloudfoundry.org/running/managing-cf/logging.html)
 [Docs: Logs for applications](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -165,7 +165,7 @@ If you get an error saying that `watch` is not installed on your computer, insta
 Cloud Foundry applications are monitored with a constant health check that ensures they are listening on a specific port. When your application stops listening it will be automatically restarted. You can see this in the logs tagged with `CELL` and `API`. If you try to access your app while it is down, the logs will include `RTR` HTTP requests that return a 502 Bad Gateway error.
 
 Refer to the **[dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora)** to find other useful endpoints to experiment with. It's good to know what common logs, warnings, and errors look like so you can recognize them in the wild.
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -207,7 +207,7 @@ You already have two instances of `dora`. Now we'll scale your app _horizontally
 ### Resources
 [Docs: How the Diego Auction Allocates Jobs](https://docs.cloudfoundry.org/concepts/diego/diego-auction.html)
 [Docs: Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 

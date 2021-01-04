@@ -24,7 +24,7 @@ You have a zip file and a new found sense of accomplishment.
 ### Relevant Repos and Teams
 **PCF Dev:** [pivotal-cf/pcfdev](https://github.com/pivotal-cf/pcfdev)
 **PCF Dev CLI plugin:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
-L: core tools
+L: core tools, onboarding-lite
 
 ---
 
@@ -53,7 +53,7 @@ And for those uninitiated in the dark darks of the command line, check out [this
 
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
-L: core tools
+L: core tools, onboarding-lite
 
 ---
 
@@ -117,4 +117,4 @@ L: core tools
 
 [RELEASE] Set up local development environment with PCF Dev ⇧
 
-
+L: onboarding-lite

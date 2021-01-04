@@ -62,7 +62,7 @@ The CLI prints "target saved" and you can run `fly -t ...` with other commands.
 
 ### Relevant Repos and Teams
 [concourse/fly](https://github.com/concourse/fly)
-L: concourse
+L: concourse, onboarding-lite
 
 ---
 
@@ -84,7 +84,7 @@ Don't let this list stop you from trying out other parts of the tutorial. There'
 [Configuring a Job](https://concourse-ci.org/jobs.html)
 [Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
 [Build Plans](https://concourse-ci.org/jobs.html#job-plan)
-L: concourse
+L: concourse, onboarding-lite
 
 ---
 

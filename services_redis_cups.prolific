@@ -22,7 +22,7 @@ I can see my new user-provided service in `cf services`.
 
 ### Relevant Repos and Teams
 **CAPI:** https://github.com/cloudfoundry/cloud_controller_ng
-L: app-dev, services
+L: app-dev, services, onboarding-lite
 
 ---
 
@@ -58,7 +58,7 @@ The value should also be present in your RedisLabs Dashboard.
 ### Resources
 [User Provided Services (CUPS) Documentation](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
 [Bind a Service Instance Documentation](https://docs.cloudfoundry.org/devguide/services/application-binding.html)
-L: app-dev, services
+L: app-dev, services, onboarding-lite
 
 ---
 

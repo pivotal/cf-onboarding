@@ -106,7 +106,7 @@ What happens if you allow access to a port that the app doesn't listen to? Is it
 [Docs: Understanding CF Networking](https://docs.cloudfoundry.org/concepts/understand-cf-networking.html)
 [Docs: Deploy Apps with CF C2C Networking](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html)
 [Video: CF Networking: All Your Packets are Belong to Us](https://www.youtube.com/watch?v=WrTXd42_m10)
-L: security
+L: security, onboarding-lite
 
 ---
 
@@ -203,7 +203,7 @@ bosh instances
 [tcpdump man page](https://www.tcpdump.org/manpages/tcpdump.1.html)
 [helpful tcpdump commands](https://www.rationallyparanoid.com/articles/tcpdump.html)
 
-L: security
+L: security, onboarding-lite
 ---
 
 Allowing network traffic to other, non-app, private IPs (AKA Making custom ASGs)
@@ -284,3 +284,4 @@ So instead of doing these extra stories now (there are a lot of them), you could
 
 [RELEASE] Networking and Monitoring ⇧
 
+L: onboarding-lite

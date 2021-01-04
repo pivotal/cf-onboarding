@@ -61,7 +61,7 @@ Links:
 - [Ops Manager Repo](https://github.com/pivotal-cf/installation)
 - [PCF Docs](https://docs.pivotal.io/pivotalcf/pas/intro.html)
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -117,7 +117,7 @@ Differences:
 - Users download open-source BOSH releases and stemcells from [bosh.io](https://bosh.io) while Pivotal commercial customers will download tiles and stemcells from [PivNet](https://network.pivotal.io/)
   - PivNet also contains Partner Services which are Tiles jointly developed by Pivotal and partner companies like Datadog and New Relic
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -158,7 +158,7 @@ You should now be able to claim an environment using the steps described [here](
 We recommend grabbing the latest TAS for VMs version so you can play around with all the latest and greatest features.
 Talk to your facilitators or ask the Toolsmiths team in slack for help if you run into any issues and consider giving the Toolsmiths a Thank You for providing such a valuable service!
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -272,7 +272,7 @@ OpsMan successfully deploys a BOSH Director.
 - [Manually installing Ops Manager on GCP](https://docs.pivotal.io/ops-manager/2-10/install/gcp-manual.html)
 - [Manually configuring Ops Manager on GCP](https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html)
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -295,7 +295,7 @@ Use the official docs as guide to configure and deploy TAS for VMs. You can the 
 ## Expected Result
 You've got a running TAS for VMs.
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 

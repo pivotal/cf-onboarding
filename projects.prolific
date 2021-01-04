@@ -13,7 +13,7 @@ A BOSH release that facilitates the use of Redis by a CF deployed app.
 
 ### Resources
 [http://bosh.io/docs/create-release.html](http://bosh.io/docs/create-release.html)
-L: bosh
+L: bosh, onboarding-lite
 
 ---
 
@@ -68,6 +68,8 @@ https://starkandwayne.com/blog/your-first-bosh-release/
 https://content.pivotal.io/blog/how-to-create-a-bosh-release-of-a-dns-server
 https://www.cloudfoundry.org/blog/create-lean-bosh-release/
 
+L: onboarding-lite
+
 ---
 
 Make a BOSH Errand
@@ -81,6 +83,8 @@ Be able to run `bosh -d <your cf> errands` and have your errand run.
 ### Resources
 https://bosh.io/docs/errands.html
 
+L: onboarding-lite
+
 ---
 
 Create a tile to deploy with Ops Manager
@@ -89,6 +93,8 @@ Create a tile to deploy with Ops Manager
 - https://docs.pivotal.io/tiledev/2-2/
 - https://docs.pivotal.io/tiledev/2-2/tile-structure.html
 - https://docs.pivotal.io/tiledev/2-2/tile-generator.html
+
+L: onboarding-lite
 
 ---
 
@@ -102,6 +108,8 @@ https://github.com/cloudfoundry/cf-networking-notes
 https://github.com/cloudfoundry/cf-networking-release
 https://docs.cloudfoundry.org/concepts/understand-cf-networking.html
 https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html
+
+L: onboarding-lite
 
 ---
 
@@ -199,7 +207,9 @@ Here are some videos past participant have enjoyed:
 ### What's next?
 
 If you found a video you liked, submit a PR to add your video link to [this file](https://github.com/pivotal-cf/onboarding/blob/master/projects.prolific).
-Design, product managment, development, or anything else is fair game!
+Design, product management, development, or anything else is fair game!
+
+L: onboarding-lite
 
 ---
 
@@ -262,3 +272,5 @@ https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/index.md
 ---
 
 [RELEASE] End of week projects, minimal instruction ⇧
+
+L: onboarding-lite
