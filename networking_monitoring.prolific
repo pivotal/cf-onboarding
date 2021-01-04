@@ -60,9 +60,7 @@ Service Discovery is not enabled by default, but can be enabled by using this op
 [Enable Service Discovery](https://github.com/cloudfoundry/cf-deployment/blob/master/operations/enable-service-discovery.yml). 
 This opsfile also seeds the internal domain `apps.internal` for you. 
 
-The following commands download the BOSH manifest file into a tmp file, adds `enable-service-discovery.yml` to the manifest,
-and updates your BOSH deployment with service discovery enabled. Ensure that you are in the `onboarding-gcp` directory and that
-your BOSH environment variables are set. 
+The following commands download the BOSH manifest file into a tmp file, adds `enable-service-discovery.yml` to the manifest, and updates your BOSH deployment with service discovery enabled. You may want to create an additional directory under your `~/workspace` directory to contain your manifests and other such configurations. Also, ensure that your BOSH environment variables are set (this will depend on how you set up your onboarding environment).
 
 ```
   bosh -d cf manifest > /tmp/cf.yml
