@@ -215,6 +215,12 @@ L: opsman
 
 Basic BOSH Knowledge
 
+### What if I just want an environment to run BOSH CLI commands in and I don't care how it all works?
+
+0. If you have access, visit https://environments.toolsmiths.cf-app.com/ and get yourself an environment. If you don't have access, ask the person who's guiding you through this learning to do it for you.
+0. Place the `.json` file you receive from the creation of this environment under one of the `claimed` directories under `denver-locks`. You should now have access to such commands as `pcf-target` if you installed the Denver tooling via `denver-bash-it`.
+0. If `pcf-target` succeeds, you should now be connected to the environment and have the ability to run BOSH CLI commands :D
+
 ### What is BOSH and why did we use it in the first place?
 
 - [Installing and using the BOSH CLI](https://bosh.io/docs/cli-v2-install/)
