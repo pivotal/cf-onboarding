@@ -139,7 +139,7 @@ Deploy PKS
 Deploy the Pivotal flavored Kubernetes with the aide of BOSH and Ops Manager
 
 ### Caveat
-You will need to prepare Ops Manager on GCP differently than you prepare it for PAS.
+You will need to prepare Ops Manager on GCP differently than you prepare it for TAS for VMs.
 
 ### Visualizing the Architecture
 ![pks-architecture](https://docs.pivotal.io/runtimes/pks/1-3/images/pks-overview.png)
