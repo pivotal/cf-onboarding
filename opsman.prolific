@@ -125,6 +125,8 @@ You decide: Claim a deployed Ops Manager or deploy one yourself
 
 ## Decision time!
 
+**Note:** You may have already created a Toolsmiths environment as part of the **Basic BOSH Knowledge** story. If so, feel free to use that one!
+
 By this point you're probably ready to start playing around with an Ops Manager environment.
 You have two options for getting one:
 - Deploy one from scratch OR
