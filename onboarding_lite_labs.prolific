@@ -18,7 +18,7 @@ https://www.pivotaltracker.com/story/show/175788971
 
 ### Link to branch with code at time of bug
 
-https://github.com/pivotal-cf/catalyst/tree/lts-lab/176153149-bug-with-slash-in-org-name
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/bug-with-slash-in-org-name
 
 ### Acceptance criteria / desired outcome
 
@@ -26,7 +26,7 @@ App Metrics correctly displays a dashboard for your newly created app even when 
 
 ### Can I push changes somewhere safe to see the fix without pushing to prod?
 
-If you want to see these changes for yourself in a live environment, use the environment that was created for you for use in acceptance.
+Create a Toolsmiths environment or ask your facilitator to create one for you!
 
 L: onboarding-lite, app-metrics-lab
 
@@ -53,7 +53,7 @@ https://www.pivotaltracker.com/story/show/175420177
 
 ### Link to branch with code at time of bug
 
-https://github.com/pivotal-cf/catalyst/tree/lts-lab/176152798-unable-to-see-metrics-dashboard
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/APPMETRICS-69-unable-to-see-metrics-dashboard
 
 ### Acceptance criteria / desired outcome
 
@@ -63,7 +63,41 @@ Bonus points if you create a test in a separate commit that can be `git cherry-p
 
 ### Can I push changes somewhere safe to see the fix without pushing to prod?
 
-If you want to see these changes for yourself in a live environment, use the environment that was created for you for use in acceptance.
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, app-metrics-lab
+
+---
+
+Lab: Monitor alerts are being sent several minutes after threshold returned to normal
+
+### Bug description
+
+Monitor alerts are being sent several minutes after threshold returned to normal
+
+### Slack thread
+
+https://pivotal.slack.com/archives/CH1RH9KH7/p1597775810250600
+
+### JIRA ticket
+
+https://pivotal-io.atlassian.net/browse/APPMETRICS-71
+
+### Tracker story
+
+https://www.pivotaltracker.com/n/projects/2468309/stories/175258077
+
+### Link to branch with code at time of bug
+
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/APPMETRICS-71-monitor-alerts
+
+### Acceptance criteria / desired outcome
+
+Get alerts only when there's actually a problem
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
 
 L: onboarding-lite, app-metrics-lab
 
