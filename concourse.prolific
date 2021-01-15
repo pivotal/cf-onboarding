@@ -14,11 +14,16 @@ Open https://concoursetutorial.com/#getting-started in your browser and start th
   brew cask install docker
   brew install docker-compose
   ```
-2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration (after ensuring that you're in the directory you intend to store files like these in):
+2. Create a dedicated directory for storing all of the files you will need to download during your time here with us. For example:
+  ```
+  mkdir my-onboarding-stuff
+  cd my-onboarding-stuff
+  ```
+3. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
   ```
   wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
   ```
-3. Use Docker Compose to start up your local Concourse in docker containers:
+4. Use Docker Compose to start up your local Concourse in docker containers:
   ```
   docker-compose up -d
   ```
