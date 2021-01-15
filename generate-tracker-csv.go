@@ -33,7 +33,7 @@ func main() {
 			"opsman.prolific",
 			"kubernetes.prolific",
 			"projects.prolific",
-			"onboarding_lite_labs.prolific",
+			"onboarding_lite_labs_app_metrics.prolific",
 		}
 	case "oss":
 		modules = []string{
