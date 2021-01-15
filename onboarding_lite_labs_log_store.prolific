@@ -1,0 +1,39 @@
+Lab: Log Store is unavailable, logs will not display
+
+### Bug description
+
+App Metrics UI display's in "Error: Log Store is unavailable, logs will not display"
+
+### Slack thread
+
+This issue seems to have originated as a JIRA ticket, not a Slack thread, but there was this follow-up thread on November 11th:
+
+https://vmware.slack.com/archives/CH1RH9KH7/p1605103633211500
+
+### JIRA ticket
+
+https://pivotal-io.atlassian.net/browse/APPMETRICS-67
+
+### Tracker story
+
+N/A
+
+### Link to branch with code at time of bug
+
+https://github.com/pivotal/log-store-release/tree/lts-lab/APPMETRICS-67-logs-will-not-display
+
+### Acceptance criteria / desired outcome
+
+Logs display in App Metrics as a result of fixing Log Store within it
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, log-store-lab
+
+---
+
+[RELEASE] Log Store Labs ⇧
+
+L: onboarding-lite, log-store-lab
