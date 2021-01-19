@@ -14,10 +14,6 @@ https://vmware.slack.com/archives/CH1RH9KH7/p1605103633211500
 
 https://pivotal-io.atlassian.net/browse/APPMETRICS-67
 
-### Tracker story
-
-N/A
-
 ### Link to branch with code at time of bug
 
 https://github.com/pivotal/log-store-release/tree/lts-lab/APPMETRICS-67-logs-will-not-display
