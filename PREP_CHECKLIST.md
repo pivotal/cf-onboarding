@@ -8,7 +8,7 @@
 ## Checklist
 
 ### Communication
-- [ ] Several weeks before: send out an email to the participants reminding them that they are signed up and to clear their calendars.  You can find a template in [FACILITATING.md](https://github.com/pivotal/cf-onboarding/blob/master/FACILITATING.md).
+- [ ] Several weeks before: send out a calendar invite to participants (to confirm their availability).  You can find a template in [FACILITATING.md](https://github.com/pivotal/cf-onboarding/blob/master/FACILITATING.md).
     - For remote participating, ask participants if they have Mac OS workstations, since the workstation setup script is written for Mac.
   - [ ] You will be communicating with / authing these folks a lot. I find it helpful to save a copy/pasteable list of their names <emails> here:
     - `name <email>.name <email>`
