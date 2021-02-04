@@ -19,6 +19,12 @@ func main() {
 
 	var modules []string
 	switch trackName {
+	case "labs":
+		modules = []string{
+			// Just the labs
+			"onboarding_lite_labs_app_metrics.prolific",
+			"onboarding_lite_labs_log_store.prolific",
+		}
 	case "local":
 		modules = []string{
 			// Onboarding Part 1: Local Track / developer experience / step-by-step
@@ -33,6 +39,8 @@ func main() {
 			"opsman.prolific",
 			"kubernetes.prolific",
 			"projects.prolific",
+			"onboarding_lite_labs_app_metrics.prolific",
+			"onboarding_lite_labs_log_store.prolific",
 		}
 	case "oss":
 		modules = []string{

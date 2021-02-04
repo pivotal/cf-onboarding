@@ -14,20 +14,27 @@ Open https://concoursetutorial.com/#getting-started in your browser and start th
   brew cask install docker
   brew install docker-compose
   ```
-2. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
+2. Create a dedicated directory for storing all of the files you will need to download during your time here with us. For example:
+  ```
+  mkdir my-onboarding-stuff
+  cd my-onboarding-stuff
+  ```
+3. Download the Stark & Wayne's pre-packaged Docker Compose YAML configuration:
   ```
   wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
   ```
-3. Use Docker Compose to start up your local Concourse in docker containers:
+4. Use Docker Compose to start up your local Concourse in docker containers:
   ```
   docker-compose up -d
   ```
+
+**Note:** If `docker-compose` fails to run, make sure you started `docker` and that you typed `docker-compose` and not `docker compose`.
 
 **Open Concourse in your browser**
 Now that you've got everything set up, navigate to `http://127.0.0.1:8080` in your browser.
 
 ### Expected Result
-![Lonely Concourse, no pipelines](http://engineering.pivotal.io/images/concourse-000/no_pipelines.png)
+![Lonely Concourse, no pipelines](https://concoursetutorial.com/images/dashboard-no-pipelines.png)
 
 ### Resources
 [Concourse Architecture Overview](https://concourse-ci.org/concepts.html)
@@ -43,22 +50,24 @@ L: concourse
 Download and hook up your Concourse CLI
 
 ### What?
-Now that you have Concourse set up, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in ~/.flyrc (though you shouldn't really edit the file manually).
+Now that you have Concourse set up, the first thing you'll want to do is download the `fly` CLI and authenticate with your target. This is done with the `fly login` command. The login command serves double duty: it authenticates with a given endpoint  and saves it under a more convenient name. The name and token are stored in `~/.flyrc` (though you shouldn't really edit the file manually).
 
 ### How?
-1. Download the `fly` CLI from the "no pipelines configured" page.
+1. Download the `fly` CLI by clicking the button in the **cli:** section on the bottom bar that corresponds to your OS or by running `brew cask install fly` on MacOS (if you have homebrew installed).
 1. Move it to your computer's $PATH and make it executable.
-1. Run `fly login --help` for instructions to login to Concourse. Our concourse is configured to allow users to login without any credentials (take a look at the `docker-compose.yml` and you should see how that was achieved).
+1. Run `fly login --help` for instructions to login to Concourse and save a new target (**hint:** you should have seen the URL you'll need for this in a previous story). Our concourse is configured to allow users to login without any credentials (take a look at the `docker-compose.yml` and you should see how that was achieved).
 
 ### Expected Result
 The CLI prints "target saved" and you can run `fly -t ...` with other commands.
+
+**Note:** If your system prevents `fly` from running, try going to System Preferences -> Security and Privacy and see if you can figure out how to appease Mac and allow `fly`.
 
 ### Resources
 [Fly login documentation](https://concourse-ci.org/fly.html#fly-login)
 
 ### Relevant Repos and Teams
 [concourse/fly](https://github.com/concourse/fly)
-L: concourse
+L: concourse, onboarding-lite
 
 ---
 
@@ -80,7 +89,7 @@ Don't let this list stop you from trying out other parts of the tutorial. There'
 [Configuring a Job](https://concourse-ci.org/jobs.html)
 [Pipeline Mechanics](https://concourse-ci.org/pipelines.html)
 [Build Plans](https://concourse-ci.org/jobs.html#job-plan)
-L: concourse
+L: concourse, onboarding-lite
 
 ---
 

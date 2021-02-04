@@ -1,0 +1,104 @@
+Lab: Bug with " / " in org name
+
+### Bug description
+
+Bug with " / " in org name (also possibly space name) makes appmetrics dashboard not work
+
+### Slack thread
+
+https://vmware.slack.com/archives/CH1RH9KH7/p1605734027011800
+
+### Tracker story
+
+https://www.pivotaltracker.com/story/show/175788971
+
+### Link to branch with code at time of bug
+
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/bug-with-slash-in-org-name
+
+### Acceptance criteria / desired outcome
+
+App Metrics correctly displays a dashboard for your newly created app even when either the org name or space name contain a `/` character.
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, app-metrics-lab
+
+---
+
+Lab: Unable to see metrics dashboard for certain apps after metric-store vm recreation
+
+### Bug description
+
+Unable to see metrics dashboard for certain apps after metric-store vm recreation
+
+### Slack thread
+
+https://vmware.slack.com/archives/CH1RH9KH7/p1602260054077300
+
+### JIRA ticket
+
+https://pivotal-io.atlassian.net/browse/APPMETRICS-69
+
+
+### Tracker story
+
+https://www.pivotaltracker.com/story/show/175420177
+
+### Link to branch with code at time of bug
+
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/APPMETRICS-69-unable-to-see-metrics-dashboard
+
+### Acceptance criteria / desired outcome
+
+A one line change to the correct file in the `catalyst` repo on the above branch.
+
+Bonus points if you create a test in a separate commit that can be `git cherry-pick`'d onto `main` to improve the product.
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, app-metrics-lab
+
+---
+
+Lab: Monitor alerts are being sent several minutes after threshold returned to normal
+
+### Bug description
+
+Monitor alerts are being sent several minutes after threshold returned to normal
+
+### Slack thread
+
+https://pivotal.slack.com/archives/CH1RH9KH7/p1597775810250600
+
+### JIRA ticket
+
+https://pivotal-io.atlassian.net/browse/APPMETRICS-71
+
+### Tracker story
+
+https://www.pivotaltracker.com/n/projects/2468309/stories/175258077
+
+### Link to branch with code at time of bug
+
+https://github.com/pivotal-cf/catalyst/tree/lts-lab/APPMETRICS-71-monitor-alerts
+
+### Acceptance criteria / desired outcome
+
+Get alerts only when there's actually a problem
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, app-metrics-lab
+
+---
+
+[RELEASE] App Metrics Labs ⇧
+
+L: onboarding-lite, app-metrics-lab

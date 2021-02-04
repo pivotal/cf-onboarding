@@ -44,6 +44,10 @@ to define network policies between apps that override security groups.
 
 Let's see how can manage the networking security of an app that needs to communicate with other apps.
 
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
+
 ### How?
 
 1) Deploy service discovery 
@@ -56,9 +60,7 @@ Service Discovery is not enabled by default, but can be enabled by using this op
 [Enable Service Discovery](https://github.com/cloudfoundry/cf-deployment/blob/master/operations/enable-service-discovery.yml). 
 This opsfile also seeds the internal domain `apps.internal` for you. 
 
-The following commands download the BOSH manifest file into a tmp file, adds `enable-service-discovery.yml` to the manifest,
-and updates your BOSH deployment with service discovery enabled. Ensure that you are in the `onboarding-gcp` directory and that
-your BOSH environment variables are set. 
+The following commands download the BOSH manifest file into a tmp file, adds `enable-service-discovery.yml` to the manifest, and updates your BOSH deployment with service discovery enabled. You may want to create an additional directory under your `~/workspace` directory to contain your manifests and other such configurations. Also, ensure that your BOSH environment variables are set (this will depend on how you set up your onboarding environment).
 
 ```
   bosh -d cf manifest > /tmp/cf.yml
@@ -104,7 +106,7 @@ What happens if you allow access to a port that the app doesn't listen to? Is it
 [Docs: Understanding CF Networking](https://docs.cloudfoundry.org/concepts/understand-cf-networking.html)
 [Docs: Deploy Apps with CF C2C Networking](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html)
 [Video: CF Networking: All Your Packets are Belong to Us](https://www.youtube.com/watch?v=WrTXd42_m10)
-L: security
+L: security, onboarding-lite
 
 ---
 
@@ -116,6 +118,10 @@ Sometimes a user says "container to container networking is broken! AppA can't t
 Tcpdump is a CLI tool that allows you to inspect all of the traffic (not just TCP, despite the name) flowing through your container. This is a great tool for debugging how far packets are making it, determining how long the packets are taking to reach their destination, and figuring out where in the TCP handshake connections are failing.
 
 In this story you are going to look at the packets being sent from boots to swiper. Then you'll watch the packets being sent in response.
+
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
 
 ### How?
 **Setup**
@@ -197,7 +203,7 @@ bosh instances
 [tcpdump man page](https://www.tcpdump.org/manpages/tcpdump.1.html)
 [helpful tcpdump commands](https://www.rationallyparanoid.com/articles/tcpdump.html)
 
-L: security
+L: security, onboarding-lite
 ---
 
 Allowing network traffic to other, non-app, private IPs (AKA Making custom ASGs)
@@ -209,6 +215,10 @@ If you need help thinking of a reason you'd want to do this, imagine trying to c
 The most common example of this are BOSH-deployed services like [cf-mysql](https://github.com/cloudfoundry/cf-mysql-deployment).
 However, rather than force you to set up another BOSH deployment, let's instead use our existing CF deployment, and see if we can't think of some CF component as a "service" that an app may want to leverage.
 For the sake of this story, let's try to query the router for its list of routes (it's a thing you can do!). We'll create our own ASG to allow our app containers to open a connection to the router's private IP.
+
+### Prerequisites
+
+Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, specifically BOSH CLI commands.
 
 ### How?
 The basic outline of this workflow is this:
@@ -274,3 +284,4 @@ So instead of doing these extra stories now (there are a lot of them), you could
 
 [RELEASE] Networking and Monitoring ⇧
 
+L: onboarding-lite

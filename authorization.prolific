@@ -34,7 +34,9 @@ Administrators generally create users using the cf CLI, which creates user recor
 
 ### How?
 Following **[these instructions](https://docs.cloudfoundry.org/adminguide/uaa-user-management.html)**, create a new admin user in UAA using the uaac CLI.
-Your `target` will be _uaa.v3.pcfdev.io_. Your `client_secret` will be _admin-client-secret_.
+To confirm everything is set up correctly, your `target` _should be_ `uaa.v3.pcfdev.io` (but run `cf domains` to be sure!). Your `client_secret` will be `admin-client-secret`. I just gave you the answers, but it still may be worthwhile to follow the instructions to know how to obtain this information yourself.
+
+**Note:** Depending on how you installed PCF Dev, you may instead have `uaa.dev.cfdev.sh` as your domain.
 
 ### Expected Result
 Potentially a new UAA user. Potentially an inability to use uaac due to an invalid token.

@@ -6,7 +6,7 @@ Cloud Foundry uses role-based access control, with each role granting permission
 ### How?
 1. Run `cf orgs` to view a list of organizations
 1. Run `cf spaces`  to view a list of spaces within the org you're currently targeting. All spaces are scoped to an org. If you target a different org you will see a different set of spaces.
-1. Now, use the `cf create-org` command to create a new organization and the `cf create-space` command to create a new space within it
+1. Now, use the `cf create-org` command to create a new organization and the `cf create-space` command to create a new space within it. **Hint:** you'll need to target the org (and also the space after you create it).
 
 ### Expected Result
 When creating the organization the current user will have been assigned the role of 'Org Manager' for that org. Run `cf org-users NAME-OF-YOUR-ORG` to verify.
@@ -20,7 +20,7 @@ When creating the space the current user will have been assigned two new roles f
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -52,7 +52,7 @@ When logged in as `some-user`, you can see your org's name in your list of orgs 
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -72,8 +72,10 @@ When you push an app, you can optionally include an [application manifest.yml](h
 1. In the `manifest.yml`, set "dora" as the app's name
 1. In the `manifest.yml`, set the [disk quota](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#disk-quota) to 1024M
 1. In the `manifest.yml`, set the [number of instances](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#instances) to 2
-1. In the `manifest.yml`, [generate a unique route](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#random-route) for your app the first time you push.
+1. In the `manifest.yml`, [generate a unique random route](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#random-route) for your app the first time you push.
 1. `cf push` your app
+
+**Note:** If you face problems with Ruby version, just install latest version of Ruby and change the version in the Gemfile.
 
 ### Expected Result
 `cf app dora` will print the app's status, including the URL. When your visit the URL in your browser you should see the words "Hi, I'm Dora!" What an exciting app, right? Total game-changer.
@@ -83,7 +85,7 @@ When you push an app, you can optionally include an [application manifest.yml](h
 [Docs: CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
 [Docs: How Applications are Staged](https://docs.cloudfoundry.org/concepts/how-applications-are-staged.html)
 [Blog post: A beginner-friendly introduction to containers, VMs, and Docker](https://medium.freecodecamp.com/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -140,7 +142,7 @@ The output will look something like:
 ### Resources
 [Docs: Logs for CF components](https://docs.cloudfoundry.org/running/managing-cf/logging.html)
 [Docs: Logs for applications](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -154,6 +156,8 @@ By omitting the `--recent` from your `cf logs dora` command, Loggregator will st
 1. In another terminal tab or buffer, run `watch cf app dora`
 1. Keep an eye on both, and visit the dora endpoint `http://dora.local.pcfdev.io/sigterm/KILL` in your browser
 
+**Note:** depending on how you installed your PCF Dev environment, the address may actually be `http://dora.dev.cfdev.sh/sigterm/KILL`. You can also find the route value in the output of `cf app dora` and append `sigterm/KILL`.
+
 ### Troubleshooting
 If you get an error saying that `watch` is not installed on your computer, install it with brew by running `brew install watch`. If you are on a Mac and don't have brew either...I'm confused.
 
@@ -161,7 +165,7 @@ If you get an error saying that `watch` is not installed on your computer, insta
 Cloud Foundry applications are monitored with a constant health check that ensures they are listening on a specific port. When your application stops listening it will be automatically restarted. You can see this in the logs tagged with `CELL` and `API`. If you try to access your app while it is down, the logs will include `RTR` HTTP requests that return a 502 Bad Gateway error.
 
 Refer to the **[dora app README.md](https://github.com/cloudfoundry/cf-acceptance-tests/tree/master/assets/dora)** to find other useful endpoints to experiment with. It's good to know what common logs, warnings, and errors look like so you can recognize them in the wild.
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -203,7 +207,7 @@ You already have two instances of `dora`. Now we'll scale your app _horizontally
 ### Resources
 [Docs: How the Diego Auction Allocates Jobs](https://docs.cloudfoundry.org/concepts/diego/diego-auction.html)
 [Docs: Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
-L: app-dev
+L: app-dev, onboarding-lite
 
 ---
 
@@ -242,8 +246,10 @@ To provide granular control when securing a deployment, an administrator can als
 1. Check that you are signed in as the admin user
 1. View the list of security groups by running `cf security-groups`
 1. View the security groups assigned to staging containers by running `cf staging-security-groups`
-1. View the security groups assigned to running containers be running `cf running-security-groups`
+1. View the security groups assigned to running containers by running `cf running-security-groups`
 1. View the specific rules of each group using `cf security-group GROUP-NAME`
+
+**Note:** If you ended up having to follow a slightly different process to get your PCF Dev environment to cooperate, you may see different security groups. This does not necessarily mean you did anything wrong.
 
 #### Expected Result
 If you're working with PCF Dev, you should see three security groups, one of which is named `all_pcfdev` and opens all egress traffic. Because of the `all_pcfdev` security group, any other group would be redundant.

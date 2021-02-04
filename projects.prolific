@@ -13,7 +13,7 @@ A BOSH release that facilitates the use of Redis by a CF deployed app.
 
 ### Resources
 [http://bosh.io/docs/create-release.html](http://bosh.io/docs/create-release.html)
-L: bosh
+L: bosh, onboarding-lite
 
 ---
 
@@ -68,6 +68,8 @@ https://starkandwayne.com/blog/your-first-bosh-release/
 https://content.pivotal.io/blog/how-to-create-a-bosh-release-of-a-dns-server
 https://www.cloudfoundry.org/blog/create-lean-bosh-release/
 
+L: onboarding-lite
+
 ---
 
 Make a BOSH Errand
@@ -81,6 +83,8 @@ Be able to run `bosh -d <your cf> errands` and have your errand run.
 ### Resources
 https://bosh.io/docs/errands.html
 
+L: onboarding-lite
+
 ---
 
 Create a tile to deploy with Ops Manager
@@ -89,6 +93,8 @@ Create a tile to deploy with Ops Manager
 - https://docs.pivotal.io/tiledev/2-2/
 - https://docs.pivotal.io/tiledev/2-2/tile-structure.html
 - https://docs.pivotal.io/tiledev/2-2/tile-generator.html
+
+L: onboarding-lite
 
 ---
 
@@ -103,18 +109,7 @@ https://github.com/cloudfoundry/cf-networking-release
 https://docs.cloudfoundry.org/concepts/understand-cf-networking.html
 https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html
 
----
-
-Deploy, scale and tune an app on PWS
-
-### What?
-
-Get to kick the tires as a user of what PWS can offer. Deploy an app, scale it, benchmark it and view it's metrics by using all the tools that PWS puts at your disposal.
-
-1. AppsManager
-1. Metrics
-1. AutoScaling
-1. and more!
+L: onboarding-lite
 
 ---
 
@@ -139,7 +134,7 @@ Deploy PKS
 Deploy the Pivotal flavored Kubernetes with the aide of BOSH and Ops Manager
 
 ### Caveat
-You will need to prepare Ops Manager on GCP differently than you prepare it for PAS.
+You will need to prepare Ops Manager on GCP differently than you prepare it for TAS for VMs.
 
 ### Visualizing the Architecture
 ![pks-architecture](https://docs.pivotal.io/runtimes/pks/1-3/images/pks-overview.png)
@@ -181,7 +176,7 @@ Did you know you could tune up or down Diego cells and affect placement and perf
 1. and more...
 
 ### Result
-Explore the different knobs that are offered on the Diego BOSH release.
+Explore the different configurable fields that are offered on the Diego BOSH release.
 
 ---
 
@@ -199,6 +194,8 @@ Grab a snack from the kitchen and watch some videos! Here's a few suggestions fo
   - [Gophercon](https://www.youtube.com/channel/UCx9QVEApa5BKLw9r8cnOFEA/playlists)
   - [Deconstruct](https://www.deconstructconf.com/2017)
 
+**Note:** These may not be accessible in your country. If not, try connecting to the VPN for a U.S.-based office...
+
 ### Standout videos
 
 Here are some videos past participant have enjoyed:
@@ -210,7 +207,9 @@ Here are some videos past participant have enjoyed:
 ### What's next?
 
 If you found a video you liked, submit a PR to add your video link to [this file](https://github.com/pivotal-cf/onboarding/blob/master/projects.prolific).
-Design, product managment, development, or anything else is fair game!
+Design, product management, development, or anything else is fair game!
+
+L: onboarding-lite
 
 ---
 
@@ -273,3 +272,5 @@ https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/index.md
 ---
 
 [RELEASE] End of week projects, minimal instruction ⇧
+
+L: onboarding-lite

@@ -13,11 +13,11 @@ A Tile is a zip file with a `.pivotal` extension containing:
 
 The Ops Manager Dashboard looks like the following:
 
-![Ops Manager Dashboard](https://docs.pivotal.io/pivotalcf/customizing/images/interface.png)
+![Ops Manager Dashboard](https://docs.pivotal.io/ops-manager/2-10/images/interface.png)
 
 The Ops Manager shown here has three Tiles installed:
 - The BOSH Director tile on the left comes pre-installed with your Ops Manager. Ops Manager will deploy a BOSH Director on your chosen IaaS to manage your deployments.
-- The Pivotal Application Service (PAS) Tile in the middle is the Cloud Foundry deployment. This is roughly equivalent to the Cloud Foundry you deployed in earlier stories with cf-deployment.
+- The VMware Tanzu Application Service for VMs (TAS for VMs) Tile in the middle is the Cloud Foundry deployment. This is roughly equivalent to the Cloud Foundry you deployed in earlier stories with cf-deployment.
 - The MySQL tile on the right deploys a MySQL Database deployment for your CF apps to use.
 
 More information about the Dashboard UI can be found [here](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html#installation-dashboard).
@@ -31,13 +31,24 @@ Tiles provide multiple configuration panes that let you select configuration val
 For example, "Google Config", "Director Config", and "Create Available Zones" are all forms to select your Director and IaaS configuration.
 After saving these forms and clicking Apply Changes on the Dashboard, Ops Manager will deploy a BOSH Director using the provided values.
 All other Tiles will be deployed as a separate BOSH deployment using that Director.
-For example, filling out the forms on the PAS Tile will generate a BOSH manifest and clicking Apply Changes will then deploy that manifest using the BOSH Director.
+For example, filling out the forms on the TAS for VMs Tile will generate a BOSH manifest and clicking Apply Changes will then deploy that manifest using the BOSH Director.
 After filling out the Director forms and clicking Apply Changes, Ops Manager will run `bosh upload-release`, `bosh deploy`, and other BOSH commands you've run in previous stories and stream the output to the UI.
 
 In addition to the UI, Ops Manager provides an [API](https://docs.pivotal.io/pivotalcf/opsman-api/) to allow users to configure Tiles via scripts.
 The UI provides a nice onboarding experience, but we still encourage customers to setup Concourse pipelines to automatically configure their tiles.
 This ensures configuration is checked into source control and is reproducible in case something goes wrong later on.
-The [om CLI](https://github.com/pivotal-cf/om) can be used to programmatically perform operations in Ops Manager rather than clicking around the UI.
+The [om CLI](https://github.com/pivotal-cf/om) can be used to programmatically perform operations in Ops Manager rather than clicking around the UI. For example, you can get current product config, make some changes, and update Ops Manager to reflect those changes using the following commands:
+
+```
+# This will output a STAGED-CONFIG.yml
+om -u USERNAME -p PASSWORD -k -t https://OPS-MAN-URL-OR-IP/uaa staged-config -p TILE-NAME
+
+# Whatever the file ended up being named in the previous command
+vim STAGED-CONFIG.yml
+
+# Re-upload it!
+om -u USERNAME -p PASSWORD -k -t https://OPS-MAN-URL-OR-IP/uaa configure-product -c STAGED-CONFIG.yml
+```
 
 ## One Platform
 
@@ -50,7 +61,7 @@ Links:
 - [Ops Manager Repo](https://github.com/pivotal-cf/installation)
 - [PCF Docs](https://docs.pivotal.io/pivotalcf/pas/intro.html)
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -59,7 +70,7 @@ Differences between PCF and cf-deployment
 ### CF vs PCF
 
 In the stories earlier in onboarding week, you used `bbl up` to create some GCP infrastructure and BOSH + cf-deployment to deploy a Cloud Foundry.
-Here's a quick rundown of the similarities and differences between Ops Manager + PAS Tile and cf-deployment.
+Here's a quick rundown of the similarities and differences between Ops Manager + TAS for VMs Tile and cf-deployment.
 
 ### Technical Similarities and Differences
 
@@ -89,15 +100,15 @@ Differences:
   - A smaller set of properties to configure makes it easier to get something working initially, but can prevent you from configuring more advanced features
 - Ops Manager does not allow you to change the deployment topology (which jobs are located on which VMs)
   - In cf-deployment you can add an ops-file to co-locate a new job on an existing VM, Ops Manager requires the Tile author to make changes to their Tile to allow this
-  - Some Tiles like PAS provide both a full HA version and a "Small Footprint" version to co-locate jobs on a smaller number of VMs
+  - Some Tiles like TAS for VMs provide both a full HA version and a "Small Footprint" version to co-locate jobs on a smaller number of VMs
 
 ### Ecosystem Similarities and Differences
 
 Similarities:
-- Most (if not all) features of core CF components like Diego, UAA, and CAPI are available in both PAS and cf-deployment
+- Most (if not all) features of core CF components like Diego, UAA, and CAPI are available in both TAS for VMs and cf-deployment
 - Some Pivotal customers use a mix of cf-deployment and Ops Manager across their organization
 - Pivotal engineers often contribute to both cf-deployment and Ops Manager Tiles
-  - e.g. a Diego engineer might submit a PR to add an ops-file to cf-deployment to toggle on a new feature, then submit a PR to the PAS Tile to add a checkbox to toggle that same feature
+  - e.g. a Diego engineer might submit a PR to add an ops-file to cf-deployment to toggle on a new feature, then submit a PR to the TAS for VMs Tile to add a checkbox to toggle that same feature
 
 Differences:
 - cf-deployment and associated tooling (e.g. bbl) are open-source while Ops Manager and most Tiles are closed-source
@@ -106,13 +117,15 @@ Differences:
 - Users download open-source BOSH releases and stemcells from [bosh.io](https://bosh.io) while Pivotal commercial customers will download tiles and stemcells from [PivNet](https://network.pivotal.io/)
   - PivNet also contains Partner Services which are Tiles jointly developed by Pivotal and partner companies like Datadog and New Relic
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
 You decide: Claim a deployed Ops Manager or deploy one yourself
 
 ## Decision time!
+
+**Note:** You may have already created a Toolsmiths environment as part of the **Basic BOSH Knowledge** story. If so, feel free to use that one!
 
 By this point you're probably ready to start playing around with an Ops Manager environment.
 You have two options for getting one:
@@ -121,13 +134,13 @@ You have two options for getting one:
 
 If you want to experience the workflow a customer would go through and want learn a bit more about creating GCP environments, try setting up an environment manually.
 The next few stories in the backlog will guide you through this process.
-If you've had enough of the IaaS stuff for this week, the following steps will show you how to grab an already deployed Ops Manager with PAS installed.
+If you've had enough of the IaaS stuff for this week, the following steps will show you how to grab an already deployed Ops Manager with TAS for VMs installed.
 
 ## Optional: Claim a Toolsmiths environment
 
 **Warning!** To keep costs down, Toolsmiths environments are automatically destroyed after 24 hours
 
-The CF Toolsmiths team ([#cf-toolsmiths slack](https://pivotal.slack.com/messages/C0563B53F/)) maintains a pool of already deployed Ops Manager + PAS environments for teams across the org to grab for testing.
+The CF Toolsmiths team ([#cf-toolsmiths slack](https://pivotal.slack.com/messages/C0563B53F/)) maintains a pool of already deployed Ops Manager + TAS for VMs environments for teams across the org to grab for testing.
 You can see a dashboard of all available environments [here](https://environments.toolsmiths.cf-app.com/pooled_gcp_environments).
 Note: you must be on the Pivotal network or VPN to see this app.
 
@@ -142,14 +155,18 @@ lpass show --notes 'Shared-CF SF Onboarding/Toolsmiths API Token'
 You should have been given access to this LastPass folder at the start of the week, let your facilitators know if you still don't have access.
 
 You should now be able to claim an environment using the steps described [here](https://github.com/pivotal/smith/blob/master/EXAMPLES.md).
-We recommend grabbing the latest PAS version so you can play around with all the latest and greatest features.
+We recommend grabbing the latest TAS for VMs version so you can play around with all the latest and greatest features.
 Talk to your facilitators or ask the Toolsmiths team in slack for help if you run into any issues and consider giving the Toolsmiths a Thank You for providing such a valuable service!
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
 Deploy Ops Manager Manually
+
+### Prerequisites
+
+If you already opted to use a Toolsmiths environment, run from this story as if it's got COVID :D
 
 ### Ops Manager Interface
 [Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html)
@@ -160,7 +177,7 @@ While we use BOSH to deploy a director and many of our services, Ops Manager is 
 The first step to installing Ops Manager is to set up your infrastructure.
 There are some terraform scripts that will do this for you that you can download from Pivotal Network.
 Go to [network.pivotal.io](https://network.pivotal.io) and make sure you're signed in to PivNet (if you don't have an account yet, click "Register" to create one.).
-Next, search for `Pivotal Application Service`. Once you open the product, you should see GCP Terraform templates in "Release Download Files".
+Next, search for `VMware Tanzu Application Service for VMs`. Once you open the product, you should see GCP Terraform templates in "Release Download Files".
 
 Unzip the file to get the terraform templates. You can take a look at the README to see how the whole repo works, but the important bit is in the section titled "Var File". Use those instructions to build a var file for terraform. **Take care to notice some of the following gotcha's.**
 1. The `project` variable needs to equal the ID of your GCP project. That's not the same thing as the _name_ of your GCP project. To find the ID, click on the project dropdown to the left of the search bar. You should say a table mapping project names to project IDs.
@@ -202,24 +219,61 @@ L: opsman
 
 ---
 
+Basic BOSH Knowledge
+
+### What if I just want an environment to run BOSH CLI commands in and I don't care how it all works?
+
+0. If you have access, visit https://environments.toolsmiths.cf-app.com/ and get yourself an environment. If you don't have access, ask the person who's guiding you through this learning to do it for you.
+0. Place the `.json` file you receive from the creation of this environment under one of the `claimed` directories under `denver-locks`. You should now have access to such commands as `pcf-target` if you installed the Denver tooling via `denver-bash-it`.
+0. If `pcf-target` succeeds, you should now be connected to the environment and have the ability to run BOSH CLI commands :D
+
+### What is BOSH and why did we use it in the first place?
+
+- [Installing and using the BOSH CLI](https://bosh.io/docs/cli-v2-install/)
+- [Why Bosh? Part 1: BOSH Unique Capabilities](https://www.youtube.com/watch?v=PBiX5nRCHPs)
+- [Why Bosh? Part 2: Platforms Running on BOSH](https://www.youtube.com/watch?v=HoY5KgYcx0I)
+
+### How do I make changes to a BOSH deployment to test a fix?
+
+- [Installing Cloud Foundry Bosh on VirtualBox.](https://www.youtube.com/watch?v=Kv0iKE2JaJ4)
+- [BOSH Tutorial Part 3: Configuring BOSH](https://www.youtube.com/watch?v=BPrJiOCRWS8&list=PLu8oHHyQbBrTGvoGdF7NuZqKqU_31cKkc&index=3)
+- [BOSH Tutorial Part 4: First Deployment](https://www.youtube.com/watch?v=vr1K4PWnG00&list=PLu8oHHyQbBrTGvoGdF7NuZqKqU_31cKkc&index=4)
+- [BOSH Tutorial Part 5: Exploring Deployments](https://www.youtube.com/watch?v=w7LXlZeDjbs&list=PLu8oHHyQbBrTGvoGdF7NuZqKqU_31cKkc&index=5)
+
+### What if I want to automate a BOSH deployment?
+
+- [BOSH Tutorial part 13: Automating BOSH deployments](https://www.youtube.com/watch?v=NcEbgVSLTYg&list=PLu8oHHyQbBrTGvoGdF7NuZqKqU_31cKkc&index=13)
+
+### What if I want a comprehensive explanation of BOSH?
+
+- [Full BOSH Tutorial](https://www.youtube.com/playlist?list=PLu8oHHyQbBrTGvoGdF7NuZqKqU_31cKkc)
+- [Bob's talk about CF, BOSH, and Healthwatch](https://vmware.zoom.us/rec/share/AyhV-PDvaUafOGJI6VoEQuQi2T17-s5GavFwF3EwousomEa7I_D77bTH6GitBKQD.dDt82PKHG6v2m_Fv)
+- [Ultimate Guide to BOSH](https://ultimateguidetobosh.com/)
+- https://bosh.io/docs/bosh-components/
+
+L: bosh
+
+---
+
 Deploy BOSH Director using Ops Manager
 
-Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/pivotalcf/om/gcp/config-terraform.html). Some tips to keep you from getting stuck:
+Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/ops-manager/2-10/install/ops-man-api.html). Some tips to keep you from getting stuck:
 1. When you get to "Create Availability Zones", you'll want to use the same AZs that you specified in your terraform.
 2. Make sure to read in the instructions carefully when you configure the networks. Especially be careful when setting the network names: they have the form `<network-name>/<subnet-name>/<region>`
 
 After you've configured the BOSH Director tile (it should be green to indicate that you're finished configuring the tile), you can visit the **Review Pending Changes** page and click **Apply Changes**. You'll see the same logs as if you used `bbl` or the `bosh` CLI.
 Once the deployment is done, you can visit `/change_log` to review the logs of past deployment.
 
-After the deploy succeeds, click around and see if you can information about the BOSH Director's health. Can you the BOSH Director IP address? How much memory/disk/CPU it's using?
+After the deploy succeeds, click around and see if you can find information about the BOSH Director's health. Can you find the BOSH Director's IP address? How much memory/disk/CPU is it using?
 
 ### Expected Results
 OpsMan successfully deploys a BOSH Director.
 
 ### Resources
-- https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html
+- [Manually installing Ops Manager on GCP](https://docs.pivotal.io/ops-manager/2-10/install/gcp-manual.html)
+- [Manually configuring Ops Manager on GCP](https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html)
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
@@ -233,16 +287,16 @@ Some tiles have dependencies on other tiles. You should find information about t
 To understand the workflow of an actual PCF/OpsMan customer, choose a tile or two to install and follow the appropriate docs.
 
 ## How?
-Let's start by installing the mother of them all: PAS. Go to PivNet, search for "Pivotal Application Service", and download the "Small Footprint PAS" -- we'll use this to save some time during the deploy. Your best bet is to choose the latest stable version (avoid releases with `alpha` or `rc` in it).
+Let's start by installing the mother of them all: TAS for VMs. Go to PivNet, search for "VMware Tanzu Application Service for VMs", and download the "Small Footprint TAS for VMs" -- we'll use this to save some time during the deploy. Your best bet is to choose the latest stable version (avoid releases with `alpha` or `rc` in it).
 
 And yes, the file is rather large (as of this writing, it's 13 GB), so feel free to take a ping pong break while it's downloading.
 
-Use the official docs as guide to configure and deploy PAS. You can the docs for PAS 2.3 [here](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html), but if you're using a new version than that, you can use the dropdown next to "Pivotal Cloud Foundry" to find docs for the appropriate version.
+Use the official docs as guide to configure and deploy TAS for VMs. You can the docs for TAS for VMs 2.3 [here](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html), but if you're using a new version than that, you can use the dropdown next to "Pivotal Cloud Foundry" to find docs for the appropriate version.
 
 ## Expected Result
-You've got a running PAS.
+You've got a running TAS for VMs.
 
-L: opsman
+L: opsman, onboarding-lite
 
 ---
 
