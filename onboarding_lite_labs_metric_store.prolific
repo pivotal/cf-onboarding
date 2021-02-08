@@ -1,0 +1,35 @@
+Lab: query timed out in query queue
+
+### Bug description
+
+Error "query timed out in query queue" when querying App Metrics after upgrading to 2.9
+
+### Slack thread
+
+This issue seems to have originated as a JIRA ticket, not a Slack thread, but it was referenced here:
+
+https://vmware.slack.com/archives/CJQ5XE33Q/p1605112691073200?thread_ts=1605042906.071700&cid=CJQ5XE33Q
+
+### JIRA ticket
+
+https://pivotal-io.atlassian.net/browse/MS-4
+
+### Link to branch with code at time of bug fix
+
+https://github.com/cloudfoundry/metric-store-release/commits/v1.5.1
+
+### Acceptance criteria / desired outcome
+
+The JIRA ticket says that this is fixed in 1.5.1. Starting from the link to 1.5.1 above, can you go backwards through the commit history and figure out what specific code change fixed the issue?
+
+### Can I push changes somewhere safe to see the fix without pushing to prod?
+
+Create a Toolsmiths environment or ask your facilitator to create one for you!
+
+L: onboarding-lite, log-store-lab
+
+---
+
+[RELEASE] Log Store Labs ⇧
+
+L: onboarding-lite, log-store-lab
