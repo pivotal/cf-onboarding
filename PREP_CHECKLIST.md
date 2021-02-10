@@ -29,6 +29,7 @@
 - [ ] Schedule daily standup (15min at 9:15, starting Tuesday).
 - [ ] Schedule afternoon check in (30min at 1:30).
 - [ ] Schedule retro at the end of the week (1hr at 4:00), include link to retro board: https://postfacto.vmware.com/retros/cf-onboarding-week (pw: onboarding-cf (pls don't change it))
+   - Authentication to https://postfacto.vmware.com/ provided via single-sign on (SSO) through VMware GSuite.
 - [ ] Schedule any sessions that you know the group would be interested in -- for example, BOSH boxes and lines.
 - [ ] In the past, non Engineers have appreciated it when we blocked out the entire days of onbaording. This is especially helpful if done a few weeks in advance; so, they have time to move meetings and avoid having new ones scheduled in the first place.
 ---
