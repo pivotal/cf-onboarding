@@ -93,17 +93,17 @@ share with speakers can be found in [BOXES_AND_LINES.md](https://github.com/pivo
 - Skip this step for participants who are not authorized to access closed-source content (e.g. Pivotal Labs client participants.)
 - [ ] Give participants access to the shared LastPass folder:
   - LastPass > Sharing Center > Shared-CF SF Onboarding > Manage > Invite Users (A list of emails works here.)
-### Workstation Setup
-Note: local IT departments can sometimes help with workstation setup. (Helpful for remote facilitation.)
 
-- [ ] Make sure you have a workstation for each pair.
-- [ ] Ensure ethernet cable is plugged into iMac, not monitor.
-- [ ] Re-image each machine. [Here](WORKSTATION_IMAGING.md) are steps:
-- [ ] Open a terminal window and run
+### Test Workstation Setup Script
+
+- [ ] Open a terminal window and run:
  ```
+ # Download & unzip the setup script folder
  curl -LOk https://github.com/pivotal-cf-experimental/onboarding-week-construct/archive/master.zip
  unzip master.zip
+ # Navigate to the setup script subfolder
  cd onboarding-week-construct-master
+ # Run the script
  ./construct
  ```
  You'll need to babysit this process, as it will prompt you for the password several times.
