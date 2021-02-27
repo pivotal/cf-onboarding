@@ -14,6 +14,10 @@ Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product
 1. If something in a story is missing / is wrong / could be improved, create an issue in the **[pivotal-cf/onboarding repo](https://github.com/pivotal-cf/onboarding/issues)**.
 1. Seriously, take your time. How often are you paid just to learn?
 
+
 **Pro Tip:** As you begin stories, click the "Start" button. If you feel confident about their content when you finish, click "Finish", "Deliver", and "Accept". If you still have questions on the material, leave it in the delivered state (i.e. with the "Accept"/"Reject" buttons showing) and decide at the end how you would like to follow up on your questions.
 - [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
+- [ ] Consider reviewing CLI (Command Line Interface) common commands [here](https://tutorial.djangogirls.org/en/intro_to_command_line/#summary)
 - [ ] Log in to GCP IAAS dashboard. You should have received an invitation from your facilitator.
+
+
