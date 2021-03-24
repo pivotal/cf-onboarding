@@ -13,6 +13,13 @@ When creating the organization the current user will have been assigned the role
 
 When creating the space the current user will have been assigned two new roles for that space—'Space Manager' and 'Space Developer'. Run `cf space-users NAME-OF-YOUR-ORG NAME-OF-YOUR-SPACE` to verify.
 
+**Note:** if the role remains unspecified after creating the org, try the following:
+
+```
+cf set-org-role admin NAME_OF_YOUR_ORG OrgManager
+cf org-users NAME-OF-YOUR-ORG
+```
+
 ### Resources
 [Docs: Orgs, Spaces, Roles, and Permissions](https://docs.cloudfoundry.org/concepts/roles.html)
 [Docs: Creating and managing users with the cf CLI](https://docs.cloudfoundry.org/adminguide/cli-user-management.html)
@@ -75,7 +82,7 @@ When you push an app, you can optionally include an [application manifest.yml](h
 1. In the `manifest.yml`, [generate a unique random route](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#random-route) for your app the first time you push.
 1. `cf push` your app
 
-**Note:** If you face problems with Ruby version, just install latest version of Ruby and change the version in the Gemfile.
+**Note:** If you face problems with Ruby version, just install the latest version of Ruby and change the version in the Gemfile.
 
 ### Expected Result
 `cf app dora` will print the app's status, including the URL. When your visit the URL in your browser you should see the words "Hi, I'm Dora!" What an exciting app, right? Total game-changer.
