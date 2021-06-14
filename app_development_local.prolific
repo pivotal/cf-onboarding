@@ -70,8 +70,8 @@ When you push an app, you can optionally include an [application manifest.yml](h
 1. Run `cd ./cf-acceptance-tests/assets/dora` to change directories.
 1. **[Create a `manifest.yml` file](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#minimal-manifest)**
 1. In the `manifest.yml`, set "dora" as the app's name
-1. In the `manifest.yml`, set the [disk quota](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#disk-quota) to 1024M
-1. In the `manifest.yml`, set the [number of instances](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#instances) to 2
+1. In the `manifest.yml`, set the [disk quota](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#disk-quota) to 1024M
+1. In the `manifest.yml`, set the [number of instances](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#instances) to 2
 1. In the `manifest.yml`, [generate a unique random route](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#random-route) for your app the first time you push.
 1. `cf push` your app
 
