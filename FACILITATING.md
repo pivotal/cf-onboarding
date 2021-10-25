@@ -15,7 +15,7 @@ Whether you are with CF or with Labs, Onboarding Week is intended to be a **faci
 * Setup remote pairing hardware for remote participants.
 * Provide one "floater" laptop per pair to facilitate independent docs reading.
 * Create and populate *private* Tracker Project(s). Invite participants.
-* [Request GCP IAAS project(s)](https://docs.google.com/forms/d/e/1FAIpQLSeJ31997Zma1WtLcCtswiysCFWOG5MXNmlYCpJsiYgdG9kKnA/viewform). Once they're created, add participants as Owners.
+* [Request GCP IAAS project(s)](https://confluence.eng.vmware.com/display/public/AEAV/How+To+Get+Started+With+Public+Cloud). Once they're created, add participants as Owners. Note you may need to be on the VPN to open this page
 * A month before, send out a calendar meeting invite to all participants (reminding them to clear their schedules for the week).
 
 Meeting name: CF Onboarding ([DATE])
