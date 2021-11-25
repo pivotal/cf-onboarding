@@ -1,11 +1,11 @@
 Download PCF Dev from Pivotal Network
 
 ### What?
-[PCF Dev](https://pivotal.io/pcf-dev) is a lightweight [Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html) installation that runs on a single virtual machine on your workstation.
+[PCF Dev](https://tanzu.vmware.com/application-service) is a lightweight [Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html) installation that runs on a single virtual machine on your workstation.
 
 With PCF Dev, you can get the Cloud Foundry developer experience (pushing, scaling, binding, makes it harder, better, faster, stronger) without going through the operator experience... which is admittedly an acquired taste.
 
-It's open source, but from [Pivotal Cloud Foundry (PCF)](https://pivotal.io/platform) not the [Cloud Foundry Foundation (CFF)](https://www.cloudfoundry.org/foundation/), and the cf CLI plugin that makes it any fun to use is only available through [Pivotal Network](https://network.pivotal.io/).
+It's open source, but from [Pivotal Cloud Foundry (PCF)](https://tanzu.vmware.com/tanzu) not the [Cloud Foundry Foundation (CFF)](https://www.cloudfoundry.org/foundation/), and the cf CLI plugin that makes it any fun to use is only available through [Pivotal Network](https://network.pivotal.io/).
 
 ### How?
 **[Download PCF Dev from Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). 
@@ -22,7 +22,7 @@ You have a zip file and a new found sense of accomplishment.
 [Doc: What is a virtual machine?](https://azure.microsoft.com/en-us/overview/what-is-a-virtual-machine/) (only incidentally by Microsoft Azure, make nothing of it)
 
 ### Relevant Repos and Teams
-**PCF Dev:** [pivotal-cf/pcfdev](https://github.com/pivotal-cf/pcfdev)
+**PCF Dev:** [pivotal-cf/pcfdev](https://github.com/cloudfoundry-attic/cfdev)
 **PCF Dev CLI plugin:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 L: core tools, onboarding-lite
 
@@ -103,12 +103,12 @@ Run `cf target`. You'll see a line that says `API endpoint:   https://api.v3.pcf
 If there appears to be no progress for 20-30 minutes, double-check if your system has any disk space left. PCF Dev apparently does not handle this case well.
 
 ### Resources
-[Tutorial: Getting Started with PCF Dev](https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction)
-[Blog post: Meet Pivotal Cloud Foundry Dev, your Ticket To Running Cloud Foundry Locally](https://content.pivotal.io/blog/meet-pcf-dev-your-ticket-to-running-cloud-foundry-locally)
+[Tutorial: Getting Started with PCF Dev](https://tanzu.vmware.com/developer/)
+[Blog post: Meet Pivotal Cloud Foundry Dev, your Ticket To Running Cloud Foundry Locally](https://tanzu.vmware.com/content/blog/meet-pcf-dev-your-ticket-to-running-cloud-foundry-locally)
 [Blog post: A little diddy about binary file formats](https://betterexplained.com/articles/a-little-diddy-about-binary-file-formats/)
 
 ### Relevant Repos and Teams
-**PCF Dev:** [pivotal-cf/pcfdev](https://github.com/pivotal-cf/pcfdev),
+**PCF Dev:** [pivotal-cf/pcfdev](https://github.com/cloudfoundry-attic/cfdev),
 **Also PCF Dev:** [pivotal-cf/pcfdev-cli](https://github.com/pivotal-cf/pcfdev-cli)
 
 L: core tools

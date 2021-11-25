@@ -44,7 +44,7 @@ Potentially a new UAA user. Potentially an inability to use uaac due to an inval
 ### Resources
 [Docs: Creating and Managing Users with the UAA CLI (UAAC)](https://docs.cloudfoundry.org/adminguide/uaa-user-management.html)
 [Docs: UAA SysAdmin Guide](https://github.com/cloudfoundry/uaa/blob/master/docs/Sysadmin-Guide.rst)
-[Blog post: Introducing the UAA and Security for Cloud Foundry](https://blog.pivotal.io/pivotal-cloud-foundry/products/introducing-the-uaa-and-security-for-cloud-foundry) (written in '12)
+[Blog post: Introducing the UAA and Security for Cloud Foundry](https://tanzu.vmware.com/content/blog/introducing-the-uaa-and-security-for-cloud-foundry) (written in '12)
 
 ### Relevant Repos and Teams
 **UAA:** [cloudfoundry/cf-uaac](https://github.com/cloudfoundry/cf-uaac)
