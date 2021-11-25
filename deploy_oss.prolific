@@ -39,8 +39,9 @@ The following dependencies can be installed through the Cloud Foundry [homebrew 
 [Docs: What is Terraform?](https://www.terraform.io/intro/index.html)
 
 ### Relevant Teams and Repos
-**BOSH:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
-**BOSH:** [cloudfoundry/bosh-cli](https://github.com/cloudfoundry/bosh-cli)
+Bosh Ecosystem Team #cf-bosh-core Slack
+**Bosh Ecosystem:** [cloudfoundry/bosh](https://github.com/cloudfoundry/bosh)
+**Bosh Ecosystem Team CLI repo:** [cloudfoundry/bosh-cli](https://github.com/cloudfoundry/bosh-cli)
 **Infrastructure:** [cloudfoundry/bosh-bootloader](https://github.com/cloudfoundry/bosh-bootloader)
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 
@@ -51,7 +52,7 @@ L: bbl
 Install Google Cloud SDK
 
 ### What?
-You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically Pivotal Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
+You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically VMware Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
 
 The `gcloud` CLI manages authentication, local configuration, developer workflow, and interactions with the Cloud Platform APIs. Download and install the [Google SDK](https://cloud.google.com/sdk) to get `gcloud`, as you'll need it to `bbl up`.
 
@@ -62,7 +63,7 @@ Follow **[these instructions](https://cloud.google.com/sdk/docs/downloads-intera
 
 Once you've done that, run `gcloud init` in your terminal.
 
-You should have received an invitation to join a GCP project from your facilitator or ask+cf@pivotal.io. Use your @pivotal.io email address and the name of your assigned project to configure the tool (the project name is in the GCP dashboard menu bar and the URL).
+You should have received an invitation to join a GCP project from your facilitator. Use your @vmware.com email address and the name of your assigned project to configure the tool (the project name is in the GCP dashboard menu bar and the URL).
 
 ### Expected Result
 Run `gcloud version` => "Google Cloud SDK 203.0.0 ..." or higher
@@ -70,7 +71,7 @@ Run `gcloud version` => "Google Cloud SDK 203.0.0 ..." or higher
 Run `gcloud config list` =>
 ```
 [core]
-account = your-email@pivotal.io
+account = your-email@vmware.com
 disable_usage_reporting = False
 project = PROJECT_ID
 
@@ -79,6 +80,7 @@ Your active configuration is: [default]
 
 ### Resources
 [Docs: Comparison GCP <> AWS](https://cloud.google.com/docs/compare/aws/)
+[Internal Doc: The Great GCP Migration of 2016](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
 [Internal Doc: The Great GCP Migration of 2016](https://docs.google.com/document/d/1ze6znVK32UlpsmGXHmMn4ZAAAvuUCK0yVPXhXH74-n0/edit#heading=h.x5ivrrqjuddi)
 
 L: bbl
@@ -197,13 +199,12 @@ If your `bbl up` succeeds, it will have printed the list of steps it has taken t
 
 **Financially important:** Please do not expose your GCP credentials by pushing `bbl-state.json` to Github. You'd be surprised how quickly bitcoin mining VMs pop up. This costs the company beaucoup moolah.
 
-
 ### Resources
 [Docs: Using bosh create-env](https://bosh.io/docs/cli-v2.html#create-env)
 [Docs: cloud-configs](https://bosh.io/docs/cloud-config)
 [Docs: What is cf-deployment?](https://github.com/cloudfoundry/cf-deployment/blob/master/texts/deployment-guide.md)
 [Video: Creating Cloud Environments](https://drive.google.com/file/d/1ltNggSltyLdRs8orh-qCzZTM_EAx3x7h/view?usp=sharing)
-  - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF
+  - Note: your onboarding week facilitator may schedule this talk in-person if you're in SF",bbl
 
 L: bbl
 
@@ -245,7 +246,7 @@ Let's start of with some vocabulary:
 
 * An **IP address** is number associated with a computer, and allows other computers to find them. We typically think of two kinds of IP addresses: **public** and **private** IPs. Public IPs are unique, and anybody on the internet can try to communicate with the computer associated to a public IP. Private IPs are not accessible by just any computer -- you have to be on the same private network to communicate with a computer on a private IP. In most Cloud Foundry deployments, the majority of VM instances use private IPs.
 * **Load balancers** are computers with the sole job of distributing requests across a set of other computers (sometimes referred to as "backends" or "backend servers"). In CF deployments, we typically create load balancers with public IPs, and then configure them to route traffic to components that have private IPs.
-* A **domain** is a series of strings separated by the `.` character that serves as an alias for an IP address, or set of IP addresses. For example, `run.pivotal.io` is a domain that maps to the IP address(s) of the load balancers on PWS. We use domains for a few reasons. One is that IP addresses are hard for humans to remember, but `google.com` is pretty easy. We also use domains to group computers together and even do some load balancing. For example, `google.com` does not resolve to a single IP address (one poor computer could never handle that kind of load!).
+* A **domain** is a series of strings separated by the `.` character that serves as an alias for an IP address, or set of IP addresses. For example, `tanzu.vmware.com` is a domain that maps to the IP address(s) of the load balancers on PWS. We use domains for a few reasons. One is that IP addresses are hard for humans to remember, but `google.com` is pretty easy. We also use domains to group computers together and even do some load balancing. For example, `google.com` does not resolve to a single IP address (one poor computer could never handle that kind of load!).
   * A **subdomain** is a term you'll see as well. It's a relative term that describes the relationship of one domain to another -- for example, `my-site.example.com` is a subdomain of `example.com`.
 * **DNS** stands for "Domain Name System," which translates domains IP addresses. We'll explain how it works in a second.
 * **TLS** stands for "Transport Layer Security". You'll often also hear it referred to as **SSL**, which stands for "Secure Socket Layer," even though the term "SSL" is deprecated. Anywho, TLS is a system for encrypting your communications and validating that you're communicating with the right computer on the internet. To prove its identity, a computer will present a **certificate** to the machine making the request.
@@ -268,7 +269,6 @@ The DNS server redirects your computer to _yet another_ DNS server that knows ab
 Then your computer asks that server about the `onboarding.example.com` domain.
 That name server has the A record, and returns an answer: `1.2.3.4`
 
-
 The following table is an example request and response flow to resolve `onboarding.example.com` to the A record `1.2.3.4` by your computer:
 
   | # | DNS Request  | DNS Response  |
@@ -287,15 +287,13 @@ In a few stories, you'll use bbl to create load balancers that have IP addresses
 - An A record for a few reserved subdomains like `ssh.my-env.onboarding.cf-app.com`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
 - An A record for `*.my-env.onboarding.cf-app.com`. This record maps **all** other subdomains of `my-env.onboarding.cf-app.com` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `my-env.onboarding.cf-app.com` domain, so that you can make subdomains on the fly like `my-app.my-env.onboarding.cf-app.com`.
 
-To get an idea of how this works, try running `dig +trace api.run.pivotal.io` to visualize how each part of the domain gets resolved.
-
 ### Resources
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
 [Blog post: SSL vs TLS, what's the difference?](https://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html)
 [Tutorial: How SSL and TLS encryption works](http://computer.howstuffworks.com/encryption4.htm)
 [Blog post: What is a Domain Name Server?](https://www.lifewire.com/what-is-a-dns-server-817513)
 [Video: How DNS works](https://www.youtube.com/watch?v=GlZC4Jwf3xQ)
-[Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)
+[Video: A Tour of TLS](https://www.youtube.com/watch?v=yzz3bcnWf7M)"
 
 L: bbl
 
@@ -341,6 +339,7 @@ L: bbl
 ---
 
 Create load balancers
+
 ### What
 We've been alluding to load balancers for a while, but now we'll actually get around to creating them with bbl.
 
@@ -376,7 +375,6 @@ Next, run
 bbl up --gcp-service-account-key service-account.key.json
 ```
 
-
 ### Expected Results
 Network Services > Load balancing to see the load balancer that `bbl` generated on GCP.
 
@@ -384,7 +382,7 @@ Network Services > Cloud DNS to see the [Cloud DNS Zone](https://cloud.google.co
 
 ### Resources
 [Docs: Types of load balancing](https://cloud.google.com/compute/docs/load-balancing/#types_of_load_balancing)
-[Docs: HAProxy](http://www.haproxy.org/)
+[Docs: HAProxy](http://www.haproxy.org/)"
 
 L: bbl
 
@@ -515,7 +513,6 @@ Let's discuss the options we used:
 - We added `-o operations/use-compiled-releases.yml`, to skip compiling all of your releases.
 - We added `-o operations/scale-to-one-az.yml` to the deploy command. This ops-file will cut your deployment size in half, so you'll deploy faster (and your deployment will cost less money).
 
-
 ### Expected Result
 Wait for the BOSH deploy to complete. It will take a while...like 20 minutes or so...you might want to check out the next "intermission" story, or go grab a snack, or play game of ping pong.
 Once the deploy is finished, run `bosh vms`. All of them (currently 15) should have a status of "running".
@@ -538,7 +535,7 @@ You have some time to kill while your CF deploys. Keep an eye on it (it could fl
 * The [Diego design notes](https://github.com/cloudfoundry/diego-design-notes): a comprehensive, up-to-date, and (most importantly) readable overview of Cloud Foundry components and their interaction. Plus, that diagram (diagram, *so* hot right now).
 
 Some good videos:
-* [Pivotal Cloud Foundry Overview with Onsi Fakhouri](https://www.youtube.com/watch?v=7APZD0me1nU)
+* [Cloud Foundry Overview with Onsi Fakhouri](https://www.youtube.com/watch?v=7APZD0me1nU)
 * [CF Container to Container Networking with Jay Dunkelberger](https://docs.google.com/file/d/0B9Srlx6zCCQtdXVjSG5JZklUYmc/view)
 * [Diego Runtime Overview with Eric Malm](https://www.youtube.com/watch?v=iv5EpheLLh0)
 * [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
@@ -669,7 +666,6 @@ DESCRIPTION
      cp detects an attempt to copy a file to itself, the copy will fail.
 ```
 Manual pages can be a little bit dense, so always feel free to google things like `linux terminal copy one file to a different folder` and you should be able to find some help from stack overflow.
-
 
 ### How?
 **Let's practice using CLIs**

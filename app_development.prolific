@@ -23,6 +23,7 @@ Run `cf space-users onboarding-org onboarding-space` to verify.
 ### Relevant Repos and Teams
 **CLI:** [cloudfoundry/cli](https://github.com/cloudfoundry/cli)
 **CAPI:** [cloudfoundry/cloud_controller_ng](https://github.com/cloudfoundry/cloud_controller_ng)
+
 L: app-dev
 
 ---
@@ -83,6 +84,7 @@ Cloud Foundry applications are deployed by `cf push`-ing your code or some compi
 [CF application manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html)
 [How Applications are Staged](https://docs.cloudfoundry.org/concepts/how-applications-are-staged.html)
 [A beginner-friendly introduction to containers, VMs, and Docker](https://medium.freecodecamp.com/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
+
 L: app-dev
 
 ---
@@ -102,6 +104,7 @@ You should see each of the requests and responses that resulted in `cf app` deli
 
 ### Resources
 [Trace Cloud Controller REST API Calls](https://docs.cloudfoundry.org/devguide/deploy-apps/troubleshoot-app-health.html#trace)
+
 L: app-dev
 
 ---
@@ -140,6 +143,7 @@ The output will look something like:
 ### Resources
 [Logs for CF components](https://docs.cloudfoundry.org/running/managing-cf/logging.html)
 [Logs for applications](https://docs.cloudfoundry.org/devguide/deploy-apps/streaming-logs.html)
+
 L: app-dev
 
 ---
@@ -182,6 +186,7 @@ You should see the list of events including the recent stop & start.
 ### Resources
 [StackOverflow: When to use cf events?](http://stackoverflow.com/questions/24545838/when-to-use-cf-events)
 [cf CLI docs](http://docs.cloudfoundry.org/cf-cli/cf-help.html)
+
 L: app-dev
 
 ---
@@ -194,7 +199,7 @@ Your application runs in a container hosted on a Diego Cell. A Cloud Foundry dep
 You already have two instances of `dora`. Now we'll scale your app _horizontally_ by bumping your instance count up to five and scale _vertically_ by increasing your memory to 512M.
 
 ### How?
-1. Refer to the **[`cf scale` docs](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)** to scale your app vertically and horizontally.
+1. Refer to the **[`cf scale` docs](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-scale.html)** to scale your app vertically and horizontally.
 1. In another terminal buffer, run `watch cf app dora` to watch the updates happen.
 
 ### Expected Result
@@ -202,7 +207,8 @@ You already have two instances of `dora`. Now we'll scale your app _horizontally
 `cf env dora` should show my new disk and memory limits listed under VCAP_APPLICATION.
 
 ### Resources
-[Scaling apps on CF](https://docs.run.pivotal.io/devguide/deploy-apps/cf-scale.html)
+[Scaling apps on CF](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-scale.html)
+
 L: app-dev
 
 ---
@@ -220,10 +226,11 @@ Environment variables are the means by which the Cloud Foundry [runtime](https:/
 The cf CLI will show the application's environment variables classified as System-Provided (i.e. `VCAP_APPLICATION`) and User Provided (`MY_VAR`). Running and Staging variables are provided by operators that apply to all applications.
 
 ### Resources
-[Cloud Foundry Environment Variables](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html)
-[What is a Runtime Environment (RTE)?](https://www.techopedia.com/definition/5466/runtime-environment-rte)
-[VCAP_APPLICATION](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-APPLICATION)
-[VCAP_SERVICES](https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
+[Cloud Foundry Environment Variables](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html)
+[What is a Runtime Environment (RTE)?](https://docs.cloudfoundry.org/definition/5466/runtime-environment-rte)
+[VCAP_APPLICATION](https://docs.cloudfoundry.org/environment-variable.html#VCAP-APPLICATION)
+[VCAP_SERVICES](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
+
 L: app-dev
 
 ---
@@ -295,6 +302,7 @@ If you had created the new route using `cf create-route` without mapping it to t
 ### Resources
 [CF Routes and Domains](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html)
 [Basic Linux Networking reference](http://www.penguintutor.com/linux/basic-network-reference)
+
 L: app-dev
 
 ---
@@ -368,6 +376,7 @@ exit with a zero status code for success or non-zero for failure.
 ### Resources
 [Running Tasks](https://docs.cloudfoundry.org/devguide/using-tasks.html)
 [Tasks API Docs](http://v3-apidocs.cloudfoundry.org/version/3.51.0/index.html#tasks)
+
 L: app-dev
 
 ---
@@ -394,4 +403,5 @@ Using the API directly lets users do as much or as little of `cf push` as they l
 [V2 API docs](https://apidocs.cloudfoundry.org/)
 [Component: Cloud Controller](https://docs.cloudfoundry.org/concepts/architecture/cloud-controller.html)
 [Using Experimental of CLI Commands](https://docs.cloudfoundry.org/devguide/v3-commands.html)
+
 L: app-dev
