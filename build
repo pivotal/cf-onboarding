@@ -1,4 +1,6 @@
 #!/bin/bash
+# shellcheck disable=SC2086
+# SC2086: Disable double quote expansion.
 
 set -eu
 
@@ -7,7 +9,13 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
-docker build -t pivotal-cf-onboarding .
-docker run -v "$PWD:/onboarding" -w /onboarding pivotal-cf-onboarding go run generate-tracker-csv.go "${1}"
+PLATFORM=
+if [ "$(uname -m)" == "arm64" ]; then
+  echo "Building for ARM64"
+  PLATFORM="--platform linux/amd64"
+fi
+
+docker build ${PLATFORM} -t pivotal-cf-onboarding .
+docker run ${PLATFORM} -v "$PWD:/onboarding" -w /onboarding pivotal-cf-onboarding go run generate-tracker-csv.go "${1}"
 
 echo -e "\n\nGenerated output CSV at '$PWD/onboarding-tracker.csv'"
