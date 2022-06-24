@@ -20,6 +20,8 @@ Install or update the following dependencies on your local machine:
 * **Golang** (run `brew install go`)
 * **Terraform** is a tool for building, changing, and versioning infrastructure safely and efficiently (run `brew install terraform`)
 
+**NOTE:** If you are on an Apple Silicon machine (i.e. M1), you will need to use Rosetta to install the following homebrew dependencies. [This Article](https://community.pivotal.io/s/article/The-x86-64-architecture-is-required-unsatisfied-requirement-failed-this-build-error-when-installing-cf-CLI-on-an-M1-MacBook?language=en_US) describes how to do this.
+
 The following dependencies can be installed through the Cloud Foundry [homebrew tap](https://github.com/cloudfoundry/homebrew-tap)
 * **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew tap cloudfoundry/tap && brew install cloudfoundry/tap/bosh-cli`)
 * **bbl** is a tool for paving infrastructure in your desired IAAS as well as deploying a BOSH director (run `brew install bbl`)
