@@ -164,9 +164,11 @@ L: opsman, onboarding-lite
 
 Deploy Ops Manager Manually
 
-### Prerequisites
+### Before You Go Any Further
 
-If you already opted to use a Toolsmiths environment, run from this story as if it's got COVID :D
+**This story is optional.** There are easier ways to get an Ops Manager, and you should only do this if you are terribly interested in it. If you already opted to use a Toolsmiths environment, you especially needn't trouble yourself with this and should enjoy the easy life of on-demand environment provisioning.
+
+Okay, now that you've been warned...
 
 ### Ops Manager Interface
 [Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html)
@@ -257,6 +259,8 @@ L: bosh
 
 Deploy BOSH Director using Ops Manager
 
+**Warning:** This story is not relevant if you already opted for the Toolsmiths environment instead of manual creation. Okay, now that you've been warned...
+
 Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/ops-manager/2-10/install/ops-man-api.html). Some tips to keep you from getting stuck:
 1. When you get to "Create Availability Zones", you'll want to use the same AZs that you specified in your terraform.
 2. Make sure to read in the instructions carefully when you configure the networks. Especially be careful when setting the network names: they have the form `<network-name>/<subnet-name>/<region>`
@@ -273,7 +277,7 @@ OpsMan successfully deploys a BOSH Director.
 - [Manually installing Ops Manager on GCP](https://docs.pivotal.io/ops-manager/2-10/install/gcp-manual.html)
 - [Manually configuring Ops Manager on GCP](https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html)
 
-L: opsman, onboarding-lite
+L: opsman
 
 ---
 
