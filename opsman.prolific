@@ -1,9 +1,9 @@
 What is Ops Manager?
 
 ### What?
-Ops Manager is a web application that you use to streamline deploying and managing Pivotal Cloud Foundry (PCF) deployments.
+Ops Manager is a web application that you use to streamline deploying and managing Tanzu Platform Cloud Foundry (TPCF) deployments.
 
-Ops Manager can deploy many different Pivotal software products such as Cloud Foundry, Gemfire, and Kubernetes as well as partner products like Jenkins. These products are represented as Tiles in Ops Manager.
+Ops Manager can deploy many different Tanzu software products such as Cloud Foundry, Gemfire, and Kubernetes (TKGI) as well as partner products like Jenkins. These products are represented as Tiles in Ops Manager.
 A Tile is a zip file with a `.pivotal` extension containing:
 - one or more BOSH release tarballs containing the product's source code and dependencies
 - a metadata file used to generate a BOSH manifest and Ops Manager form elements for that product
@@ -13,15 +13,15 @@ A Tile is a zip file with a `.pivotal` extension containing:
 
 The Ops Manager Dashboard looks like the following:
 
-![Ops Manager Dashboard](https://docs.pivotal.io/ops-manager/2-10/images/interface.png)
+Visit https://pcf.dhaka.cf-app.com/ to login, click the "Broadcom Okta" link at the bottom ans sign in as usual. You should have read-only access to the Opsman UI.
 
-The Ops Manager shown here has three Tiles installed:
-- The BOSH Director tile on the left comes pre-installed with your Ops Manager. Ops Manager will deploy a BOSH Director on your chosen IaaS to manage your deployments.
-- The VMware Tanzu Application Service for VMs (TAS for VMs) Tile in the middle is the Cloud Foundry deployment. This is roughly equivalent to the Cloud Foundry you deployed in earlier stories with cf-deployment.
-- The MySQL tile on the right deploys a MySQL Database deployment for your CF apps to use.
+The Ops Manager shown here has many Tiles installed:
+- The BOSH Director tile comes pre-installed with your Ops Manager. Ops Manager will deploy a BOSH Director on your chosen IaaS to manage your deployments as it's first task on install and upgrade.
+- The Small Footprint VMware Tanzu Application Service Tile is the Cloud Foundry deployment. This is roughly equivalent to the Cloud Foundry you deployed in earlier stories with cf-deployment. Small Footprint is used to reduce IAAS costs as it puts all the different CF vms on a smaller set of VMs as containers. It should not be use in production.
+- Many of these tiles provide services (like a Mysql DB) for CF apps to use.
 
-More information about the Dashboard UI can be found [here](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html#installation-dashboard).
-Tiles can be downloaded from the [PivNet](https://network.pivotal.io/) website (you'll have to sign up with your Pivotal email).
+More information about the Dashboard UI can be found [here](hhttps://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html).
+Tiles can be downloaded from Broadcom. We won't have entitlements to see the same customer portal but going through ERP Release Management should allow you to download tiles.
 
 Clicking on the "BOSH Director for GCP" tile, it looks like the following:
 
@@ -34,7 +34,7 @@ All other Tiles will be deployed as a separate BOSH deployment using that Direct
 For example, filling out the forms on the TAS for VMs Tile will generate a BOSH manifest and clicking Apply Changes will then deploy that manifest using the BOSH Director.
 After filling out the Director forms and clicking Apply Changes, Ops Manager will run `bosh upload-release`, `bosh deploy`, and other BOSH commands you've run in previous stories and stream the output to the UI.
 
-In addition to the UI, Ops Manager provides an [API](https://docs.pivotal.io/pivotalcf/opsman-api/) to allow users to configure Tiles via scripts.
+In addition to the UI, Ops Manager provides an [API](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-ops-man-api.html) to allow users to configure Tiles via scripts.
 The UI provides a nice onboarding experience, but we still encourage customers to setup Concourse pipelines to automatically configure their tiles.
 This ensures configuration is checked into source control and is reproducible in case something goes wrong later on.
 The [om CLI](https://github.com/pivotal-cf/om) can be used to programmatically perform operations in Ops Manager rather than clicking around the UI. For example, you can get current product config, make some changes, and update Ops Manager to reflect those changes using the following commands:
@@ -52,14 +52,13 @@ om -u USERNAME -p PASSWORD -k -t https://OPS-MAN-URL-OR-IP/uaa configure-product
 
 ## One Platform
 
-PCF refers to your entire IT platform, not just the Cloud Foundry deployment.
+TPCF refers to your entire IT platform, not just the Cloud Foundry deployment.
 A company might require some apps to run on CF and others on Kubernetes.
 These apps might need Databases, logging, and other services to be deployed as well.
 Ops Manager provides a single Dashboard to manage this wide array of components.
 
 Links:
-- [Ops Manager Repo](https://github.com/pivotal-cf/installation)
-- [PCF Docs](https://docs.pivotal.io/pivotalcf/pas/intro.html)
+- [TPCF Docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/index.html)
 
 L: opsman, onboarding-lite
 
@@ -77,8 +76,8 @@ Here's a quick rundown of the similarities and differences between Ops Manager +
 Similarities:
 - Both use BOSH under the hood to deploy software
 - Many products can be deployed with either OSS tooling or Ops Manager, e.g. Cloud Foundry or MySQL
-- The App Developer CLI experience such as `cf push` is the same, although PCF adds web apps like [Apps Manager](https://docs.pivotal.io/pivotalcf/console/dev-console.html) to streamline this experience
-- We would encourage both PCF and OSS users to configure their environments with a Concourse pipeline
+- The App Developer CLI experience such as `cf push` is the same, although TPCF adds web apps like [Apps Manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/toc-using-apps-manager-index.html) to streamline this experience
+- We would encourage both TPCF and OSS users to configure their environments with a Concourse pipeline
 
 Differences:
 - Ops Manager uses UI forms or API calls to configure each product while cf-deployment uses a list of ops-files
@@ -86,9 +85,9 @@ Differences:
   - cf-deployment users would need to carefully read release notes to handle any manifest changes
 - Ops Manager provides input verifiers to perform input validation prior to deploying, such as ensuring DNS records exist or Database credentials are valid
 - PCF provides long-term support (LTS) for Pivotal customers
-  - Many Pivotal customers have complicated change management processes which require new features to be carefully vetted before deploying to production
+  - Many customers have complicated change management processes which require new features to be carefully vetted before deploying to production
   - These customers often stay on older versions of PCF products for many months after newer versions have been released
-  - LTS means that Pivotal will backport security fixes to previously released versions of PCF products, while new features are only added to the latest release version
+  - LTS means that Tanzu will backport security fixes to previously released versions of TPCF products, while new features are only added to the latest release version
   - cf-deployment users will need to upgrade to the latest release in order to get these security fixes
 - Ops Manager provides a consistent experience to install many different products
   - While lots of work has gone into making deploying Cloud Foundry with cf-deployment a nice experience, the quality of documentation on deploying other BOSH releases is highly variable
@@ -106,16 +105,16 @@ Differences:
 
 Similarities:
 - Most (if not all) features of core CF components like Diego, UAA, and CAPI are available in both TAS for VMs and cf-deployment
-- Some Pivotal customers use a mix of cf-deployment and Ops Manager across their organization
-- Pivotal engineers often contribute to both cf-deployment and Ops Manager Tiles
+- Some customers use a mix of cf-deployment and Ops Manager across their organization
+- Engineers often contribute to both cf-deployment and Ops Manager Tiles
   - e.g. a Diego engineer might submit a PR to add an ops-file to cf-deployment to toggle on a new feature, then submit a PR to the TAS for VMs Tile to add a checkbox to toggle that same feature
 
 Differences:
 - cf-deployment and associated tooling (e.g. bbl) are open-source while Ops Manager and most Tiles are closed-source
-- The Cloud Foundry Foundation owns cf-deployment (along with all other projects in the `cloudfoundry` GitHub org) while Pivotal owns Ops Manager and many Tiles
-- Some Cloud Foundry teams have engineers who are employed by other companies within the CF Foundation like IBM and SAP. These engineers will contribute to open-source components, but generally will not contribute to Pivotal-owned software
-- Users download open-source BOSH releases and stemcells from [bosh.io](https://bosh.io) while Pivotal commercial customers will download tiles and stemcells from [PivNet](https://network.pivotal.io/)
-  - PivNet also contains Partner Services which are Tiles jointly developed by Pivotal and partner companies like Datadog and New Relic
+- The Cloud Foundry Foundation owns cf-deployment (along with all other projects in the `cloudfoundry` GitHub org) while Broadcom owns Ops Manager and many Tiles
+- Some Cloud Foundry teams have engineers who are employed by other companies within the CF Foundation like IBM and SAP. These engineers will contribute to open-source components, but generally will not contribute to Broadcom-owned software
+- Users download open-source BOSH releases and stemcells from [bosh.io](https://bosh.io) while Broadcom commercial customers will download tiles and stemcells from the Broadcom Portal (RMT).
+  - The Broadcom Portal (RMT) also contains Partner Services which are Tiles jointly developed by Broadcom and partner companies like Datadog and New Relic
 
 L: opsman, onboarding-lite
 
@@ -142,7 +141,7 @@ If you've had enough of the IaaS stuff for this week, the following steps will s
 
 The CF Toolsmiths team ([#cf-toolsmiths slack](https://pivotal.slack.com/messages/C0563B53F/)) maintains a pool of already deployed Ops Manager + TAS for VMs environments for teams across the org to grab for testing.
 You can see a dashboard of all available environments [here](https://environments.toolsmiths.cf-app.com/pooled_gcp_environments).
-Note: you must be on the Pivotal network or VPN to see this app.
+Note: you must be on the VPN to see this app.
 
 The easiest way to claim an environment to play around with is to use the [smith CLI](https://github.com/pivotal/smith).
 The [README](https://github.com/pivotal/smith#smith---the-community-cli-for-toolsmiths) gives instructions for getting the CLI installed and configured.
@@ -171,7 +170,7 @@ Deploy Ops Manager Manually
 Okay, now that you've been warned...
 
 ### Ops Manager Interface
-[Understand how an Operator uses Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/pcf-interface.html)
+[Understand how an Operator uses Ops Manager](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html)
 
 ## Deploying on GCP
 While we use BOSH to deploy a director and many of our services, Ops Manager is currently not deployed with BOSH.
@@ -215,7 +214,7 @@ OpsManager is running and you can log in.
 - #pas-releng Slack
 
 ### Resources
-- https://docs.pivotal.io/pivotalcf/customizing/gcp.html
+- https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/gcp-index.html
 
 L: opsman
 
@@ -261,7 +260,7 @@ Deploy BOSH Director using Ops Manager
 
 **Warning:** This story is not relevant if you already opted for the Toolsmiths environment instead of manual creation. Okay, now that you've been warned...
 
-Configure the BOSH GCP tile using this [guide](https://docs.pivotal.io/ops-manager/2-10/install/ops-man-api.html). Some tips to keep you from getting stuck:
+Configure the BOSH GCP tile using this [guide](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-ops-man-api.html). Some tips to keep you from getting stuck:
 1. When you get to "Create Availability Zones", you'll want to use the same AZs that you specified in your terraform.
 2. Make sure to read in the instructions carefully when you configure the networks. Especially be careful when setting the network names: they have the form `<network-name>/<subnet-name>/<region>`
 
@@ -274,8 +273,7 @@ After the deploy succeeds, click around and see if you can find information abou
 OpsMan successfully deploys a BOSH Director.
 
 ### Resources
-- [Manually installing Ops Manager on GCP](https://docs.pivotal.io/ops-manager/2-10/install/gcp-manual.html)
-- [Manually configuring Ops Manager on GCP](https://docs.pivotal.io/pivotalcf/om/gcp/config-manual.html)
+- [Manually installing Ops Manager on GCP](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/gcp-index.html)
 
 L: opsman
 
@@ -288,10 +286,10 @@ OpsManager uses "tiles" to deploy different products. You can find tiles by sear
 
 Some tiles have dependencies on other tiles. You should find information about that in the product description on PivNet.
 
-To understand the workflow of an actual PCF/OpsMan customer, choose a tile or two to install and follow the appropriate docs.
+To understand the workflow of an actual TPCF/OpsMan customer, choose a tile or two to install and follow the appropriate docs.
 
 ## How?
-Let's start by installing the mother of them all: TAS for VMs. Go to PivNet, search for "VMware Tanzu Application Service for VMs", and download the "Small Footprint TAS for VMs" -- we'll use this to save some time during the deploy. Your best bet is to choose the latest stable version (avoid releases with `alpha` or `rc` in it).
+Let's start by installing the mother of them all: TAS for VMs. Go to ERP, search for "VMware Tanzu Application Service for VMs", and download the "Small Footprint TAS for VMs" -- we'll use this to save some time during the deploy. Your best bet is to choose the latest stable version (avoid releases with `alpha` or `rc` in it).
 
 And yes, the file is rather large (as of this writing, it's 13 GB), so feel free to take a ping pong break while it's downloading.
 

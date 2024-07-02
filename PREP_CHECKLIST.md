@@ -18,11 +18,11 @@
 ### Access Assessment
 - Check if participants have access to the following:
     - This will help identify [HelpNow+](https://help.vmware.com/user/#/) access requests need to submitted for:
-        - Pivotal alumni -managed Tracker 
-        - Pivotal alumni -managed LastPass 
+        - Pivotal alumni -managed Tracker
+        - Pivotal alumni -managed LastPass
         - Pivotal alumni -managed GSuite (for Google Cloud Platform access)
 
-    - Note that this form may be relevant: [Pivotal Access Request Form for VMware](https://docs.google.com/forms/d/e/1FAIpQLSc9mvXsvrh1fg2E7f2syS6m1TBUH_t-75UhV_ca9gaCEhwlFQ/viewform)
+    - Note that this form may be relevant: [Access Request Form for VMware](https://docs.google.com/forms/d/e/1FAIpQLSc9mvXsvrh1fg2E7f2syS6m1TBUH_t-75UhV_ca9gaCEhwlFQ/viewform)
 
 ### Scheduling
 - [ ] Schedule a welcome/orientation session (1hr at 9:30 Monday morning). Discuss the goals of the week and prime the participants to consider what they'd like to get out of Onboarding week.

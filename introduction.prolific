@@ -4,8 +4,7 @@ Welcome to Onboarding Week!
 Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product, embarked upon with other Cloud Foundry newbies. What we hope you get out of it:
 1. A coherent, if cursory, overview of a complicated product.
 1. Empathy for the customer who uses that product.
-1. A little knowledge of the breadth of work 70+ teams are doing around the world.
-1. Experience teaching. Unless you joined VMware at the same time as your pair and have been arm-in-arm ever since, you have different backgrounds. Moreover, you each have something valuable to offer to the other. Make sure you share it.
+1. A little knowledge of the breadth of work teams are doing around the world.
 
 ### How?
 1. Take your time.
@@ -15,8 +14,5 @@ Onboarding Week is a self-paced, guided exploration of the Cloud Foundry product
 
 
 **Pro Tip:** As you begin stories, click the "Start" button. If you feel confident about their content when you finish, click "Finish", "Deliver", and "Accept". If you still have questions on the material, leave it in the delivered state (i.e. with the "Accept"/"Reject" buttons showing) and decide at the end how you would like to follow up on your questions.
-- [ ] Get settled at your workstations (log in to Google Chrome accounts, set up shortcuts you like, etc.)
 - [ ] Consider reviewing CLI (Command Line Interface) common commands [here](https://tutorial.djangogirls.org/en/intro_to_command_line/#summary)
 - [ ] Log in to GCP IAAS dashboard. You should have received an invitation from your facilitator.
-
-

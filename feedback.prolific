@@ -9,9 +9,9 @@ There are a few ways that Cloud Foundry teams share feedback with each other.
 
 A good way to start is by asking a question in Slack.
 
-Go to `cloudfoundry.slack.com` and open the channel for the team that you want to talk to. Then, check the channel topic to find out how to interrupt the team.
+Go to the [TPCF Focus Areas and grouping](https://docs.google.com/document/d/1hce7LpHL8f7CuX0sOHwijmaVVp0N3Tqd6ugbdR3Jh9M/edit?tab=t.0#heading=h.fgn5sheedcdq) doc to figure out which team to talk to and in which. Then, check the channel topic to find out how to interrupt the team.
 
-There might be a pair on duty, or an alias to contact the whole team. They might also list the PM separately.
+There might be a pair on duty, or an alias to contact the whole team.
 
 Once you've identified who to message, you'll want to say something like,
 "Hey <team name> friends, I'm working through the CF Onboarding Week stories, and had some trouble with <product>. When I tried to do <some action> I expected <something to happen> but instead <something else happened> which caused <problem>. Would you like me to open an issue, or drop a story in your backlog?"
