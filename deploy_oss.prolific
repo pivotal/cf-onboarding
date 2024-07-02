@@ -52,7 +52,7 @@ L: bbl
 Install Google Cloud SDK
 
 ### What?
-You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically VMware Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
+You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). GCP is significantly cheaper than AWS given Broadcom's contracts.
 
 The `gcloud` CLI manages authentication, local configuration, developer workflow, and interactions with the Cloud Platform APIs. Download and install the [Google SDK](https://cloud.google.com/sdk) to get `gcloud`, as you'll need it to `bbl up`.
 
@@ -150,6 +150,8 @@ You might see a few other things that are specific to a certain IaaS -- instance
 All that IaaS-paving was done for the purpose of getting a BOSH director running. HOWEVER, for super security fun time reasons, we want to deploy the director a private IP -- that means that any IP address outside of our private network will fail to send traffic to it.
 
 Well, in that case, how do _I_ access the BOSH director from my local machine? That's where the jumpbox becomes your friend. The jumpbox is a pretty lazy VM: all it does is hang out on both a public and private IP address, and it acts as the bridge between the outside world (i.e. you) and your private network. Any time you want to communicate with the BOSH director, you have to go through the jumpbox. If that sounds like a lot of work, you wouldn't be wrong, but have no fear: `bbl` is on the case.
+
+In the case of TPCF, customers deploy a jumpbox that gives access to the Operations Manager VM which deploys and manages the BOSH Director VM.
 
 After running `bbl up` below, if you run `bbl print-env`, you'll see a lot of output. One of the most important lines you'll see will say something like:
 ```
@@ -480,6 +482,7 @@ If all went according to plan, the stemcell should be visible via:
 ```
 bosh stemcells
 ```
+**Pro-tip:** since stemcells are just tarballs you can crack them open to take a look. Opening packages.txt will show which packages come with bosh deployed VMS. These packages are sometimes used by BOSH releases
 
 ### Resources
 [Docs: What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
@@ -499,6 +502,8 @@ Deploy CF using BOSH + cf-deployment
 [Cf-deployment](https://github.com/cloudfoundry/cf-deployment/blob/master/README.md#purpose) is the supported way to deploy CF in the OSS world. It consists primarily of a deployment manifest, as well as **operations files**, or ops-files, that transform the manifest to create a slightly different deployment.
 
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
+
+For TPCF, customers would upload the TAS tile to Operations Manager to install CF
 
 ### How?
 Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation (we assume you put it in `~/workspace`, next to your onboarding directory).
