@@ -24,6 +24,7 @@ func main() {
 			// Just the labs
 			"onboarding_lite_labs_app_metrics.prolific",
 			"onboarding_lite_labs_log_store.prolific",
+			"onboarding_lite_labs_metric_store.prolific",
 		}
 	case "local":
 		modules = []string{
@@ -41,6 +42,7 @@ func main() {
 			"projects.prolific",
 			"onboarding_lite_labs_app_metrics.prolific",
 			"onboarding_lite_labs_log_store.prolific",
+			"onboarding_lite_labs_metric_store.prolific",
 		}
 	case "oss":
 		modules = []string{
