@@ -187,6 +187,22 @@ bbl up \
 
 ...and...*<<drumroll, please>>*...it might fail. Sad panda. But if it does, the error is straightforward, so follow its instructions to fix the problem.
 
+If you are on a Mac M1/M2 laptop the above instructions wont work on your local laptop due to the arch change. You'll need to run the commands from a docker container.
+
+```
+FROM golang
+
+
+RUN apt-get update
+RUN apt-get install -y build-essential zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 apt-transport-https ca-certificates gnupg
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN apt-get update && apt-get install -y google-cloud-cli
+RUN wget https://github.com/cloudfoundry/bosh-cli/releases/download/v7.6.2/bosh-cli-7.6.2-linux-amd64 -O /usr/local/bin/bosh && chmod +x /usr/local/bin/bosh
+RUN wget https://github.com/cloudfoundry/bosh-bootloader/releases/download/v9.0.23/bbl-v9.0.23_linux_amd64 -O /usr/local/bin/bbl && chmod +x /usr/local/bin/bbl
+```
+
+
 **Pro-tip:** if you're using iTerm, hold down the command-⌘ key and click on the link to open it directly from the prompt.
 
 ### Expected Result
