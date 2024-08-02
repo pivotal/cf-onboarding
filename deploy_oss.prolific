@@ -258,7 +258,7 @@ Most components in CF are deployed to private IPs. As such, for a user to access
 Ok, so we've got domains that resolve to load balancers, which are deployed to public IPs and route traffic to our private IPs. But, how does a computer verify the identity of the load balancers once it sends them some traffic using its domain? The load balancer presents all clients with its TLS certificate, which essentially states "I am in fact `example.com`, and I have the certificate to prove it." This is important: the certificate includes the domain in its "metadata."
 
 ### Side note: How does DNS work exactly?
-As part of these stories, you'll pick a subdomain of `onboarding.cf-app.com` -- like `my-env.onboarding.cf-app.com` -- and use it for your environment. That means that if anyone tries to make an HTTP request to `my-env.onboarding.cf-app.com`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `my-env.onboarding.cf-app.com`?"
+As part of these stories, you'll pick a subdomain of `cf-onboarding.com` -- like `my-env.cf-onboarding.com` -- and use it for your environment. That means that if anyone tries to make an HTTP request to `my-env.cf-onboarding.com`, a process on their computer, called a **DNS resolver**, will make a series of queries to computers on the internet, called **DNS servers**, essentially asking, "Do you know this guy, `my-env.cf-onboarding.com`?"
 
 The simplest way to manage such a request is to create an **A record** (Address record).
 These records map a domain, like `onboarding.example.com`, to a specific IP address like `1.2.3.4`.
@@ -280,12 +280,12 @@ The following table is an example request and response flow to resolve `onboardi
 However, Cloud Foundry requires a slightly more complex setup, because we want to resolve all queries that _end_ with `onboarding.example.com` -- for example, `api.onboarding.example.com` or `my-app.onboarding.example.com`. We also often want to reserve certain subdomains like `bosh.onboarding.example.com` or `ssh.onboarding.example.com`.
 
 To achieve that, we first set up a different kind of record, an **NS record** (Nameserver record), which maps a domain to other DNS servers.
-It essentially says, "If you're looking for information about domains that end with `onboarding.example.com`, go ask this other set of DNS servers." Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers or piggy-pack on existing domains. You're going to leverage this functionality in order to register your subdomain of `onboarding.cf-app.com` on GCP.
+It essentially says, "If you're looking for information about domains that end with `onboarding.example.com`, go ask this other set of DNS servers." Your DNS resolver will then query those servers instead. This is a useful way to hook up different DNS providers or piggy-pack on existing domains. You're going to leverage this functionality in order to register your subdomain of `cf-onboarding.com` on GCP.
 
 In a few stories, you'll use bbl to create load balancers that have IP addresses associated with them. The same  bbl command will _also_ create a few DNS records:
 - An NS record that defines the Google DNS servers. You'll take that list of servers to our "master" DNS account on GCP to configure it to defer to your DNS records.
-- An A record for a few reserved subdomains like `ssh.my-env.onboarding.cf-app.com`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
-- An A record for `*.my-env.onboarding.cf-app.com`. This record maps **all** other subdomains of `my-env.onboarding.cf-app.com` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `my-env.onboarding.cf-app.com` domain, so that you can make subdomains on the fly like `my-app.my-env.onboarding.cf-app.com`.
+- An A record for a few reserved subdomains like `ssh.my-env.cf-onboarding.com`. This DNS record maps the `ssh.` subdomain to a load balancer for SSH connections to CF Apps (you'll get to explore this feature more later).
+- An A record for `*.my-env.cf-onboarding.com`. This record maps **all** other subdomains of `my-env.cf-onboarding.com` to a load balancer that delegates traffic to the router. This **wildcard domain** enables apps that get pushed to the platform to piggyback on the `my-env.cf-onboarding.com` domain, so that you can make subdomains on the fly like `my-app.my-env.cf-onboarding.com`.
 
 ### Resources
 [Blog post: What is a domain name?](https://www.lifewire.com/what-is-a-domain-name-2483189)
@@ -314,7 +314,7 @@ In this story, you'll do steps 1 and 2. The last step will come in the next stor
 ### How?
 We're going to use [OpenSSL](https://www.openssl.org/) to generate a self-signed TLS certificate. In real life, you'd get one from a trusted Certificate Authority like [Let's Encrypt](https://letsencrypt.org/), but for this exercise self-signed is sufficient.
 
-So, first, choose a subdomain of `onboarding.cf-app.com` -- something like `my-env.onboarding.cf-app.com`, but feel free to be creative and call it whatever you like. From here on out, we're going to call this domain your **system domain**, because this is the domain that the CF system will use for itself, including things like the CF API (AKA Cloud Controller).
+So, first, choose a subdomain of `cf-onboarding.com` -- something like `my-env.cf-onboarding.com`, but feel free to be creative and call it whatever you like. From here on out, we're going to call this domain your **system domain**, because this is the domain that the CF system will use for itself, including things like the CF API (AKA Cloud Controller).
 
 Next, we'll make a TLS certificate. To do this, run `openssl req` with a few arguments:
 
@@ -355,7 +355,7 @@ In this story, you'll update bbl's "plan" with the `--lb-type` flag. When set to
 
 The other thing you'll do in this command is configure the load balancers with the TLS certificate you made in the previous story.
 
-Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.my-env.onboarding.cf-app.com` and `ssh.my-env.onboarding.cf-app.com`
+Finally, if you provide the `--lb-domain` flag, bbl will also create DNS records for each of the domains associated with your load balancers, like A records for `*.my-env.cf-onboarding.com` and `ssh.my-env.cf-onboarding.com`
 
 ### How
 To set up load balancers with bbl, we're going to leverage bbl's "plan" feature. Remember how you saw all those directories and files in your working directory after running `bbl up`? Under the hood, bbl first laid out a "plan" of all the stuff it was going to do, and then it did them. We're going to ask bbl to update its plan to include load balancers, and then we're going to run `bbl up` again to effect those changes on GCP.
@@ -391,9 +391,9 @@ L: bbl
 Set domain nameservers
 
 ### What
-So far, you've created a TLS certificate, configured your domain, and then used `bbl` to create both Load Balancers (which are configured with that certificate), as well as DNS records for your system domain -- which is itself a subdomain of `onboarding.cf-app.com`.
+So far, you've created a TLS certificate, configured your domain, and then used `bbl` to create both Load Balancers (which are configured with that certificate), as well as DNS records for your system domain -- which is itself a subdomain of `cf-onboarding.com`.
 
-If you look back at our earlier description of DNS, you'll recall that you need a series of NS records to guide the resolver to more specific subdomains. The CF R&D Org has an NS record for `cf-app.com`, and the Onboarding Staff has created the NS record for `onboarding.cf-app.com`. You yourself created a series of A records for `*.my-env.onboarding.cf-app.com` and such -- all that's left to do is create one last NS record for `my-env.onboarding.cf-app.com`.
+If you look back at our earlier description of DNS, you'll recall that you need a series of NS records to guide the resolver to more specific subdomains. The CF R&D Org has an NS record for `cf-app.com`, and the Onboarding Staff has created the NS record for `cf-onboarding.com`. You yourself created a series of A records for `*.my-env.cf-onboarding.com` and such -- all that's left to do is create one last NS record for `my-env.cf-onboarding.com`.
 
 ### How
 **First, find the nameservers for the DNS records that bbl created for you.**
@@ -402,10 +402,10 @@ If you look back at our earlier description of DNS, you'll recall that you need 
 1. Click on the zone created by `bbl` (it often has `bbl-` prepended to the zone name).
 1. The first entry in the table of DNS records should be an NS record for your system domain. In the `Data` column, you should see four values of the form `ns-cloud-b1.googledomains.com.`. Copy that list.
 
-**Next, create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `onboarding.cf-app.com`.**
-1. Next to the Google Cloud Platform logo, you should see the name of a GCP project. Click on the dropdown and select the project called `CF-Onboarding-dns`.
+**Next, create an NS record in the Onboarding DNS account to link up your new DNS zone to the exisiting zone for `cf-onboarding.com`.**
+1. Next to the Google Cloud Platform logo, you should see the name of a GCP project. Click on the dropdown and select the project called `CF-Greenhouse-Spitfire`.
 1. In the hamburger menu (the three-line icon in the top left corner), select `Network services` > `Cloud DNS`.
-1. Choose the zone called `onboarding-wildcard-domain`. At this point, you should see NS and SOA records for `onboarding.cf-app.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
+1. Choose the zone called `cf-onboarding-com`. At this point, you should see NS and SOA records for `cf-onboarding.com.`, and possibly NS records for some subdomains that were never cleaned up (if you see any such records, notice that they've also got four values from `googledomains.com`. We're going to make a new record just like that.)
 1. Click `Add record set`
 1. Fill out the form. The `DNS Name` should match your system domain, the `Resource Record Type` should be `NS`, and the `Name server` list should have one value for each of the values you copied earlier. (By default, the TTL is set at 5 minutes. The TTL, or Time to Live, indicates how long a DNS client is allowed to cache the DNS lookup result. A longer TTL means you don't need to query the DNS server as much, but if you make a change to your DNS record clients will be slower to pick up the change.)
 1. Finish by clicking `Create`
