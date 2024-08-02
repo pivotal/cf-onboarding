@@ -271,7 +271,7 @@ Run `watch cf app dora`.
 
 In another buffer, restart a specific instance of dora using `cf restart-app-instance APP_NAME INSTANCE_INDEX`.
 
-Alternatively, you can also kill a specific instance of dora using `cf curl /v2/apps/APP_GUID/instances/0 -d '' -X DELETE` (reading the `cf curl` help content and [API Docs: Terminate the running app instance at the given index](http://apidocs.cloudfoundry.org/253/apps/terminate_the_running_app_instance_at_the_given_index.html) may clarify some things).
+Alternatively, you can also kill a specific instance of dora using `cf curl /v2/apps/APP_GUID/instances/0 -d '' -X DELETE` (reading the `cf curl` help content and [API Docs: Terminate the running app instance at the given index](http://v2-apidocs.cloudfoundry.org/apps/terminate_the_running_app_instance_at_the_given_index.html) may clarify some things).
 
 ### Expected Result
 You should see the correct instance of your app dying and recovering.
@@ -404,7 +404,7 @@ Using the API directly lets users do as much or as little of `cf push` as they l
 
 ### Resources
 [V3 API docs](http://v3-apidocs.cloudfoundry.org)
-[V2 API docs](https://apidocs.cloudfoundry.org/)
+[V2 API docs](https://v2-apidocs.cloudfoundry.org/)
 [Component: Cloud Controller](https://docs.cloudfoundry.org/concepts/architecture/cloud-controller.html)
 [Using Experimental of CLI Commands](https://docs.cloudfoundry.org/devguide/v3-commands.html)
 
