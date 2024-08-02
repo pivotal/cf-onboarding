@@ -49,8 +49,19 @@ Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, spe
     ```
     cat /var/vcap/jobs/route_emitter/config/route_emitter.json | jq . | grep nats
     ```
-0. Use the nats gem to connect to nats:
-```nats-sub "*.*" -s nats://NATS_USERNAME:NATS_PASSWORD@NATS_ADDRESS```
+0. Download nats client
+    ```
+    curl -sf https://binaries.nats.dev/nats-io/natscli/nats@latest | sh
+    mv nats /usr/local/bin/nats
+    ```
+
+0. Subscribe using certs
+    ```
+    nats sub "*.*" -s  nats://NATS_USERNAME:NATS_PASSWORD@NATS_ADDRESS \
+      --tlsca=/var/vcap/jobs/route_emitter/config/certs/nats/ca.crt \
+      --tlskey=/var/vcap/jobs/route_emitter/config/certs/nats/client.key \
+      --tlscert=/var/vcap/jobs/route_emitter/config/certs/nats/client.crt
+    ```
 
  The Route Emitter registers routes every 20 seconds (by default) so that the GoRouter (which subscribes to these messages) has the most up-to-date information about which IPs map to which apps and routes. Depending on how many routes there are, this might be a lot of information.
 
@@ -89,8 +100,13 @@ Go through the **Basic BOSH Knowledge** story to gain familiarity with BOSH, spe
  head /var/vcap/jobs/gorouter/config/gorouter.yml
  ```
 0. Get the routes table
+ Use the following command to confirm the port used
  ```
- curl "http://USERNAME:PASSWORD@localhost:8080/routes" | jq .
+  netstat -tunlp | grep gorouter
+ ```
+ then run:
+ ```
+ curl "http://USERNAME:PASSWORD@localhost:8082/routes" | jq .
  ```
 0. Make a new route for one of your apps and find the route in the routes table.
 
