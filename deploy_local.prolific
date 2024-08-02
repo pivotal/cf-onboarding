@@ -1,14 +1,14 @@
-Download PCF Dev from Pivotal Network
+Download TPCF Dev from Broadcom
 
 ### What?
-[PCF Dev](https://tanzu.vmware.com/application-service) is a lightweight [Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html) installation that runs on a single virtual machine on your workstation.
+[TPCF Dev](https://tanzu.vmware.com/application-service) is a lightweight [Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html) installation that runs on a single virtual machine on your workstation.
 
-With PCF Dev, you can get the Cloud Foundry developer experience (pushing, scaling, binding, makes it harder, better, faster, stronger) without going through the operator experience... which is admittedly an acquired taste.
+With TPCF Dev, you can get the Cloud Foundry developer experience (pushing, scaling, binding, makes it harder, better, faster, stronger) without going through the operator experience... which is admittedly an acquired taste.
 
-It's open source, but from [Pivotal Cloud Foundry (PCF)](https://tanzu.vmware.com/tanzu) not the [Cloud Foundry Foundation (CFF)](https://www.cloudfoundry.org/foundation/), and the cf CLI plugin that makes it any fun to use is only available through [Pivotal Network](https://network.pivotal.io/).
+It's open source, but from [Tanzu Platform Cloud Foundry (TPCF)](https://tanzu.vmware.com/tanzu) not the [Cloud Foundry Foundation (CFF)](https://www.cloudfoundry.org/foundation/), and the cf CLI plugin that makes it any fun to use is only available through [Pivotal Network](https://network.pivotal.io/).
 
 ### How?
-**[Download PCF Dev from Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already). 
+**[Download PCF Dev from Pivotal Network](https://network.pivotal.io/products/pcfdev)** (you'll need a [Pivotal Network Account](https://network.pivotal.io/registrations/new) if you don't have one already).
 
 The content of this zip file is not PCF Dev itself, but a script that installs the PCF Dev plugin for the cf CLI. It will only download the PCF Dev image from [S3](https://aws.amazon.com/s3/) when you run `cf dev start` in a later story.
 
@@ -70,7 +70,7 @@ When you run `VBoxManage --version`, your output looks something like `5.1.18r11
 
 ### Resources
 [Blog post: containers vs. virtual machines, what’s the difference?](https://www.solidfire.com/blog/containers-vs-vms/)
-[Internal Google Doc: PCF Linux Containers Overview](https://docs.google.com/a/pivotal.io/document/d/1QNcmQCrHZNAr17ULoYis_sDPNV0X4IUO1grFDBlQdO8/edit?usp=sharing)—by CF's Senior VP of Engineering Onsi Fakhouri. I really recommend this one, even if you don't get to it now.
+
 L: core tools
 
 ---

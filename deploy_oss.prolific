@@ -21,12 +21,12 @@ Install or update the following dependencies on your local machine:
 * **Terraform** is a tool for building, changing, and versioning infrastructure safely and efficiently (run `brew install terraform`)
 
 The following dependencies can be installed through the Cloud Foundry [homebrew tap](https://github.com/cloudfoundry/homebrew-tap)
-* **BOSH CLI V2** is written in Golang (the original was written in Ruby) and has an expanded feature set (`brew tap cloudfoundry/tap && brew install cloudfoundry/tap/bosh-cli`)
-* **bbl** is a tool for paving infrastructure in your desired IAAS as well as deploying a BOSH director (run `brew install bbl`)
+* **BOSH CLI V2** is a cli to setup and interact with the BOSH director (`brew tap cloudfoundry/tap && brew install cloudfoundry/tap/bosh-cli`)
+* **bbl** is a tool for paving infrastructure in your desired IAAS as well as deploying a BOSH director (run `brew install bbl`). It will call through to the BOSH cli.
 * **cf cli** is a tool for interacting with a Cloud Foundry deployment (run `brew install cf-cli`)
 
 ### Expected Result
-* Run `go version` => "go version go1.10.2 darwin/amd64" or above
+* Run `go version` => "go version go1.20.2 darwin/amd64" or above
 * `terraform --version` => "Terraform v0.11.7" or above
 * `bosh -v` => "version 4.0.1-...." or above
 * `bbl version` => "bbl 6.7.2 (darwin/amd64)" or above
@@ -52,7 +52,7 @@ L: bbl
 Install Google Cloud SDK
 
 ### What?
-You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). Although [Amazon Web Services (AWS)](https://aws.amazon.com/what-is-aws/) was historically VMware Cloud Foundry's go-to IAAS, we've decided to migrate as much as possible to  GCP. GCP is significantly cheaper than AWS and managing costs is significantly easier—no more reserved instances! We also have an excellent relationship with GCP PMs and Engineers and can escalate issues directly through our contacts.
+You're going to deploy your BOSH Director to [Google Cloud Platform (GCP)](https://cloud.google.com). GCP is significantly cheaper than AWS given Broadcom's contracts.
 
 The `gcloud` CLI manages authentication, local configuration, developer workflow, and interactions with the Cloud Platform APIs. Download and install the [Google SDK](https://cloud.google.com/sdk) to get `gcloud`, as you'll need it to `bbl up`.
 
@@ -150,6 +150,8 @@ You might see a few other things that are specific to a certain IaaS -- instance
 All that IaaS-paving was done for the purpose of getting a BOSH director running. HOWEVER, for super security fun time reasons, we want to deploy the director a private IP -- that means that any IP address outside of our private network will fail to send traffic to it.
 
 Well, in that case, how do _I_ access the BOSH director from my local machine? That's where the jumpbox becomes your friend. The jumpbox is a pretty lazy VM: all it does is hang out on both a public and private IP address, and it acts as the bridge between the outside world (i.e. you) and your private network. Any time you want to communicate with the BOSH director, you have to go through the jumpbox. If that sounds like a lot of work, you wouldn't be wrong, but have no fear: `bbl` is on the case.
+
+In the case of TPCF, customers deploy a jumpbox that gives access to the Operations Manager VM which deploys and manages the BOSH Director VM.
 
 After running `bbl up` below, if you run `bbl print-env`, you'll see a lot of output. One of the most important lines you'll see will say something like:
 ```
@@ -480,6 +482,7 @@ If all went according to plan, the stemcell should be visible via:
 ```
 bosh stemcells
 ```
+**Pro-tip:** since stemcells are just tarballs you can crack them open to take a look. Opening packages.txt will show which packages come with bosh deployed VMS. These packages are sometimes used by BOSH releases
 
 ### Resources
 [Docs: What is a stemcell?](http://bosh.cloudfoundry.org/docs/stemcell.html)
@@ -500,6 +503,8 @@ Deploy CF using BOSH + cf-deployment
 
 The standard cf-deployment is fairly hefty, so we're going to scale ours down to a more reasonable size using an [operations file](https://bosh.io/docs/cli-ops-files.html) that reduces the number of VMs we deploy. Using an operations file to make small adjustments like this means we can edit our deployment without changing the core `cf-deployment.yml` manifest.
 
+For TPCF, customers would upload the TAS tile to Operations Manager to install CF
+
 ### How?
 Clone the **[cf-deployment repo](https://github.com/cloudfoundry/cf-deployment)** to your workstation (we assume you put it in `~/workspace`, next to your onboarding directory).
 ```
@@ -514,7 +519,7 @@ Let's discuss the options we used:
 - We added `-o operations/scale-to-one-az.yml` to the deploy command. This ops-file will cut your deployment size in half, so you'll deploy faster (and your deployment will cost less money).
 
 ### Expected Result
-Wait for the BOSH deploy to complete. It will take a while...like 20 minutes or so...you might want to check out the next "intermission" story, or go grab a snack, or play game of ping pong.
+Wait for the BOSH deploy to complete. It will take a while...like 20 minutes or so...you might want to check out the next "intermission" story, or go grab a snack.
 Once the deploy is finished, run `bosh vms`. All of them (currently 15) should have a status of "running".
 
 ### Resources
@@ -531,8 +536,8 @@ Entertain yourself during the CF deploy "intermission"
 You have some time to kill while your CF deploys. Keep an eye on it (it could flake out at any moment), but otherwise here's some light reading:
 
 * [How the Cloud Balances its load](https://docs.cloudfoundry.org/concepts/overview.html#balances) on the official [overview of Cloud Foundry](https://docs.cloudfoundry.org/concepts/overview.html)™
-* [PCF Linux Containers Overview by Onsi](https://docs.google.com/a/pivotal.io/document/d/1QNcmQCrHZNAr17ULoYis_sDPNV0X4IUO1grFDBlQdO8/edit?usp=sharing)—I really recommend this one, even if you don't get to it now.
 * The [Diego design notes](https://github.com/cloudfoundry/diego-design-notes): a comprehensive, up-to-date, and (most importantly) readable overview of Cloud Foundry components and their interaction. Plus, that diagram (diagram, *so* hot right now).
+* [Garden Overview](https://tanzu.vmware.com/content/blog/cloud-foundrys-container-technology-a-garden-overview)
 
 Some good videos:
 * [Cloud Foundry Overview with Onsi Fakhouri](https://www.youtube.com/watch?v=7APZD0me1nU)

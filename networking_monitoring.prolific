@@ -27,7 +27,7 @@ If you run `cf security-group public_networks` you'll see that it allows traffic
 ### Resources
 [Application Security Groups Documentation](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html)
 [Typical Application Security Groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html#typical-groups)
-["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://blog.pivotal.io/pivotal-cloud-foundry/products/taking-security-to-the-next-level-application-security-groups)
+["Taking Security to the Next Level—Application Security Groups" by Abby Kearns](https://tanzu.vmware.com/content/blog/taking-security-to-the-next-level-application-security-groups)
 ["Making sense of Cloud Foundry security group declarations" by Sadique Ali](https://sdqali.in/blog/2015/05/21/making-sense-of-cloud-foundry-security-group-declarations/)
 L: security
 
