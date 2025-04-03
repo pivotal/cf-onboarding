@@ -1,3 +1,11 @@
+---
+title: Prep Checklist
+permalink: /prep_checklist
+sidebar:
+  title: Prep Checklist
+  nav: home
+---
+
 ## Instructions
 - Start a [new issue](https://github.com/pivotal/cf-onboarding/issues/new) in the onboarding repo. The title should include the date and location of the Onboarding week (e.g. "SF Onboarding Week, July 16 2018").
 - Copy the checklist below into the issue.

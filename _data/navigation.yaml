@@ -1,0 +1,402 @@
+---
+main:
+- title: Home
+  url: "/"
+- title: Local
+  url: "/local/introduction_local/how_to_enjoy_your_first_onboarding_tracker_backlog"
+- title: OSS
+  url: "/oss/introduction/welcome_to_onboarding_week_"
+- title: Labs
+  url: "/labs/onboarding_lite_labs_app_metrics/lab__bug_with_______in_org_name"
+home:
+- title: Local
+  url: "/local/introduction_local/how_to_enjoy_your_first_onboarding_tracker_backlog"
+- title: OSS
+  url: "/oss/introduction/welcome_to_onboarding_week_"
+- title: Labs
+  url: "/labs/onboarding_lite_labs_app_metrics/lab__bug_with_______in_org_name"
+- title: Additional Resources
+  children:
+  - title: Boxes and Lines
+    url: "/boxes_and_lines"
+  - title: Experiments
+    url: "/experiments"
+  - title: Facilitating
+    url: "/facilitating"
+  - title: FAQ
+    url: "/faq"
+  - title: Kick-Off Meeting
+    url: "/kick_off_meeting"
+  - title: New Hello Email
+    url: "/new_hello_email"
+  - title: Prep Checklist
+    url: "/prep_checklist"
+  - title: So I Heard You Like Onboarding
+    url: "/so_i_heard_you_like_onboarding"
+  - title: Tracks
+    url: "/tracks"
+  - title: Troubleshooting
+    url: "/troubleshooting"
+  - title: Why Facilitate
+    url: "/why_facilitate"
+  - title: Workstation Imaging
+    url: "/workstation_imaging"
+  - title: Workstation Tools
+    url: "/workstation_tools"
+labs:
+- title: onboarding lite labs app metrics
+  children:
+  - title: 'Lab: Bug with " / " in org name'
+    url: "/labs/onboarding_lite_labs_app_metrics/lab__bug_with_______in_org_name"
+  - title: 'Lab: Unable to see metrics dashboard for certain apps after metric-store
+      vm recreation'
+    url: "/labs/onboarding_lite_labs_app_metrics/lab__unable_to_see_metrics_dashboard_for_certain_apps_after_metric_store_vm_recreation"
+  - title: 'Lab: Monitor alerts are being sent several minutes after threshold returned
+      to normal'
+    url: "/labs/onboarding_lite_labs_app_metrics/lab__monitor_alerts_are_being_sent_several_minutes_after_threshold_returned_to_normal"
+- title: onboarding lite labs log store
+  children:
+  - title: 'Lab: Log Store is unavailable, logs will not display'
+    url: "/labs/onboarding_lite_labs_log_store/lab__log_store_is_unavailable__logs_will_not_display"
+  - title: 'Lab: AppMetric 2.0.5 Missing Logs'
+    url: "/labs/onboarding_lite_labs_log_store/lab__appmetric_2_0_5_missing_logs"
+  - title: 'Lab: Log Store unavailable for some apps'
+    url: "/labs/onboarding_lite_labs_log_store/lab__log_store_unavailable_for_some_apps"
+  - title: 'Lab: Log Store has been breached'
+    url: "/labs/onboarding_lite_labs_log_store/lab__log_store_has_been_breached"
+- title: onboarding lite labs metric store
+  children:
+  - title: 'Lab: query timed out in query queue'
+    url: "/labs/onboarding_lite_labs_metric_store/lab__query_timed_out_in_query_queue"
+  - title: 'Lab: Proxy queries to the node storing the metrics'
+    url: "/labs/onboarding_lite_labs_metric_store/lab__proxy_queries_to_the_node_storing_the_metrics"
+local:
+- title: introduction local
+  children:
+  - title: How to enjoy your first Onboarding tracker backlog
+    url: "/local/introduction_local/how_to_enjoy_your_first_onboarding_tracker_backlog"
+- title: deploy local
+  children:
+  - title: Download TPCF Dev from Broadcom
+    url: "/local/deploy_local/download_tpcf_dev_from_broadcom"
+  - title: Install the Cloud Foundry CLI
+    url: "/local/deploy_local/install_the_cloud_foundry_cli"
+  - title: Install VirtualBox
+    url: "/local/deploy_local/install_virtualbox"
+  - title: Start PCF Dev and login
+    url: "/local/deploy_local/start_pcf_dev_and_login"
+- title: app development local
+  children:
+  - title: Create an org and space
+    url: "/local/app_development_local/create_an_org_and_space"
+  - title: Create a new user
+    url: "/local/app_development_local/create_a_new_user"
+  - title: Push a sample app
+    url: "/local/app_development_local/push_a_sample_app"
+  - title: HTTP trace a CLI command
+    url: "/local/app_development_local/http_trace_a_cli_command"
+  - title: Get recent app logs
+    url: "/local/app_development_local/get_recent_app_logs"
+  - title: Get streaming logs
+    url: "/local/app_development_local/get_streaming_logs"
+  - title: View a list of app events
+    url: "/local/app_development_local/view_a_list_of_app_events"
+  - title: Scale your app with the CLI
+    url: "/local/app_development_local/scale_your_app_with_the_cli"
+  - title: View your app's environment variables
+    url: "/local/app_development_local/view_your_app_s_environment_variables"
+  - title: View Application Security Groups
+    url: "/local/app_development_local/view_application_security_groups"
+  - title: SSH into a running app container
+    url: "/local/app_development_local/ssh_into_a_running_app_container"
+  - title: Add an additional route to the application
+    url: "/local/app_development_local/add_an_additional_route_to_the_application"
+- title: routing deep dive
+  children:
+  - title: Routing Control Plane Overview
+    url: "/local/routing_deep_dive/routing_control_plane_overview"
+  - title: Subscribe to Route Emitter NATS Messages
+    url: "/local/routing_deep_dive/subscribe_to_route_emitter_nats_messages"
+  - title: Look at the GoRouter Routes Table
+    url: "/local/routing_deep_dive/look_at_the_gorouter_routes_table"
+  - title: Interested in learning more about routing?
+    url: "/local/routing_deep_dive/interested_in_learning_more_about_routing_"
+- title: services redis cups
+  children:
+  - title: Create a RedisLabs user-provided service
+    url: "/local/services_redis_cups/create_a_redislabs_user_provided_service"
+  - title: Deploy an application for use with a RedisLabs user-provided service
+    url: "/local/services_redis_cups/deploy_an_application_for_use_with_a_redislabs_user_provided_service"
+- title: authorization
+  children:
+  - title: View your OAuth token
+    url: "/local/authorization/view_your_oauth_token"
+  - title: Create an admin user in UAA using the uaac CLI
+    url: "/local/authorization/create_an_admin_user_in_uaa_using_the_uaac_cli"
+- title: networking monitoring
+  children:
+  - title: View Application Security Groups
+    url: "/local/networking_monitoring/view_application_security_groups"
+  - title: Allowing network traffic to other apps (AKA Configure container networking
+      policies)
+    url: "/local/networking_monitoring/allowing_network_traffic_to_other_apps__aka_configure_container_networking_policies_"
+  - title: Inspect your container to container networking packets with tcpdump
+    url: "/local/networking_monitoring/inspect_your_container_to_container_networking_packets_with_tcpdump"
+  - title: Allowing network traffic to other, non-app, private IPs (AKA Making custom
+      ASGs)
+    url: "/local/networking_monitoring/allowing_network_traffic_to_other__non_app__private_ips__aka_making_custom_asgs_"
+- title: concourse
+  children:
+  - title: Set up a local Concourse using Docker Compose
+    url: "/local/concourse/set_up_a_local_concourse_using_docker_compose"
+  - title: Download and hook up your Concourse CLI
+    url: "/local/concourse/download_and_hook_up_your_concourse_cli"
+  - title: Learn you some Concourse
+    url: "/local/concourse/learn_you_some_concourse"
+- title: opsman
+  children:
+  - title: What is Ops Manager?
+    url: "/local/opsman/what_is_ops_manager_"
+  - title: Differences between PCF and cf-deployment
+    url: "/local/opsman/differences_between_pcf_and_cf_deployment"
+  - title: 'You decide: Claim a deployed Ops Manager or deploy one yourself'
+    url: "/local/opsman/you_decide__claim_a_deployed_ops_manager_or_deploy_one_yourself"
+  - title: Deploy Ops Manager Manually
+    url: "/local/opsman/deploy_ops_manager_manually"
+  - title: Basic BOSH Knowledge
+    url: "/local/opsman/basic_bosh_knowledge"
+  - title: Deploy BOSH Director using Ops Manager
+    url: "/local/opsman/deploy_bosh_director_using_ops_manager"
+  - title: Deploy some tiles
+    url: "/local/opsman/deploy_some_tiles"
+- title: kubernetes
+  children:
+  - title: What is Kubernetes?
+    url: "/local/kubernetes/what_is_kubernetes_"
+- title: projects
+  children:
+  - title: Create a Redis BOSH Release
+    url: "/local/projects/create_a_redis_bosh_release"
+  - title: Create a Concourse resource
+    url: "/local/projects/create_a_concourse_resource"
+  - title: Make a BOSH release
+    url: "/local/projects/make_a_bosh_release"
+  - title: Make a BOSH Errand
+    url: "/local/projects/make_a_bosh_errand"
+  - title: Create a tile to deploy with Ops Manager
+    url: "/local/projects/create_a_tile_to_deploy_with_ops_manager"
+  - title: Container networking
+    url: "/local/projects/container_networking"
+  - title: Deploy CFCR
+    url: "/local/projects/deploy_cfcr"
+  - title: Deploy PKS
+    url: "/local/projects/deploy_pks"
+  - title: Diego cell tuning
+    url: "/local/projects/diego_cell_tuning"
+  - title: Watch some Videos
+    url: "/local/projects/watch_some_videos"
+  - title: Create a Concourse job to create new releases of the Onboarding stories
+    url: "/local/projects/create_a_concourse_job_to_create_new_releases_of_the_onboarding_stories"
+  - title: Dig into terraform
+    url: "/local/projects/dig_into_terraform"
+- title: onboarding lite labs app metrics
+  children:
+  - title: 'Lab: Bug with " / " in org name'
+    url: "/local/onboarding_lite_labs_app_metrics/lab__bug_with_______in_org_name"
+  - title: 'Lab: Unable to see metrics dashboard for certain apps after metric-store
+      vm recreation'
+    url: "/local/onboarding_lite_labs_app_metrics/lab__unable_to_see_metrics_dashboard_for_certain_apps_after_metric_store_vm_recreation"
+  - title: 'Lab: Monitor alerts are being sent several minutes after threshold returned
+      to normal'
+    url: "/local/onboarding_lite_labs_app_metrics/lab__monitor_alerts_are_being_sent_several_minutes_after_threshold_returned_to_normal"
+- title: onboarding lite labs log store
+  children:
+  - title: 'Lab: Log Store is unavailable, logs will not display'
+    url: "/local/onboarding_lite_labs_log_store/lab__log_store_is_unavailable__logs_will_not_display"
+  - title: 'Lab: AppMetric 2.0.5 Missing Logs'
+    url: "/local/onboarding_lite_labs_log_store/lab__appmetric_2_0_5_missing_logs"
+  - title: 'Lab: Log Store unavailable for some apps'
+    url: "/local/onboarding_lite_labs_log_store/lab__log_store_unavailable_for_some_apps"
+  - title: 'Lab: Log Store has been breached'
+    url: "/local/onboarding_lite_labs_log_store/lab__log_store_has_been_breached"
+- title: onboarding lite labs metric store
+  children:
+  - title: 'Lab: query timed out in query queue'
+    url: "/local/onboarding_lite_labs_metric_store/lab__query_timed_out_in_query_queue"
+  - title: 'Lab: Proxy queries to the node storing the metrics'
+    url: "/local/onboarding_lite_labs_metric_store/lab__proxy_queries_to_the_node_storing_the_metrics"
+oss:
+- title: introduction
+  children:
+  - title: Welcome to Onboarding Week!
+    url: "/oss/introduction/welcome_to_onboarding_week_"
+- title: deploy oss
+  children:
+  - title: Install bosh-bootloader and dependencies
+    url: "/oss/deploy_oss/install_bosh_bootloader_and_dependencies"
+  - title: Install Google Cloud SDK
+    url: "/oss/deploy_oss/install_google_cloud_sdk"
+  - title: Create a GCP service account
+    url: "/oss/deploy_oss/create_a_gcp_service_account"
+  - title: Pave your IaaS and stand up a BOSH Director with `bbl up`
+    url: "/oss/deploy_oss/pave_your_iaas_and_stand_up_a_bosh_director_with__bbl_up_"
+  - title: Connect to your BOSH environment
+    url: "/oss/deploy_oss/connect_to_your_bosh_environment"
+  - title: Learn you some DNS, TLS, and Load Balancing
+    url: "/oss/deploy_oss/learn_you_some_dns__tls__and_load_balancing"
+  - title: Choose a domain and create TLS certificates
+    url: "/oss/deploy_oss/choose_a_domain_and_create_tls_certificates"
+  - title: Create load balancers
+    url: "/oss/deploy_oss/create_load_balancers"
+  - title: Set domain nameservers
+    url: "/oss/deploy_oss/set_domain_nameservers"
+  - title: Update number of compilation workers in cloud-config
+    url: "/oss/deploy_oss/update_number_of_compilation_workers_in_cloud_config"
+  - title: Select a stemcell for your BOSH deployment
+    url: "/oss/deploy_oss/select_a_stemcell_for_your_bosh_deployment"
+  - title: Deploy CF using BOSH + cf-deployment
+    url: "/oss/deploy_oss/deploy_cf_using_bosh___cf_deployment"
+  - title: Entertain yourself during the CF deploy "intermission"
+    url: "/oss/deploy_oss/entertain_yourself_during_the_cf_deploy__intermission_"
+  - title: Login to CF CLI using creds from Credhub
+    url: "/oss/deploy_oss/login_to_cf_cli_using_creds_from_credhub"
+  - title: Dive into CLIs
+    url: "/oss/deploy_oss/dive_into_clis"
+  - title: Party on, Garth
+    url: "/oss/deploy_oss/party_on__garth"
+- title: app development
+  children:
+  - title: Create an org and space
+    url: "/oss/app_development/create_an_org_and_space"
+  - title: Create a new user
+    url: "/oss/app_development/create_a_new_user"
+  - title: Push a sample app
+    url: "/oss/app_development/push_a_sample_app"
+  - title: HTTP trace a CLI command
+    url: "/oss/app_development/http_trace_a_cli_command"
+  - title: Get recent app logs
+    url: "/oss/app_development/get_recent_app_logs"
+  - title: Get streaming logs
+    url: "/oss/app_development/get_streaming_logs"
+  - title: View a list of app events
+    url: "/oss/app_development/view_a_list_of_app_events"
+  - title: Scale your app with the CLI
+    url: "/oss/app_development/scale_your_app_with_the_cli"
+  - title: View your app's environment variables
+    url: "/oss/app_development/view_your_app_s_environment_variables"
+  - title: SSH into a running app container
+    url: "/oss/app_development/ssh_into_a_running_app_container"
+  - title: Kill a specific instance of an application
+    url: "/oss/app_development/kill_a_specific_instance_of_an_application"
+  - title: Add an additional route to the application
+    url: "/oss/app_development/add_an_additional_route_to_the_application"
+  - title: Run a task against the application
+    url: "/oss/app_development/run_a_task_against_the_application"
+  - title: 'Advanced: Pushing an application using CF API directly'
+    url: "/oss/app_development/advanced__pushing_an_application_using_cf_api_directly"
+- title: feedback
+  children:
+  - title: Give feedback to another team
+    url: "/oss/feedback/give_feedback_to_another_team"
+- title: routing deep dive
+  children:
+  - title: Routing Control Plane Overview
+    url: "/oss/routing_deep_dive/routing_control_plane_overview"
+  - title: Subscribe to Route Emitter NATS Messages
+    url: "/oss/routing_deep_dive/subscribe_to_route_emitter_nats_messages"
+  - title: Look at the GoRouter Routes Table
+    url: "/oss/routing_deep_dive/look_at_the_gorouter_routes_table"
+  - title: Interested in learning more about routing?
+    url: "/oss/routing_deep_dive/interested_in_learning_more_about_routing_"
+- title: services redis cups
+  children:
+  - title: Create a RedisLabs user-provided service
+    url: "/oss/services_redis_cups/create_a_redislabs_user_provided_service"
+  - title: Deploy an application for use with a RedisLabs user-provided service
+    url: "/oss/services_redis_cups/deploy_an_application_for_use_with_a_redislabs_user_provided_service"
+- title: networking monitoring
+  children:
+  - title: View Application Security Groups
+    url: "/oss/networking_monitoring/view_application_security_groups"
+  - title: Allowing network traffic to other apps (AKA Configure container networking
+      policies)
+    url: "/oss/networking_monitoring/allowing_network_traffic_to_other_apps__aka_configure_container_networking_policies_"
+  - title: Inspect your container to container networking packets with tcpdump
+    url: "/oss/networking_monitoring/inspect_your_container_to_container_networking_packets_with_tcpdump"
+  - title: Allowing network traffic to other, non-app, private IPs (AKA Making custom
+      ASGs)
+    url: "/oss/networking_monitoring/allowing_network_traffic_to_other__non_app__private_ips__aka_making_custom_asgs_"
+- title: bosh troubleshooting
+  children:
+  - title: SSH into a running BOSH job
+    url: "/oss/bosh_troubleshooting/ssh_into_a_running_bosh_job"
+  - title: Scale the number of Diego Cells
+    url: "/oss/bosh_troubleshooting/scale_the_number_of_diego_cells"
+  - title: Trigger a failing BOSH job
+    url: "/oss/bosh_troubleshooting/trigger_a_failing_bosh_job"
+  - title: Watch the BOSH Resurrector resurrect Bosh jobs
+    url: "/oss/bosh_troubleshooting/watch_the_bosh_resurrector_resurrect_bosh_jobs"
+  - title: Update your BOSH deployment's properties (a.k.a. let's break some stuff)
+    url: "/oss/bosh_troubleshooting/update_your_bosh_deployment_s_properties__a_k_a__let_s_break_some_stuff_"
+- title: concourse
+  children:
+  - title: Set up a local Concourse using Docker Compose
+    url: "/oss/concourse/set_up_a_local_concourse_using_docker_compose"
+  - title: Download and hook up your Concourse CLI
+    url: "/oss/concourse/download_and_hook_up_your_concourse_cli"
+  - title: Learn you some Concourse
+    url: "/oss/concourse/learn_you_some_concourse"
+- title: opsman
+  children:
+  - title: What is Ops Manager?
+    url: "/oss/opsman/what_is_ops_manager_"
+  - title: Differences between PCF and cf-deployment
+    url: "/oss/opsman/differences_between_pcf_and_cf_deployment"
+  - title: 'You decide: Claim a deployed Ops Manager or deploy one yourself'
+    url: "/oss/opsman/you_decide__claim_a_deployed_ops_manager_or_deploy_one_yourself"
+  - title: Deploy Ops Manager Manually
+    url: "/oss/opsman/deploy_ops_manager_manually"
+  - title: Basic BOSH Knowledge
+    url: "/oss/opsman/basic_bosh_knowledge"
+  - title: Deploy BOSH Director using Ops Manager
+    url: "/oss/opsman/deploy_bosh_director_using_ops_manager"
+  - title: Deploy some tiles
+    url: "/oss/opsman/deploy_some_tiles"
+- title: kubernetes
+  children:
+  - title: What is Kubernetes?
+    url: "/oss/kubernetes/what_is_kubernetes_"
+- title: projects
+  children:
+  - title: Create a Redis BOSH Release
+    url: "/oss/projects/create_a_redis_bosh_release"
+  - title: Create a Concourse resource
+    url: "/oss/projects/create_a_concourse_resource"
+  - title: Make a BOSH release
+    url: "/oss/projects/make_a_bosh_release"
+  - title: Make a BOSH Errand
+    url: "/oss/projects/make_a_bosh_errand"
+  - title: Create a tile to deploy with Ops Manager
+    url: "/oss/projects/create_a_tile_to_deploy_with_ops_manager"
+  - title: Container networking
+    url: "/oss/projects/container_networking"
+  - title: Deploy CFCR
+    url: "/oss/projects/deploy_cfcr"
+  - title: Deploy PKS
+    url: "/oss/projects/deploy_pks"
+  - title: Diego cell tuning
+    url: "/oss/projects/diego_cell_tuning"
+  - title: Watch some Videos
+    url: "/oss/projects/watch_some_videos"
+  - title: Create a Concourse job to create new releases of the Onboarding stories
+    url: "/oss/projects/create_a_concourse_job_to_create_new_releases_of_the_onboarding_stories"
+  - title: Dig into terraform
+    url: "/oss/projects/dig_into_terraform"
+- title: clean up
+  children:
+  - title: Tear down your CF and Concourse deployments
+    url: "/oss/clean_up/tear_down_your_cf_and_concourse_deployments"
+  - title: Destroy the BOSH director
+    url: "/oss/clean_up/destroy_the_bosh_director"
+  - title: Destroy any leftovers
+    url: "/oss/clean_up/destroy_any_leftovers"

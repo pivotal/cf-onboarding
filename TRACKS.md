@@ -1,3 +1,11 @@
+---
+title: Tracks
+permalink: /tracks
+sidebar:
+  title: Tracks
+  nav: home
+---
+
 ## CF Onboarding Week contains two separate tracks: OSS and Local
 The biggest difference is how you deploy your Cloud Foundry / Concourse environments, other than that they share many of the same stories. Choose the track that makes sense for your Onboarders based on the following differences:
 

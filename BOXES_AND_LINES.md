@@ -1,4 +1,10 @@
-# Boxes and Lines
+---
+title: Boxes and Lines
+permalink: /boxes_and_lines
+sidebar:
+  title: "Boxes and Lines"
+  nav: home
+---
 
 ## Boxes and Lines Recordings
 As part of CF Onboarding, boxes and lines for various components have been valuable. This is a repository of recorded boxes and lines. Please add more as they are found and please feel free to update them if they grow stale or more comprehensive / newer recordings arise.

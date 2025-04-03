@@ -1,4 +1,10 @@
-## Facilitating Onboarding Week (OSS Track)
+---
+title: Facilitating Onboarding Week (OSS Track)
+permalink: /facilitating
+sidebar:
+  title: Facilitating
+  nav: home
+---
 
 ### Overview
 Onboarding Week exists to provide Cloud Foundry engineers dedicated time to explore the platform in a self-paced learning environment.

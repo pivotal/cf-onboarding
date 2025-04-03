@@ -1,4 +1,10 @@
-# CF Onboarding Experiments
+---
+title: CF Onboarding Experiments
+permalink: /experiments
+sidebar:
+  title: Experiments
+  nav: home
+---
 
 The goal of this document is to help facilitators share experiments that we have done over time and their various outcomes.
 

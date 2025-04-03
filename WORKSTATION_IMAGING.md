@@ -1,3 +1,11 @@
+---
+title: Workstation Imaging
+permalink: /workstation_imaging
+sidebar:
+  title: Workstation Imaging
+  nav: home
+---
+
 ## Re-Image Workstations
 
 ### Pivotal San Francisco - use these steps:

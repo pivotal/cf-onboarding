@@ -1,2 +1,5 @@
 onboarding-tracker.csv
 .idea
+_site
+.sass-cache
+.jekyll-metadata

@@ -1,3 +1,11 @@
+---
+title: New Hello Email
+permalink: /new_hello_email
+sidebar:
+  title: New Hello Email
+  nav: home
+---
+
 I started working on a new email template for an unusual set of attendees and realized I could get most of both emails into one. There was also some general improvements that I think might be nice to drive back into the original emails.
 
 These two are not new to the org and are not in CF so they are kind of an interesting persona for onboarding.

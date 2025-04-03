@@ -1,4 +1,12 @@
-# Getting Involved
+---
+title: So I Heard You Like Onboarding
+permalink: /so_i_heard_you_like_onboarding
+sidebar:
+  title: So I Heard You Like Onboarding
+  nav: home
+---
+
+## Getting Involved
 If you think you might be interested in contrinbuting to Onboarding,
 review the following materials
 - the rest of this document
@@ -7,7 +15,7 @@ review the following materials
 
 Then open an issue with the title "Onboard <My Name> As a Facilitator" and the checklist at the bottom of this document.
 
-# Onboarding Week Time Requirements
+## Onboarding Week Time Requirements
 
 You should expect to spend 10-15 hours facilitating an Onboarding week.
 
@@ -33,7 +41,7 @@ a new manager,
 or doing something else new and time-intensive,
 you probably shouldn't try to facilitate onboarding week.
 
-# Other Responsibilities
+## Other Responsibilities
 We have a 1 hour facilitator planning meeting every other week on Thursday afternoons,
 one to discuss every upcoming onboarding week,
 and one to discuss the just completed onboarding week.
@@ -47,7 +55,7 @@ to fix bugs and keep the stories up to date.
 If you don't have time to run an onboarding week yourself,
 you can still help out a lot by handling a few issues.
 
-# Required Skills
+## Required Skills
 You should [review the stories in the OSS track](https://github.com/pivotal/cf-onboarding/blob/master/generate-tracker-csv.go#L35)
 and be comfortable deploying Cloud Foundry with BOSH,
 and debugging failed deployments.
@@ -59,7 +67,7 @@ It's totally fine if you can't solve most of the problems they encounter by your
 as long as you know who to ask
 or where to find documentation.
 
-# New Facilitator Checklist
+## New Facilitator Checklist
 Open an issue with the title "Onboard YOUR NAME As a Facilitator" and the following checklist:
 ```
 - [ ] Meet with a current facilitator to answer questions

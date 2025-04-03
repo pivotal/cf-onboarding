@@ -1,4 +1,10 @@
-# Kickoff Meeting:
+---
+title: Kickoff Meeting
+permalink: /kick_off_meeting
+sidebar:
+  title: Kick-Off Meeting
+  nav: home
+---
 
 Summary: This is just a guide to get you started on your kickoff meeting.
 

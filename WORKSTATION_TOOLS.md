@@ -1,9 +1,17 @@
-# CF Onboarding Workstation Setup
+---
+title: CF Onboarding Workstation Setup
+permalink: /workstation_tools
+sidebar:
+  title: Workstation Tools
+  nav: home
+---
+
 Here are list of tools used to set a MacOS for CF Onboarding Week. For Windows workstations, finding equivalent tools may require searching the Internet.
 
 - CF Onboarding Staff recommend installing tools in "MUST-HAVES" & "NICE-TO-HAVES."
 - You may end up finding that tools listed under MUST HAVES are not hard dependencies for CF Onboarding Week stories. If so please consider updating this list by submitting a pull request to this repository.
 
+```
 MUST HAVES
 chruby 
 cred-alert 
@@ -62,4 +70,4 @@ fzf
 inconsolata 
 jshint 
 pwgen 
-
+```

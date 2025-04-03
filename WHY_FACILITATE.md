@@ -1,3 +1,11 @@
+---
+title: Why Facilitate
+permalink: /why_facilitate
+sidebar:
+  title: Why Facilitate
+  nav: home
+---
+
 # Why facilitate?
 
 ## Objective

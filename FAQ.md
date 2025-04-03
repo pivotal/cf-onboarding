@@ -1,3 +1,11 @@
+---
+title: FAQ
+permalink: /faq
+sidebar:
+  title: FAQ
+  nav: home
+---
+
 ## When should new Pivots do Onboarding Week?
 People have participated in Onboarding Week as early as their first week and as late as 6 months. It is a valuable experience at any point, but around 2 to 3 months appears to be the sweet spot. It's enough time to have been immersed in the Cloud Foundry domain but not so far that it becomes more of a "continuing education" experience than an "onboarding".
 

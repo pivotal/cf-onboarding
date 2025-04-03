@@ -1,3 +1,11 @@
+---
+title: Troubleshooting
+permalink: /troubleshooting
+sidebar:
+  title: Troubleshooting
+  nav: home
+---
+
 1. Read the entire story.
 1. Search Github Issues and Release Notes to see if your problem is a known problem.
 1. Review the `--help` or `man` information for command line tools you're using&mdash;is there an option that achieves what you want to achieve?
